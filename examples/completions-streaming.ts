@@ -11,9 +11,7 @@
 import { WriterAI } from '../src';
 
 async function main() {
-  const client = new WriterAI({
-    baseURL: 'https://api.qordobadev.com',
-  });
+  const client = new WriterAI();
 
   console.log('Supported models:');
   const { models } = await client.models.list();
