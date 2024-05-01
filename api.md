@@ -1,31 +1,30 @@
-# V1
-
-## Chat
+# Chat
 
 Types:
 
-- <code><a href="./src/resources/v1/chat.ts">ChatCreateResponse</a></code>
+- <code><a href="./src/resources/chat.ts">ChatChatResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/chat">client.v1.chat.<a href="./src/resources/v1/chat.ts">create</a>({ ...params }) -> ChatCreateResponse</code>
+- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> ChatChatResponse</code>
 
-## Completions
+# Completions
 
 Types:
 
-- <code><a href="./src/resources/v1/completions.ts">CompletionCreateResponse</a></code>
+- <code><a href="./src/resources/completions.ts">Completion</a></code>
+- <code><a href="./src/resources/completions.ts">StreamingData</a></code>
 
 Methods:
 
-- <code title="post /v1/completions">client.v1.completions.<a href="./src/resources/v1/completions.ts">create</a>({ ...params }) -> CompletionCreateResponse</code>
+- <code title="post /v1/completions">client.completions.<a href="./src/resources/completions.ts">create</a>({ ...params }) -> Completion</code>
 
-## Models
+# Models
 
 Types:
 
-- <code><a href="./src/resources/v1/models.ts">ModelListResponse</a></code>
+- <code><a href="./src/resources/models.ts">ModelListResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/models">client.v1.models.<a href="./src/resources/v1/models.ts">list</a>() -> ModelListResponse</code>
+- <code title="get /v1/models">client.models.<a href="./src/resources/models.ts">list</a>() -> ModelListResponse</code>

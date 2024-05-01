@@ -42,11 +42,13 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'writer/shims/${shims.kind}'\` before importing anything else from writer`,
+      `you must \`import 'writerai/shims/${shims.kind}'\` before importing anything else from writerai`,
     );
   }
   if (kind) {
-    throw new Error(`can't \`import 'writer/shims/${shims.kind}'\` after \`import 'writer/shims/${kind}'\``);
+    throw new Error(
+      `can't \`import 'writerai/shims/${shims.kind}'\` after \`import 'writerai/shims/${kind}'\``,
+    );
   }
   auto = options.auto;
   kind = shims.kind;

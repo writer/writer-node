@@ -1,29 +1,29 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'writer/core';
-import { APIResource } from 'writer/resource';
-import * as ChatAPI from 'writer/resources/v1/chat';
+import * as Core from 'writerai/core';
+import { APIResource } from 'writerai/resource';
+import * as ChatAPI from 'writerai/resources/chat';
 
 export class Chat extends APIResource {
   /**
    * Create chat completion
    */
-  create(body: ChatCreateParams, options?: Core.RequestOptions): Core.APIPromise<ChatCreateResponse> {
+  chat(body: ChatChatParams, options?: Core.RequestOptions): Core.APIPromise<ChatChatResponse> {
     return this._client.post('/v1/chat', { body, ...options });
   }
 }
 
-export interface ChatCreateResponse {
+export interface ChatChatResponse {
   id: string;
 
-  choices: Array<ChatCreateResponse.Choice>;
+  choices: Array<ChatChatResponse.Choice>;
 
   created: number;
 
   model: string;
 }
 
-export namespace ChatCreateResponse {
+export namespace ChatChatResponse {
   export interface Choice {
     finish_reason: 'stop' | 'length' | 'content_filter';
 
@@ -39,8 +39,8 @@ export namespace ChatCreateResponse {
   }
 }
 
-export interface ChatCreateParams {
-  messages: Array<ChatCreateParams.Message>;
+export interface ChatChatParams {
+  messages: Array<ChatChatParams.Message>;
 
   model: string;
 
@@ -55,7 +55,7 @@ export interface ChatCreateParams {
   top_p?: number;
 }
 
-export namespace ChatCreateParams {
+export namespace ChatChatParams {
   export interface Message {
     content: string;
 
@@ -66,6 +66,6 @@ export namespace ChatCreateParams {
 }
 
 export namespace Chat {
-  export import ChatCreateResponse = ChatAPI.ChatCreateResponse;
-  export import ChatCreateParams = ChatAPI.ChatCreateParams;
+  export import ChatChatResponse = ChatAPI.ChatChatResponse;
+  export import ChatChatParams = ChatAPI.ChatChatParams;
 }

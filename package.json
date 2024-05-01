@@ -1,12 +1,12 @@
 {
-  "name": "writer",
+  "name": "writerai",
   "version": "0.0.1-alpha.0",
-  "description": "The official TypeScript library for the Writer API",
-  "author": "Writer <dev-feedback@writer.com>",
+  "description": "The official TypeScript library for the Writer AI API",
+  "author": "Writer AI <dev-feedback@writer.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:stainless-sdks/writer-node",
+  "repository": "github:stainless-sdks/writerai-node",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "files": [
@@ -61,8 +61,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "writer": ".",
-    "writer/*": "./src/*"
+    "writerai": ".",
+    "writerai/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

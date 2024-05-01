@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'writer/uploads';
-import { File } from 'writer/_shims/index';
+import { toFile, type ResponseLike } from 'writerai/uploads';
+import { File } from 'writerai/_shims/index';
 
 class MyClass {
   name: string = 'foo';

@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'writer/core';
-import { Headers } from 'writer/_shims/index';
+import { createResponseHeaders } from 'writerai/core';
+import { Headers } from 'writerai/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters
