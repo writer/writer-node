@@ -11,7 +11,7 @@
     "paths": {
       "writerai/_shims/auto/*": ["src/_shims/auto/*-node"],
       "writerai/*": ["src/*"],
-      "writerai": ["src/index.ts"],
+      "writerai": ["src/index.ts"]
     },
     "noEmit": true,
 

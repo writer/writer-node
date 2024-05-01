@@ -6,7 +6,7 @@
     "rootDir": "./dist/src",
     "paths": {
       "writerai/*": ["dist/src/*"],
-      "writerai": ["dist/src/index.ts"],
+      "writerai": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

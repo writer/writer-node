@@ -8,7 +8,7 @@
     "paths": {
       "writerai/_shims/auto/*": ["deno/_shims/auto/*-deno"],
       "writerai/*": ["deno/*"],
-      "writerai": ["deno/index.ts"],
+      "writerai": ["deno/index.ts"]
     },
     "noEmit": true,
     "declaration": true,
