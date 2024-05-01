@@ -6,9 +6,9 @@
     "rootDir": "./deno",
     "lib": ["es2020", "DOM"],
     "paths": {
-      "writer/_shims/auto/*": ["deno/_shims/auto/*-deno"],
-      "writer/*": ["deno/*"],
-      "writer": ["deno/index.ts"],
+      "writerai/_shims/auto/*": ["deno/_shims/auto/*-deno"],
+      "writerai/*": ["deno/*"],
+      "writerai": ["deno/index.ts"],
     },
     "noEmit": true,
     "declaration": true,

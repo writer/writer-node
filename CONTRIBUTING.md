@@ -50,17 +50,17 @@ Alternatively, to link a local copy of the repo:
 ```bash
 # Clone
 git clone https://www.github.com/stainless-sdks/writerai/writer-node
-cd writer-node
+cd writerai-node
 
 # With yarn
 yarn link
 cd ../my-package
-yarn link writer
+yarn link writerai
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global writer
+pnpm link -—global writerai
 ```
 
 ## Running tests

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'writer/core';
-import { APIResource } from 'writer/resource';
-import * as ModelsAPI from 'writer/resources/v1/models';
+import * as Core from 'writerai/core';
+import { APIResource } from 'writerai/resource';
+import * as ModelsAPI from 'writerai/resources/models';
 
 export class Models extends APIResource {
   /**

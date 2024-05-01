@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "writer/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "writer/*": ["src/*"],
-      "writer": ["src/index.ts"],
+      "writerai/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "writerai/*": ["src/*"],
+      "writerai": ["src/index.ts"],
     },
     "noEmit": true,
 

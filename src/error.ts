@@ -2,9 +2,9 @@
 
 import { castToError, Headers } from './core';
 
-export class WriterError extends Error {}
+export class WriterAIError extends Error {}
 
-export class APIError extends WriterError {
+export class APIError extends WriterAIError {
   readonly status: number | undefined;
   readonly headers: Headers | undefined;
   readonly error: Object | undefined;

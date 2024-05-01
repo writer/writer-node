@@ -4,18 +4,18 @@ import * as Core from './core';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
-import * as API from 'writer/resources/index';
+import * as API from 'writerai/resources/index';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['WRITER_API_KEY'].
+   * Defaults to process.env['WRITERAI_AUTH_TOKEN'].
    */
   apiKey?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['WRITER_BASE_URL'].
+   * Defaults to process.env['WRITER_AI_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -69,17 +69,17 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Writer API. */
-export class Writer extends Core.APIClient {
+/** API Client for interfacing with the Writer AI API. */
+export class WriterAI extends Core.APIClient {
   apiKey: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Writer API.
+   * API Client for interfacing with the Writer AI API.
    *
-   * @param {string | undefined} [opts.apiKey=process.env['WRITER_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['WRITER_BASE_URL'] ?? https://api.qordobadev.com] - Override the default base URL for the API.
+   * @param {string | undefined} [opts.apiKey=process.env['WRITERAI_AUTH_TOKEN'] ?? undefined]
+   * @param {string} [opts.baseURL=process.env['WRITER_AI_BASE_URL'] ?? https://api.qordobadev.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -88,13 +88,13 @@ export class Writer extends Core.APIClient {
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = Core.readEnv('WRITER_BASE_URL'),
-    apiKey = Core.readEnv('WRITER_API_KEY'),
+    baseURL = Core.readEnv('WRITER_AI_BASE_URL'),
+    apiKey = Core.readEnv('WRITERAI_AUTH_TOKEN'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.WriterError(
-        "The WRITER_API_KEY environment variable is missing or empty; either provide it, or instantiate the Writer client with an apiKey option, like new Writer({ apiKey: 'My API Key' }).",
+      throw new Errors.WriterAIError(
+        "The WRITERAI_AUTH_TOKEN environment variable is missing or empty; either provide it, or instantiate the WriterAI client with an apiKey option, like new WriterAI({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -116,7 +116,9 @@ export class Writer extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
-  v1: API.V1 = new API.V1(this);
+  chat: API.Chat = new API.Chat(this);
+  completions: API.Completions = new API.Completions(this);
+  models: API.Models = new API.Models(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -133,9 +135,9 @@ export class Writer extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
-  static Writer = this;
+  static WriterAI = this;
 
-  static WriterError = Errors.WriterError;
+  static WriterAIError = Errors.WriterAIError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -154,7 +156,7 @@ export class Writer extends Core.APIClient {
 }
 
 export const {
-  WriterError,
+  WriterAIError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -172,10 +174,22 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Writer {
+export namespace WriterAI {
   export import RequestOptions = Core.RequestOptions;
 
-  export import V1 = API.V1;
+  export import Chat = API.Chat;
+  export import ChatChatResponse = API.ChatChatResponse;
+  export import ChatChatParams = API.ChatChatParams;
+
+  export import Completions = API.Completions;
+  export import Completion = API.Completion;
+  export import StreamingData = API.StreamingData;
+  export import CompletionCreateParams = API.CompletionCreateParams;
+  export import CompletionCreateParamsNonStreaming = API.CompletionCreateParamsNonStreaming;
+  export import CompletionCreateParamsStreaming = API.CompletionCreateParamsStreaming;
+
+  export import Models = API.Models;
+  export import ModelListResponse = API.ModelListResponse;
 }
 
-export default Writer;
+export default WriterAI;
