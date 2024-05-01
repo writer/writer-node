@@ -134,7 +134,7 @@ describe('instantiate client', () => {
     });
 
     afterEach(() => {
-      process.env['WRITER_AI_BASE_URL'] = undefined;
+      process.env['WRITERAI_BASE_URL'] = undefined;
     });
 
     test('explicit option', () => {
@@ -143,19 +143,19 @@ describe('instantiate client', () => {
     });
 
     test('env variable', () => {
-      process.env['WRITER_AI_BASE_URL'] = 'https://example.com/from_env';
+      process.env['WRITERAI_BASE_URL'] = 'https://example.com/from_env';
       const client = new WriterAI({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
-      process.env['WRITER_AI_BASE_URL'] = ''; // empty
+      process.env['WRITERAI_BASE_URL'] = ''; // empty
       const client = new WriterAI({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.qordobadev.com');
     });
 
     test('blank env variable', () => {
-      process.env['WRITER_AI_BASE_URL'] = '  '; // blank
+      process.env['WRITERAI_BASE_URL'] = '  '; // blank
       const client = new WriterAI({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.qordobadev.com');
     });
