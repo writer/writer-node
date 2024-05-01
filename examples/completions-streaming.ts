@@ -4,7 +4,7 @@
 // - An API key from writer.com
 // - Yarn installed, see https://classic.yarnpkg.com/en/docs
 //
-// Run the following commands:
+// Run the following commands from the root of the repository:
 // $ yarn
 // $ WRITERAI_API_KEY="<your api key>" yarn tsn examples/completions_streaming.py
 
