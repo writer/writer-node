@@ -172,14 +172,14 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['WRITERAI_AUTH_TOKEN'] = 'My API Key';
+    process.env['WRITERAI_API_KEY'] = 'My API Key';
     const client = new WriterAI();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
-    process.env['WRITERAI_AUTH_TOKEN'] = 'another My API Key';
+    process.env['WRITERAI_API_KEY'] = 'another My API Key';
     const client = new WriterAI({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });

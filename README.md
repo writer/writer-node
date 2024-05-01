@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 import WriterAI from 'writerai';
 
 const writerAI = new WriterAI({
-  apiKey: process.env['WRITERAI_AUTH_TOKEN'], // This is the default and can be omitted
+  apiKey: process.env['WRITERAI_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
@@ -72,7 +72,7 @@ This library includes TypeScript definitions for all request params and response
 import WriterAI from 'writerai';
 
 const writerAI = new WriterAI({
-  apiKey: process.env['WRITERAI_AUTH_TOKEN'], // This is the default and can be omitted
+  apiKey: process.env['WRITERAI_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
