@@ -50,6 +50,8 @@ export interface ChatChatParams {
 
   stop?: Array<string> | string;
 
+  stream?: boolean;
+
   temperature?: number;
 
   top_p?: number;

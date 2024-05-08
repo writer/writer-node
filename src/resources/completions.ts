@@ -78,7 +78,7 @@ export interface CompletionCreateParamsBase {
 
   random_seed?: number;
 
-  stop?: Array<string>;
+  stop?: Array<string> | string;
 
   stream?: boolean;
 

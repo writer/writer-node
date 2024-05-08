@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/writerai/writer-node.git
+npm install git+ssh://git@github.com:stainless-sdks/writer-node.git
 ```
 
 > [!NOTE]
@@ -31,8 +31,8 @@ const writerAI = new WriterAI({
 
 async function main() {
   const chatChatResponse = await writerAI.chat.chat({
-    messages: [{ content: 'string', role: 'user' }],
-    model: 'string',
+    messages: [{ content: 'Hello!', role: 'user' }],
+    model: 'palmyra-x-chat-v2-32k',
   });
 
   console.log(chatChatResponse.id);
@@ -77,8 +77,8 @@ const writerAI = new WriterAI({
 
 async function main() {
   const params: WriterAI.ChatChatParams = {
-    messages: [{ content: 'string', role: 'user' }],
-    model: 'string',
+    messages: [{ content: 'Hello!', role: 'user' }],
+    model: 'palmyra-x-chat-v2-32k',
   };
   const chatChatResponse: WriterAI.ChatChatResponse = await writerAI.chat.chat(params);
 }
@@ -98,7 +98,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chatChatResponse = await writerAI.chat
-    .chat({ messages: [{ content: 'string', role: 'user' }], model: 'string' })
+    .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
     .catch(async (err) => {
       if (err instanceof WriterAI.APIError) {
         console.log(err.status); // 400
@@ -142,7 +142,7 @@ const writerAI = new WriterAI({
 });
 
 // Or, configure per-request:
-await writerAI.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'string' }, {
+await writerAI.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -159,7 +159,7 @@ const writerAI = new WriterAI({
 });
 
 // Override per-request:
-await writerAI.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'string' }, {
+await writerAI.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -181,13 +181,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const writerAI = new WriterAI();
 
 const response = await writerAI.chat
-  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'string' })
+  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chatChatResponse, response: raw } = await writerAI.chat
-  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'string' })
+  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chatChatResponse.id);
@@ -295,7 +295,7 @@ const writerAI = new WriterAI({
 
 // Override per-request:
 await writerAI.chat.chat(
-  { messages: [{ content: 'string', role: 'user' }], model: 'string' },
+  { messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
@@ -312,7 +312,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/writerai/writer-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/writer-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
