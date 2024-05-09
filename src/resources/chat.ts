@@ -1,29 +1,39 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Core from 'writerai/core';
+import { APIPromise } from 'writerai/core';
 import { APIResource } from 'writerai/resource';
 import * as ChatAPI from 'writerai/resources/chat';
+import { Stream } from 'writerai/streaming';
 
-export class Chat extends APIResource {
+export class ChatResource extends APIResource {
   /**
    * Create chat completion
    */
-  chat(body: ChatChatParams, options?: Core.RequestOptions): Core.APIPromise<ChatChatResponse> {
-    return this._client.post('/v1/chat', { body, ...options });
+  chat(body: ChatChatParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Chat>;
+  chat(body: ChatChatParamsStreaming, options?: Core.RequestOptions): APIPromise<Stream<ChatStreamingData>>;
+  chat(body: ChatChatParamsBase, options?: Core.RequestOptions): APIPromise<Stream<ChatStreamingData> | Chat>;
+  chat(
+    body: ChatChatParams,
+    options?: Core.RequestOptions,
+  ): APIPromise<Chat> | APIPromise<Stream<ChatStreamingData>> {
+    return this._client.post('/v1/chat', { body, ...options, stream: body.stream ?? false }) as
+      | APIPromise<Chat>
+      | APIPromise<Stream<ChatStreamingData>>;
   }
 }
 
-export interface ChatChatResponse {
+export interface Chat {
   id: string;
 
-  choices: Array<ChatChatResponse.Choice>;
+  choices: Array<Chat.Choice>;
 
   created: number;
 
   model: string;
 }
 
-export namespace ChatChatResponse {
+export namespace Chat {
   export interface Choice {
     finish_reason: 'stop' | 'length' | 'content_filter';
 
@@ -39,7 +49,13 @@ export namespace ChatChatResponse {
   }
 }
 
-export interface ChatChatParams {
+export interface ChatStreamingData {
+  data: Chat;
+}
+
+export type ChatChatParams = ChatChatParamsNonStreaming | ChatChatParamsStreaming;
+
+export interface ChatChatParamsBase {
   messages: Array<ChatChatParams.Message>;
 
   model: string;
@@ -65,9 +81,23 @@ export namespace ChatChatParams {
 
     name?: string;
   }
+
+  export type ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
+  export type ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming;
 }
 
-export namespace Chat {
-  export import ChatChatResponse = ChatAPI.ChatChatResponse;
+export interface ChatChatParamsNonStreaming extends ChatChatParamsBase {
+  stream?: false;
+}
+
+export interface ChatChatParamsStreaming extends ChatChatParamsBase {
+  stream: true;
+}
+
+export namespace ChatResource {
+  export import Chat = ChatAPI.Chat;
+  export import ChatStreamingData = ChatAPI.ChatStreamingData;
   export import ChatChatParams = ChatAPI.ChatChatParams;
+  export import ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
+  export import ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming;
 }

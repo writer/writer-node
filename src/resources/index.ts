@@ -1,6 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { ChatChatResponse, ChatChatParams, Chat } from './chat';
+export {
+  Chat,
+  ChatStreamingData,
+  ChatChatParams,
+  ChatChatParamsNonStreaming,
+  ChatChatParamsStreaming,
+  ChatResource,
+} from './chat';
 export {
   Completion,
   StreamingData,

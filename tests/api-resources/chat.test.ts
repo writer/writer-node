@@ -30,7 +30,7 @@ describe('resource chat', () => {
       max_tokens: 0,
       n: 0,
       stop: ['string', 'string', 'string'],
-      stream: true,
+      stream: false,
       temperature: 0,
       top_p: 0,
     });

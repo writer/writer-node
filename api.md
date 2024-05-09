@@ -2,11 +2,12 @@
 
 Types:
 
-- <code><a href="./src/resources/chat.ts">ChatChatResponse</a></code>
+- <code><a href="./src/resources/chat.ts">Chat</a></code>
+- <code><a href="./src/resources/chat.ts">ChatStreamingData</a></code>
 
 Methods:
 
-- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> ChatChatResponse</code>
+- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> Chat</code>
 
 # Completions
 
