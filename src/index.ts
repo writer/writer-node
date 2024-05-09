@@ -116,7 +116,7 @@ export class WriterAI extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
-  chat: API.Chat = new API.Chat(this);
+  chat: API.ChatResource = new API.ChatResource(this);
   completions: API.Completions = new API.Completions(this);
   models: API.Models = new API.Models(this);
 
@@ -177,9 +177,12 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace WriterAI {
   export import RequestOptions = Core.RequestOptions;
 
+  export import ChatResource = API.ChatResource;
   export import Chat = API.Chat;
-  export import ChatChatResponse = API.ChatChatResponse;
+  export import ChatStreamingData = API.ChatStreamingData;
   export import ChatChatParams = API.ChatChatParams;
+  export import ChatChatParamsNonStreaming = API.ChatChatParamsNonStreaming;
+  export import ChatChatParamsStreaming = API.ChatChatParamsStreaming;
 
   export import Completions = API.Completions;
   export import Completion = API.Completion;

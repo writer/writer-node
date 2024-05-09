@@ -30,12 +30,12 @@ const writerAI = new WriterAI({
 });
 
 async function main() {
-  const chatChatResponse = await writerAI.chat.chat({
+  const chat = await writerAI.chat.chat({
     messages: [{ content: 'Hello!', role: 'user' }],
     model: 'palmyra-x-chat-v2-32k',
   });
 
-  console.log(chatChatResponse.id);
+  console.log(chat.id);
 }
 
 main();
@@ -80,7 +80,7 @@ async function main() {
     messages: [{ content: 'Hello!', role: 'user' }],
     model: 'palmyra-x-chat-v2-32k',
   };
-  const chatChatResponse: WriterAI.ChatChatResponse = await writerAI.chat.chat(params);
+  const chat: WriterAI.Chat = await writerAI.chat.chat(params);
 }
 
 main();
@@ -97,7 +97,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chatChatResponse = await writerAI.chat
+  const chat = await writerAI.chat
     .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
     .catch(async (err) => {
       if (err instanceof WriterAI.APIError) {
@@ -186,11 +186,11 @@ const response = await writerAI.chat
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chatChatResponse, response: raw } = await writerAI.chat
+const { data: chat, response: raw } = await writerAI.chat
   .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(chatChatResponse.id);
+console.log(chat.id);
 ```
 
 ### Making custom/undocumented requests
