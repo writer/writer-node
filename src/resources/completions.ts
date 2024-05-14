@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'writerai/core';
-import { APIPromise } from 'writerai/core';
-import { APIResource } from 'writerai/resource';
-import * as CompletionsAPI from 'writerai/resources/completions';
-import { Stream } from 'writerai/streaming';
+import * as Core from '../core';
+import { APIPromise } from '../core';
+import { APIResource } from '../resource';
+import * as CompletionsAPI from './completions';
+import { Stream } from '../streaming';
 
 export class Completions extends APIResource {
   /**

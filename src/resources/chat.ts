@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'writerai/core';
-import { APIPromise } from 'writerai/core';
-import { APIResource } from 'writerai/resource';
-import * as ChatAPI from 'writerai/resources/chat';
-import { Stream } from 'writerai/streaming';
+import * as Core from '../core';
+import { APIPromise } from '../core';
+import { APIResource } from '../resource';
+import * as ChatAPI from './chat';
+import { Stream } from '../streaming';
 
 export class ChatResource extends APIResource {
   /**
