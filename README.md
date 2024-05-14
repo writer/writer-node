@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 import WriterAI from 'writerai';
 
 const writerAI = new WriterAI({
-  apiKey: process.env['WRITERAI_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
@@ -72,7 +72,7 @@ This library includes TypeScript definitions for all request params and response
 import WriterAI from 'writerai';
 
 const writerAI = new WriterAI({
-  apiKey: process.env['WRITERAI_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
@@ -253,7 +253,7 @@ import WriterAI from 'writerai';
 ```
 
 To do the inverse, add `import "writerai/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/writer-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 

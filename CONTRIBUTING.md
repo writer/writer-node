@@ -50,7 +50,7 @@ Alternatively, to link a local copy of the repo:
 ```bash
 # Clone
 git clone https://www.github.com/stainless-sdks/writer-node
-cd writerai-node
+cd writer-node
 
 # With yarn
 yarn link
