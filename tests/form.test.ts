@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'writerai/core';
-import { Blob } from 'writerai/_shims/index';
-import { toFile } from 'writerai';
+import { multipartFormRequestOptions, createForm } from 'writer-sdk/core';
+import { Blob } from 'writer-sdk/_shims/index';
+import { toFile } from 'writer-sdk';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

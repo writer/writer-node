@@ -9,9 +9,9 @@ export function getRuntime({ manuallyImported }: { manuallyImported?: boolean } 
   const recommendation =
     manuallyImported ?
       `You may need to use polyfills`
-    : `Add one of these imports before your first \`import … from 'writerai'\`:
-- \`import 'writerai/shims/node'\` (if you're running on Node)
-- \`import 'writerai/shims/web'\` (otherwise)
+    : `Add one of these imports before your first \`import … from 'writer-sdk'\`:
+- \`import 'writer-sdk/shims/node'\` (if you're running on Node)
+- \`import 'writer-sdk/shims/web'\` (otherwise)
 `;
 
   let _fetch, _Request, _Response, _Headers;

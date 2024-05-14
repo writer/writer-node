@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^writerai$': '<rootDir>/src/index.ts',
-    '^writerai/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^writerai/(.*)$': '<rootDir>/src/$1',
+    '^writer-sdk$': '<rootDir>/src/index.ts',
+    '^writer-sdk/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^writer-sdk/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',
