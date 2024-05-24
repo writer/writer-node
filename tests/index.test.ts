@@ -151,13 +151,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['WRITER_BASE_URL'] = ''; // empty
       const client = new Writer({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.qordobadev.com');
+      expect(client.baseURL).toEqual('https://api.writer.com');
     });
 
     test('blank env variable', () => {
       process.env['WRITER_BASE_URL'] = '  '; // blank
       const client = new Writer({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.qordobadev.com');
+      expect(client.baseURL).toEqual('https://api.writer.com');
     });
   });
 
