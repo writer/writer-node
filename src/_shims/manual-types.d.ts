@@ -4,8 +4,8 @@
 /**
  * Types will get added to this namespace when you import one of the following:
  *
- *   import 'writerai/shims/node'
- *   import 'writerai/shims/web'
+ *   import 'writer-sdk/shims/node'
+ *   import 'writer-sdk/shims/web'
  *
  * Importing more than one will cause type and runtime errors.
  */

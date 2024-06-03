@@ -55,12 +55,12 @@ cd writer-node
 # With yarn
 yarn link
 cd ../my-package
-yarn link writerai
+yarn link writer-sdk
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global writerai
+pnpm link -—global writer-sdk
 ```
 
 ## Running tests

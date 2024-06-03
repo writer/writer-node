@@ -1,4 +1,4 @@
-import { APIClient } from 'writerai/core';
+import { APIClient } from 'writer-sdk/core';
 
 const { stringifyQuery } = APIClient.prototype as any;
 

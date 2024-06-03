@@ -15,7 +15,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['WRITERAI_BASE_URL'].
+   * Defaults to process.env['WRITER_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -69,17 +69,17 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Writer AI API. */
-export class WriterAI extends Core.APIClient {
+/** API Client for interfacing with the Writer API. */
+export class Writer extends Core.APIClient {
   apiKey: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Writer AI API.
+   * API Client for interfacing with the Writer API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['WRITER_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['WRITERAI_BASE_URL'] ?? https://api.qordobadev.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['WRITER_BASE_URL'] ?? https://api.qordobadev.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -88,13 +88,13 @@ export class WriterAI extends Core.APIClient {
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = Core.readEnv('WRITERAI_BASE_URL'),
+    baseURL = Core.readEnv('WRITER_BASE_URL'),
     apiKey = Core.readEnv('WRITER_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.WriterAIError(
-        "The WRITER_API_KEY environment variable is missing or empty; either provide it, or instantiate the WriterAI client with an apiKey option, like new WriterAI({ apiKey: 'My API Key' }).",
+      throw new Errors.WriterError(
+        "The WRITER_API_KEY environment variable is missing or empty; either provide it, or instantiate the Writer client with an apiKey option, like new Writer({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -135,9 +135,9 @@ export class WriterAI extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
-  static WriterAI = this;
+  static Writer = this;
 
-  static WriterAIError = Errors.WriterAIError;
+  static WriterError = Errors.WriterError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -156,7 +156,7 @@ export class WriterAI extends Core.APIClient {
 }
 
 export const {
-  WriterAIError,
+  WriterError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -174,7 +174,7 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace WriterAI {
+export namespace Writer {
   export import RequestOptions = Core.RequestOptions;
 
   export import ChatResource = API.ChatResource;
@@ -195,4 +195,4 @@ export namespace WriterAI {
   export import ModelListResponse = API.ModelListResponse;
 }
 
-export default WriterAI;
+export default Writer;

@@ -1,8 +1,8 @@
 {
-  "name": "writerai",
+  "name": "writer-sdk",
   "version": "0.0.1-alpha.0",
-  "description": "The official TypeScript library for the Writer AI API",
-  "author": "Writer AI <dev-feedback@writer.com>",
+  "description": "The official TypeScript library for the Writer API",
+  "author": "Writer <dev-feedback@writer.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -61,8 +61,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "writerai": ".",
-    "writerai/*": "./src/*"
+    "writer-sdk": ".",
+    "writer-sdk/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

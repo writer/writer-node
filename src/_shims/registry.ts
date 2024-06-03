@@ -42,12 +42,12 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'writerai/shims/${shims.kind}'\` before importing anything else from writerai`,
+      `you must \`import 'writer-sdk/shims/${shims.kind}'\` before importing anything else from writer-sdk`,
     );
   }
   if (kind) {
     throw new Error(
-      `can't \`import 'writerai/shims/${shims.kind}'\` after \`import 'writerai/shims/${kind}'\``,
+      `can't \`import 'writer-sdk/shims/${shims.kind}'\` after \`import 'writer-sdk/shims/${kind}'\``,
     );
   }
   auto = options.auto;

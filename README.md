@@ -1,8 +1,8 @@
-# Writer AI Node API Library
+# Writer Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/writerai.svg)](https://npmjs.org/package/writerai)
+[![NPM version](https://img.shields.io/npm/v/writer-sdk.svg)](https://npmjs.org/package/writer-sdk)
 
-This library provides convenient access to the Writer AI REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Writer REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found [on dev.writer.com](https://dev.writer.com/docs/quickstart). The full API of this library can be found in [api.md](api.md).
 
@@ -15,7 +15,7 @@ npm install git+ssh://git@github.com:stainless-sdks/writer-node.git
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install writerai`
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install writer-sdk`
 
 ## Usage
 
@@ -23,14 +23,14 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import WriterAI from 'writerai';
+import Writer from 'writer-sdk';
 
-const writerAI = new WriterAI({
+const writer = new Writer({
   apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const chat = await writerAI.chat.chat({
+  const chat = await writer.chat.chat({
     messages: [{ content: 'Hello!', role: 'user' }],
     model: 'palmyra-x-chat-v2-32k',
   });
@@ -46,11 +46,11 @@ main();
 We provide support for streaming responses using Server Sent Events (SSE).
 
 ```ts
-import WriterAI from 'writerai';
+import Writer from 'writer-sdk';
 
-const writerAI = new WriterAI();
+const writer = new Writer();
 
-const stream = await writerAI.completions.create({
+const stream = await writer.completions.create({
   model: 'palmyra-x-v2',
   prompt: 'Hi, my name is',
   stream: true,
@@ -69,18 +69,18 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import WriterAI from 'writerai';
+import Writer from 'writer-sdk';
 
-const writerAI = new WriterAI({
+const writer = new Writer({
   apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const params: WriterAI.ChatChatParams = {
+  const params: Writer.ChatChatParams = {
     messages: [{ content: 'Hello!', role: 'user' }],
     model: 'palmyra-x-chat-v2-32k',
   };
-  const chat: WriterAI.Chat = await writerAI.chat.chat(params);
+  const chat: Writer.Chat = await writer.chat.chat(params);
 }
 
 main();
@@ -97,10 +97,10 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chat = await writerAI.chat
+  const chat = await writer.chat
     .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
     .catch(async (err) => {
-      if (err instanceof WriterAI.APIError) {
+      if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
         console.log(err.name); // BadRequestError
         console.log(err.headers); // {server: 'nginx', ...}
@@ -137,12 +137,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const writerAI = new WriterAI({
+const writer = new Writer({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await writerAI.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -154,12 +154,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const writerAI = new WriterAI({
+const writer = new Writer({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await writerAI.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -178,15 +178,15 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const writerAI = new WriterAI();
+const writer = new Writer();
 
-const response = await writerAI.chat
+const response = await writer.chat
   .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chat, response: raw } = await writerAI.chat
+const { data: chat, response: raw } = await writer.chat
   .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -243,16 +243,16 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "WriterAI"`:
+add the following import before your first import `from "Writer"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'writerai/shims/web';
-import WriterAI from 'writerai';
+import 'writer-sdk/shims/web';
+import Writer from 'writer-sdk';
 ```
 
-To do the inverse, add `import "writerai/shims/node"` (which does import polyfills).
+To do the inverse, add `import "writer-sdk/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/writer-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -262,9 +262,9 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import WriterAI from 'writerai';
+import Writer from 'writer-sdk';
 
-const client = new WriterAI({
+const client = new Writer({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -289,12 +289,12 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const writerAI = new WriterAI({
+const writer = new Writer({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await writerAI.chat.chat(
+await writer.chat.chat(
   { messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
@@ -321,7 +321,7 @@ TypeScript >= 4.5 is supported.
 The following runtimes are supported:
 
 - Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import WriterAI from "npm:writerai"`.
+- Deno v1.28.0 or higher, using `import Writer from "npm:writer-sdk"`.
 - Bun 1.0 or later.
 - Cloudflare Workers.
 - Vercel Edge Runtime.

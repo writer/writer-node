@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { WriterAI } from './index';
+import type { Writer } from './index';
 
 export class APIResource {
-  protected _client: WriterAI;
+  protected _client: Writer;
 
-  constructor(client: WriterAI) {
+  constructor(client: Writer) {
     this._client = client;
   }
 }

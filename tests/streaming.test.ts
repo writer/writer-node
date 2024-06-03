@@ -1,7 +1,7 @@
 import { Response } from 'node-fetch';
 import { PassThrough } from 'stream';
 import assert from 'assert';
-import { _iterSSEMessages, _decodeChunks as decodeChunks } from 'writerai/streaming';
+import { _iterSSEMessages, _decodeChunks as decodeChunks } from 'writer-sdk/streaming';
 
 describe('line decoder', () => {
   test('basic', () => {
