@@ -10,7 +10,10 @@ const writer = new Writer({
 
 describe('resource completions', () => {
   test('create: only required params', async () => {
-    const responsePromise = writer.completions.create({ model: 'string', prompt: 'string' });
+    const responsePromise = writer.completions.create({
+      model: 'palmyra-x-002-instruct',
+      prompt: 'Write me an SEO article about...',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,15 +25,15 @@ describe('resource completions', () => {
 
   test('create: required and optional params', async () => {
     const response = await writer.completions.create({
-      model: 'string',
-      prompt: 'string',
-      best_of: 0,
-      max_tokens: 0,
-      random_seed: 0,
-      stop: ['string', 'string', 'string'],
+      model: 'palmyra-x-002-instruct',
+      prompt: 'Write me an SEO article about...',
+      best_of: 1,
+      max_tokens: 150,
+      random_seed: 42,
+      stop: ['.'],
       stream: false,
-      temperature: 0,
-      top_p: 0,
+      temperature: 0.7,
+      top_p: 0.9,
     });
   });
 });
