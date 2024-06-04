@@ -4,18 +4,15 @@
 
 This library provides convenient access to the Writer REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on dev.writer.com](https://dev.writer.com/docs/quickstart). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found [on dev.writer.com](https://dev.writer.com/api-guides/introduction). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/writer-node.git
+npm install writer-sdk
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install writer-sdk`
 
 ## Usage
 
@@ -31,7 +28,7 @@ const writer = new Writer({
 
 async function main() {
   const chat = await writer.chat.chat({
-    messages: [{ content: 'Hello!', role: 'user' }],
+    messages: [{ content: 'string', role: 'user' }],
     model: 'palmyra-x-32k',
   });
 
@@ -77,7 +74,7 @@ const writer = new Writer({
 
 async function main() {
   const params: Writer.ChatChatParams = {
-    messages: [{ content: 'Hello!', role: 'user' }],
+    messages: [{ content: 'string', role: 'user' }],
     model: 'palmyra-x-32k',
   };
   const chat: Writer.Chat = await writer.chat.chat(params);
@@ -98,7 +95,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chat = await writer.chat
-    .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-32k' })
+    .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -142,7 +139,7 @@ const writer = new Writer({
 });
 
 // Or, configure per-request:
-await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -159,7 +156,7 @@ const writer = new Writer({
 });
 
 // Override per-request:
-await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -181,13 +178,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const writer = new Writer();
 
 const response = await writer.chat
-  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-32k' })
+  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chat, response: raw } = await writer.chat
-  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-32k' })
+  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chat.id);
@@ -253,7 +250,7 @@ import Writer from 'writer-sdk';
 ```
 
 To do the inverse, add `import "writer-sdk/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/writer-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/writerai/writer-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -295,7 +292,7 @@ const writer = new Writer({
 
 // Override per-request:
 await writer.chat.chat(
-  { messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-32k' },
+  { messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
@@ -312,7 +309,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/writer-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/writerai/writer-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
