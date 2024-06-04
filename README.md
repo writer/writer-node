@@ -1,6 +1,6 @@
 # Writer Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/writer-sdk.svg)](https://npmjs.org/package/writer-sdk)
+[![NPM version](https://img.shields.io/npm/v/writer-sdk.svg)](https://npmjs.org/package/writer-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/writer-sdk)
 
 This library provides convenient access to the Writer REST API from server-side TypeScript or JavaScript.
 
@@ -32,7 +32,7 @@ const writer = new Writer({
 async function main() {
   const chat = await writer.chat.chat({
     messages: [{ content: 'Hello!', role: 'user' }],
-    model: 'palmyra-x-chat-v2-32k',
+    model: 'palmyra-x-v2',
   });
 
   console.log(chat.id);
@@ -78,7 +78,7 @@ const writer = new Writer({
 async function main() {
   const params: Writer.ChatChatParams = {
     messages: [{ content: 'Hello!', role: 'user' }],
-    model: 'palmyra-x-chat-v2-32k',
+    model: 'palmyra-x-v2',
   };
   const chat: Writer.Chat = await writer.chat.chat(params);
 }
@@ -98,7 +98,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chat = await writer.chat
-    .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
+    .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-v2' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -142,7 +142,7 @@ const writer = new Writer({
 });
 
 // Or, configure per-request:
-await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-v2' }, {
   maxRetries: 5,
 });
 ```
@@ -159,7 +159,7 @@ const writer = new Writer({
 });
 
 // Override per-request:
-await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-v2' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -181,13 +181,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const writer = new Writer();
 
 const response = await writer.chat
-  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
+  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-v2' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chat, response: raw } = await writer.chat
-  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
+  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-v2' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chat.id);
@@ -295,7 +295,7 @@ const writer = new Writer({
 
 // Override per-request:
 await writer.chat.chat(
-  { messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' },
+  { messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-v2' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
