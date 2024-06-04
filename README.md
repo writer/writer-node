@@ -78,7 +78,7 @@ const writer = new Writer({
 async function main() {
   const params: Writer.ChatChatParams = {
     messages: [{ content: 'Hello!', role: 'user' }],
-    model: '[object Object]',
+    model: 'palmyra-x-chat-v2-32k',
   };
   const chat: Writer.Chat = await writer.chat.chat(params);
 }
@@ -98,7 +98,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chat = await writer.chat
-    .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: '[object Object]' })
+    .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -142,7 +142,7 @@ const writer = new Writer({
 });
 
 // Or, configure per-request:
-await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: '[object Object]' }, {
+await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -159,7 +159,7 @@ const writer = new Writer({
 });
 
 // Override per-request:
-await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: '[object Object]' }, {
+await writer.chat.chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -181,13 +181,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const writer = new Writer();
 
 const response = await writer.chat
-  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: '[object Object]' })
+  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chat, response: raw } = await writer.chat
-  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: '[object Object]' })
+  .chat({ messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chat.id);
@@ -295,7 +295,7 @@ const writer = new Writer({
 
 // Override per-request:
 await writer.chat.chat(
-  { messages: [{ content: 'Hello!', role: 'user' }], model: '[object Object]' },
+  { messages: [{ content: 'Hello!', role: 'user' }], model: 'palmyra-x-chat-v2-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
