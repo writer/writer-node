@@ -49,7 +49,7 @@ const writer = new Writer();
 
 const stream = await writer.completions.create({
   model: 'palmyra-x-32k',
-  prompt: 'Hi, my name is ',
+  prompt: 'Hi, my name is',
   stream: true,
 });
 for await (const streamingData of stream) {
