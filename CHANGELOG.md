@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2 (2024-06-05)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.2](https://github.com/writerai/writer-node/compare/v0.1.0-alpha.1...v0.1.2)
+
+### Features
+
+* **api:** update via SDK Studio ([#6](https://github.com/writerai/writer-node/issues/6)) ([4e3a404](https://github.com/writerai/writer-node/commit/4e3a404e9b208735519a190b21f987c1a0c258cc))
+* **api:** update via SDK Studio ([#7](https://github.com/writerai/writer-node/issues/7)) ([8bacaeb](https://github.com/writerai/writer-node/commit/8bacaebb0db6e46ad27f9d1e6b959d23708aa48b))
+
 ## 0.1.0-alpha.1 (2024-06-04)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/writerai/writer-node/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
