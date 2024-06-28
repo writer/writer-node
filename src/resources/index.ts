@@ -16,4 +16,18 @@ export {
   CompletionCreateParamsStreaming,
   Completions,
 } from './completions';
+export { File, FileDeleteResponse, FileListParams, FileUploadParams, FilesCursorPage, Files } from './files';
+export {
+  Graph,
+  GraphCreateResponse,
+  GraphUpdateResponse,
+  GraphDeleteResponse,
+  GraphRemoveFileFromGraphResponse,
+  GraphCreateParams,
+  GraphUpdateParams,
+  GraphListParams,
+  GraphAddFileToGraphParams,
+  GraphsCursorPage,
+  Graphs,
+} from './graphs';
 export { ModelListResponse, Models } from './models';
