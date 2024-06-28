@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from './core';
 import * as Errors from './error';
-import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
+import { type Agent } from './_shims/index';
+import * as Core from './core';
+import * as Pagination from './pagination';
 import * as API from './resources/index';
 
 export interface ClientOptions {
@@ -69,7 +70,9 @@ export interface ClientOptions {
   defaultQuery?: Core.DefaultQuery;
 }
 
-/** API Client for interfacing with the Writer API. */
+/**
+ * API Client for interfacing with the Writer API.
+ */
 export class Writer extends Core.APIClient {
   apiKey: string;
 
@@ -111,6 +114,7 @@ export class Writer extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
+
     this._options = options;
 
     this.apiKey = apiKey;
@@ -119,6 +123,8 @@ export class Writer extends Core.APIClient {
   chat: API.ChatResource = new API.ChatResource(this);
   completions: API.Completions = new API.Completions(this);
   models: API.Models = new API.Models(this);
+  graphs: API.Graphs = new API.Graphs(this);
+  files: API.Files = new API.Files(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -177,6 +183,10 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace Writer {
   export import RequestOptions = Core.RequestOptions;
 
+  export import CursorPage = Pagination.CursorPage;
+  export import CursorPageParams = Pagination.CursorPageParams;
+  export import CursorPageResponse = Pagination.CursorPageResponse;
+
   export import ChatResource = API.ChatResource;
   export import Chat = API.Chat;
   export import ChatStreamingData = API.ChatStreamingData;
@@ -193,6 +203,25 @@ export namespace Writer {
 
   export import Models = API.Models;
   export import ModelListResponse = API.ModelListResponse;
+
+  export import Graphs = API.Graphs;
+  export import Graph = API.Graph;
+  export import GraphCreateResponse = API.GraphCreateResponse;
+  export import GraphUpdateResponse = API.GraphUpdateResponse;
+  export import GraphDeleteResponse = API.GraphDeleteResponse;
+  export import GraphRemoveFileFromGraphResponse = API.GraphRemoveFileFromGraphResponse;
+  export import GraphsCursorPage = API.GraphsCursorPage;
+  export import GraphCreateParams = API.GraphCreateParams;
+  export import GraphUpdateParams = API.GraphUpdateParams;
+  export import GraphListParams = API.GraphListParams;
+  export import GraphAddFileToGraphParams = API.GraphAddFileToGraphParams;
+
+  export import Files = API.Files;
+  export import File = API.File;
+  export import FileDeleteResponse = API.FileDeleteResponse;
+  export import FilesCursorPage = API.FilesCursorPage;
+  export import FileListParams = API.FileListParams;
+  export import FileUploadParams = API.FileUploadParams;
 }
 
 export default Writer;
