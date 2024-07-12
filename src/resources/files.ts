@@ -5,19 +5,10 @@ import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as FilesAPI from './files';
 import { CursorPage, type CursorPageParams } from '../pagination';
-import { type BlobLike } from '../uploads';
-import { type Response } from '../_shims/index';
 
 export class Files extends APIResource {
   /**
-   * Get metadata of a file
-   */
-  retrieve(fileId: string, options?: Core.RequestOptions): Core.APIPromise<File> {
-    return this._client.get(`/v1/files/${fileId}`, options);
-  }
-
-  /**
-   * Get metadata of all files
+   * List files
    */
   list(query?: FileListParams, options?: Core.RequestOptions): Core.PagePromise<FilesCursorPage, File>;
   list(options?: Core.RequestOptions): Core.PagePromise<FilesCursorPage, File>;
@@ -29,20 +20,6 @@ export class Files extends APIResource {
       return this.list({}, query);
     }
     return this._client.getAPIList('/v1/files', FilesCursorPage, { query, ...options });
-  }
-
-  /**
-   * Delete file
-   */
-  delete(fileId: string, options?: Core.RequestOptions): Core.APIPromise<FileDeleteResponse> {
-    return this._client.delete(`/v1/files/${fileId}`, options);
-  }
-
-  /**
-   * Download a file
-   */
-  download(fileId: string, options?: Core.RequestOptions): Core.APIPromise<Response> {
-    return this._client.get(`/v1/files/${fileId}/download`, { ...options, __binaryResponse: true });
   }
 
   /**
@@ -72,26 +49,43 @@ export class Files extends APIResource {
 export class FilesCursorPage extends CursorPage<File> {}
 
 export interface File {
+  /**
+   * A unique identifier of the graph.
+   */
   id: string;
 
+  /**
+   * The timestamp when the graph was created.
+   */
   created_at: string;
 
+  /**
+   * A list of graph IDs that the file is associated with.
+   */
   graph_ids: Array<string>;
 
+  /**
+   * The name of the graph.
+   */
   name: string;
 }
 
-export interface FileDeleteResponse {
-  id: string;
-
-  deleted: boolean;
-}
-
 export interface FileListParams extends CursorPageParams {
-  graph_id?: string;
+  /**
+   * The unique identifier of the graph to which the files belong.
+   */
+  graph_id?: Array<string>;
 
+  /**
+   * Specifies the maximum number of objects returned in a page. The default value
+   * is 50. The minimum value is 1, and the maximum value is 100.
+   */
   limit?: number;
 
+  /**
+   * Specifies the order of the results. Valid values are asc for ascending and desc
+   * for descending.
+   */
   order?: 'asc' | 'desc';
 }
 
@@ -99,27 +93,27 @@ export interface FileUploadParams {
   /**
    * Body param:
    */
-  content: string | ArrayBufferView | ArrayBuffer | BlobLike;
+  content: Core.Uploadable;
 
   /**
-   * Header param:
+   * Header param: The disposition type of the file, typically used to indicate the
+   * form-data name.
    */
   'Content-Disposition': string;
 
   /**
-   * Header param:
+   * Header param: The size of the file in bytes.
    */
   'Content-Length': number;
 
   /**
-   * Header param:
+   * Header param: The MIME type of the file being uploaded.
    */
   'Content-Type': string;
 }
 
 export namespace Files {
   export import File = FilesAPI.File;
-  export import FileDeleteResponse = FilesAPI.FileDeleteResponse;
   export import FilesCursorPage = FilesAPI.FilesCursorPage;
   export import FileListParams = FilesAPI.FileListParams;
   export import FileUploadParams = FilesAPI.FileUploadParams;
