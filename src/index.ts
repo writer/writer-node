@@ -3,6 +3,7 @@
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
+import * as qs from 'qs';
 import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources/index';
@@ -141,6 +142,10 @@ export class Writer extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
+  }
+
   static Writer = this;
 
   static WriterError = Errors.WriterError;
@@ -218,7 +223,6 @@ export namespace Writer {
 
   export import Files = API.Files;
   export import File = API.File;
-  export import FileDeleteResponse = API.FileDeleteResponse;
   export import FilesCursorPage = API.FilesCursorPage;
   export import FileListParams = API.FileListParams;
   export import FileUploadParams = API.FileUploadParams;

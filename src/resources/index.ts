@@ -16,7 +16,7 @@ export {
   CompletionCreateParamsStreaming,
   Completions,
 } from './completions';
-export { File, FileDeleteResponse, FileListParams, FileUploadParams, FilesCursorPage, Files } from './files';
+export { File, FileListParams, FileUploadParams, FilesCursorPage, Files } from './files';
 export {
   Graph,
   GraphCreateResponse,
