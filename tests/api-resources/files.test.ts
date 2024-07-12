@@ -10,7 +10,7 @@ const writer = new Writer({
 
 describe('resource files', () => {
   test('retrieve', async () => {
-    const responsePromise = writer.files.retrieve('string');
+    const responsePromise = writer.files.retrieve('fileId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource files', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(writer.files.retrieve('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(writer.files.retrieve('fileId', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Writer.NotFoundError,
     );
   });
@@ -50,8 +50,8 @@ describe('resource files', () => {
     await expect(
       writer.files.list(
         {
-          after: 'string',
-          before: 'string',
+          after: 'after',
+          before: 'before',
           graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
           order: 'asc',
@@ -62,7 +62,7 @@ describe('resource files', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = writer.files.delete('string');
+    const responsePromise = writer.files.delete('fileId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -74,7 +74,7 @@ describe('resource files', () => {
 
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(writer.files.delete('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(writer.files.delete('fileId', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Writer.NotFoundError,
     );
   });
@@ -82,7 +82,7 @@ describe('resource files', () => {
   // requests with binary data not yet supported in test environment
   test.skip('download: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(writer.files.download('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(writer.files.download('fileId', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Writer.NotFoundError,
     );
   });
@@ -91,9 +91,9 @@ describe('resource files', () => {
   test.skip('upload: only required params', async () => {
     const responsePromise = writer.files.upload({
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
-      'Content-Disposition': 'string',
+      'Content-Disposition': 'Content-Disposition',
       'Content-Length': 0,
-      'Content-Type': 'string',
+      'Content-Type': 'Content-Type',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -108,9 +108,9 @@ describe('resource files', () => {
   test.skip('upload: required and optional params', async () => {
     const response = await writer.files.upload({
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
-      'Content-Disposition': 'string',
+      'Content-Disposition': 'Content-Disposition',
       'Content-Length': 0,
-      'Content-Type': 'string',
+      'Content-Type': 'Content-Type',
     });
   });
 });

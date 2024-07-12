@@ -10,7 +10,7 @@ const writer = new Writer({
 
 describe('resource graphs', () => {
   test('create: only required params', async () => {
-    const responsePromise = writer.graphs.create({ name: 'string' });
+    const responsePromise = writer.graphs.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource graphs', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await writer.graphs.create({ name: 'string', description: 'string' });
+    const response = await writer.graphs.create({ name: 'name', description: 'description' });
   });
 
   test('retrieve', async () => {
@@ -43,7 +43,7 @@ describe('resource graphs', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = writer.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { name: 'string' });
+    const responsePromise = writer.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { name: 'name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -55,8 +55,8 @@ describe('resource graphs', () => {
 
   test('update: required and optional params', async () => {
     const response = await writer.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      name: 'string',
-      description: 'string',
+      name: 'name',
+      description: 'description',
     });
   });
 
@@ -113,7 +113,7 @@ describe('resource graphs', () => {
 
   test('addFileToGraph: only required params', async () => {
     const responsePromise = writer.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      file_id: 'string',
+      file_id: 'file_id',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -126,14 +126,14 @@ describe('resource graphs', () => {
 
   test('addFileToGraph: required and optional params', async () => {
     const response = await writer.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      file_id: 'string',
+      file_id: 'file_id',
     });
   });
 
   test('removeFileFromGraph', async () => {
     const responsePromise = writer.graphs.removeFileFromGraph(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      'string',
+      'file_id',
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -147,7 +147,7 @@ describe('resource graphs', () => {
   test('removeFileFromGraph: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      writer.graphs.removeFileFromGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'string', {
+      writer.graphs.removeFileFromGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'file_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Writer.NotFoundError);
