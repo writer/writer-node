@@ -74,7 +74,7 @@ export interface FileListParams extends CursorPageParams {
   /**
    * The unique identifier of the graph to which the files belong.
    */
-  graph_id?: Array<string>;
+  graph_id?: string;
 
   /**
    * Specifies the maximum number of objects returned in a page. The default value
