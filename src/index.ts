@@ -218,6 +218,7 @@ export namespace Writer {
 
   export import Files = API.Files;
   export import File = API.File;
+  export import FileDeleteResponse = API.FileDeleteResponse;
   export import FilesCursorPage = API.FilesCursorPage;
   export import FileListParams = API.FileListParams;
   export import FileUploadParams = API.FileUploadParams;

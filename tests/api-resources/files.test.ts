@@ -9,6 +9,24 @@ const writer = new Writer({
 });
 
 describe('resource files', () => {
+  test('retrieve', async () => {
+    const responsePromise = writer.files.retrieve('file_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieve: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(writer.files.retrieve('file_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Writer.NotFoundError,
+    );
+  });
+
   test('list', async () => {
     const responsePromise = writer.files.list();
     const rawResponse = await responsePromise.asResponse();
@@ -41,6 +59,32 @@ describe('resource files', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Writer.NotFoundError);
+  });
+
+  test('delete', async () => {
+    const responsePromise = writer.files.delete('file_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('delete: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(writer.files.delete('file_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Writer.NotFoundError,
+    );
+  });
+
+  // requests with binary data not yet supported in test environment
+  test.skip('download: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(writer.files.download('file_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Writer.NotFoundError,
+    );
   });
 
   // requests with binary data not yet supported in test environment
