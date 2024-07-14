@@ -5,8 +5,16 @@ import { isRequestOptions } from '../core';
 import * as Core from '../core';
 import * as FilesAPI from './files';
 import { CursorPage, type CursorPageParams } from '../pagination';
+import { type Response } from '../_shims/index';
 
 export class Files extends APIResource {
+  /**
+   * Retrieve file
+   */
+  retrieve(fileId: string, options?: Core.RequestOptions): Core.APIPromise<File> {
+    return this._client.get(`/v1/files/${fileId}`, options);
+  }
+
   /**
    * List files
    */
@@ -20,6 +28,20 @@ export class Files extends APIResource {
       return this.list({}, query);
     }
     return this._client.getAPIList('/v1/files', FilesCursorPage, { query, ...options });
+  }
+
+  /**
+   * Delete file
+   */
+  delete(fileId: string, options?: Core.RequestOptions): Core.APIPromise<FileDeleteResponse> {
+    return this._client.delete(`/v1/files/${fileId}`, options);
+  }
+
+  /**
+   * Download file
+   */
+  download(fileId: string, options?: Core.RequestOptions): Core.APIPromise<Response> {
+    return this._client.get(`/v1/files/${fileId}/download`, { ...options, __binaryResponse: true });
   }
 
   /**
@@ -70,6 +92,18 @@ export interface File {
   name: string;
 }
 
+export interface FileDeleteResponse {
+  /**
+   * A unique identifier of the deleted graph.
+   */
+  id: string;
+
+  /**
+   * Indicates whether the graph was successfully deleted.
+   */
+  deleted: boolean;
+}
+
 export interface FileListParams extends CursorPageParams {
   /**
    * The unique identifier of the graph to which the files belong.
@@ -114,6 +148,7 @@ export interface FileUploadParams {
 
 export namespace Files {
   export import File = FilesAPI.File;
+  export import FileDeleteResponse = FilesAPI.FileDeleteResponse;
   export import FilesCursorPage = FilesAPI.FilesCursorPage;
   export import FileListParams = FilesAPI.FileListParams;
   export import FileUploadParams = FilesAPI.FileUploadParams;
