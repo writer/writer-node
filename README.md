@@ -28,8 +28,8 @@ const writer = new Writer({
 
 async function main() {
   const chat = await writer.chat.chat({
-    messages: [{ content: 'content', role: 'user' }],
-    model: 'palmyra-x-32k',
+    messages: [{ content: 'string', role: 'user' }],
+    model: 'palmyra-x-002-32k',
   });
 
   console.log(chat.id);
@@ -48,12 +48,12 @@ import Writer from 'writer-sdk';
 const writer = new Writer();
 
 const stream = await writer.completions.create({
-  model: 'palmyra-x-32k',
+  model: 'palmyra-x-002-instruct',
   prompt: 'Hi, my name is',
   stream: true,
 });
 for await (const streamingData of stream) {
-  console.log(streamingData.choices);
+  console.log(streamingData.value);
 }
 ```
 
@@ -74,8 +74,8 @@ const writer = new Writer({
 
 async function main() {
   const params: Writer.ChatChatParams = {
-    messages: [{ content: 'content', role: 'user' }],
-    model: 'palmyra-x-32k',
+    messages: [{ content: 'string', role: 'user' }],
+    model: 'palmyra-x-002-32k',
   };
   const chat: Writer.Chat = await writer.chat.chat(params);
 }
@@ -139,7 +139,7 @@ const writer = new Writer({
 });
 
 // Or, configure per-request:
-await writer.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -156,7 +156,7 @@ const writer = new Writer({
 });
 
 // Override per-request:
-await writer.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' }, {
+await writer.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -178,13 +178,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const writer = new Writer();
 
 const response = await writer.chat
-  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chat, response: raw } = await writer.chat
-  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chat.id);
@@ -292,7 +292,7 @@ const writer = new Writer({
 
 // Override per-request:
 await writer.chat.chat(
-  { messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' },
+  { messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
