@@ -95,7 +95,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chat = await writer.chat
-    .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-32k' })
+    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
