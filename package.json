@@ -1,12 +1,12 @@
 {
   "name": "writer-sdk",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "The official TypeScript library for the Writer API",
   "author": "Writer <dev-feedback@writer.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:writerai/writer-node",
+  "repository": "github:writer/writer-node",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "files": [

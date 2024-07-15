@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core';
 import { APIResource } from '../resource';
+import * as Core from '../core';
 import * as ModelsAPI from './models';
 
 export class Models extends APIResource {
@@ -28,7 +28,7 @@ export namespace ModelListResponse {
     id: string;
 
     /**
-     * The name of the particular LLM that you want to use
+     * The name of the particular LLM that you want to use.
      */
     name: string;
   }

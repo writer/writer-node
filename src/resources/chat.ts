@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../core';
-import { APIPromise } from '../core';
 import { APIResource } from '../resource';
+import { APIPromise } from '../core';
+import * as Core from '../core';
 import * as ChatAPI from './chat';
 import { Stream } from '../streaming';
 
