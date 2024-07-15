@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.2.0 (2024-07-15)
+
+Full Changelog: [v0.1.2...v0.2.0](https://github.com/writer/writer-node/compare/v0.1.2...v0.2.0)
+
+### Features
+
+* **api:** add support for graphs and files endpoints ([#13](https://github.com/writer/writer-node/issues/13)) ([52f462c](https://github.com/writer/writer-node/commit/52f462c25a34a0876577bf7e02444e57b99bf7aa))
+* **api:** OpenAPI spec update via Stainless API ([#11](https://github.com/writer/writer-node/issues/11)) ([e742ffe](https://github.com/writer/writer-node/commit/e742ffeb02c8cbee7abee98e70c7ca6673770b85))
+* **api:** OpenAPI spec update via Stainless API ([#19](https://github.com/writer/writer-node/issues/19)) ([00d9929](https://github.com/writer/writer-node/commit/00d9929fea595070b9e0e3e6042b40f0d6f898cf))
+* **api:** OpenAPI spec update via Stainless API ([#22](https://github.com/writer/writer-node/issues/22)) ([b3b9223](https://github.com/writer/writer-node/commit/b3b9223530de5b8c65bc3e0c58869a8a4a140d3b))
+* **api:** OpenAPI spec update via Stainless API ([#23](https://github.com/writer/writer-node/issues/23)) ([1e9c082](https://github.com/writer/writer-node/commit/1e9c08252bf0987fa7e0830bfaa5db6d306cc405))
+* **api:** OpenAPI spec update via Stainless API ([#25](https://github.com/writer/writer-node/issues/25)) ([cc8dca0](https://github.com/writer/writer-node/commit/cc8dca08fa4c6b0adcb8fb921a7741e0e78e3934))
+* **api:** update via SDK Studio ([#14](https://github.com/writer/writer-node/issues/14)) ([88e43b2](https://github.com/writer/writer-node/commit/88e43b271ffbf1130d6ed582bd8fb0c29bdbf4e1))
+* **api:** update via SDK Studio ([#15](https://github.com/writer/writer-node/issues/15)) ([11d170b](https://github.com/writer/writer-node/commit/11d170bf8649dca8beb99519ca0d12097bf28412))
+* **api:** update via SDK Studio ([#16](https://github.com/writer/writer-node/issues/16)) ([455b64a](https://github.com/writer/writer-node/commit/455b64ae3c138ae1befef9d20b317b686bf99133))
+* **api:** update via SDK Studio ([#17](https://github.com/writer/writer-node/issues/17)) ([fcd684d](https://github.com/writer/writer-node/commit/fcd684d35d9e66c8a7f85c515c22d50ce25c89ba))
+* **api:** update via SDK Studio ([#20](https://github.com/writer/writer-node/issues/20)) ([4f863a4](https://github.com/writer/writer-node/commit/4f863a424f73ec65d7075450de05f1fafbda22a6))
+* **api:** update via SDK Studio ([#21](https://github.com/writer/writer-node/issues/21)) ([19a6a2c](https://github.com/writer/writer-node/commit/19a6a2cc64b7f9900cead093521b5b6c3d17c29f))
+* **api:** update via SDK Studio ([#24](https://github.com/writer/writer-node/issues/24)) ([04c9642](https://github.com/writer/writer-node/commit/04c964230fb0a45b01bac545f1c3e4f5a0a1a7e9))
+
+
+### Chores
+
+* **internal:** version bump ([#9](https://github.com/writer/writer-node/issues/9)) ([e8cc802](https://github.com/writer/writer-node/commit/e8cc8027b3ae9a9c7e25e932bb5815758b923017))
+
 ## 0.1.2 (2024-06-05)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.2](https://github.com/writerai/writer-node/compare/v0.1.0-alpha.1...v0.1.2)
