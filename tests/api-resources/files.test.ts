@@ -92,7 +92,6 @@ describe('resource files', () => {
     const responsePromise = writer.files.upload({
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
       'Content-Disposition': 'Content-Disposition',
-      'Content-Length': 0,
       'Content-Type': 'Content-Type',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -109,7 +108,6 @@ describe('resource files', () => {
     const response = await writer.files.upload({
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
       'Content-Disposition': 'Content-Disposition',
-      'Content-Length': 0,
       'Content-Type': 'Content-Type',
     });
   });
