@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2024-07-16)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/writer/writer-node/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* fix(api/files): remove unintentional Content-Length header param ([00aa0e8](https://github.com/writer/writer-node/commit/00aa0e8d85f8c90d2923f506f650cb93dc8c1438))
+
 ## 0.2.0 (2024-07-15)
 
 Full Changelog: [v0.1.2...v0.2.0](https://github.com/writer/writer-node/compare/v0.1.2...v0.2.0)
