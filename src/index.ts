@@ -142,6 +142,7 @@ export class Writer extends Core.APIClient {
   }
 
   static Writer = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static WriterError = Errors.WriterError;
   static APIError = Errors.APIError;
