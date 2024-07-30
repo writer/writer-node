@@ -3,14 +3,14 @@
 import Writer from 'writer-sdk';
 import { Response } from 'node-fetch';
 
-const writer = new Writer({
+const client = new Writer({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource chat', () => {
   test('chat: only required params', async () => {
-    const responsePromise = writer.chat.chat({
+    const responsePromise = client.chat.chat({
       messages: [{ content: 'content', role: 'user' }],
       model: 'model',
     });
@@ -24,7 +24,7 @@ describe('resource chat', () => {
   });
 
   test('chat: required and optional params', async () => {
-    const response = await writer.chat.chat({
+    const response = await client.chat.chat({
       messages: [{ content: 'content', role: 'user', name: 'name' }],
       model: 'model',
       max_tokens: 0,
