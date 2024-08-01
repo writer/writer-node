@@ -74,7 +74,7 @@ const client = new Writer({
 
 async function main() {
   const params: Writer.ChatChatParams = {
-    messages: [{ content: 'string', role: 'user' }],
+    messages: [{ content: 'content', role: 'user' }],
     model: 'palmyra-x-002-32k',
   };
   const chat: Writer.Chat = await client.chat.chat(params);
@@ -95,7 +95,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chat = await client.chat
-    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -139,7 +139,7 @@ const client = new Writer({
 });
 
 // Or, configure per-request:
-await client.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' }, {
+await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   maxRetries: 5,
 });
 ```
