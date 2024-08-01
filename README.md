@@ -49,7 +49,7 @@ const client = new Writer();
 
 const stream = await client.completions.create({
   model: 'palmyra-x-002-instruct',
-  prompt: 'Hi, my name is .',
+  prompt: 'Hi, my name is',
   stream: true,
 });
 for await (const streamingData of stream) {
