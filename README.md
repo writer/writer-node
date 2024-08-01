@@ -29,7 +29,7 @@ const client = new Writer({
 async function main() {
   const chat = await client.chat.chat({
     messages: [{ content: 'content', role: 'user' }],
-    model: 'palmyra-x-32k',
+    model: 'palmyra-x-002-32k',
   });
 
   console.log(chat.id);
@@ -48,7 +48,7 @@ import Writer from 'writer-sdk';
 const client = new Writer();
 
 const stream = await client.completions.create({
-  model: 'palmyra-x-32k',
+  model: 'palmyra-x-002-32k',
   prompt: 'Hi, my name is',
   stream: true,
 });
@@ -75,7 +75,7 @@ const client = new Writer({
 async function main() {
   const params: Writer.ChatChatParams = {
     messages: [{ content: 'content', role: 'user' }],
-    model: 'palmyra-x-32k',
+    model: 'palmyra-x-002-32k',
   };
   const chat: Writer.Chat = await client.chat.chat(params);
 }
@@ -95,7 +95,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chat = await client.chat
-    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -139,7 +139,7 @@ const client = new Writer({
 });
 
 // Or, configure per-request:
-await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' }, {
+await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -156,7 +156,7 @@ const client = new Writer({
 });
 
 // Override per-request:
-await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' }, {
+await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -178,13 +178,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const client = new Writer();
 
 const response = await client.chat
-  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chat, response: raw } = await client.chat
-  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chat.id);
@@ -292,7 +292,7 @@ const client = new Writer({
 
 // Override per-request:
 await client.chat.chat(
-  { messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' },
+  { messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
