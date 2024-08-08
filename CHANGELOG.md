@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.4.0 (2024-08-08)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/writer/writer-node/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** added method to generate applications content ([#43](https://github.com/writer/writer-node/issues/43)) ([09b2657](https://github.com/writer/writer-node/commit/09b26572e0b66f490cb5fef0ee3f0c0250ae9142))
+* **api:** update via SDK Studio ([#37](https://github.com/writer/writer-node/issues/37)) ([978cf26](https://github.com/writer/writer-node/commit/978cf26ddca6e10cccbb36fb0a7e0eaa44ae367b))
+* **api:** update via SDK Studio ([#41](https://github.com/writer/writer-node/issues/41)) ([6e08bc0](https://github.com/writer/writer-node/commit/6e08bc0d85946bda11b397bb647f32595992d322))
+* **api:** update via SDK Studio ([#42](https://github.com/writer/writer-node/issues/42)) ([2c54f4a](https://github.com/writer/writer-node/commit/2c54f4a8975a92d169beff5dbd9b096f7999e7b5))
+
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#33](https://github.com/writer/writer-node/issues/33)) ([2dac835](https://github.com/writer/writer-node/commit/2dac83558310169906d1057ad08f80ae9ec81272))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#34](https://github.com/writer/writer-node/issues/34)) ([186a9d9](https://github.com/writer/writer-node/commit/186a9d9816a8b1021203958aeaebc5954ce95c25))
+* **internal:** add constant for default timeout ([#36](https://github.com/writer/writer-node/issues/36)) ([b4220e2](https://github.com/writer/writer-node/commit/b4220e2d2ad266040c753b4c42f1f0da1a51a166))
+* **internal:** codegen related update ([#31](https://github.com/writer/writer-node/issues/31)) ([c3ba095](https://github.com/writer/writer-node/commit/c3ba0959665d5604bc963b16c6ab71f738686504))
+* **internal:** version bump ([#28](https://github.com/writer/writer-node/issues/28)) ([254dd3c](https://github.com/writer/writer-node/commit/254dd3cc6595271fc239b42e2a8d2ebb683f7a9a))
+* **tests:** update prism version ([#32](https://github.com/writer/writer-node/issues/32)) ([6ea2f59](https://github.com/writer/writer-node/commit/6ea2f5920f53502b6ba5e0b7530aa22b0a1a620a))
+
 ## 0.3.0 (2024-07-16)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/writer/writer-node/compare/v0.2.0...v0.3.0)
