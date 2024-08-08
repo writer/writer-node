@@ -120,6 +120,7 @@ export class Writer extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
+  applications: API.Applications = new API.Applications(this);
   chat: API.ChatResource = new API.ChatResource(this);
   completions: API.Completions = new API.Completions(this);
   models: API.Models = new API.Models(this);
@@ -187,6 +188,10 @@ export namespace Writer {
   export import CursorPage = Pagination.CursorPage;
   export import CursorPageParams = Pagination.CursorPageParams;
   export import CursorPageResponse = Pagination.CursorPageResponse;
+
+  export import Applications = API.Applications;
+  export import ApplicationGenerateContentResponse = API.ApplicationGenerateContentResponse;
+  export import ApplicationGenerateContentParams = API.ApplicationGenerateContentParams;
 
   export import ChatResource = API.ChatResource;
   export import Chat = API.Chat;
