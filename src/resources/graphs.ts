@@ -82,19 +82,19 @@ export class GraphsCursorPage extends CursorPage<Graph> {}
 
 export interface Graph {
   /**
-   * A unique identifier of the file.
+   * A unique identifier of the graph.
    */
   id: string;
 
   /**
-   * The timestamp when the file was created.
+   * The timestamp when the graph was created.
    */
   created_at: string;
 
   file_status: Graph.FileStatus;
 
   /**
-   * The name of the file.
+   * The name of the graph.
    */
   name: string;
 
@@ -140,12 +140,12 @@ export interface GraphCreateResponse {
   created_at: string;
 
   /**
-   * The name of the graph.
+   * The name of the graph. This can be at most 255 characters.
    */
   name: string;
 
   /**
-   * A description of the graph.
+   * A description of the graph. This can be at most 255 characters.
    */
   description?: string;
 }
@@ -162,29 +162,17 @@ export interface GraphUpdateResponse {
   created_at: string;
 
   /**
-   * The name of the graph.
+   * The name of the graph. This can be at most 255 characters.
    */
   name: string;
 
   /**
-   * A description of the graph.
+   * A description of the graph. This can be at most 255 characters.
    */
   description?: string;
 }
 
 export interface GraphDeleteResponse {
-  /**
-   * A unique identifier of the deleted file.
-   */
-  id: string;
-
-  /**
-   * Indicates whether the file was successfully deleted.
-   */
-  deleted: boolean;
-}
-
-export interface GraphRemoveFileFromGraphResponse {
   /**
    * A unique identifier of the deleted graph.
    */
@@ -196,28 +184,40 @@ export interface GraphRemoveFileFromGraphResponse {
   deleted: boolean;
 }
 
-export interface GraphCreateParams {
+export interface GraphRemoveFileFromGraphResponse {
   /**
-   * The name of the graph.
+   * A unique identifier of the deleted file.
    */
-  name: string;
+  id: string;
 
   /**
-   * A description of the graph.
+   * Indicates whether the file was successfully deleted.
+   */
+  deleted: boolean;
+}
+
+export interface GraphCreateParams {
+  /**
+   * A description of the graph. This can be at most 255 characters.
    */
   description?: string;
+
+  /**
+   * The name of the graph. This can be at most 255 characters.
+   */
+  name?: string;
 }
 
 export interface GraphUpdateParams {
   /**
-   * The name of the graph.
-   */
-  name: string;
-
-  /**
-   * A description of the graph.
+   * A description of the graph. This can be at most 255 characters.
    */
   description?: string;
+
+  /**
+   * The name of the graph. This can be at most 255 characters.
+   */
+  name?: string;
 }
 
 export interface GraphListParams extends CursorPageParams {
