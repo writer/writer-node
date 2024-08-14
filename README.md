@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Writer REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on dev.writer.com](https://dev.writer.com/api-guides/introduction). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [dev.writer.com](https://dev.writer.com/api-guides/introduction). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
@@ -22,13 +22,13 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Writer from 'writer-sdk';
 
-const writer = new Writer({
+const client = new Writer({
   apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
-  const chat = await writer.chat.chat({
-    messages: [{ content: 'string', role: 'user' }],
+  const chat = await client.chat.chat({
+    messages: [{ content: 'content', role: 'user' }],
     model: 'palmyra-x-002-32k',
   });
 
@@ -45,9 +45,9 @@ We provide support for streaming responses using Server Sent Events (SSE).
 ```ts
 import Writer from 'writer-sdk';
 
-const writer = new Writer();
+const client = new Writer();
 
-const stream = await writer.completions.create({
+const stream = await client.completions.create({
   model: 'palmyra-x-002-instruct',
   prompt: 'Hi, my name is',
   stream: true,
@@ -68,16 +68,16 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Writer from 'writer-sdk';
 
-const writer = new Writer({
+const client = new Writer({
   apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
 async function main() {
   const params: Writer.ChatChatParams = {
-    messages: [{ content: 'string', role: 'user' }],
+    messages: [{ content: 'content', role: 'user' }],
     model: 'palmyra-x-002-32k',
   };
-  const chat: Writer.Chat = await writer.chat.chat(params);
+  const chat: Writer.Chat = await client.chat.chat(params);
 }
 
 main();
@@ -94,8 +94,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chat = await writer.chat
-    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-32k' })
+  const chat = await client.chat
+    .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -134,12 +134,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const writer = new Writer({
+const client = new Writer({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await writer.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' }, {
+await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   maxRetries: 5,
 });
 ```
@@ -151,12 +151,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const writer = new Writer({
+const client = new Writer({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await writer.chat.chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' }, {
+await client.chat.chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -175,16 +175,16 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const writer = new Writer();
+const client = new Writer();
 
-const response = await writer.chat
-  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' })
+const response = await client.chat
+  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chat, response: raw } = await writer.chat
-  .chat({ messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' })
+const { data: chat, response: raw } = await client.chat
+  .chat({ messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chat.id);
@@ -286,13 +286,13 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const writer = new Writer({
+const client = new Writer({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await writer.chat.chat(
-  { messages: [{ content: 'string', role: 'user' }], model: 'palmyra-x-002-32k' },
+await client.chat.chat(
+  { messages: [{ content: 'content', role: 'user' }], model: 'palmyra-x-002-32k' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
@@ -316,14 +316,6 @@ We are keen for your feedback; please open an [issue](https://www.github.com/wri
 TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
-
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import Writer from "npm:writer-sdk"`.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 

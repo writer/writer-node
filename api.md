@@ -1,3 +1,13 @@
+# Applications
+
+Types:
+
+- <code><a href="./src/resources/applications.ts">ApplicationGenerateContentResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications.ts">generateContent</a>(applicationId, { ...params }) -> ApplicationGenerateContentResponse</code>
+
 # Chat
 
 Types:

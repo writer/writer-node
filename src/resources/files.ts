@@ -48,12 +48,12 @@ export class Files extends APIResource {
    * Upload file
    */
   upload(params: FileUploadParams, options?: Core.RequestOptions): Core.APIPromise<File> {
-    const { content, 'Content-Disposition': contentDisposition, 'Content-Type': contentType } = params;
+    const { content, 'Content-Disposition': contentDisposition } = params;
     return this._client.post('/v1/files', {
       body: content,
       ...options,
       headers: {
-        'Content-Type': contentType,
+        'Content-Type': 'text/plain',
         'Content-Disposition': contentDisposition,
         ...options?.headers,
       },
@@ -66,12 +66,12 @@ export class FilesCursorPage extends CursorPage<File> {}
 
 export interface File {
   /**
-   * A unique identifier of the graph.
+   * A unique identifier of the file.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the file was uploaded.
    */
   created_at: string;
 
@@ -81,19 +81,19 @@ export interface File {
   graph_ids: Array<string>;
 
   /**
-   * The name of the graph.
+   * The name of the file.
    */
   name: string;
 }
 
 export interface FileDeleteResponse {
   /**
-   * A unique identifier of the deleted graph.
+   * A unique identifier of the deleted file.
    */
   id: string;
 
   /**
-   * Indicates whether the graph was successfully deleted.
+   * Indicates whether the file was successfully deleted.
    */
   deleted: boolean;
 }
@@ -128,11 +128,6 @@ export interface FileUploadParams {
    * form-data name.
    */
   'Content-Disposition': string;
-
-  /**
-   * Header param: The MIME type of the file being uploaded.
-   */
-  'Content-Type': string;
 }
 
 export namespace Files {

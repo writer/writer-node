@@ -3,14 +3,14 @@
 import Writer from 'writer-sdk';
 import { Response } from 'node-fetch';
 
-const writer = new Writer({
+const client = new Writer({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource graphs', () => {
-  test('create: only required params', async () => {
-    const responsePromise = writer.graphs.create({ name: 'name' });
+  test('create', async () => {
+    const responsePromise = client.graphs.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,12 +20,8 @@ describe('resource graphs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('create: required and optional params', async () => {
-    const response = await writer.graphs.create({ name: 'name', description: 'description' });
-  });
-
   test('retrieve', async () => {
-    const responsePromise = writer.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -38,12 +34,12 @@ describe('resource graphs', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      writer.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Writer.NotFoundError);
   });
 
-  test('update: only required params', async () => {
-    const responsePromise = writer.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { name: 'name' });
+  test('update', async () => {
+    const responsePromise = client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -53,15 +49,8 @@ describe('resource graphs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('update: required and optional params', async () => {
-    const response = await writer.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      name: 'name',
-      description: 'description',
-    });
-  });
-
   test('list', async () => {
-    const responsePromise = writer.graphs.list();
+    const responsePromise = client.graphs.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,7 +62,7 @@ describe('resource graphs', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(writer.graphs.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.graphs.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Writer.NotFoundError,
     );
   });
@@ -81,7 +70,7 @@ describe('resource graphs', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      writer.graphs.list(
+      client.graphs.list(
         {
           after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -94,7 +83,7 @@ describe('resource graphs', () => {
   });
 
   test('delete', async () => {
-    const responsePromise = writer.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -107,12 +96,12 @@ describe('resource graphs', () => {
   test('delete: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      writer.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Writer.NotFoundError);
   });
 
   test('addFileToGraph: only required params', async () => {
-    const responsePromise = writer.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       file_id: 'file_id',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -125,13 +114,13 @@ describe('resource graphs', () => {
   });
 
   test('addFileToGraph: required and optional params', async () => {
-    const response = await writer.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       file_id: 'file_id',
     });
   });
 
   test('removeFileFromGraph', async () => {
-    const responsePromise = writer.graphs.removeFileFromGraph(
+    const responsePromise = client.graphs.removeFileFromGraph(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       'file_id',
     );
@@ -147,7 +136,7 @@ describe('resource graphs', () => {
   test('removeFileFromGraph: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      writer.graphs.removeFileFromGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'file_id', {
+      client.graphs.removeFileFromGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'file_id', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Writer.NotFoundError);
