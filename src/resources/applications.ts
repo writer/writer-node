@@ -18,8 +18,14 @@ export class Applications extends APIResource {
 }
 
 export interface ApplicationGenerateContentResponse {
+  /**
+   * The response from the model specified in the application.
+   */
   suggestion: string;
 
+  /**
+   * The name of the output field.
+   */
   title?: string;
 }
 
@@ -29,8 +35,19 @@ export interface ApplicationGenerateContentParams {
 
 export namespace ApplicationGenerateContentParams {
   export interface Input {
+    /**
+     * The unique identifier for the input field from the application. All input types
+     * from the No-code application are supported (i.e. Text input, Dropdown, File
+     * upload, Image input). The identifier should be the name of the input type.
+     */
     id: string;
 
+    /**
+     * The value for the input field. If file is required you will need to pass a
+     * `file_id`. See
+     * [here](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
+     * for the Files API.
+     */
     value: Array<string>;
   }
 }
