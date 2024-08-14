@@ -67,6 +67,19 @@ export class Graphs extends APIResource {
   }
 
   /**
+   * Upload and add file to graph
+   */
+  uploadAndAddFileToGraph(
+    graphId: string,
+    params: FilesAPI.FileUploadParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<FilesAPI.File> {
+    return this._client.files.upload(params, options).then((uploadedFile) => {
+      return this.addFileToGraph(graphId, { file_id: uploadedFile.id }, options) as Core.APIPromise<FilesAPI.File>;
+    }) as Core.APIPromise<FilesAPI.File>;
+  }
+
+  /**
    * Remove file from graph
    */
   removeFileFromGraph(
