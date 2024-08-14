@@ -48,12 +48,12 @@ export class Files extends APIResource {
    * Upload file
    */
   upload(params: FileUploadParams, options?: Core.RequestOptions): Core.APIPromise<File> {
-    const { content, 'Content-Disposition': contentDisposition, 'Content-Type': contentType } = params;
+    const { content, 'Content-Disposition': contentDisposition } = params;
     return this._client.post('/v1/files', {
       body: content,
       ...options,
       headers: {
-        'Content-Type': contentType,
+        'Content-Type': 'text/plain',
         'Content-Disposition': contentDisposition,
         ...options?.headers,
       },
@@ -128,11 +128,6 @@ export interface FileUploadParams {
    * form-data name.
    */
   'Content-Disposition': string;
-
-  /**
-   * Header param: The MIME type of the file being uploaded.
-   */
-  'Content-Type': string;
 }
 
 export namespace Files {
