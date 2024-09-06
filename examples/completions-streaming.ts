@@ -8,10 +8,10 @@
 // $ yarn
 // $ WRITERAI_API_KEY="<your api key>" yarn tsn examples/completions_streaming.py
 
-import { WriterAI } from '../src';
+import { Writer } from '../src';
 
 async function main() {
-  const client = new WriterAI();
+  const client = new Writer();
 
   console.log('Supported models:');
   const { models } = await client.models.list();
