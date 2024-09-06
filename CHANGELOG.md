@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.1 (2024-09-06)
+
+Full Changelog: [v0.4.0...v0.4.1](https://github.com/writer/writer-node/compare/v0.4.0...v0.4.1)
+
+### Bug Fixes
+
+* **uploads:** avoid making redundant memory copies ([#55](https://github.com/writer/writer-node/issues/55)) ([f864fb3](https://github.com/writer/writer-node/commit/f864fb33da970311e3ef32cac083ba5543fe6a7c))
+
+
+### Chores
+
+* **internal:** codegen related update ([#51](https://github.com/writer/writer-node/issues/51)) ([fcebf50](https://github.com/writer/writer-node/commit/fcebf50518f24dd765d675b94afd3937ac66dd5b))
+* **internal:** dependency updates ([#53](https://github.com/writer/writer-node/issues/53)) ([ab3c399](https://github.com/writer/writer-node/commit/ab3c399044f36aa74f21148770869c034c4185ab))
+* Update completions-streaming.ts ([303a7b4](https://github.com/writer/writer-node/commit/303a7b434686bed3e8b2ac4ddc68daa329ecf804))
+
 ## 0.4.0 (2024-08-14)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/writer/writer-node/compare/v0.3.0...v0.4.0)
