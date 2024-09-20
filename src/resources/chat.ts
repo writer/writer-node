@@ -57,7 +57,7 @@ export namespace Chat {
      * reasons include 'length' (reached the maximum output size), 'stop' (encountered
      * a stop sequence), or 'content_filter' (harmful content filtered out).
      */
-    finish_reason: 'stop' | 'length' | 'content_filter';
+    finish_reason: 'stop' | 'length' | 'content_filter' | 'tool_calls';
 
     message: Choice.Message;
   }
@@ -76,6 +76,28 @@ export namespace Chat {
        * output within the interaction flow.
        */
       role: 'user' | 'assistant' | 'system';
+
+      tool_calls?: Array<Message.ToolCall>;
+    }
+
+    export namespace Message {
+      export interface ToolCall {
+        id?: string;
+
+        function?: ToolCall.Function;
+
+        index?: number;
+
+        type?: string;
+      }
+
+      export namespace ToolCall {
+        export interface Function {
+          arguments?: string;
+
+          name?: string;
+        }
+      }
     }
   }
 }
@@ -95,7 +117,7 @@ export interface ChatChatParamsBase {
 
   /**
    * Specifies the model to be used for generating responses. The chat model is
-   * always `palmyra-x-002-32k` for conversational use.
+   * always `palmyra-x-004` for conversational use.
    */
   model: string;
 
@@ -135,6 +157,19 @@ export interface ChatChatParamsBase {
   temperature?: number;
 
   /**
+   * Configure how the model will call functions: `auto` will allow the model to
+   * automatically choose the best tool, `none` disables tool calling. You can also
+   * pass a specific previously defined function as a string.
+   */
+  tool_choice?: ChatChatParams.JsonObjectToolChoice | ChatChatParams.StringToolChoice;
+
+  /**
+   * An array of tools described to the model using JSON schema that the model can
+   * use to generate responses.
+   */
+  tools?: Array<ChatChatParams.Tool>;
+
+  /**
    * Sets the threshold for "nucleus sampling," a technique to focus the model's
    * token generation on the most likely subset of tokens. Only tokens with
    * cumulative probability above this threshold are considered, controlling the
@@ -150,6 +185,30 @@ export namespace ChatChatParams {
     role: 'user' | 'assistant' | 'system';
 
     name?: string;
+  }
+
+  export interface JsonObjectToolChoice {
+    value: unknown;
+  }
+
+  export interface StringToolChoice {
+    value: 'none' | 'auto' | 'required';
+  }
+
+  export interface Tool {
+    function: Tool.Function;
+
+    type: string;
+  }
+
+  export namespace Tool {
+    export interface Function {
+      name: string;
+
+      description?: string;
+
+      parameters?: unknown;
+    }
   }
 
   export type ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
