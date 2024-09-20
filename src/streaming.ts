@@ -1,7 +1,7 @@
 import { ReadableStream, type Response } from './_shims/index';
 import { WriterError } from './error';
 
-import { safeJSON, createResponseHeaders } from 'writer-sdk/core';
+import { createResponseHeaders } from 'writer-sdk/core';
 import { APIError } from 'writer-sdk/error';
 
 type Bytes = string | ArrayBuffer | Uint8Array | Buffer | null | undefined;
@@ -44,11 +44,12 @@ export class Stream<Item> implements AsyncIterable<Item> {
           }
 
           if (sse.event === 'error') {
-            const errText = sse.data;
-            const errJSON = safeJSON(errText);
-            const errMessage = errJSON ? undefined : errText;
-
-            throw APIError.generate(undefined, errJSON, errMessage, createResponseHeaders(response.headers));
+            throw APIError.generate(
+              undefined,
+              `SSE Error: ${sse.data}`,
+              sse.data,
+              createResponseHeaders(response.headers),
+            );
           }
         }
         done = true;
