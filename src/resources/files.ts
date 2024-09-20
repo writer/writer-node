@@ -84,6 +84,11 @@ export interface File {
    * The name of the file.
    */
   name: string;
+
+  /**
+   * The processing status of the file.
+   */
+  status: string;
 }
 
 export interface FileDeleteResponse {
@@ -115,6 +120,12 @@ export interface FileListParams extends CursorPageParams {
    * for descending.
    */
   order?: 'asc' | 'desc';
+
+  /**
+   * Specifies the status of the files to retrieve. Valid values are in_progress,
+   * completed or failed.
+   */
+  status?: 'in_progress' | 'completed' | 'failed';
 }
 
 export interface FileUploadParams {
@@ -125,7 +136,8 @@ export interface FileUploadParams {
 
   /**
    * Header param: The disposition type of the file, typically used to indicate the
-   * form-data name.
+   * form-data name. Use `attachment` with the filename parameter to specify the name
+   * of the file, for example: `attachment; filename="example.pdf"`.
    */
   'Content-Disposition': string;
 }

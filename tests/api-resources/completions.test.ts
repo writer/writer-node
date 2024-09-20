@@ -11,7 +11,7 @@ const client = new Writer({
 describe('resource completions', () => {
   test('create: only required params', async () => {
     const responsePromise = client.completions.create({
-      model: 'palmyra-x-002-instruct',
+      model: 'palmyra-x-003-instruct',
       prompt: 'Write me an SEO article about...',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,7 +25,7 @@ describe('resource completions', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.completions.create({
-      model: 'palmyra-x-002-instruct',
+      model: 'palmyra-x-003-instruct',
       prompt: 'Write me an SEO article about...',
       best_of: 1,
       max_tokens: 150,
