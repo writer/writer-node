@@ -11,8 +11,8 @@ const client = new Writer({
 describe('resource chat', () => {
   test('chat: only required params', async () => {
     const responsePromise = client.chat.chat({
-      messages: [{ content: 'content', role: 'user' }],
-      model: 'model',
+      messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
+      model: 'palmyra-x-004',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -25,13 +25,19 @@ describe('resource chat', () => {
 
   test('chat: required and optional params', async () => {
     const response = await client.chat.chat({
-      messages: [{ content: 'content', role: 'user', name: 'name' }],
-      model: 'model',
+      messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user', name: 'name' }],
+      model: 'palmyra-x-004',
       max_tokens: 0,
       n: 0,
       stop: ['string', 'string', 'string'],
       stream: false,
       temperature: 0,
+      tool_choice: { value: {} },
+      tools: [
+        { function: { name: 'name', description: 'description', parameters: {} }, type: 'type' },
+        { function: { name: 'name', description: 'description', parameters: {} }, type: 'type' },
+        { function: { name: 'name', description: 'description', parameters: {} }, type: 'type' },
+      ],
       top_p: 0,
     });
   });
