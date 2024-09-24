@@ -32,12 +32,6 @@ describe('resource chat', () => {
       stop: ['string', 'string', 'string'],
       stream: false,
       temperature: 0,
-      tool_choice: { value: {} },
-      tools: [
-        { function: { name: 'name', description: 'description', parameters: {} }, type: 'type' },
-        { function: { name: 'name', description: 'description', parameters: {} }, type: 'type' },
-        { function: { name: 'name', description: 'description', parameters: {} }, type: 'type' },
-      ],
       top_p: 0,
     });
   });
