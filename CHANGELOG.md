@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.5.0 (2024-09-24)
+
+Full Changelog: [v0.4.1...v0.5.0](https://github.com/writer/writer-node/compare/v0.4.1...v0.5.0)
+
+### Features
+
+* **api:** manual updates ([#62](https://github.com/writer/writer-node/issues/62)) ([d9dedc4](https://github.com/writer/writer-node/commit/d9dedc400a225420ef23bbd2bc0077a1cac59ba5))
+* **api:** manual updates ([#64](https://github.com/writer/writer-node/issues/64)) ([d072c4d](https://github.com/writer/writer-node/commit/d072c4d279ee25087b282404a097fa80a1f7d17c))
+* **client:** send retry count header ([#61](https://github.com/writer/writer-node/issues/61)) ([c0a3dde](https://github.com/writer/writer-node/commit/c0a3ddebb34f34567f01951f39bee1a144e2d05a))
+
+
+### Bug Fixes
+
+* **lint:** format ([032bc59](https://github.com/writer/writer-node/commit/032bc59490e65b17137e26d965e481290fc2e526))
+* **types:** remove leftover polyfill usage ([#60](https://github.com/writer/writer-node/issues/60)) ([043939d](https://github.com/writer/writer-node/commit/043939d96fdd8179fc56ff3b3ed48f37a91d724e))
+
+
+### Chores
+
+* **internal:** codegen related update ([#58](https://github.com/writer/writer-node/issues/58)) ([0b0a85d](https://github.com/writer/writer-node/commit/0b0a85d7d4be783fbd9a674ed1d3bc961e313b94))
+
+
+### Documentation
+
+* **api:** updates to API spec ([#57](https://github.com/writer/writer-node/issues/57)) ([73dddc8](https://github.com/writer/writer-node/commit/73dddc829bc31141415005a762b0a3c16d1a852a))
+* **api:** updates to API spec ([#63](https://github.com/writer/writer-node/issues/63)) ([50a86f4](https://github.com/writer/writer-node/commit/50a86f4593fbcff313397279b32bb5ceb24fd471))
+
 ## 0.4.1 (2024-09-06)
 
 Full Changelog: [v0.4.0...v0.4.1](https://github.com/writer/writer-node/compare/v0.4.0...v0.4.1)
