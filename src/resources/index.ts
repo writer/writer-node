@@ -21,17 +21,28 @@ export {
   CompletionCreateParamsStreaming,
   Completions,
 } from './completions';
-export { File, FileDeleteResponse, FileListParams, FileUploadParams, FilesCursorPage, Files } from './files';
+export {
+  File,
+  FileDeleteResponse,
+  FileRetryResponse,
+  FileListParams,
+  FileRetryParams,
+  FileUploadParams,
+  FilesCursorPage,
+  Files,
+} from './files';
 export {
   Graph,
   GraphCreateResponse,
   GraphUpdateResponse,
   GraphDeleteResponse,
+  GraphQuestionResponse,
   GraphRemoveFileFromGraphResponse,
   GraphCreateParams,
   GraphUpdateParams,
   GraphListParams,
   GraphAddFileToGraphParams,
+  GraphQuestionParams,
   GraphsCursorPage,
   Graphs,
 } from './graphs';

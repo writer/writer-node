@@ -45,6 +45,13 @@ export class Files extends APIResource {
   }
 
   /**
+   * Retry failed files
+   */
+  retry(body: FileRetryParams, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+    return this._client.post('/v1/files/retry', { body, ...options });
+  }
+
+  /**
    * Upload file
    */
   upload(params: FileUploadParams, options?: Core.RequestOptions): Core.APIPromise<File> {
@@ -103,6 +110,8 @@ export interface FileDeleteResponse {
   deleted: boolean;
 }
 
+export type FileRetryResponse = unknown;
+
 export interface FileListParams extends CursorPageParams {
   /**
    * The unique identifier of the graph to which the files belong.
@@ -128,6 +137,13 @@ export interface FileListParams extends CursorPageParams {
   status?: 'in_progress' | 'completed' | 'failed';
 }
 
+export interface FileRetryParams {
+  /**
+   * The unique identifier of the files to be retried.
+   */
+  file_ids: Array<string>;
+}
+
 export interface FileUploadParams {
   /**
    * Body param:
@@ -145,7 +161,9 @@ export interface FileUploadParams {
 export namespace Files {
   export import File = FilesAPI.File;
   export import FileDeleteResponse = FilesAPI.FileDeleteResponse;
+  export import FileRetryResponse = FilesAPI.FileRetryResponse;
   export import FilesCursorPage = FilesAPI.FilesCursorPage;
   export import FileListParams = FilesAPI.FileListParams;
+  export import FileRetryParams = FilesAPI.FileRetryParams;
   export import FileUploadParams = FilesAPI.FileUploadParams;
 }

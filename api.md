@@ -48,6 +48,7 @@ Types:
 - <code><a href="./src/resources/graphs.ts">GraphCreateResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphUpdateResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphDeleteResponse</a></code>
+- <code><a href="./src/resources/graphs.ts">GraphQuestionResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphRemoveFileFromGraphResponse</a></code>
 
 Methods:
@@ -58,6 +59,7 @@ Methods:
 - <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphsCursorPage</code>
 - <code title="delete /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">delete</a>(graphId) -> GraphDeleteResponse</code>
 - <code title="post /v1/graphs/{graph_id}/file">client.graphs.<a href="./src/resources/graphs.ts">addFileToGraph</a>(graphId, { ...params }) -> File</code>
+- <code title="post /v1/graphs/question">client.graphs.<a href="./src/resources/graphs.ts">question</a>({ ...params }) -> GraphQuestionResponse</code>
 - <code title="delete /v1/graphs/{graph_id}/file/{file_id}">client.graphs.<a href="./src/resources/graphs.ts">removeFileFromGraph</a>(graphId, fileId) -> GraphRemoveFileFromGraphResponse</code>
 
 # Files
@@ -66,6 +68,7 @@ Types:
 
 - <code><a href="./src/resources/files.ts">File</a></code>
 - <code><a href="./src/resources/files.ts">FileDeleteResponse</a></code>
+- <code><a href="./src/resources/files.ts">FileRetryResponse</a></code>
 
 Methods:
 
@@ -73,4 +76,5 @@ Methods:
 - <code title="get /v1/files">client.files.<a href="./src/resources/files.ts">list</a>({ ...params }) -> FilesCursorPage</code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileId) -> FileDeleteResponse</code>
 - <code title="get /v1/files/{file_id}/download">client.files.<a href="./src/resources/files.ts">download</a>(fileId) -> Response</code>
+- <code title="post /v1/files/retry">client.files.<a href="./src/resources/files.ts">retry</a>({ ...params }) -> unknown</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>
