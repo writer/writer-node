@@ -82,7 +82,7 @@ export class Graphs extends APIResource {
       ) as Core.APIPromise<FilesAPI.File>;
     }) as Core.APIPromise<FilesAPI.File>;
   }
-  
+
   /**
    * Knowledge Graph question
    */
