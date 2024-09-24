@@ -8,7 +8,7 @@ import { Stream } from '../streaming';
 
 export class ChatResource extends APIResource {
   /**
-   * Chat completion
+   * Chat completion v2
    */
   chat(body: ChatChatParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Chat>;
   chat(body: ChatChatParamsStreaming, options?: Core.RequestOptions): APIPromise<Stream<ChatStreamingData>>;
