@@ -55,6 +55,7 @@ describe('resource files', () => {
           graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
           order: 'asc',
+          status: 'in_progress',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -85,6 +86,33 @@ describe('resource files', () => {
     await expect(client.files.download('file_id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Writer.NotFoundError,
     );
+  });
+
+  test('retry: only required params', async () => {
+    const responsePromise = client.files.retry({
+      file_ids: [
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      ],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retry: required and optional params', async () => {
+    const response = await client.files.retry({
+      file_ids: [
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      ],
+    });
   });
 
   // requests with binary data not yet supported in test environment

@@ -45,6 +45,13 @@ export class Files extends APIResource {
   }
 
   /**
+   * Retry failed files
+   */
+  retry(body: FileRetryParams, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+    return this._client.post('/v1/files/retry', { body, ...options });
+  }
+
+  /**
    * Upload file
    */
   upload(params: FileUploadParams, options?: Core.RequestOptions): Core.APIPromise<File> {
@@ -84,6 +91,11 @@ export interface File {
    * The name of the file.
    */
   name: string;
+
+  /**
+   * The processing status of the file.
+   */
+  status: string;
 }
 
 export interface FileDeleteResponse {
@@ -97,6 +109,8 @@ export interface FileDeleteResponse {
    */
   deleted: boolean;
 }
+
+export type FileRetryResponse = unknown;
 
 export interface FileListParams extends CursorPageParams {
   /**
@@ -115,6 +129,19 @@ export interface FileListParams extends CursorPageParams {
    * for descending.
    */
   order?: 'asc' | 'desc';
+
+  /**
+   * Specifies the status of the files to retrieve. Valid values are in_progress,
+   * completed or failed.
+   */
+  status?: 'in_progress' | 'completed' | 'failed';
+}
+
+export interface FileRetryParams {
+  /**
+   * The unique identifier of the files to be retried.
+   */
+  file_ids: Array<string>;
 }
 
 export interface FileUploadParams {
@@ -125,7 +152,8 @@ export interface FileUploadParams {
 
   /**
    * Header param: The disposition type of the file, typically used to indicate the
-   * form-data name.
+   * form-data name. Use `attachment` with the filename parameter to specify the name
+   * of the file, for example: `attachment; filename="example.pdf"`.
    */
   'Content-Disposition': string;
 }
@@ -133,7 +161,9 @@ export interface FileUploadParams {
 export namespace Files {
   export import File = FilesAPI.File;
   export import FileDeleteResponse = FilesAPI.FileDeleteResponse;
+  export import FileRetryResponse = FilesAPI.FileRetryResponse;
   export import FilesCursorPage = FilesAPI.FilesCursorPage;
   export import FileListParams = FilesAPI.FileListParams;
+  export import FileRetryParams = FilesAPI.FileRetryParams;
   export import FileUploadParams = FilesAPI.FileUploadParams;
 }

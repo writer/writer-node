@@ -95,7 +95,7 @@ export interface ChatChatParamsBase {
 
   /**
    * Specifies the model to be used for generating responses. The chat model is
-   * always `palmyra-x-002-32k` for conversational use.
+   * always `palmyra-x-004` for conversational use.
    */
   model: string;
 
