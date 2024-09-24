@@ -215,18 +215,22 @@ export namespace Writer {
   export import GraphCreateResponse = API.GraphCreateResponse;
   export import GraphUpdateResponse = API.GraphUpdateResponse;
   export import GraphDeleteResponse = API.GraphDeleteResponse;
+  export import GraphQuestionResponse = API.GraphQuestionResponse;
   export import GraphRemoveFileFromGraphResponse = API.GraphRemoveFileFromGraphResponse;
   export import GraphsCursorPage = API.GraphsCursorPage;
   export import GraphCreateParams = API.GraphCreateParams;
   export import GraphUpdateParams = API.GraphUpdateParams;
   export import GraphListParams = API.GraphListParams;
   export import GraphAddFileToGraphParams = API.GraphAddFileToGraphParams;
+  export import GraphQuestionParams = API.GraphQuestionParams;
 
   export import Files = API.Files;
   export import File = API.File;
   export import FileDeleteResponse = API.FileDeleteResponse;
+  export import FileRetryResponse = API.FileRetryResponse;
   export import FilesCursorPage = API.FilesCursorPage;
   export import FileListParams = API.FileListParams;
+  export import FileRetryParams = API.FileRetryParams;
   export import FileUploadParams = API.FileUploadParams;
 }
 

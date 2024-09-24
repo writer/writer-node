@@ -119,6 +119,31 @@ describe('resource graphs', () => {
     });
   });
 
+  test('question: only required params', async () => {
+    const responsePromise = client.graphs.question({
+      graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      question: 'question',
+      stream: true,
+      subqueries: true,
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('question: required and optional params', async () => {
+    const response = await client.graphs.question({
+      graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      question: 'question',
+      stream: true,
+      subqueries: true,
+    });
+  });
+
   test('removeFileFromGraph', async () => {
     const responsePromise = client.graphs.removeFileFromGraph(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

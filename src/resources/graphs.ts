@@ -82,6 +82,13 @@ export class Graphs extends APIResource {
       ) as Core.APIPromise<FilesAPI.File>;
     }) as Core.APIPromise<FilesAPI.File>;
   }
+  
+  /**
+   * Knowledge Graph question
+   */
+  question(body: GraphQuestionParams, options?: Core.RequestOptions): Core.APIPromise<GraphQuestionResponse> {
+    return this._client.post('/v1/graphs/question', { body, ...options });
+  }
 
   /**
    * Remove file from graph
@@ -201,6 +208,64 @@ export interface GraphDeleteResponse {
   deleted: boolean;
 }
 
+export interface GraphQuestionResponse {
+  /**
+   * The answer to the question.
+   */
+  answer: string;
+
+  /**
+   * The question that was asked.
+   */
+  question: string;
+
+  sources: Array<GraphQuestionResponse.Source>;
+
+  subqueries?: Array<GraphQuestionResponse.Subquery>;
+}
+
+export namespace GraphQuestionResponse {
+  export interface Source {
+    /**
+     * The unique identifier of the file.
+     */
+    file_id: string;
+
+    /**
+     * A snippet of text from the source file.
+     */
+    snippet: string;
+  }
+
+  export interface Subquery {
+    /**
+     * The answer to the subquery.
+     */
+    answer: string;
+
+    /**
+     * The subquery that was asked.
+     */
+    query: string;
+
+    sources: Array<Subquery.Source>;
+  }
+
+  export namespace Subquery {
+    export interface Source {
+      /**
+       * The unique identifier of the file.
+       */
+      file_id: string;
+
+      /**
+       * A snippet of text from the source file.
+       */
+      snippet: string;
+    }
+  }
+}
+
 export interface GraphRemoveFileFromGraphResponse {
   /**
    * A unique identifier of the deleted file.
@@ -258,15 +323,41 @@ export interface GraphAddFileToGraphParams {
   file_id: string;
 }
 
+export interface GraphQuestionParams {
+  /**
+   * The unique identifiers of the Knowledge Graphs to be queried.
+   */
+  graph_ids: Array<string>;
+
+  /**
+   * The question to be answered using the Knowledge Graph.
+   */
+  question: string;
+
+  /**
+   * Determines whether the model's output should be streamed. If true, the output is
+   * generated and sent incrementally, which can be useful for real-time
+   * applications.
+   */
+  stream: boolean;
+
+  /**
+   * Specify whether to include subqueries.
+   */
+  subqueries: boolean;
+}
+
 export namespace Graphs {
   export import Graph = GraphsAPI.Graph;
   export import GraphCreateResponse = GraphsAPI.GraphCreateResponse;
   export import GraphUpdateResponse = GraphsAPI.GraphUpdateResponse;
   export import GraphDeleteResponse = GraphsAPI.GraphDeleteResponse;
+  export import GraphQuestionResponse = GraphsAPI.GraphQuestionResponse;
   export import GraphRemoveFileFromGraphResponse = GraphsAPI.GraphRemoveFileFromGraphResponse;
   export import GraphsCursorPage = GraphsAPI.GraphsCursorPage;
   export import GraphCreateParams = GraphsAPI.GraphCreateParams;
   export import GraphUpdateParams = GraphsAPI.GraphUpdateParams;
   export import GraphListParams = GraphsAPI.GraphListParams;
   export import GraphAddFileToGraphParams = GraphsAPI.GraphAddFileToGraphParams;
+  export import GraphQuestionParams = GraphsAPI.GraphQuestionParams;
 }
