@@ -45,10 +45,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/graphs.ts">Graph</a></code>
+- <code><a href="./src/resources/graphs.ts">Question</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphCreateResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphUpdateResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphDeleteResponse</a></code>
-- <code><a href="./src/resources/graphs.ts">GraphQuestionResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphRemoveFileFromGraphResponse</a></code>
 
 Methods:
@@ -59,7 +59,7 @@ Methods:
 - <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphsCursorPage</code>
 - <code title="delete /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">delete</a>(graphId) -> GraphDeleteResponse</code>
 - <code title="post /v1/graphs/{graph_id}/file">client.graphs.<a href="./src/resources/graphs.ts">addFileToGraph</a>(graphId, { ...params }) -> File</code>
-- <code title="post /v1/graphs/question">client.graphs.<a href="./src/resources/graphs.ts">question</a>({ ...params }) -> GraphQuestionResponse</code>
+- <code title="post /v1/graphs/question">client.graphs.<a href="./src/resources/graphs.ts">question</a>({ ...params }) -> Question</code>
 - <code title="delete /v1/graphs/{graph_id}/file/{file_id}">client.graphs.<a href="./src/resources/graphs.ts">removeFileFromGraph</a>(graphId, fileId) -> GraphRemoveFileFromGraphResponse</code>
 
 # Files
