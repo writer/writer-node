@@ -69,7 +69,7 @@ export class Graphs extends APIResource {
   /**
    * Knowledge Graph question
    */
-  question(body: GraphQuestionParams, options?: Core.RequestOptions): Core.APIPromise<GraphQuestionResponse> {
+  question(body: GraphQuestionParams, options?: Core.RequestOptions): Core.APIPromise<Question> {
     return this._client.post('/v1/graphs/question', { body, ...options });
   }
 
@@ -135,6 +135,64 @@ export namespace Graph {
   }
 }
 
+export interface Question {
+  /**
+   * The answer to the question.
+   */
+  answer: string;
+
+  /**
+   * The question that was asked.
+   */
+  question: string;
+
+  sources: Array<Question.Source>;
+
+  subqueries?: Array<Question.Subquery>;
+}
+
+export namespace Question {
+  export interface Source {
+    /**
+     * The unique identifier of the file.
+     */
+    file_id: string;
+
+    /**
+     * A snippet of text from the source file.
+     */
+    snippet: string;
+  }
+
+  export interface Subquery {
+    /**
+     * The answer to the subquery.
+     */
+    answer: string;
+
+    /**
+     * The subquery that was asked.
+     */
+    query: string;
+
+    sources: Array<Subquery.Source>;
+  }
+
+  export namespace Subquery {
+    export interface Source {
+      /**
+       * The unique identifier of the file.
+       */
+      file_id: string;
+
+      /**
+       * A snippet of text from the source file.
+       */
+      snippet: string;
+    }
+  }
+}
+
 export interface GraphCreateResponse {
   /**
    * A unique identifier of the graph.
@@ -189,64 +247,6 @@ export interface GraphDeleteResponse {
    * Indicates whether the graph was successfully deleted.
    */
   deleted: boolean;
-}
-
-export interface GraphQuestionResponse {
-  /**
-   * The answer to the question.
-   */
-  answer: string;
-
-  /**
-   * The question that was asked.
-   */
-  question: string;
-
-  sources: Array<GraphQuestionResponse.Source>;
-
-  subqueries?: Array<GraphQuestionResponse.Subquery>;
-}
-
-export namespace GraphQuestionResponse {
-  export interface Source {
-    /**
-     * The unique identifier of the file.
-     */
-    file_id: string;
-
-    /**
-     * A snippet of text from the source file.
-     */
-    snippet: string;
-  }
-
-  export interface Subquery {
-    /**
-     * The answer to the subquery.
-     */
-    answer: string;
-
-    /**
-     * The subquery that was asked.
-     */
-    query: string;
-
-    sources: Array<Subquery.Source>;
-  }
-
-  export namespace Subquery {
-    export interface Source {
-      /**
-       * The unique identifier of the file.
-       */
-      file_id: string;
-
-      /**
-       * A snippet of text from the source file.
-       */
-      snippet: string;
-    }
-  }
 }
 
 export interface GraphRemoveFileFromGraphResponse {
@@ -332,10 +332,10 @@ export interface GraphQuestionParams {
 
 export namespace Graphs {
   export import Graph = GraphsAPI.Graph;
+  export import Question = GraphsAPI.Question;
   export import GraphCreateResponse = GraphsAPI.GraphCreateResponse;
   export import GraphUpdateResponse = GraphsAPI.GraphUpdateResponse;
   export import GraphDeleteResponse = GraphsAPI.GraphDeleteResponse;
-  export import GraphQuestionResponse = GraphsAPI.GraphQuestionResponse;
   export import GraphRemoveFileFromGraphResponse = GraphsAPI.GraphRemoveFileFromGraphResponse;
   export import GraphsCursorPage = GraphsAPI.GraphsCursorPage;
   export import GraphCreateParams = GraphsAPI.GraphCreateParams;
