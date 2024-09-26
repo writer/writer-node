@@ -33,10 +33,10 @@ export {
 } from './files';
 export {
   Graph,
+  Question,
   GraphCreateResponse,
   GraphUpdateResponse,
   GraphDeleteResponse,
-  GraphQuestionResponse,
   GraphRemoveFileFromGraphResponse,
   GraphCreateParams,
   GraphUpdateParams,
