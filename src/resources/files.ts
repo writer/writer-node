@@ -47,7 +47,7 @@ export class Files extends APIResource {
   /**
    * Retry failed files
    */
-  retry(body: FileRetryParams, options?: Core.RequestOptions): Core.APIPromise<unknown> {
+  retry(body: FileRetryParams, options?: Core.RequestOptions): Core.APIPromise<FileRetryResponse> {
     return this._client.post('/v1/files/retry', { body, ...options });
   }
 
@@ -110,7 +110,12 @@ export interface FileDeleteResponse {
   deleted: boolean;
 }
 
-export type FileRetryResponse = unknown;
+export interface FileRetryResponse {
+  /**
+   * Indicates whether the retry operation was successful.
+   */
+  success?: boolean;
+}
 
 export interface FileListParams extends CursorPageParams {
   /**
@@ -148,7 +153,7 @@ export interface FileUploadParams {
   /**
    * Body param:
    */
-  content: Core.Uploadable;
+  content: unknown;
 
   /**
    * Header param: The disposition type of the file, typically used to indicate the
