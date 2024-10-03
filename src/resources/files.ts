@@ -153,7 +153,7 @@ export interface FileUploadParams {
   /**
    * Body param:
    */
-  content: unknown;
+  content: Core.Uploadable;
 
   /**
    * Header param: The disposition type of the file, typically used to indicate the
