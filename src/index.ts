@@ -195,6 +195,7 @@ export namespace Writer {
 
   export import ChatResource = API.ChatResource;
   export import Chat = API.Chat;
+  export import ChatCompletionChunk = API.ChatCompletionChunk;
   export import ChatChatParams = API.ChatChatParams;
   export import ChatChatParamsNonStreaming = API.ChatChatParamsNonStreaming;
   export import ChatChatParamsStreaming = API.ChatChatParamsStreaming;

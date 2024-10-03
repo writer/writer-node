@@ -13,12 +13,18 @@ export class ChatResource extends APIResource {
    * [chat completion guide](/api-guides/chat-completion).
    */
   chat(body: ChatChatParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Chat>;
-  chat(body: ChatChatParamsStreaming, options?: Core.RequestOptions): APIPromise<Stream<Chat>>;
-  chat(body: ChatChatParamsBase, options?: Core.RequestOptions): APIPromise<Stream<Chat> | Chat>;
-  chat(body: ChatChatParams, options?: Core.RequestOptions): APIPromise<Chat> | APIPromise<Stream<Chat>> {
+  chat(body: ChatChatParamsStreaming, options?: Core.RequestOptions): APIPromise<Stream<ChatCompletionChunk>>;
+  chat(
+    body: ChatChatParamsBase,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<ChatCompletionChunk> | Chat>;
+  chat(
+    body: ChatChatParams,
+    options?: Core.RequestOptions,
+  ): APIPromise<Chat> | APIPromise<Stream<ChatCompletionChunk>> {
     return this._client.post('/v1/chat', { body, ...options, stream: body.stream ?? false }) as
       | APIPromise<Chat>
-      | APIPromise<Stream<Chat>>;
+      | APIPromise<Stream<ChatCompletionChunk>>;
   }
 }
 
@@ -111,6 +117,296 @@ export namespace Chat {
   }
 
   export namespace Choice {
+    /**
+     * Log probability information for the choice.
+     */
+    export interface Logprobs {
+      content?: Array<Logprobs.Content> | null;
+
+      refusal?: Array<Logprobs.Refusal> | null;
+    }
+
+    export namespace Logprobs {
+      export interface Content {
+        token: string;
+
+        logprob: number;
+
+        top_logprobs: Array<Content.TopLogprob>;
+
+        bytes?: Array<number>;
+      }
+
+      export namespace Content {
+        /**
+         * An array of mappings for each token to its top log probabilities, showing
+         * detailed prediction probabilities.
+         */
+        export interface TopLogprob {
+          token: string;
+
+          logprob: number;
+
+          bytes?: Array<number>;
+        }
+      }
+
+      export interface Refusal {
+        token: string;
+
+        logprob: number;
+
+        top_logprobs: Array<Refusal.TopLogprob>;
+
+        bytes?: Array<number>;
+      }
+
+      export namespace Refusal {
+        /**
+         * An array of mappings for each token to its top log probabilities, showing
+         * detailed prediction probabilities.
+         */
+        export interface TopLogprob {
+          token: string;
+
+          logprob: number;
+
+          bytes?: Array<number>;
+        }
+      }
+    }
+
+    /**
+     * The chat completion message from the model. Note: this field is deprecated for
+     * streaming. Use `delta` instead.
+     */
+    export interface Message {
+      /**
+       * Specifies the role associated with the content, indicating whether the message
+       * is from the 'assistant' or another defined role, helping to contextualize the
+       * output within the interaction flow.
+       */
+      role: 'user' | 'assistant' | 'system';
+
+      /**
+       * The text content produced by the model. This field contains the actual output
+       * generated, reflecting the model's response to the input query or command.
+       */
+      content?: string;
+
+      tool_calls?: Array<Message.ToolCall>;
+    }
+
+    export namespace Message {
+      export interface ToolCall {
+        id?: string;
+
+        function?: ToolCall.Function;
+
+        index?: number;
+
+        type?: string;
+      }
+
+      export namespace ToolCall {
+        export interface Function {
+          arguments?: string;
+
+          name?: string;
+        }
+      }
+    }
+
+    export interface Source {
+      /**
+       * The unique identifier of the file.
+       */
+      file_id: string;
+
+      /**
+       * A snippet of text from the source file.
+       */
+      snippet: string;
+    }
+
+    export interface Subquery {
+      /**
+       * The answer to the subquery.
+       */
+      answer: string;
+
+      /**
+       * The subquery that was asked.
+       */
+      query: string;
+
+      sources: Array<Subquery.Source>;
+    }
+
+    export namespace Subquery {
+      export interface Source {
+        /**
+         * The unique identifier of the file.
+         */
+        file_id: string;
+
+        /**
+         * A snippet of text from the source file.
+         */
+        snippet: string;
+      }
+    }
+  }
+
+  /**
+   * Usage information for the chat completion response. Please note that at this
+   * time Knowledge Graph tool usage is not included in this object.
+   */
+  export interface Usage {
+    completion_tokens: number;
+
+    prompt_tokens: number;
+
+    total_tokens: number;
+
+    completion_tokens_details?: Usage.CompletionTokensDetails;
+
+    prompt_token_details?: Usage.PromptTokenDetails;
+  }
+
+  export namespace Usage {
+    export interface CompletionTokensDetails {
+      reasoning_tokens: number;
+    }
+
+    export interface PromptTokenDetails {
+      cached_tokens: number;
+    }
+  }
+}
+
+export interface ChatCompletionChunk {
+  /**
+   * A globally unique identifier (UUID) for the response generated by the API. This
+   * ID can be used to reference the specific operation or transaction within the
+   * system for tracking or debugging purposes.
+   */
+  id: string;
+
+  /**
+   * An array of objects representing the different outcomes or results produced by
+   * the model based on the input provided.
+   */
+  choices: Array<ChatCompletionChunk.Choice>;
+
+  /**
+   * The Unix timestamp (in seconds) when the response was created. This timestamp
+   * can be used to verify the timing of the response relative to other events or
+   * operations.
+   */
+  created: number;
+
+  /**
+   * Identifies the specific model used to generate the response.
+   */
+  model: string;
+
+  service_tier?: string;
+
+  system_fingerprint?: string;
+
+  /**
+   * Usage information for the chat completion response. Please note that at this
+   * time Knowledge Graph tool usage is not included in this object.
+   */
+  usage?: ChatCompletionChunk.Usage;
+}
+
+export namespace ChatCompletionChunk {
+  export interface Choice {
+    /**
+     * A chat completion delta generated by streamed model responses.
+     */
+    delta: Choice.Delta;
+
+    /**
+     * The index of the choice in the list of completions generated by the model.
+     */
+    index: number;
+
+    /**
+     * Describes the condition under which the model ceased generating content. Common
+     * reasons include 'length' (reached the maximum output size), 'stop' (encountered
+     * a stop sequence), 'content_filter' (harmful content filtered out), or
+     * 'tool_calls' (encountered tool calls).
+     */
+    finish_reason?: 'stop' | 'length' | 'content_filter' | 'tool_calls';
+
+    /**
+     * Log probability information for the choice.
+     */
+    logprobs?: Choice.Logprobs;
+
+    /**
+     * The chat completion message from the model. Note: this field is deprecated for
+     * streaming. Use `delta` instead.
+     */
+    message?: Choice.Message;
+
+    /**
+     * An array of source objects that provide context for the model's response. Only
+     * returned when using the Knowledge Graph chat tool.
+     */
+    sources?: Array<Choice.Source>;
+
+    /**
+     * An array of sub-query objects that provide context for the model's response.
+     * Only returned when using the Knowledge Graph chat tool.
+     */
+    subqueries?: Array<Choice.Subquery>;
+  }
+
+  export namespace Choice {
+    /**
+     * A chat completion delta generated by streamed model responses.
+     */
+    export interface Delta {
+      /**
+       * Specifies the role associated with the content, indicating whether the message
+       * is from the 'assistant' or another defined role, helping to contextualize the
+       * output within the interaction flow.
+       */
+      role: 'user' | 'assistant' | 'system';
+
+      /**
+       * The text content produced by the model. This field contains the actual output
+       * generated, reflecting the model's response to the input query or command.
+       */
+      content?: string;
+
+      tool_calls?: Array<Delta.ToolCall>;
+    }
+
+    export namespace Delta {
+      export interface ToolCall {
+        id?: string;
+
+        function?: ToolCall.Function;
+
+        index?: number;
+
+        type?: string;
+      }
+
+      export namespace ToolCall {
+        export interface Function {
+          arguments?: string;
+
+          name?: string;
+        }
+      }
+    }
+
     /**
      * Log probability information for the choice.
      */
@@ -451,6 +747,7 @@ export interface ChatChatParamsStreaming extends ChatChatParamsBase {
 
 export namespace ChatResource {
   export import Chat = ChatAPI.Chat;
+  export import ChatCompletionChunk = ChatAPI.ChatCompletionChunk;
   export import ChatChatParams = ChatAPI.ChatChatParams;
   export import ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
   export import ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming;

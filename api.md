@@ -13,6 +13,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/chat.ts">Chat</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionChunk</a></code>
 
 Methods:
 
