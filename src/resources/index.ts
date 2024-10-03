@@ -7,6 +7,7 @@ export {
 } from './applications';
 export {
   Chat,
+  ChatCompletionChunk,
   ChatChatParams,
   ChatChatParamsNonStreaming,
   ChatChatParamsStreaming,
