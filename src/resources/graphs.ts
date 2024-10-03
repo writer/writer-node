@@ -67,7 +67,7 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Knowledge Graph question
+   * Ask a question to specified Knowledge Graphs.
    */
   question(body: GraphQuestionParams, options?: Core.RequestOptions): Core.APIPromise<Question> {
     return this._client.post('/v1/graphs/question', { body, ...options });
@@ -263,26 +263,26 @@ export interface GraphRemoveFileFromGraphResponse {
 
 export interface GraphCreateParams {
   /**
+   * The name of the graph. This can be at most 255 characters.
+   */
+  name: string;
+
+  /**
    * A description of the graph. This can be at most 255 characters.
    */
   description?: string;
-
-  /**
-   * The name of the graph. This can be at most 255 characters.
-   */
-  name?: string;
 }
 
 export interface GraphUpdateParams {
   /**
+   * The name of the graph. This can be at most 255 characters.
+   */
+  name: string;
+
+  /**
    * A description of the graph. This can be at most 255 characters.
    */
   description?: string;
-
-  /**
-   * The name of the graph. This can be at most 255 characters.
-   */
-  name?: string;
 }
 
 export interface GraphListParams extends CursorPageParams {

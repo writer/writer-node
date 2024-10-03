@@ -13,7 +13,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/chat.ts">Chat</a></code>
-- <code><a href="./src/resources/chat.ts">ChatStreamingData</a></code>
 
 Methods:
 
@@ -76,5 +75,5 @@ Methods:
 - <code title="get /v1/files">client.files.<a href="./src/resources/files.ts">list</a>({ ...params }) -> FilesCursorPage</code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileId) -> FileDeleteResponse</code>
 - <code title="get /v1/files/{file_id}/download">client.files.<a href="./src/resources/files.ts">download</a>(fileId) -> Response</code>
-- <code title="post /v1/files/retry">client.files.<a href="./src/resources/files.ts">retry</a>({ ...params }) -> unknown</code>
+- <code title="post /v1/files/retry">client.files.<a href="./src/resources/files.ts">retry</a>({ ...params }) -> FileRetryResponse</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>

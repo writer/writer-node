@@ -27,11 +27,19 @@ describe('resource chat', () => {
     const response = await client.chat.chat({
       messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user', name: 'name' }],
       model: 'palmyra-x-004',
+      logprobs: true,
       max_tokens: 0,
       n: 0,
       stop: ['string', 'string', 'string'],
       stream: false,
+      stream_options: { include_usage: true },
       temperature: 0,
+      tool_choice: { value: {} },
+      tools: [
+        { function: { name: 'name', description: 'description', parameters: {} } },
+        { function: { name: 'name', description: 'description', parameters: {} } },
+        { function: { name: 'name', description: 'description', parameters: {} } },
+      ],
       top_p: 0,
     });
   });
