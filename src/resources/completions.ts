@@ -56,9 +56,9 @@ export namespace Completion {
 
   export namespace Choice {
     export interface LogProbs {
-      content?: Array<LogProbs.Content> | null;
+      content: Array<LogProbs.Content> | null;
 
-      refusal?: Array<LogProbs.Refusal> | null;
+      refusal: Array<LogProbs.Refusal> | null;
     }
 
     export namespace LogProbs {
