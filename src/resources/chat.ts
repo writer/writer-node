@@ -721,13 +721,11 @@ export interface ChatChatParamsBase {
 
 export namespace ChatChatParams {
   export interface Message {
-    role: 'user' | 'assistant' | 'system' | 'tool';
+    content: string;
 
-    content?: string;
+    role: 'user' | 'assistant' | 'system';
 
     name?: string;
-
-    tool_id?: string;
   }
 
   /**
