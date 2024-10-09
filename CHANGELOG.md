@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (2024-10-09)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/writer/writer-node/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* **api:** api update ([#81](https://github.com/writer/writer-node/issues/81)) ([d61a1db](https://github.com/writer/writer-node/commit/d61a1db8343f7ca2d98de4ef66c16020b2d7144b))
+
 ## 1.0.0 (2024-10-09)
 
 Full Changelog: [v0.5.0...v1.0.0](https://github.com/writer/writer-node/compare/v0.5.0...v1.0.0)
