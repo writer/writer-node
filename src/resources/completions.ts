@@ -56,36 +56,58 @@ export namespace Completion {
 
   export namespace Choice {
     export interface LogProbs {
-      /**
-       * Positional indices of each token within the original input text, useful for
-       * analysis and mapping.
-       */
-      text_offset?: Array<number>;
+      content: Array<LogProbs.Content> | null;
 
-      /**
-       * Log probabilities for each token, indicating the likelihood of each token's
-       * occurrence.
-       */
-      token_log_probs?: Array<number>;
-
-      /**
-       * An array of tokens that comprise the generated text.
-       */
-      tokens?: Array<string>;
-
-      /**
-       * An array of mappings for each token to its top log probabilities, showing
-       * detailed prediction probabilities.
-       */
-      top_log_probs?: Array<LogProbs.TopLogProb>;
+      refusal: Array<LogProbs.Refusal> | null;
     }
 
     export namespace LogProbs {
-      export interface TopLogProb {
+      export interface Content {
+        token: string;
+
+        logprob: number;
+
+        top_logprobs: Array<Content.TopLogprob>;
+
+        bytes?: Array<number>;
+      }
+
+      export namespace Content {
         /**
-         * For any additional_properties properties in the top_log_probs object
+         * An array of mappings for each token to its top log probabilities, showing
+         * detailed prediction probabilities.
          */
-        additional_properties?: number;
+        export interface TopLogprob {
+          token: string;
+
+          logprob: number;
+
+          bytes?: Array<number>;
+        }
+      }
+
+      export interface Refusal {
+        token: string;
+
+        logprob: number;
+
+        top_logprobs: Array<Refusal.TopLogprob>;
+
+        bytes?: Array<number>;
+      }
+
+      export namespace Refusal {
+        /**
+         * An array of mappings for each token to its top log probabilities, showing
+         * detailed prediction probabilities.
+         */
+        export interface TopLogprob {
+          token: string;
+
+          logprob: number;
+
+          bytes?: Array<number>;
+        }
       }
     }
   }

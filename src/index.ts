@@ -195,7 +195,7 @@ export namespace Writer {
 
   export import ChatResource = API.ChatResource;
   export import Chat = API.Chat;
-  export import ChatStreamingData = API.ChatStreamingData;
+  export import ChatCompletionChunk = API.ChatCompletionChunk;
   export import ChatChatParams = API.ChatChatParams;
   export import ChatChatParamsNonStreaming = API.ChatChatParamsNonStreaming;
   export import ChatChatParamsStreaming = API.ChatChatParamsStreaming;
@@ -212,10 +212,10 @@ export namespace Writer {
 
   export import Graphs = API.Graphs;
   export import Graph = API.Graph;
+  export import Question = API.Question;
   export import GraphCreateResponse = API.GraphCreateResponse;
   export import GraphUpdateResponse = API.GraphUpdateResponse;
   export import GraphDeleteResponse = API.GraphDeleteResponse;
-  export import GraphQuestionResponse = API.GraphQuestionResponse;
   export import GraphRemoveFileFromGraphResponse = API.GraphRemoveFileFromGraphResponse;
   export import GraphsCursorPage = API.GraphsCursorPage;
   export import GraphCreateParams = API.GraphCreateParams;

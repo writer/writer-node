@@ -7,7 +7,7 @@ export {
 } from './applications';
 export {
   Chat,
-  ChatStreamingData,
+  ChatCompletionChunk,
   ChatChatParams,
   ChatChatParamsNonStreaming,
   ChatChatParamsStreaming,
@@ -33,10 +33,10 @@ export {
 } from './files';
 export {
   Graph,
+  Question,
   GraphCreateResponse,
   GraphUpdateResponse,
   GraphDeleteResponse,
-  GraphQuestionResponse,
   GraphRemoveFileFromGraphResponse,
   GraphCreateParams,
   GraphUpdateParams,

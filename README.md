@@ -29,7 +29,7 @@ const client = new Writer({
 async function main() {
   const chat = await client.chat.chat({
     messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
-    model: 'palmyra-x-002-32k',
+    model: 'palmyra-x-004',
   });
 
   console.log(chat.id);
@@ -48,7 +48,7 @@ import Writer from 'writer-sdk';
 const client = new Writer();
 
 const stream = await client.completions.create({
-  model: 'palmyra-x-002-instruct',
+  model: 'palmyra-x-003-instruct',
   prompt: 'Hi, my name is',
   stream: true,
 });
@@ -75,7 +75,7 @@ const client = new Writer({
 async function main() {
   const params: Writer.ChatChatParams = {
     messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
-    model: 'palmyra-x-002-32k',
+    model: 'palmyra-x-004',
   };
   const chat: Writer.Chat = await client.chat.chat(params);
 }
@@ -97,7 +97,7 @@ async function main() {
   const chat = await client.chat
     .chat({
       messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
-      model: 'palmyra-x-002-32k',
+      model: 'palmyra-x-004',
     })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
@@ -142,7 +142,7 @@ const client = new Writer({
 });
 
 // Or, configure per-request:
-await client.chat.chat({ messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }], model: 'palmyra-x-002-32k' }, {
+await client.chat.chat({ messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }], model: 'palmyra-x-004' }, {
   maxRetries: 5,
 });
 ```
@@ -159,7 +159,7 @@ const client = new Writer({
 });
 
 // Override per-request:
-await client.chat.chat({ messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }], model: 'palmyra-x-002-32k' }, {
+await client.chat.chat({ messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }], model: 'palmyra-x-004' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -167,6 +167,37 @@ await client.chat.chat({ messages: [{ content: 'Write a memo summarizing this ea
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the Writer API are paginated.
+You can use `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllGraphs(params) {
+  const allGraphs = [];
+  // Automatically fetches more pages as needed.
+  for await (const graph of client.graphs.list()) {
+    allGraphs.push(graph);
+  }
+  return allGraphs;
+}
+```
+
+Alternatively, you can make request a single page at a time:
+
+```ts
+let page = await client.graphs.list();
+for (const graph of page.data) {
+  console.log(graph);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = page.getNextPage();
+  // ...
+}
+```
 
 ## Advanced Usage
 
@@ -183,7 +214,7 @@ const client = new Writer();
 const response = await client.chat
   .chat({
     messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
-    model: 'palmyra-x-002-32k',
+    model: 'palmyra-x-004',
   })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -192,7 +223,7 @@ console.log(response.statusText); // access the underlying Response object
 const { data: chat, response: raw } = await client.chat
   .chat({
     messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
-    model: 'palmyra-x-002-32k',
+    model: 'palmyra-x-004',
   })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -303,7 +334,7 @@ const client = new Writer({
 await client.chat.chat(
   {
     messages: [{ content: 'Write a memo summarizing this earnings report.', role: 'user' }],
-    model: 'palmyra-x-002-32k',
+    model: 'palmyra-x-004',
   },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
@@ -332,3 +363,7 @@ The following runtimes are supported:
 Note that React Native is not supported at this time.
 
 If you are interested in other runtime environments, please open or upvote an issue on GitHub.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).

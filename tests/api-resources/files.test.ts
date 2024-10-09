@@ -120,6 +120,7 @@ describe('resource files', () => {
     const responsePromise = client.files.upload({
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
       'Content-Disposition': 'Content-Disposition',
+      'Content-Type': 'Content-Type',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -135,6 +136,7 @@ describe('resource files', () => {
     const response = await client.files.upload({
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
       'Content-Disposition': 'Content-Disposition',
+      'Content-Type': 'Content-Type',
     });
   });
 });

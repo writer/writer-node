@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.0.0 (2024-10-09)
+
+Full Changelog: [v0.5.0...v1.0.0](https://github.com/writer/writer-node/compare/v0.5.0...v1.0.0)
+
+### Features
+
+* **api:** add model graphs.Question ([#67](https://github.com/writer/writer-node/issues/67)) ([af195e9](https://github.com/writer/writer-node/commit/af195e9a6e4562dfb7a7e24cde19a20d45e8511f))
+* **api:** rename to chat_completion_chunk ([#73](https://github.com/writer/writer-node/issues/73)) ([e4d5ac4](https://github.com/writer/writer-node/commit/e4d5ac4a9cf5eb8fa8a068024628b4ae689e5468))
+* **api:** update models in readme ([#79](https://github.com/writer/writer-node/issues/79)) ([19b7851](https://github.com/writer/writer-node/commit/19b7851bc31035fb457063bd5ea92aa15f4bc4ee))
+
+
+### Bug Fixes
+
+* add content type to file uploads param ([cb5531a](https://github.com/writer/writer-node/commit/cb5531ab082f648e26b41b109e56b84bd41b4c50))
+* change file content type to Core.Uploadable ([64c3ac9](https://github.com/writer/writer-node/commit/64c3ac9f330c55616511146bc4c2c228ebf05fc6))
+
+
+### Chores
+
+* **internal:** codegen related update ([#69](https://github.com/writer/writer-node/issues/69)) ([4fdbf70](https://github.com/writer/writer-node/commit/4fdbf70757530bd9dfd045e60da042877aac82a4))
+* **internal:** codegen related update ([#72](https://github.com/writer/writer-node/issues/72)) ([611a33b](https://github.com/writer/writer-node/commit/611a33bda7ce33ec69fa3907a2b6ad7ae0fbe781))
+* **internal:** move LineDecoder to a separate file ([#76](https://github.com/writer/writer-node/issues/76)) ([f8c8855](https://github.com/writer/writer-node/commit/f8c885507286f008fb26a501d692d25f912b4798))
+* **internal:** pass props through internal parser ([#78](https://github.com/writer/writer-node/issues/78)) ([bb1aae5](https://github.com/writer/writer-node/commit/bb1aae50a38e375118b3ddaf35ceabb83b0ae44d))
+
+
+### Documentation
+
+* add pagination example ([#74](https://github.com/writer/writer-node/issues/74)) ([09b3ee2](https://github.com/writer/writer-node/commit/09b3ee23124d02bf223c1ec1e8458217af47b570))
+* **api:** updates to API spec ([#70](https://github.com/writer/writer-node/issues/70)) ([7c0721d](https://github.com/writer/writer-node/commit/7c0721da2901bd6e4ee7aba97b32ec8b6d8bec52))
+* **api:** updates to API spec ([#75](https://github.com/writer/writer-node/issues/75)) ([3fad6c7](https://github.com/writer/writer-node/commit/3fad6c7738c5abf3e795f3b7d8c35d9a76eaf98b))
+* **api:** updates to API spec ([#77](https://github.com/writer/writer-node/issues/77)) ([8749431](https://github.com/writer/writer-node/commit/87494313a99d6c8be5f768ce7654bf7f52f7042a))
+
 ## 0.5.0 (2024-09-24)
 
 Full Changelog: [v0.4.1...v0.5.0](https://github.com/writer/writer-node/compare/v0.4.1...v0.5.0)
