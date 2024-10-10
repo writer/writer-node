@@ -27,7 +27,7 @@ describe('resource chat', () => {
           role: 'user',
           content: 'Write a memo summarizing this earnings report.',
           name: 'name',
-          tool_id: 'tool_id',
+          tool_call_id: 'tool_call_id',
         },
       ],
       model: 'palmyra-x-004',
