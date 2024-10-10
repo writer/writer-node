@@ -727,7 +727,7 @@ export namespace ChatChatParams {
 
     name?: string;
 
-    tool_id?: string;
+    tool_call_id?: string;
   }
 
   /**
