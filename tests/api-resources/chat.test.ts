@@ -38,11 +38,11 @@ describe('resource chat', () => {
       stream: false,
       stream_options: { include_usage: true },
       temperature: 0,
-      tool_choice: { value: {} },
+      tool_choice: { value: 'none' },
       tools: [
-        { function: { name: 'name', description: 'description', parameters: {} } },
-        { function: { name: 'name', description: 'description', parameters: {} } },
-        { function: { name: 'name', description: 'description', parameters: {} } },
+        { function: { name: 'name', description: 'description', parameters: {} }, type: 'function' },
+        { function: { name: 'name', description: 'description', parameters: {} }, type: 'function' },
+        { function: { name: 'name', description: 'description', parameters: {} }, type: 'function' },
       ],
       top_p: 0,
     });
