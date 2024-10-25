@@ -348,16 +348,16 @@ export interface GraphQuestionParams {
 }
 
 export namespace Graphs {
-  export type Graph = GraphsAPI.Graph;
-  export type Question = GraphsAPI.Question;
-  export type GraphCreateResponse = GraphsAPI.GraphCreateResponse;
-  export type GraphUpdateResponse = GraphsAPI.GraphUpdateResponse;
-  export type GraphDeleteResponse = GraphsAPI.GraphDeleteResponse;
-  export type GraphRemoveFileFromGraphResponse = GraphsAPI.GraphRemoveFileFromGraphResponse;
+  export import Graph = GraphsAPI.Graph;
+  export import Question = GraphsAPI.Question;
+  export import GraphCreateResponse = GraphsAPI.GraphCreateResponse;
+  export import GraphUpdateResponse = GraphsAPI.GraphUpdateResponse;
+  export import GraphDeleteResponse = GraphsAPI.GraphDeleteResponse;
+  export import GraphRemoveFileFromGraphResponse = GraphsAPI.GraphRemoveFileFromGraphResponse;
   export import GraphsCursorPage = GraphsAPI.GraphsCursorPage;
-  export type GraphCreateParams = GraphsAPI.GraphCreateParams;
-  export type GraphUpdateParams = GraphsAPI.GraphUpdateParams;
-  export type GraphListParams = GraphsAPI.GraphListParams;
-  export type GraphAddFileToGraphParams = GraphsAPI.GraphAddFileToGraphParams;
-  export type GraphQuestionParams = GraphsAPI.GraphQuestionParams;
+  export import GraphCreateParams = GraphsAPI.GraphCreateParams;
+  export import GraphUpdateParams = GraphsAPI.GraphUpdateParams;
+  export import GraphListParams = GraphsAPI.GraphListParams;
+  export import GraphAddFileToGraphParams = GraphsAPI.GraphAddFileToGraphParams;
+  export import GraphQuestionParams = GraphsAPI.GraphQuestionParams;
 }

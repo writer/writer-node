@@ -169,11 +169,11 @@ export interface FileUploadParams {
 }
 
 export namespace Files {
-  export type File = FilesAPI.File;
-  export type FileDeleteResponse = FilesAPI.FileDeleteResponse;
-  export type FileRetryResponse = FilesAPI.FileRetryResponse;
+  export import File = FilesAPI.File;
+  export import FileDeleteResponse = FilesAPI.FileDeleteResponse;
+  export import FileRetryResponse = FilesAPI.FileRetryResponse;
   export import FilesCursorPage = FilesAPI.FilesCursorPage;
-  export type FileListParams = FilesAPI.FileListParams;
-  export type FileRetryParams = FilesAPI.FileRetryParams;
-  export type FileUploadParams = FilesAPI.FileUploadParams;
+  export import FileListParams = FilesAPI.FileListParams;
+  export import FileRetryParams = FilesAPI.FileRetryParams;
+  export import FileUploadParams = FilesAPI.FileUploadParams;
 }
