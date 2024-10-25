@@ -53,6 +53,6 @@ export namespace ApplicationGenerateContentParams {
 }
 
 export namespace Applications {
-  export import ApplicationGenerateContentResponse = ApplicationsAPI.ApplicationGenerateContentResponse;
-  export import ApplicationGenerateContentParams = ApplicationsAPI.ApplicationGenerateContentParams;
+  export type ApplicationGenerateContentResponse = ApplicationsAPI.ApplicationGenerateContentResponse;
+  export type ApplicationGenerateContentParams = ApplicationsAPI.ApplicationGenerateContentParams;
 }
