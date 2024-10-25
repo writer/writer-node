@@ -35,5 +35,5 @@ export namespace ModelListResponse {
 }
 
 export namespace Models {
-  export type ModelListResponse = ModelsAPI.ModelListResponse;
+  export import ModelListResponse = ModelsAPI.ModelListResponse;
 }
