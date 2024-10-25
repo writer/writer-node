@@ -823,9 +823,9 @@ export interface ChatChatParamsStreaming extends ChatChatParamsBase {
 }
 
 export namespace ChatResource {
-  export type Chat = ChatAPI.Chat;
-  export type ChatCompletionChunk = ChatAPI.ChatCompletionChunk;
-  export type ChatChatParams = ChatAPI.ChatChatParams;
-  export type ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
-  export type ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming;
+  export import Chat = ChatAPI.Chat;
+  export import ChatCompletionChunk = ChatAPI.ChatCompletionChunk;
+  export import ChatChatParams = ChatAPI.ChatChatParams;
+  export import ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
+  export import ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming;
 }

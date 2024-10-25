@@ -183,55 +183,55 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Writer {
-  export type RequestOptions = Core.RequestOptions;
+  export import RequestOptions = Core.RequestOptions;
 
   export import CursorPage = Pagination.CursorPage;
-  export type CursorPageParams = Pagination.CursorPageParams;
-  export type CursorPageResponse<T> = Pagination.CursorPageResponse<T>;
+  export import CursorPageParams = Pagination.CursorPageParams;
+  export import CursorPageResponse = Pagination.CursorPageResponse;
 
   export import Applications = API.Applications;
-  export type ApplicationGenerateContentResponse = API.ApplicationGenerateContentResponse;
-  export type ApplicationGenerateContentParams = API.ApplicationGenerateContentParams;
+  export import ApplicationGenerateContentResponse = API.ApplicationGenerateContentResponse;
+  export import ApplicationGenerateContentParams = API.ApplicationGenerateContentParams;
 
   export import ChatResource = API.ChatResource;
-  export type Chat = API.Chat;
-  export type ChatCompletionChunk = API.ChatCompletionChunk;
-  export type ChatChatParams = API.ChatChatParams;
-  export type ChatChatParamsNonStreaming = API.ChatChatParamsNonStreaming;
-  export type ChatChatParamsStreaming = API.ChatChatParamsStreaming;
+  export import Chat = API.Chat;
+  export import ChatCompletionChunk = API.ChatCompletionChunk;
+  export import ChatChatParams = API.ChatChatParams;
+  export import ChatChatParamsNonStreaming = API.ChatChatParamsNonStreaming;
+  export import ChatChatParamsStreaming = API.ChatChatParamsStreaming;
 
   export import Completions = API.Completions;
-  export type Completion = API.Completion;
-  export type StreamingData = API.StreamingData;
-  export type CompletionCreateParams = API.CompletionCreateParams;
-  export type CompletionCreateParamsNonStreaming = API.CompletionCreateParamsNonStreaming;
-  export type CompletionCreateParamsStreaming = API.CompletionCreateParamsStreaming;
+  export import Completion = API.Completion;
+  export import StreamingData = API.StreamingData;
+  export import CompletionCreateParams = API.CompletionCreateParams;
+  export import CompletionCreateParamsNonStreaming = API.CompletionCreateParamsNonStreaming;
+  export import CompletionCreateParamsStreaming = API.CompletionCreateParamsStreaming;
 
   export import Models = API.Models;
-  export type ModelListResponse = API.ModelListResponse;
+  export import ModelListResponse = API.ModelListResponse;
 
   export import Graphs = API.Graphs;
-  export type Graph = API.Graph;
-  export type Question = API.Question;
-  export type GraphCreateResponse = API.GraphCreateResponse;
-  export type GraphUpdateResponse = API.GraphUpdateResponse;
-  export type GraphDeleteResponse = API.GraphDeleteResponse;
-  export type GraphRemoveFileFromGraphResponse = API.GraphRemoveFileFromGraphResponse;
+  export import Graph = API.Graph;
+  export import Question = API.Question;
+  export import GraphCreateResponse = API.GraphCreateResponse;
+  export import GraphUpdateResponse = API.GraphUpdateResponse;
+  export import GraphDeleteResponse = API.GraphDeleteResponse;
+  export import GraphRemoveFileFromGraphResponse = API.GraphRemoveFileFromGraphResponse;
   export import GraphsCursorPage = API.GraphsCursorPage;
-  export type GraphCreateParams = API.GraphCreateParams;
-  export type GraphUpdateParams = API.GraphUpdateParams;
-  export type GraphListParams = API.GraphListParams;
-  export type GraphAddFileToGraphParams = API.GraphAddFileToGraphParams;
-  export type GraphQuestionParams = API.GraphQuestionParams;
+  export import GraphCreateParams = API.GraphCreateParams;
+  export import GraphUpdateParams = API.GraphUpdateParams;
+  export import GraphListParams = API.GraphListParams;
+  export import GraphAddFileToGraphParams = API.GraphAddFileToGraphParams;
+  export import GraphQuestionParams = API.GraphQuestionParams;
 
   export import Files = API.Files;
-  export type File = API.File;
-  export type FileDeleteResponse = API.FileDeleteResponse;
-  export type FileRetryResponse = API.FileRetryResponse;
+  export import File = API.File;
+  export import FileDeleteResponse = API.FileDeleteResponse;
+  export import FileRetryResponse = API.FileRetryResponse;
   export import FilesCursorPage = API.FilesCursorPage;
-  export type FileListParams = API.FileListParams;
-  export type FileRetryParams = API.FileRetryParams;
-  export type FileUploadParams = API.FileUploadParams;
+  export import FileListParams = API.FileListParams;
+  export import FileRetryParams = API.FileRetryParams;
+  export import FileUploadParams = API.FileUploadParams;
 }
 
 export default Writer;
