@@ -26,8 +26,49 @@ describe('resource chat', () => {
         {
           role: 'user',
           content: 'Write a memo summarizing this earnings report.',
+          graph_data: {
+            sources: [
+              { file_id: 'file_id', snippet: 'snippet' },
+              { file_id: 'file_id', snippet: 'snippet' },
+              { file_id: 'file_id', snippet: 'snippet' },
+            ],
+            status: 'processing',
+            subqueries: [
+              {
+                answer: 'answer',
+                query: 'query',
+                sources: [
+                  { file_id: 'file_id', snippet: 'snippet' },
+                  { file_id: 'file_id', snippet: 'snippet' },
+                  { file_id: 'file_id', snippet: 'snippet' },
+                ],
+              },
+              {
+                answer: 'answer',
+                query: 'query',
+                sources: [
+                  { file_id: 'file_id', snippet: 'snippet' },
+                  { file_id: 'file_id', snippet: 'snippet' },
+                  { file_id: 'file_id', snippet: 'snippet' },
+                ],
+              },
+              {
+                answer: 'answer',
+                query: 'query',
+                sources: [
+                  { file_id: 'file_id', snippet: 'snippet' },
+                  { file_id: 'file_id', snippet: 'snippet' },
+                  { file_id: 'file_id', snippet: 'snippet' },
+                ],
+              },
+            ],
+          },
           name: 'name',
+          refusal: 'refusal',
           tool_call_id: 'tool_call_id',
+          tool_calls: [
+            { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type', index: 0 },
+          ],
         },
       ],
       model: 'palmyra-x-004',

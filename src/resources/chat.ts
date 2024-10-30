@@ -722,11 +722,87 @@ export namespace ChatChatParams {
   export interface Message {
     role: 'user' | 'assistant' | 'system' | 'tool';
 
-    content?: string;
+    content?: string | null;
 
-    name?: string;
+    graph_data?: Message.GraphData | null;
 
-    tool_call_id?: string;
+    name?: string | null;
+
+    refusal?: string | null;
+
+    tool_call_id?: string | null;
+
+    tool_calls?: Array<Message.ToolCall> | null;
+  }
+
+  export namespace Message {
+    export interface GraphData {
+      sources?: Array<GraphData.Source>;
+
+      status?: 'processing' | 'finished';
+
+      subqueries?: Array<GraphData.Subquery>;
+    }
+
+    export namespace GraphData {
+      export interface Source {
+        /**
+         * The unique identifier of the file.
+         */
+        file_id: string;
+
+        /**
+         * A snippet of text from the source file.
+         */
+        snippet: string;
+      }
+
+      export interface Subquery {
+        /**
+         * The answer to the subquery.
+         */
+        answer: string;
+
+        /**
+         * The subquery that was asked.
+         */
+        query: string;
+
+        sources: Array<Subquery.Source>;
+      }
+
+      export namespace Subquery {
+        export interface Source {
+          /**
+           * The unique identifier of the file.
+           */
+          file_id: string;
+
+          /**
+           * A snippet of text from the source file.
+           */
+          snippet: string;
+        }
+      }
+    }
+
+    export interface ToolCall {
+      id: string;
+
+      function: ToolCall.Function;
+
+      type: string;
+
+      index?: number;
+    }
+
+    export namespace ToolCall {
+      export interface Function {
+        arguments: string;
+
+        name: string;
+      }
+    }
   }
 
   /**
