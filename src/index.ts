@@ -126,6 +126,7 @@ export class Writer extends Core.APIClient {
   models: API.Models = new API.Models(this);
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
+  tools: API.Tools = new API.Tools(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -232,6 +233,10 @@ export namespace Writer {
   export import FileListParams = API.FileListParams;
   export import FileRetryParams = API.FileRetryParams;
   export import FileUploadParams = API.FileUploadParams;
+
+  export import Tools = API.Tools;
+  export import ToolContextAwareSplittingResponse = API.ToolContextAwareSplittingResponse;
+  export import ToolContextAwareSplittingParams = API.ToolContextAwareSplittingParams;
 }
 
 export default Writer;
