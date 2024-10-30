@@ -47,3 +47,4 @@ export {
   Graphs,
 } from './graphs';
 export { ModelListResponse, Models } from './models';
+export { ToolContextAwareSplittingResponse, ToolContextAwareSplittingParams, Tools } from './tools/tools';

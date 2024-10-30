@@ -78,3 +78,33 @@ Methods:
 - <code title="get /v1/files/{file_id}/download">client.files.<a href="./src/resources/files.ts">download</a>(fileId) -> Response</code>
 - <code title="post /v1/files/retry">client.files.<a href="./src/resources/files.ts">retry</a>({ ...params }) -> FileRetryResponse</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>
+
+# Tools
+
+Types:
+
+- <code><a href="./src/resources/tools/tools.ts">ToolContextAwareSplittingResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/tools/context-aware-splitting">client.tools.<a href="./src/resources/tools/tools.ts">contextAwareSplitting</a>({ ...params }) -> ToolContextAwareSplittingResponse</code>
+
+## Medical
+
+Types:
+
+- <code><a href="./src/resources/tools/medical.ts">MedicalCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/tools/comprehend/medical">client.tools.medical.<a href="./src/resources/tools/medical.ts">create</a>({ ...params }) -> MedicalCreateResponse</code>
+
+## PdfParser
+
+Types:
+
+- <code><a href="./src/resources/tools/pdf-parser.ts">PdfParserParseResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.pdfParser.<a href="./src/resources/tools/pdf-parser.ts">parse</a>(fileId, { ...params }) -> PdfParserParseResponse</code>
