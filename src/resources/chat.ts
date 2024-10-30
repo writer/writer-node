@@ -820,7 +820,7 @@ export namespace ChatChatParams {
   }
 
   export interface JsonObjectToolChoice {
-    value: unknown;
+    value: Record<string, unknown>;
   }
 
   export interface FunctionTool {
@@ -844,7 +844,7 @@ export namespace ChatChatParams {
        */
       description?: string;
 
-      parameters?: unknown;
+      parameters?: Record<string, unknown>;
     }
   }
 

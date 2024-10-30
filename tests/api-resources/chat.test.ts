@@ -81,9 +81,18 @@ describe('resource chat', () => {
       temperature: 0,
       tool_choice: { value: 'none' },
       tools: [
-        { function: { name: 'name', description: 'description', parameters: {} }, type: 'function' },
-        { function: { name: 'name', description: 'description', parameters: {} }, type: 'function' },
-        { function: { name: 'name', description: 'description', parameters: {} }, type: 'function' },
+        {
+          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
+          type: 'function',
+        },
+        {
+          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
+          type: 'function',
+        },
+        {
+          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
+          type: 'function',
+        },
       ],
       top_p: 0,
     });
