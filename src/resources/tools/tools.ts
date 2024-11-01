@@ -2,9 +2,10 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as ToolsAPI from './tools';
 import * as MedicalAPI from './medical';
+import { Medical, MedicalCreateParams, MedicalCreateResponse } from './medical';
 import * as PdfParserAPI from './pdf-parser';
+import { PdfParser, PdfParserParseParams, PdfParserParseResponse } from './pdf-parser';
 
 export class Tools extends APIResource {
   medical: MedicalAPI.Medical = new MedicalAPI.Medical(this._client);
@@ -44,13 +45,24 @@ export interface ToolContextAwareSplittingParams {
   text: string;
 }
 
-export namespace Tools {
-  export import ToolContextAwareSplittingResponse = ToolsAPI.ToolContextAwareSplittingResponse;
-  export import ToolContextAwareSplittingParams = ToolsAPI.ToolContextAwareSplittingParams;
-  export import Medical = MedicalAPI.Medical;
-  export import MedicalCreateResponse = MedicalAPI.MedicalCreateResponse;
-  export import MedicalCreateParams = MedicalAPI.MedicalCreateParams;
-  export import PdfParser = PdfParserAPI.PdfParser;
-  export import PdfParserParseResponse = PdfParserAPI.PdfParserParseResponse;
-  export import PdfParserParseParams = PdfParserAPI.PdfParserParseParams;
+Tools.Medical = Medical;
+Tools.PdfParser = PdfParser;
+
+export declare namespace Tools {
+  export {
+    type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
+    type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
+  };
+
+  export {
+    Medical as Medical,
+    type MedicalCreateResponse as MedicalCreateResponse,
+    type MedicalCreateParams as MedicalCreateParams,
+  };
+
+  export {
+    PdfParser as PdfParser,
+    type PdfParserParseResponse as PdfParserParseResponse,
+    type PdfParserParseParams as PdfParserParseParams,
+  };
 }

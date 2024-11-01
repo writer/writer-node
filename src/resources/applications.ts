@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as ApplicationsAPI from './applications';
 
 export class Applications extends APIResource {
   /**
@@ -52,7 +51,9 @@ export namespace ApplicationGenerateContentParams {
   }
 }
 
-export namespace Applications {
-  export import ApplicationGenerateContentResponse = ApplicationsAPI.ApplicationGenerateContentResponse;
-  export import ApplicationGenerateContentParams = ApplicationsAPI.ApplicationGenerateContentParams;
+export declare namespace Applications {
+  export {
+    type ApplicationGenerateContentResponse as ApplicationGenerateContentResponse,
+    type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
+  };
 }

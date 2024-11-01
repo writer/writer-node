@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as GraphsAPI from './graphs';
 import * as FilesAPI from './files';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
@@ -347,17 +346,21 @@ export interface GraphQuestionParams {
   subqueries: boolean;
 }
 
-export namespace Graphs {
-  export import Graph = GraphsAPI.Graph;
-  export import Question = GraphsAPI.Question;
-  export import GraphCreateResponse = GraphsAPI.GraphCreateResponse;
-  export import GraphUpdateResponse = GraphsAPI.GraphUpdateResponse;
-  export import GraphDeleteResponse = GraphsAPI.GraphDeleteResponse;
-  export import GraphRemoveFileFromGraphResponse = GraphsAPI.GraphRemoveFileFromGraphResponse;
-  export import GraphsCursorPage = GraphsAPI.GraphsCursorPage;
-  export import GraphCreateParams = GraphsAPI.GraphCreateParams;
-  export import GraphUpdateParams = GraphsAPI.GraphUpdateParams;
-  export import GraphListParams = GraphsAPI.GraphListParams;
-  export import GraphAddFileToGraphParams = GraphsAPI.GraphAddFileToGraphParams;
-  export import GraphQuestionParams = GraphsAPI.GraphQuestionParams;
+Graphs.GraphsCursorPage = GraphsCursorPage;
+
+export declare namespace Graphs {
+  export {
+    type Graph as Graph,
+    type Question as Question,
+    type GraphCreateResponse as GraphCreateResponse,
+    type GraphUpdateResponse as GraphUpdateResponse,
+    type GraphDeleteResponse as GraphDeleteResponse,
+    type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
+    GraphsCursorPage as GraphsCursorPage,
+    type GraphCreateParams as GraphCreateParams,
+    type GraphUpdateParams as GraphUpdateParams,
+    type GraphListParams as GraphListParams,
+    type GraphAddFileToGraphParams as GraphAddFileToGraphParams,
+    type GraphQuestionParams as GraphQuestionParams,
+  };
 }
