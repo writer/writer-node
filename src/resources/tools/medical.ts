@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as MedicalAPI from './medical';
 
 export class Medical extends APIResource {
   /**
@@ -110,7 +109,9 @@ export interface MedicalCreateParams {
   response_type: 'Entities' | 'RxNorm' | 'ICD-10-CM' | 'SNOMED CT';
 }
 
-export namespace Medical {
-  export import MedicalCreateResponse = MedicalAPI.MedicalCreateResponse;
-  export import MedicalCreateParams = MedicalAPI.MedicalCreateParams;
+export declare namespace Medical {
+  export {
+    type MedicalCreateResponse as MedicalCreateResponse,
+    type MedicalCreateParams as MedicalCreateParams,
+  };
 }
