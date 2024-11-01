@@ -2,8 +2,8 @@ import { ReadableStream, type Response } from './_shims/index';
 import { WriterError } from './error';
 import { LineDecoder } from './internal/decoders/line';
 
-import { createResponseHeaders } from 'writer-sdk/core';
-import { APIError } from 'writer-sdk/error';
+import { createResponseHeaders } from './core';
+import { APIError } from './error';
 
 type Bytes = string | ArrayBuffer | Uint8Array | Buffer | null | undefined;
 
