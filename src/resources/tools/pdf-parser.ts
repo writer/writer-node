@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as PdfParserAPI from './pdf-parser';
 
 export class PdfParser extends APIResource {
   /**
@@ -31,7 +30,9 @@ export interface PdfParserParseParams {
   format: 'text' | 'markdown';
 }
 
-export namespace PdfParser {
-  export import PdfParserParseResponse = PdfParserAPI.PdfParserParseResponse;
-  export import PdfParserParseParams = PdfParserAPI.PdfParserParseParams;
+export declare namespace PdfParser {
+  export {
+    type PdfParserParseResponse as PdfParserParseResponse,
+    type PdfParserParseParams as PdfParserParseParams,
+  };
 }

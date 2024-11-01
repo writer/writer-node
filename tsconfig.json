@@ -11,7 +11,7 @@
     "paths": {
       "writer-sdk/_shims/auto/*": ["src/_shims/auto/*-node"],
       "writer-sdk/*": ["src/*"],
-      "writer-sdk": ["src/index.ts"],
+      "writer-sdk": ["src/index.ts"]
     },
     "noEmit": true,
 

@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as FilesAPI from './files';
 import { CursorPage, type CursorPageParams } from '../pagination';
 import { type Response } from '../_shims/index';
 
@@ -163,12 +162,16 @@ export interface FileUploadParams {
   'Content-Disposition': string;
 }
 
-export namespace Files {
-  export import File = FilesAPI.File;
-  export import FileDeleteResponse = FilesAPI.FileDeleteResponse;
-  export import FileRetryResponse = FilesAPI.FileRetryResponse;
-  export import FilesCursorPage = FilesAPI.FilesCursorPage;
-  export import FileListParams = FilesAPI.FileListParams;
-  export import FileRetryParams = FilesAPI.FileRetryParams;
-  export import FileUploadParams = FilesAPI.FileUploadParams;
+Files.FilesCursorPage = FilesCursorPage;
+
+export declare namespace Files {
+  export {
+    type File as File,
+    type FileDeleteResponse as FileDeleteResponse,
+    type FileRetryResponse as FileRetryResponse,
+    FilesCursorPage as FilesCursorPage,
+    type FileListParams as FileListParams,
+    type FileRetryParams as FileRetryParams,
+    type FileUploadParams as FileUploadParams,
+  };
 }
