@@ -50,5 +50,7 @@ export { Models, type ModelListResponse } from './models';
 export {
   Tools,
   type ToolContextAwareSplittingResponse,
+  type ToolParsePdfResponse,
   type ToolContextAwareSplittingParams,
+  type ToolParsePdfParams,
 } from './tools/tools';

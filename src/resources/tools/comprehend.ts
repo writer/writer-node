@@ -3,23 +3,26 @@
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
 
-export class Medical extends APIResource {
+export class Comprehend extends APIResource {
   /**
    * Create a completion using Palmyra medical model.
    */
-  create(body: MedicalCreateParams, options?: Core.RequestOptions): Core.APIPromise<MedicalCreateResponse> {
+  medical(
+    body: ComprehendMedicalParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ComprehendMedicalResponse> {
     return this._client.post('/v1/tools/comprehend/medical', { body, ...options });
   }
 }
 
-export interface MedicalCreateResponse {
+export interface ComprehendMedicalResponse {
   /**
    * An array of medical entities extracted from the input text.
    */
-  entities: Array<MedicalCreateResponse.Entity>;
+  entities: Array<ComprehendMedicalResponse.Entity>;
 }
 
-export namespace MedicalCreateResponse {
+export namespace ComprehendMedicalResponse {
   export interface Entity {
     attributes: Array<Entity.Attribute>;
 
@@ -95,7 +98,7 @@ export namespace MedicalCreateResponse {
   }
 }
 
-export interface MedicalCreateParams {
+export interface ComprehendMedicalParams {
   /**
    * The text to be analyzed.
    */
@@ -109,9 +112,9 @@ export interface MedicalCreateParams {
   response_type: 'Entities' | 'RxNorm' | 'ICD-10-CM' | 'SNOMED CT';
 }
 
-export declare namespace Medical {
+export declare namespace Comprehend {
   export {
-    type MedicalCreateResponse as MedicalCreateResponse,
-    type MedicalCreateParams as MedicalCreateParams,
+    type ComprehendMedicalResponse as ComprehendMedicalResponse,
+    type ComprehendMedicalParams as ComprehendMedicalParams,
   };
 }

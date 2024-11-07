@@ -84,27 +84,19 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/tools/tools.ts">ToolContextAwareSplittingResponse</a></code>
+- <code><a href="./src/resources/tools/tools.ts">ToolParsePdfResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/tools/context-aware-splitting">client.tools.<a href="./src/resources/tools/tools.ts">contextAwareSplitting</a>({ ...params }) -> ToolContextAwareSplittingResponse</code>
+- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileId, { ...params }) -> ToolParsePdfResponse</code>
 
-## Medical
-
-Types:
-
-- <code><a href="./src/resources/tools/medical.ts">MedicalCreateResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/tools/comprehend/medical">client.tools.medical.<a href="./src/resources/tools/medical.ts">create</a>({ ...params }) -> MedicalCreateResponse</code>
-
-## PdfParser
+## Comprehend
 
 Types:
 
-- <code><a href="./src/resources/tools/pdf-parser.ts">PdfParserParseResponse</a></code>
+- <code><a href="./src/resources/tools/comprehend.ts">ComprehendMedicalResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.pdfParser.<a href="./src/resources/tools/pdf-parser.ts">parse</a>(fileId, { ...params }) -> PdfParserParseResponse</code>
+- <code title="post /v1/tools/comprehend/medical">client.tools.comprehend.<a href="./src/resources/tools/comprehend.ts">medical</a>({ ...params }) -> ComprehendMedicalResponse</code>
