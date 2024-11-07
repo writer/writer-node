@@ -2,14 +2,11 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as MedicalAPI from './medical';
-import { Medical, MedicalCreateParams, MedicalCreateResponse } from './medical';
-import * as PdfParserAPI from './pdf-parser';
-import { PdfParser, PdfParserParseParams, PdfParserParseResponse } from './pdf-parser';
+import * as ComprehendAPI from './comprehend';
+import { Comprehend, ComprehendMedicalParams, ComprehendMedicalResponse } from './comprehend';
 
 export class Tools extends APIResource {
-  medical: MedicalAPI.Medical = new MedicalAPI.Medical(this._client);
-  pdfParser: PdfParserAPI.PdfParser = new PdfParserAPI.PdfParser(this._client);
+  comprehend: ComprehendAPI.Comprehend = new ComprehendAPI.Comprehend(this._client);
 
   /**
    * Splits a long block of text (maximum 4000 words) into smaller chunks while
@@ -21,6 +18,17 @@ export class Tools extends APIResource {
   ): Core.APIPromise<ToolContextAwareSplittingResponse> {
     return this._client.post('/v1/tools/context-aware-splitting', { body, ...options });
   }
+
+  /**
+   * Parse PDF to other formats.
+   */
+  parsePdf(
+    fileId: string,
+    body: ToolParsePdfParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ToolParsePdfResponse> {
+    return this._client.post(`/v1/tools/pdf-parser/${fileId}`, { body, ...options });
+  }
 }
 
 export interface ToolContextAwareSplittingResponse {
@@ -29,6 +37,13 @@ export interface ToolContextAwareSplittingResponse {
    * specified strategy.
    */
   chunks: Array<string>;
+}
+
+export interface ToolParsePdfResponse {
+  /**
+   * The extracted content from the PDF file, converted to the specified format.
+   */
+  content: string;
 }
 
 export interface ToolContextAwareSplittingParams {
@@ -45,24 +60,26 @@ export interface ToolContextAwareSplittingParams {
   text: string;
 }
 
-Tools.Medical = Medical;
-Tools.PdfParser = PdfParser;
+export interface ToolParsePdfParams {
+  /**
+   * The format into which the PDF content should be converted.
+   */
+  format: 'text' | 'markdown';
+}
+
+Tools.Comprehend = Comprehend;
 
 export declare namespace Tools {
   export {
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
+    type ToolParsePdfResponse as ToolParsePdfResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
+    type ToolParsePdfParams as ToolParsePdfParams,
   };
 
   export {
-    Medical as Medical,
-    type MedicalCreateResponse as MedicalCreateResponse,
-    type MedicalCreateParams as MedicalCreateParams,
-  };
-
-  export {
-    PdfParser as PdfParser,
-    type PdfParserParseResponse as PdfParserParseResponse,
-    type PdfParserParseParams as PdfParserParseParams,
+    Comprehend as Comprehend,
+    type ComprehendMedicalResponse as ComprehendMedicalResponse,
+    type ComprehendMedicalParams as ComprehendMedicalParams,
   };
 }

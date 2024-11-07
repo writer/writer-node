@@ -57,6 +57,8 @@ import { ModelListResponse, Models } from './resources/models';
 import {
   ToolContextAwareSplittingParams,
   ToolContextAwareSplittingResponse,
+  ToolParsePdfParams,
+  ToolParsePdfResponse,
   Tools,
 } from './resources/tools/tools';
 
@@ -308,7 +310,9 @@ export declare namespace Writer {
   export {
     Tools as Tools,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
+    type ToolParsePdfResponse as ToolParsePdfResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
+    type ToolParsePdfParams as ToolParsePdfParams,
   };
 }
 
