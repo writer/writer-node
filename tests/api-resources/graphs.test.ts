@@ -134,7 +134,7 @@ describe('resource graphs', () => {
     const responsePromise = client.graphs.question({
       graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       question: 'question',
-      stream: true,
+      stream: false,
       subqueries: true,
     });
     const rawResponse = await responsePromise.asResponse();
@@ -150,7 +150,7 @@ describe('resource graphs', () => {
     const response = await client.graphs.question({
       graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       question: 'question',
-      stream: true,
+      stream: false,
       subqueries: true,
     });
   });
