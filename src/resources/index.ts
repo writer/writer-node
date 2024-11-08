@@ -45,6 +45,8 @@ export {
   type GraphListParams,
   type GraphAddFileToGraphParams,
   type GraphQuestionParams,
+  type GraphQuestionParamsNonStreaming,
+  type GraphQuestionParamsStreaming,
 } from './graphs';
 export { Models, type ModelListResponse } from './models';
 export {

@@ -46,6 +46,8 @@ import {
   GraphDeleteResponse,
   GraphListParams,
   GraphQuestionParams,
+  GraphQuestionParamsNonStreaming,
+  GraphQuestionParamsStreaming,
   GraphRemoveFileFromGraphResponse,
   GraphUpdateParams,
   GraphUpdateResponse,
@@ -294,6 +296,8 @@ export declare namespace Writer {
     type GraphListParams as GraphListParams,
     type GraphAddFileToGraphParams as GraphAddFileToGraphParams,
     type GraphQuestionParams as GraphQuestionParams,
+    type GraphQuestionParamsNonStreaming as GraphQuestionParamsNonStreaming,
+    type GraphQuestionParamsStreaming as GraphQuestionParamsStreaming,
   };
 
   export {

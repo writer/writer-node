@@ -2,9 +2,12 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
+import * as GraphsAPI from './graphs';
 import * as FilesAPI from './files';
 import { CursorPage, type CursorPageParams } from '../pagination';
+import { Stream } from '../streaming';
 
 export class Graphs extends APIResource {
   /**
@@ -85,8 +88,19 @@ export class Graphs extends APIResource {
   /**
    * Ask a question to specified Knowledge Graphs.
    */
-  question(body: GraphQuestionParams, options?: Core.RequestOptions): Core.APIPromise<Question> {
-    return this._client.post('/v1/graphs/question', { body, ...options });
+  question(body: GraphQuestionParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Question>;
+  question(body: GraphQuestionParamsStreaming, options?: Core.RequestOptions): APIPromise<Stream<Question>>;
+  question(
+    body: GraphQuestionParamsBase,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<Question> | Question>;
+  question(
+    body: GraphQuestionParams,
+    options?: Core.RequestOptions,
+  ): APIPromise<Question> | APIPromise<Stream<Question>> {
+    return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as
+      | APIPromise<Question>
+      | APIPromise<Stream<Question>>;
   }
 
   /**
@@ -322,7 +336,9 @@ export interface GraphAddFileToGraphParams {
   file_id: string;
 }
 
-export interface GraphQuestionParams {
+export type GraphQuestionParams = GraphQuestionParamsNonStreaming | GraphQuestionParamsStreaming;
+
+export interface GraphQuestionParamsBase {
   /**
    * The unique identifiers of the Knowledge Graphs to be queried.
    */
@@ -346,6 +362,29 @@ export interface GraphQuestionParams {
   subqueries: boolean;
 }
 
+export namespace GraphQuestionParams {
+  export type GraphQuestionParamsNonStreaming = GraphsAPI.GraphQuestionParamsNonStreaming;
+  export type GraphQuestionParamsStreaming = GraphsAPI.GraphQuestionParamsStreaming;
+}
+
+export interface GraphQuestionParamsNonStreaming extends GraphQuestionParamsBase {
+  /**
+   * Determines whether the model's output should be streamed. If true, the output is
+   * generated and sent incrementally, which can be useful for real-time
+   * applications.
+   */
+  stream: false;
+}
+
+export interface GraphQuestionParamsStreaming extends GraphQuestionParamsBase {
+  /**
+   * Determines whether the model's output should be streamed. If true, the output is
+   * generated and sent incrementally, which can be useful for real-time
+   * applications.
+   */
+  stream: true;
+}
+
 Graphs.GraphsCursorPage = GraphsCursorPage;
 
 export declare namespace Graphs {
@@ -362,5 +401,7 @@ export declare namespace Graphs {
     type GraphListParams as GraphListParams,
     type GraphAddFileToGraphParams as GraphAddFileToGraphParams,
     type GraphQuestionParams as GraphQuestionParams,
+    type GraphQuestionParamsNonStreaming as GraphQuestionParamsNonStreaming,
+    type GraphQuestionParamsStreaming as GraphQuestionParamsStreaming,
   };
 }
