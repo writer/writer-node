@@ -36,6 +36,7 @@ export {
   Graphs,
   type Graph,
   type Question,
+  type QuestionStreaming,
   type GraphCreateResponse,
   type GraphUpdateResponse,
   type GraphDeleteResponse,

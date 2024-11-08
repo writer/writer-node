@@ -46,6 +46,7 @@ Types:
 
 - <code><a href="./src/resources/graphs.ts">Graph</a></code>
 - <code><a href="./src/resources/graphs.ts">Question</a></code>
+- <code><a href="./src/resources/graphs.ts">QuestionStreaming</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphCreateResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphUpdateResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphDeleteResponse</a></code>
