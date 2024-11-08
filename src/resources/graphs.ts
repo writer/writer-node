@@ -75,18 +75,18 @@ export class Graphs extends APIResource {
   question(
     body: GraphQuestionParamsStreaming,
     options?: Core.RequestOptions,
-  ): APIPromise<Stream<QuestionStreaming>>;
+  ): APIPromise<Stream<QuestionResponseChunk>>;
   question(
     body: GraphQuestionParamsBase,
     options?: Core.RequestOptions,
-  ): APIPromise<Stream<QuestionStreaming> | Question>;
+  ): APIPromise<Stream<QuestionResponseChunk> | Question>;
   question(
     body: GraphQuestionParams,
     options?: Core.RequestOptions,
-  ): APIPromise<Question> | APIPromise<Stream<QuestionStreaming>> {
+  ): APIPromise<Question> | APIPromise<Stream<QuestionResponseChunk>> {
     return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as
       | APIPromise<Question>
-      | APIPromise<Stream<QuestionStreaming>>;
+      | APIPromise<Stream<QuestionResponseChunk>>;
   }
 
   /**
@@ -209,7 +209,7 @@ export namespace Question {
   }
 }
 
-export interface QuestionStreaming {
+export interface QuestionResponseChunk {
   data: Question;
 }
 
@@ -381,7 +381,7 @@ export declare namespace Graphs {
   export {
     type Graph as Graph,
     type Question as Question,
-    type QuestionStreaming as QuestionStreaming,
+    type QuestionResponseChunk as QuestionResponseChunk,
     type GraphCreateResponse as GraphCreateResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
     type GraphDeleteResponse as GraphDeleteResponse,

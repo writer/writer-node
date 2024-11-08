@@ -29,6 +29,17 @@ export class Tools extends APIResource {
   ): Core.APIPromise<ToolParsePdfResponse> {
     return this._client.post(`/v1/tools/pdf-parser/${fileId}`, { body, ...options });
   }
+
+  /**
+   * Performs name entity recognition on the supplied text accepting a maximum of
+   * 35000 words.
+   */
+  textToGraph(
+    body: ToolTextToGraphParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ToolTextToGraphResponse> {
+    return this._client.post('/v1/tools/text-to-graph', { body, ...options });
+  }
 }
 
 export interface ToolContextAwareSplittingResponse {
@@ -44,6 +55,14 @@ export interface ToolParsePdfResponse {
    * The extracted content from the PDF file, converted to the specified format.
    */
   content: string;
+}
+
+export interface ToolTextToGraphResponse {
+  /**
+   * The graph structure generated from the input text, represented by a string array
+   * of entities and relationships.
+   */
+  graph: Array<Array<string>>;
 }
 
 export interface ToolContextAwareSplittingParams {
@@ -67,14 +86,23 @@ export interface ToolParsePdfParams {
   format: 'text' | 'markdown';
 }
 
+export interface ToolTextToGraphParams {
+  /**
+   * The text to be converted into a graph structure. Maximum of 35000 words.
+   */
+  text: string;
+}
+
 Tools.Comprehend = Comprehend;
 
 export declare namespace Tools {
   export {
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolTextToGraphResponse as ToolTextToGraphResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+    type ToolTextToGraphParams as ToolTextToGraphParams,
   };
 
   export {

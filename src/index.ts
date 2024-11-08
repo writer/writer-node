@@ -54,7 +54,7 @@ import {
   Graphs,
   GraphsCursorPage,
   Question,
-  QuestionStreaming,
+  QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
 import {
@@ -62,6 +62,8 @@ import {
   ToolContextAwareSplittingResponse,
   ToolParsePdfParams,
   ToolParsePdfResponse,
+  ToolTextToGraphParams,
+  ToolTextToGraphResponse,
   Tools,
 } from './resources/tools/tools';
 
@@ -287,7 +289,7 @@ export declare namespace Writer {
     Graphs as Graphs,
     type Graph as Graph,
     type Question as Question,
-    type QuestionStreaming as QuestionStreaming,
+    type QuestionResponseChunk as QuestionResponseChunk,
     type GraphCreateResponse as GraphCreateResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
@@ -317,8 +319,10 @@ export declare namespace Writer {
     Tools as Tools,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolTextToGraphResponse as ToolTextToGraphResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+    type ToolTextToGraphParams as ToolTextToGraphParams,
   };
 }
 

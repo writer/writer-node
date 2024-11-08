@@ -38,4 +38,19 @@ describe('resource tools', () => {
   test('parsePdf: required and optional params', async () => {
     const response = await client.tools.parsePdf('file_id', { format: 'text' });
   });
+
+  test('textToGraph: only required params', async () => {
+    const responsePromise = client.tools.textToGraph({ text: 'text' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('textToGraph: required and optional params', async () => {
+    const response = await client.tools.textToGraph({ text: 'text' });
+  });
 });
