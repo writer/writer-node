@@ -89,18 +89,21 @@ export class Graphs extends APIResource {
    * Ask a question to specified Knowledge Graphs.
    */
   question(body: GraphQuestionParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Question>;
-  question(body: GraphQuestionParamsStreaming, options?: Core.RequestOptions): APIPromise<Stream<Question>>;
+  question(
+    body: GraphQuestionParamsStreaming,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<QuestionStreaming>>;
   question(
     body: GraphQuestionParamsBase,
     options?: Core.RequestOptions,
-  ): APIPromise<Stream<Question> | Question>;
+  ): APIPromise<Stream<QuestionStreaming> | Question>;
   question(
     body: GraphQuestionParams,
     options?: Core.RequestOptions,
-  ): APIPromise<Question> | APIPromise<Stream<Question>> {
+  ): APIPromise<Question> | APIPromise<Stream<QuestionStreaming>> {
     return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as
       | APIPromise<Question>
-      | APIPromise<Stream<Question>>;
+      | APIPromise<Stream<QuestionStreaming>>;
   }
 
   /**
@@ -221,6 +224,10 @@ export namespace Question {
       snippet: string;
     }
   }
+}
+
+export interface QuestionStreaming {
+  data: Question;
 }
 
 export interface GraphCreateResponse {
@@ -391,6 +398,7 @@ export declare namespace Graphs {
   export {
     type Graph as Graph,
     type Question as Question,
+    type QuestionStreaming as QuestionStreaming,
     type GraphCreateResponse as GraphCreateResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
