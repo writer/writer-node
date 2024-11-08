@@ -54,6 +54,7 @@ import {
   Graphs,
   GraphsCursorPage,
   Question,
+  QuestionStreaming,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
 import {
@@ -286,6 +287,7 @@ export declare namespace Writer {
     Graphs as Graphs,
     type Graph as Graph,
     type Question as Question,
+    type QuestionStreaming as QuestionStreaming,
     type GraphCreateResponse as GraphCreateResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
