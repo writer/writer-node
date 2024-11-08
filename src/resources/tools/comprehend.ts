@@ -5,7 +5,8 @@ import * as Core from '../../core';
 
 export class Comprehend extends APIResource {
   /**
-   * Create a completion using Palmyra medical model.
+   * Analyze unstructured medical text to extract entities labeled with standardized
+   * medical codes and confidence scores.
    */
   medical(
     body: ComprehendMedicalParams,
