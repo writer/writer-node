@@ -224,25 +224,6 @@ export class Writer extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  WriterError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Writer.Applications = Applications;
 Writer.ChatResource = ChatResource;
 Writer.Completions = Completions;
@@ -252,7 +233,6 @@ Writer.GraphsCursorPage = GraphsCursorPage;
 Writer.Files = Files;
 Writer.FilesCursorPage = FilesCursorPage;
 Writer.Tools = Tools;
-
 export declare namespace Writer {
   export type RequestOptions = Core.RequestOptions;
 
@@ -325,5 +305,22 @@ export declare namespace Writer {
     type ToolTextToGraphParams as ToolTextToGraphParams,
   };
 }
+
+export { toFile, fileFromPath } from 'writer-sdk/uploads';
+export {
+  WriterError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from 'writer-sdk/error';
 
 export default Writer;
