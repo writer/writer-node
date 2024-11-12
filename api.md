@@ -86,13 +86,11 @@ Types:
 
 - <code><a href="./src/resources/tools/tools.ts">ToolContextAwareSplittingResponse</a></code>
 - <code><a href="./src/resources/tools/tools.ts">ToolParsePdfResponse</a></code>
-- <code><a href="./src/resources/tools/tools.ts">ToolTextToGraphResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/tools/context-aware-splitting">client.tools.<a href="./src/resources/tools/tools.ts">contextAwareSplitting</a>({ ...params }) -> ToolContextAwareSplittingResponse</code>
 - <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileId, { ...params }) -> ToolParsePdfResponse</code>
-- <code title="post /v1/tools/text-to-graph">client.tools.<a href="./src/resources/tools/tools.ts">textToGraph</a>({ ...params }) -> ToolTextToGraphResponse</code>
 
 ## Comprehend
 

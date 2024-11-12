@@ -62,8 +62,6 @@ import {
   ToolContextAwareSplittingResponse,
   ToolParsePdfParams,
   ToolParsePdfResponse,
-  ToolTextToGraphParams,
-  ToolTextToGraphResponse,
   Tools,
 } from './resources/tools/tools';
 
@@ -299,10 +297,8 @@ export declare namespace Writer {
     Tools as Tools,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
-    type ToolTextToGraphResponse as ToolTextToGraphResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
-    type ToolTextToGraphParams as ToolTextToGraphParams,
   };
 }
 
