@@ -2,10 +2,12 @@
 
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
+import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as GraphsAPI from './graphs';
 import * as FilesAPI from './files';
 import { CursorPage, type CursorPageParams } from '../pagination';
+import { Stream } from '../streaming';
 
 export class Graphs extends APIResource {
   /**
@@ -86,8 +88,22 @@ export class Graphs extends APIResource {
   /**
    * Ask a question to specified Knowledge Graphs.
    */
-  question(body: GraphQuestionParams, options?: Core.RequestOptions): Core.APIPromise<Question> {
-    return this._client.post('/v1/graphs/question', { body, ...options });
+  question(body: GraphQuestionParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Question>;
+  question(
+    body: GraphQuestionParamsStreaming,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<QuestionResponseChunk>>;
+  question(
+    body: GraphQuestionParamsBase,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<QuestionResponseChunk> | Question>;
+  question(
+    body: GraphQuestionParams,
+    options?: Core.RequestOptions,
+  ): APIPromise<Question> | APIPromise<Stream<QuestionResponseChunk>> {
+    return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as
+      | APIPromise<Question>
+      | APIPromise<Stream<QuestionResponseChunk>>;
   }
 
   /**
@@ -210,6 +226,10 @@ export namespace Question {
   }
 }
 
+export interface QuestionResponseChunk {
+  data: Question;
+}
+
 export interface GraphCreateResponse {
   /**
    * A unique identifier of the graph.
@@ -323,7 +343,9 @@ export interface GraphAddFileToGraphParams {
   file_id: string;
 }
 
-export interface GraphQuestionParams {
+export type GraphQuestionParams = GraphQuestionParamsNonStreaming | GraphQuestionParamsStreaming;
+
+export interface GraphQuestionParamsBase {
   /**
    * The unique identifiers of the Knowledge Graphs to be queried.
    */
@@ -347,17 +369,47 @@ export interface GraphQuestionParams {
   subqueries: boolean;
 }
 
-export namespace Graphs {
-  export import Graph = GraphsAPI.Graph;
-  export import Question = GraphsAPI.Question;
-  export import GraphCreateResponse = GraphsAPI.GraphCreateResponse;
-  export import GraphUpdateResponse = GraphsAPI.GraphUpdateResponse;
-  export import GraphDeleteResponse = GraphsAPI.GraphDeleteResponse;
-  export import GraphRemoveFileFromGraphResponse = GraphsAPI.GraphRemoveFileFromGraphResponse;
-  export import GraphsCursorPage = GraphsAPI.GraphsCursorPage;
-  export import GraphCreateParams = GraphsAPI.GraphCreateParams;
-  export import GraphUpdateParams = GraphsAPI.GraphUpdateParams;
-  export import GraphListParams = GraphsAPI.GraphListParams;
-  export import GraphAddFileToGraphParams = GraphsAPI.GraphAddFileToGraphParams;
-  export import GraphQuestionParams = GraphsAPI.GraphQuestionParams;
+export namespace GraphQuestionParams {
+  export type GraphQuestionParamsNonStreaming = GraphsAPI.GraphQuestionParamsNonStreaming;
+  export type GraphQuestionParamsStreaming = GraphsAPI.GraphQuestionParamsStreaming;
+}
+
+export interface GraphQuestionParamsNonStreaming extends GraphQuestionParamsBase {
+  /**
+   * Determines whether the model's output should be streamed. If true, the output is
+   * generated and sent incrementally, which can be useful for real-time
+   * applications.
+   */
+  stream: false;
+}
+
+export interface GraphQuestionParamsStreaming extends GraphQuestionParamsBase {
+  /**
+   * Determines whether the model's output should be streamed. If true, the output is
+   * generated and sent incrementally, which can be useful for real-time
+   * applications.
+   */
+  stream: true;
+}
+
+Graphs.GraphsCursorPage = GraphsCursorPage;
+
+export declare namespace Graphs {
+  export {
+    type Graph as Graph,
+    type Question as Question,
+    type QuestionResponseChunk as QuestionResponseChunk,
+    type GraphCreateResponse as GraphCreateResponse,
+    type GraphUpdateResponse as GraphUpdateResponse,
+    type GraphDeleteResponse as GraphDeleteResponse,
+    type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
+    GraphsCursorPage as GraphsCursorPage,
+    type GraphCreateParams as GraphCreateParams,
+    type GraphUpdateParams as GraphUpdateParams,
+    type GraphListParams as GraphListParams,
+    type GraphAddFileToGraphParams as GraphAddFileToGraphParams,
+    type GraphQuestionParams as GraphQuestionParams,
+    type GraphQuestionParamsNonStreaming as GraphQuestionParamsNonStreaming,
+    type GraphQuestionParamsStreaming as GraphQuestionParamsStreaming,
+  };
 }

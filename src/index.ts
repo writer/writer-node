@@ -1,11 +1,69 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Errors from './error';
-import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as Core from './core';
+import * as Errors from './error';
 import * as Pagination from './pagination';
+import { type CursorPageParams, CursorPageResponse } from './pagination';
+import * as Uploads from './uploads';
 import * as API from './resources/index';
+import {
+  ApplicationGenerateContentParams,
+  ApplicationGenerateContentResponse,
+  Applications,
+} from './resources/applications';
+import {
+  Chat,
+  ChatChatParams,
+  ChatChatParamsNonStreaming,
+  ChatChatParamsStreaming,
+  ChatCompletionChunk,
+  ChatResource,
+} from './resources/chat';
+import {
+  Completion,
+  CompletionCreateParams,
+  CompletionCreateParamsNonStreaming,
+  CompletionCreateParamsStreaming,
+  Completions,
+  StreamingData,
+} from './resources/completions';
+import {
+  File,
+  FileDeleteResponse,
+  FileListParams,
+  FileRetryParams,
+  FileRetryResponse,
+  FileUploadParams,
+  Files,
+  FilesCursorPage,
+} from './resources/files';
+import {
+  Graph,
+  GraphAddFileToGraphParams,
+  GraphCreateParams,
+  GraphCreateResponse,
+  GraphDeleteResponse,
+  GraphListParams,
+  GraphQuestionParams,
+  GraphQuestionParamsNonStreaming,
+  GraphQuestionParamsStreaming,
+  GraphRemoveFileFromGraphResponse,
+  GraphUpdateParams,
+  GraphUpdateResponse,
+  Graphs,
+  GraphsCursorPage,
+  Question,
+  QuestionResponseChunk,
+} from './resources/graphs';
+import { ModelListResponse, Models } from './resources/models';
+import {
+  ToolContextAwareSplittingParams,
+  ToolContextAwareSplittingResponse,
+  ToolParsePdfParams,
+  ToolParsePdfResponse,
+  Tools,
+} from './resources/tools/tools';
 
 export interface ClientOptions {
   /**
@@ -126,6 +184,7 @@ export class Writer extends Core.APIClient {
   models: API.Models = new API.Models(this);
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
+  tools: API.Tools = new API.Tools(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -163,7 +222,88 @@ export class Writer extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
+Writer.Applications = Applications;
+Writer.ChatResource = ChatResource;
+Writer.Completions = Completions;
+Writer.Models = Models;
+Writer.Graphs = Graphs;
+Writer.GraphsCursorPage = GraphsCursorPage;
+Writer.Files = Files;
+Writer.FilesCursorPage = FilesCursorPage;
+Writer.Tools = Tools;
+export declare namespace Writer {
+  export type RequestOptions = Core.RequestOptions;
+
+  export import CursorPage = Pagination.CursorPage;
+  export { type CursorPageParams as CursorPageParams, type CursorPageResponse as CursorPageResponse };
+
+  export {
+    Applications as Applications,
+    type ApplicationGenerateContentResponse as ApplicationGenerateContentResponse,
+    type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
+  };
+
+  export {
+    ChatResource as ChatResource,
+    type Chat as Chat,
+    type ChatCompletionChunk as ChatCompletionChunk,
+    type ChatChatParams as ChatChatParams,
+    type ChatChatParamsNonStreaming as ChatChatParamsNonStreaming,
+    type ChatChatParamsStreaming as ChatChatParamsStreaming,
+  };
+
+  export {
+    Completions as Completions,
+    type Completion as Completion,
+    type StreamingData as StreamingData,
+    type CompletionCreateParams as CompletionCreateParams,
+    type CompletionCreateParamsNonStreaming as CompletionCreateParamsNonStreaming,
+    type CompletionCreateParamsStreaming as CompletionCreateParamsStreaming,
+  };
+
+  export { Models as Models, type ModelListResponse as ModelListResponse };
+
+  export {
+    Graphs as Graphs,
+    type Graph as Graph,
+    type Question as Question,
+    type QuestionResponseChunk as QuestionResponseChunk,
+    type GraphCreateResponse as GraphCreateResponse,
+    type GraphUpdateResponse as GraphUpdateResponse,
+    type GraphDeleteResponse as GraphDeleteResponse,
+    type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
+    GraphsCursorPage as GraphsCursorPage,
+    type GraphCreateParams as GraphCreateParams,
+    type GraphUpdateParams as GraphUpdateParams,
+    type GraphListParams as GraphListParams,
+    type GraphAddFileToGraphParams as GraphAddFileToGraphParams,
+    type GraphQuestionParams as GraphQuestionParams,
+    type GraphQuestionParamsNonStreaming as GraphQuestionParamsNonStreaming,
+    type GraphQuestionParamsStreaming as GraphQuestionParamsStreaming,
+  };
+
+  export {
+    Files as Files,
+    type File as File,
+    type FileDeleteResponse as FileDeleteResponse,
+    type FileRetryResponse as FileRetryResponse,
+    FilesCursorPage as FilesCursorPage,
+    type FileListParams as FileListParams,
+    type FileRetryParams as FileRetryParams,
+    type FileUploadParams as FileUploadParams,
+  };
+
+  export {
+    Tools as Tools,
+    type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
+    type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
+    type ToolParsePdfParams as ToolParsePdfParams,
+  };
+}
+
+export { toFile, fileFromPath } from 'writer-sdk/uploads';
+export {
   WriterError,
   APIError,
   APIConnectionError,
@@ -177,61 +317,6 @@ export const {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} = Errors;
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
-export namespace Writer {
-  export import RequestOptions = Core.RequestOptions;
-
-  export import CursorPage = Pagination.CursorPage;
-  export import CursorPageParams = Pagination.CursorPageParams;
-  export import CursorPageResponse = Pagination.CursorPageResponse;
-
-  export import Applications = API.Applications;
-  export import ApplicationGenerateContentResponse = API.ApplicationGenerateContentResponse;
-  export import ApplicationGenerateContentParams = API.ApplicationGenerateContentParams;
-
-  export import ChatResource = API.ChatResource;
-  export import Chat = API.Chat;
-  export import ChatCompletionChunk = API.ChatCompletionChunk;
-  export import ChatChatParams = API.ChatChatParams;
-  export import ChatChatParamsNonStreaming = API.ChatChatParamsNonStreaming;
-  export import ChatChatParamsStreaming = API.ChatChatParamsStreaming;
-
-  export import Completions = API.Completions;
-  export import Completion = API.Completion;
-  export import StreamingData = API.StreamingData;
-  export import CompletionCreateParams = API.CompletionCreateParams;
-  export import CompletionCreateParamsNonStreaming = API.CompletionCreateParamsNonStreaming;
-  export import CompletionCreateParamsStreaming = API.CompletionCreateParamsStreaming;
-
-  export import Models = API.Models;
-  export import ModelListResponse = API.ModelListResponse;
-
-  export import Graphs = API.Graphs;
-  export import Graph = API.Graph;
-  export import Question = API.Question;
-  export import GraphCreateResponse = API.GraphCreateResponse;
-  export import GraphUpdateResponse = API.GraphUpdateResponse;
-  export import GraphDeleteResponse = API.GraphDeleteResponse;
-  export import GraphRemoveFileFromGraphResponse = API.GraphRemoveFileFromGraphResponse;
-  export import GraphsCursorPage = API.GraphsCursorPage;
-  export import GraphCreateParams = API.GraphCreateParams;
-  export import GraphUpdateParams = API.GraphUpdateParams;
-  export import GraphListParams = API.GraphListParams;
-  export import GraphAddFileToGraphParams = API.GraphAddFileToGraphParams;
-  export import GraphQuestionParams = API.GraphQuestionParams;
-
-  export import Files = API.Files;
-  export import File = API.File;
-  export import FileDeleteResponse = API.FileDeleteResponse;
-  export import FileRetryResponse = API.FileRetryResponse;
-  export import FilesCursorPage = API.FilesCursorPage;
-  export import FileListParams = API.FileListParams;
-  export import FileRetryParams = API.FileRetryParams;
-  export import FileUploadParams = API.FileUploadParams;
-}
+} from 'writer-sdk/error';
 
 export default Writer;

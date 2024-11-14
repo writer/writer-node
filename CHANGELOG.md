@@ -1,5 +1,38 @@
 # Changelog
 
+## 1.3.0 (2024-11-12)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/writer/writer-node/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **api:** add new endpoints ([#94](https://github.com/writer/writer-node/issues/94)) ([b0dcac4](https://github.com/writer/writer-node/commit/b0dcac40bb742924828cc51fd2c8702ab509e9a1))
+* **api:** add streaming to kg question ([#101](https://github.com/writer/writer-node/issues/101)) ([0279ffc](https://github.com/writer/writer-node/commit/0279ffc13185a7cc4e34bcd5df0489b19bcd8b64))
+* **api:** api update ([#100](https://github.com/writer/writer-node/issues/100)) ([a7c6e10](https://github.com/writer/writer-node/commit/a7c6e10b93285a3c5a42ed468097bab2556d6be3))
+* **api:** api update ([#87](https://github.com/writer/writer-node/issues/87)) ([eabef89](https://github.com/writer/writer-node/commit/eabef89d3b32f0a46e546e004d16d91f3b91e63c))
+* **api:** manual updates ([#102](https://github.com/writer/writer-node/issues/102)) ([eea7dcc](https://github.com/writer/writer-node/commit/eea7dcc7d88ebe666cce615991b302dfec62d46b))
+* **api:** manual updates ([#105](https://github.com/writer/writer-node/issues/105)) ([9158a6d](https://github.com/writer/writer-node/commit/9158a6debe889e7cc7cf23df00d5f46671d352e7))
+* **api:** manual updates ([#95](https://github.com/writer/writer-node/issues/95)) ([26f13bd](https://github.com/writer/writer-node/commit/26f13bda1f456ff17cb8194cf5c2edeb6303652b))
+* **api:** rename kg question and add text-to-graph ([#103](https://github.com/writer/writer-node/issues/103)) ([5e651e2](https://github.com/writer/writer-node/commit/5e651e2383975474a8dea114527c4111e01f9b2d))
+* **api:** update tools api methods ([#99](https://github.com/writer/writer-node/issues/99)) ([991f955](https://github.com/writer/writer-node/commit/991f955a62816fbd25e92649f84383f264521755))
+
+
+### Bug Fixes
+
+* fix tool_choice schema ([d3ade29](https://github.com/writer/writer-node/commit/d3ade29281eaf5ffd94022e77313d8cfe96955e3))
+
+
+### Chores
+
+* rebuild project due to codegen change ([#104](https://github.com/writer/writer-node/issues/104)) ([e1c82c3](https://github.com/writer/writer-node/commit/e1c82c3fcaa679478ed321bf97cf8935ed98e7d6))
+* rebuild project due to codegen change ([#90](https://github.com/writer/writer-node/issues/90)) ([89fa5b3](https://github.com/writer/writer-node/commit/89fa5b3b669fc430ab3578a126cffd4b536bcbd2))
+* rebuild project due to codegen change ([#91](https://github.com/writer/writer-node/issues/91)) ([3657edb](https://github.com/writer/writer-node/commit/3657edb012dac0612aef8d09944a0283718988e2))
+* rebuild project due to codegen change ([#92](https://github.com/writer/writer-node/issues/92)) ([a60408e](https://github.com/writer/writer-node/commit/a60408e45c1eae74b653e3f4b7120e461f9e29a0))
+* rebuild project due to codegen change ([#93](https://github.com/writer/writer-node/issues/93)) ([0f9276c](https://github.com/writer/writer-node/commit/0f9276cfecc4d48ded3536dfb6075636f298fc4f))
+* rebuild project due to codegen change ([#96](https://github.com/writer/writer-node/issues/96)) ([25327f5](https://github.com/writer/writer-node/commit/25327f5a7c98774387f100155428a291acd82f46))
+* rebuild project due to codegen change ([#97](https://github.com/writer/writer-node/issues/97)) ([6df076b](https://github.com/writer/writer-node/commit/6df076b5af13422cb960d602b6aeb174e6bbdbc9))
+* rebuild project due to codegen change ([#98](https://github.com/writer/writer-node/issues/98)) ([890c742](https://github.com/writer/writer-node/commit/890c74292aadb14d39ccec510f115b5740badf31))
+
 ## 1.2.0 (2024-10-10)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/writer/writer-node/compare/v1.1.0...v1.2.0)
