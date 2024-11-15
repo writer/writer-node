@@ -302,7 +302,7 @@ export declare namespace Writer {
   };
 }
 
-export { toFile, fileFromPath } from 'writer-sdk/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   WriterError,
   APIError,
@@ -317,6 +317,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'writer-sdk/error';
+} from './error';
 
 export default Writer;
