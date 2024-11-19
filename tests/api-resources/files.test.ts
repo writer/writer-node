@@ -89,13 +89,7 @@ describe('resource files', () => {
   });
 
   test('retry: only required params', async () => {
-    const responsePromise = client.files.retry({
-      file_ids: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-    });
+    const responsePromise = client.files.retry({ file_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -106,13 +100,7 @@ describe('resource files', () => {
   });
 
   test('retry: required and optional params', async () => {
-    const response = await client.files.retry({
-      file_ids: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-    });
+    const response = await client.files.retry({ file_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] });
   });
 
   // requests with binary data not yet supported in test environment
