@@ -175,7 +175,7 @@ export abstract class APIClient {
   constructor({
     baseURL,
     maxRetries = 2,
-    timeout = 60000, // 1 minute
+    timeout = 180000, // 3 minutes
     httpAgent,
     fetch: overridenFetch,
   }: {
