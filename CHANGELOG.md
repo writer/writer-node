@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.4.0 (2024-11-20)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/writer/writer-node/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** default timeout increase to 3 min ([#111](https://github.com/writer/writer-node/issues/111)) ([e0d48dc](https://github.com/writer/writer-node/commit/e0d48dc70007e2ff26f7045ee5362d8954328805))
+
+
+### Chores
+
+* rebuild project due to codegen change ([#107](https://github.com/writer/writer-node/issues/107)) ([f053183](https://github.com/writer/writer-node/commit/f0531839142b957f8e6574a654eceb82c9f7a4e0))
+* rebuild project due to codegen change ([#109](https://github.com/writer/writer-node/issues/109)) ([7f35e1b](https://github.com/writer/writer-node/commit/7f35e1b0c9574e02273130e99d56f99829ff7062))
+* rebuild project due to codegen change ([#110](https://github.com/writer/writer-node/issues/110)) ([fc9e0e0](https://github.com/writer/writer-node/commit/fc9e0e088f76f18055213deaf259381b7713b415))
+
 ## 1.3.0 (2024-11-12)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/writer/writer-node/compare/v1.2.0...v1.3.0)
