@@ -140,13 +140,13 @@ await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' },
 
 ### Timeouts
 
-Requests time out after 1 minute by default. You can configure this with a `timeout` option:
+Requests time out after 3 minutes by default. You can configure this with a `timeout` option:
 
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
 const client = new Writer({
-  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+  timeout: 20 * 1000, // 20 seconds (default is 3 minutes)
 });
 
 // Override per-request:
@@ -185,7 +185,7 @@ for (const graph of page.data) {
 
 // Convenience methods are provided for manually paginating:
 while (page.hasNextPage()) {
-  page = page.getNextPage();
+  page = await page.getNextPage();
   // ...
 }
 ```
@@ -341,6 +341,15 @@ We are keen for your feedback; please open an [issue](https://www.github.com/wri
 TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
+
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher, using `import Writer from "npm:writer-sdk"`.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 

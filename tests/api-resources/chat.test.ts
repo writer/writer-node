@@ -27,40 +27,10 @@ describe('resource chat', () => {
           role: 'user',
           content: 'Write a memo summarizing this earnings report.',
           graph_data: {
-            sources: [
-              { file_id: 'file_id', snippet: 'snippet' },
-              { file_id: 'file_id', snippet: 'snippet' },
-              { file_id: 'file_id', snippet: 'snippet' },
-            ],
+            sources: [{ file_id: 'file_id', snippet: 'snippet' }],
             status: 'processing',
             subqueries: [
-              {
-                answer: 'answer',
-                query: 'query',
-                sources: [
-                  { file_id: 'file_id', snippet: 'snippet' },
-                  { file_id: 'file_id', snippet: 'snippet' },
-                  { file_id: 'file_id', snippet: 'snippet' },
-                ],
-              },
-              {
-                answer: 'answer',
-                query: 'query',
-                sources: [
-                  { file_id: 'file_id', snippet: 'snippet' },
-                  { file_id: 'file_id', snippet: 'snippet' },
-                  { file_id: 'file_id', snippet: 'snippet' },
-                ],
-              },
-              {
-                answer: 'answer',
-                query: 'query',
-                sources: [
-                  { file_id: 'file_id', snippet: 'snippet' },
-                  { file_id: 'file_id', snippet: 'snippet' },
-                  { file_id: 'file_id', snippet: 'snippet' },
-                ],
-              },
+              { answer: 'answer', query: 'query', sources: [{ file_id: 'file_id', snippet: 'snippet' }] },
             ],
           },
           name: 'name',
@@ -75,20 +45,12 @@ describe('resource chat', () => {
       logprobs: true,
       max_tokens: 0,
       n: 0,
-      stop: ['string', 'string', 'string'],
+      stop: ['string'],
       stream: false,
       stream_options: { include_usage: true },
       temperature: 0,
       tool_choice: { value: 'none' },
       tools: [
-        {
-          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
-          type: 'function',
-        },
-        {
-          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
-          type: 'function',
-        },
         {
           function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
           type: 'function',

@@ -141,7 +141,7 @@ export class Writer extends Core.APIClient {
    *
    * @param {string | undefined} [opts.apiKey=process.env['WRITER_API_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['WRITER_BASE_URL'] ?? https://api.writer.com] - Override the default base URL for the API.
-   * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
+   * @param {number} [opts.timeout=3 minutes] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
    * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
@@ -167,7 +167,7 @@ export class Writer extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
-      timeout: options.timeout ?? 60000 /* 1 minute */,
+      timeout: options.timeout ?? 180000 /* 3 minutes */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
       fetch: options.fetch,
@@ -202,7 +202,7 @@ export class Writer extends Core.APIClient {
   }
 
   static Writer = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 180000; // 3 minutes
 
   static WriterError = Errors.WriterError;
   static APIError = Errors.APIError;
@@ -302,7 +302,7 @@ export declare namespace Writer {
   };
 }
 
-export { toFile, fileFromPath } from 'writer-sdk/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   WriterError,
   APIError,
@@ -317,6 +317,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'writer-sdk/error';
+} from './error';
 
 export default Writer;
