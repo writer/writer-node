@@ -17,16 +17,21 @@ import {
   ChatChatParams,
   ChatChatParamsNonStreaming,
   ChatChatParamsStreaming,
+  ChatCompletion,
+  ChatCompletionChoice,
   ChatCompletionChunk,
-  ChatResource,
+  ChatCompletionMessage,
+  ChatCompletionParams,
+  ChatCompletionUsage,
 } from './resources/chat';
 import {
   Completion,
+  CompletionChunk,
   CompletionCreateParams,
   CompletionCreateParamsNonStreaming,
   CompletionCreateParamsStreaming,
+  CompletionParams,
   Completions,
-  StreamingData,
 } from './resources/completions';
 import {
   File,
@@ -179,7 +184,7 @@ export class Writer extends Core.APIClient {
   }
 
   applications: API.Applications = new API.Applications(this);
-  chat: API.ChatResource = new API.ChatResource(this);
+  chat: API.Chat = new API.Chat(this);
   completions: API.Completions = new API.Completions(this);
   models: API.Models = new API.Models(this);
   graphs: API.Graphs = new API.Graphs(this);
@@ -223,7 +228,7 @@ export class Writer extends Core.APIClient {
 }
 
 Writer.Applications = Applications;
-Writer.ChatResource = ChatResource;
+Writer.Chat = Chat;
 Writer.Completions = Completions;
 Writer.Models = Models;
 Writer.Graphs = Graphs;
@@ -244,9 +249,13 @@ export declare namespace Writer {
   };
 
   export {
-    ChatResource as ChatResource,
-    type Chat as Chat,
+    Chat as Chat,
+    type ChatCompletion as ChatCompletion,
+    type ChatCompletionChoice as ChatCompletionChoice,
     type ChatCompletionChunk as ChatCompletionChunk,
+    type ChatCompletionMessage as ChatCompletionMessage,
+    type ChatCompletionParams as ChatCompletionParams,
+    type ChatCompletionUsage as ChatCompletionUsage,
     type ChatChatParams as ChatChatParams,
     type ChatChatParamsNonStreaming as ChatChatParamsNonStreaming,
     type ChatChatParamsStreaming as ChatChatParamsStreaming,
@@ -255,7 +264,8 @@ export declare namespace Writer {
   export {
     Completions as Completions,
     type Completion as Completion,
-    type StreamingData as StreamingData,
+    type CompletionChunk as CompletionChunk,
+    type CompletionParams as CompletionParams,
     type CompletionCreateParams as CompletionCreateParams,
     type CompletionCreateParamsNonStreaming as CompletionCreateParamsNonStreaming,
     type CompletionCreateParamsStreaming as CompletionCreateParamsStreaming,
@@ -300,6 +310,20 @@ export declare namespace Writer {
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
   };
+
+  export type ErrorMessage = API.ErrorMessage;
+  export type ErrorObject = API.ErrorObject;
+  export type FunctionDefinition = API.FunctionDefinition;
+  export type FunctionParams = API.FunctionParams;
+  export type GraphData = API.GraphData;
+  export type Logprobs = API.Logprobs;
+  export type LogprobsToken = API.LogprobsToken;
+  export type Source = API.Source;
+  export type ToolCall = API.ToolCall;
+  export type ToolCallStreaming = API.ToolCallStreaming;
+  export type ToolChoiceJsonObject = API.ToolChoiceJsonObject;
+  export type ToolChoiceString = API.ToolChoiceString;
+  export type ToolParam = API.ToolParam;
 }
 
 export { toFile, fileFromPath } from './uploads';
