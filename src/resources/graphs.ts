@@ -6,7 +6,6 @@ import { APIPromise } from '../core';
 import * as Core from '../core';
 import * as GraphsAPI from './graphs';
 import * as FilesAPI from './files';
-import * as Shared from './shared';
 import { CursorPage, type CursorPageParams } from '../pagination';
 import { Stream } from '../streaming';
 
@@ -163,12 +162,24 @@ export interface Question {
    */
   question: string;
 
-  sources: Array<Shared.Source>;
+  sources: Array<Question.Source>;
 
   subqueries?: Array<Question.Subquery>;
 }
 
 export namespace Question {
+  export interface Source {
+    /**
+     * The unique identifier of the file.
+     */
+    file_id: string;
+
+    /**
+     * A snippet of text from the source file.
+     */
+    snippet: string;
+  }
+
   export interface Subquery {
     /**
      * The answer to the subquery.
@@ -180,7 +191,21 @@ export namespace Question {
      */
     query: string;
 
-    sources: Array<Shared.Source>;
+    sources: Array<Subquery.Source>;
+  }
+
+  export namespace Subquery {
+    export interface Source {
+      /**
+       * The unique identifier of the file.
+       */
+      file_id: string;
+
+      /**
+       * A snippet of text from the source file.
+       */
+      snippet: string;
+    }
   }
 }
 

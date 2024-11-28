@@ -27,9 +27,9 @@ const client = new Writer({
 });
 
 async function main() {
-  const chatCompletion = await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' });
+  const chat = await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' });
 
-  console.log(chatCompletion.id);
+  console.log(chat.id);
 }
 
 main();
@@ -49,8 +49,8 @@ const stream = await client.completions.create({
   prompt: 'Hi, my name is',
   stream: true,
 });
-for await (const completionChunk of stream) {
-  console.log(completionChunk.choices);
+for await (const streamingData of stream) {
+  console.log(streamingData.choices);
 }
 ```
 
@@ -71,7 +71,7 @@ const client = new Writer({
 
 async function main() {
   const params: Writer.ChatChatParams = { messages: [{ role: 'user' }], model: 'palmyra-x-004' };
-  const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
+  const chat: Writer.Chat = await client.chat.chat(params);
 }
 
 main();
@@ -88,7 +88,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chatCompletion = await client.chat
+  const chat = await client.chat
     .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
@@ -208,11 +208,11 @@ const response = await client.chat
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chatCompletion, response: raw } = await client.chat
+const { data: chat, response: raw } = await client.chat
   .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(chatCompletion.id);
+console.log(chat.id);
 ```
 
 ### Making custom/undocumented requests
