@@ -5,7 +5,7 @@ import * as Core from '../core';
 
 export class Applications extends APIResource {
   /**
-   * Generate content from an existing application with inputs.
+   * Generate content from an existing no-code application with inputs.
    */
   generateContent(
     applicationId: string,
@@ -30,6 +30,12 @@ export interface ApplicationGenerateContentResponse {
 
 export interface ApplicationGenerateContentParams {
   inputs: Array<ApplicationGenerateContentParams.Input>;
+
+  /**
+   * Indicates whether the response should be streamed. Currently only supported for
+   * research assistant applications.
+   */
+  stream?: boolean;
 }
 
 export namespace ApplicationGenerateContentParams {
