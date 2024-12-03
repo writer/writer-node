@@ -8,7 +8,10 @@ import { type CursorPageParams, CursorPageResponse } from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
+  ApplicationGenerateContentChunk,
   ApplicationGenerateContentParams,
+  ApplicationGenerateContentParamsNonStreaming,
+  ApplicationGenerateContentParamsStreaming,
   ApplicationGenerateContentResponse,
   Applications,
 } from './resources/applications';
@@ -239,8 +242,11 @@ export declare namespace Writer {
 
   export {
     Applications as Applications,
+    type ApplicationGenerateContentChunk as ApplicationGenerateContentChunk,
     type ApplicationGenerateContentResponse as ApplicationGenerateContentResponse,
     type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
+    type ApplicationGenerateContentParamsNonStreaming as ApplicationGenerateContentParamsNonStreaming,
+    type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming,
   };
 
   export {
