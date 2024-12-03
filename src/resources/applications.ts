@@ -1,7 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
+import { APIPromise } from '../core';
 import * as Core from '../core';
+import * as ApplicationsAPI from './applications';
+import { Stream } from '../streaming';
 
 export class Applications extends APIResource {
   /**
@@ -9,10 +12,73 @@ export class Applications extends APIResource {
    */
   generateContent(
     applicationId: string,
+    body: ApplicationGenerateContentParamsNonStreaming,
+    options?: Core.RequestOptions,
+  ): APIPromise<ApplicationGenerateContentResponse>;
+  generateContent(
+    applicationId: string,
+    body: ApplicationGenerateContentParamsStreaming,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<ApplicationGenerateContentChunk>>;
+  generateContent(
+    applicationId: string,
+    body: ApplicationGenerateContentParamsBase,
+    options?: Core.RequestOptions,
+  ): APIPromise<Stream<ApplicationGenerateContentChunk> | ApplicationGenerateContentResponse>;
+  generateContent(
+    applicationId: string,
     body: ApplicationGenerateContentParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ApplicationGenerateContentResponse> {
-    return this._client.post(`/v1/applications/${applicationId}`, { body, ...options });
+  ): APIPromise<ApplicationGenerateContentResponse> | APIPromise<Stream<ApplicationGenerateContentChunk>> {
+    return this._client.post(`/v1/applications/${applicationId}`, {
+      body,
+      ...options,
+      stream: body.stream ?? false,
+    }) as
+      | APIPromise<ApplicationGenerateContentResponse>
+      | APIPromise<Stream<ApplicationGenerateContentChunk>>;
+  }
+}
+
+export interface ApplicationGenerateContentChunk {
+  delta: ApplicationGenerateContentChunk.Delta;
+}
+
+export namespace ApplicationGenerateContentChunk {
+  export interface Delta {
+    /**
+     * The main text output.
+     */
+    content?: string;
+
+    /**
+     * A list of stages that show the 'thinking process'.
+     */
+    stages?: Array<Delta.Stage> | null;
+
+    /**
+     * The name of the output.
+     */
+    title?: string;
+  }
+
+  export namespace Delta {
+    export interface Stage {
+      /**
+       * The unique identifier for the stage.
+       */
+      id: string;
+
+      /**
+       * The text content of the stage.
+       */
+      content: string;
+
+      /**
+       * A list of sources (URLs) that that stage used to process that particular step.
+       */
+      sources?: Array<string> | null;
+    }
   }
 }
 
@@ -28,7 +94,11 @@ export interface ApplicationGenerateContentResponse {
   title?: string;
 }
 
-export interface ApplicationGenerateContentParams {
+export type ApplicationGenerateContentParams =
+  | ApplicationGenerateContentParamsNonStreaming
+  | ApplicationGenerateContentParamsStreaming;
+
+export interface ApplicationGenerateContentParamsBase {
   inputs: Array<ApplicationGenerateContentParams.Input>;
 
   /**
@@ -55,11 +125,35 @@ export namespace ApplicationGenerateContentParams {
      */
     value: Array<string>;
   }
+
+  export type ApplicationGenerateContentParamsNonStreaming =
+    ApplicationsAPI.ApplicationGenerateContentParamsNonStreaming;
+  export type ApplicationGenerateContentParamsStreaming =
+    ApplicationsAPI.ApplicationGenerateContentParamsStreaming;
+}
+
+export interface ApplicationGenerateContentParamsNonStreaming extends ApplicationGenerateContentParamsBase {
+  /**
+   * Indicates whether the response should be streamed. Currently only supported for
+   * research assistant applications.
+   */
+  stream?: false;
+}
+
+export interface ApplicationGenerateContentParamsStreaming extends ApplicationGenerateContentParamsBase {
+  /**
+   * Indicates whether the response should be streamed. Currently only supported for
+   * research assistant applications.
+   */
+  stream: true;
 }
 
 export declare namespace Applications {
   export {
+    type ApplicationGenerateContentChunk as ApplicationGenerateContentChunk,
     type ApplicationGenerateContentResponse as ApplicationGenerateContentResponse,
     type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
+    type ApplicationGenerateContentParamsNonStreaming as ApplicationGenerateContentParamsNonStreaming,
+    type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming,
   };
 }
