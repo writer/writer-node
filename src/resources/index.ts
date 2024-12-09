@@ -2,8 +2,11 @@
 
 export {
   Applications,
+  type ApplicationGenerateContentChunk,
   type ApplicationGenerateContentResponse,
   type ApplicationGenerateContentParams,
+  type ApplicationGenerateContentParamsNonStreaming,
+  type ApplicationGenerateContentParamsStreaming,
 } from './applications';
 export {
   ChatResource,
