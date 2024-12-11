@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.5.0 (2024-12-11)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/writer/writer-node/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **api:** add streaming to application generation ([#122](https://github.com/writer/writer-node/issues/122)) ([c85d6c6](https://github.com/writer/writer-node/commit/c85d6c62e16d3b9f38b401d162ab144123413b55))
+* **api:** api update ([#121](https://github.com/writer/writer-node/issues/121)) ([f4adda0](https://github.com/writer/writer-node/commit/f4adda020d78626ce8ddf24e87c866db24e4baaf))
+* **api:** manual updates ([#119](https://github.com/writer/writer-node/issues/119)) ([37f2a16](https://github.com/writer/writer-node/commit/37f2a169c41b4b0a22d7bcff562f6881a66f3af9))
+* **internal:** make git install file structure match npm ([#118](https://github.com/writer/writer-node/issues/118)) ([407d303](https://github.com/writer/writer-node/commit/407d303875b56668730be19459cf33441745c577))
+
+
+### Chores
+
+* **internal:** bump cross-spawn to v7.0.6 ([#124](https://github.com/writer/writer-node/issues/124)) ([b5ccd7c](https://github.com/writer/writer-node/commit/b5ccd7cfba653cd078769eef9900933fed84819f))
+* **internal:** codegen related update ([#116](https://github.com/writer/writer-node/issues/116)) ([d632f68](https://github.com/writer/writer-node/commit/d632f686120b920e06dfa7a2dc76ddf651da7357))
+* **internal:** remove unnecessary getRequestClient function ([#123](https://github.com/writer/writer-node/issues/123)) ([8e9e6f0](https://github.com/writer/writer-node/commit/8e9e6f02a09bf3c31bdeb0c616ab51800696d2ed))
+* **internal:** update isAbsoluteURL ([#126](https://github.com/writer/writer-node/issues/126)) ([0a676eb](https://github.com/writer/writer-node/commit/0a676eba5b7a8330fe6b196e362c105d8f3049c6))
+* **internal:** version bump ([#113](https://github.com/writer/writer-node/issues/113)) ([37a3f70](https://github.com/writer/writer-node/commit/37a3f705d82f14269e925377dc09d9869a653dc8))
+* **internal:** version bump ([#115](https://github.com/writer/writer-node/issues/115)) ([9309158](https://github.com/writer/writer-node/commit/930915807369000620132d52c5f45df6bd3462fb))
+* **types:** nicer error class types + jsdocs ([#125](https://github.com/writer/writer-node/issues/125)) ([a94669a](https://github.com/writer/writer-node/commit/a94669a86363b394efc1d045144eff4c4e0ac257))
+
 ## 1.4.0 (2024-11-20)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/writer/writer-node/compare/v1.3.0...v1.4.0)
