@@ -2,6 +2,7 @@
 
 Types:
 
+- <code><a href="./src/resources/applications.ts">ApplicationGenerateContentChunk</a></code>
 - <code><a href="./src/resources/applications.ts">ApplicationGenerateContentResponse</a></code>
 
 Methods:
