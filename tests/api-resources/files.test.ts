@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Writer from 'writer-sdk';
+import Writer, { toFile } from 'writer-sdk';
 import { Response } from 'node-fetch';
 
 const client = new Writer({
@@ -106,7 +106,7 @@ describe('resource files', () => {
   // requests with binary data not yet supported in test environment
   test.skip('upload: only required params', async () => {
     const responsePromise = client.files.upload({
-      content: {},
+      content: await toFile(Buffer.from('# my file contents'), 'README.md'),
       'Content-Disposition': 'Content-Disposition',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -120,6 +120,9 @@ describe('resource files', () => {
 
   // requests with binary data not yet supported in test environment
   test.skip('upload: required and optional params', async () => {
-    const response = await client.files.upload({ content: {}, 'Content-Disposition': 'Content-Disposition' });
+    const response = await client.files.upload({
+      content: await toFile(Buffer.from('# my file contents'), 'README.md'),
+      'Content-Disposition': 'Content-Disposition',
+    });
   });
 });
