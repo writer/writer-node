@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.1 (2024-12-17)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/writer/writer-node/compare/v1.5.0...v1.5.1)
+
+### Chores
+
+* **internal:** codegen related update ([#127](https://github.com/writer/writer-node/issues/127)) ([43383eb](https://github.com/writer/writer-node/commit/43383eb9ffcb5342cb5cea6c707288c310ed1445))
+* **internal:** fix some typos ([#132](https://github.com/writer/writer-node/issues/132)) ([49c6345](https://github.com/writer/writer-node/commit/49c6345296305e8df2335916c7db7f9d27a15999))
+
 ## 1.5.0 (2024-12-11)
 
 Full Changelog: [v1.4.0...v1.5.0](https://github.com/writer/writer-node/compare/v1.4.0...v1.5.0)
