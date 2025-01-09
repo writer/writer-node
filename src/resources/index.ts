@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
 export {
   Applications,
   type ApplicationGenerateContentChunk,
@@ -9,9 +10,13 @@ export {
   type ApplicationGenerateContentParamsStreaming,
 } from './applications';
 export {
-  ChatResource,
-  type Chat,
+  Chat,
+  type ChatCompletion,
+  type ChatCompletionChoice,
   type ChatCompletionChunk,
+  type ChatCompletionMessage,
+  type ChatCompletionParams,
+  type ChatCompletionUsage,
   type ChatChatParams,
   type ChatChatParamsNonStreaming,
   type ChatChatParamsStreaming,
@@ -19,7 +24,8 @@ export {
 export {
   Completions,
   type Completion,
-  type StreamingData,
+  type CompletionChunk,
+  type CompletionParams,
   type CompletionCreateParams,
   type CompletionCreateParamsNonStreaming,
   type CompletionCreateParamsStreaming,
