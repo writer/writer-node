@@ -1,3 +1,21 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">ErrorMessage</a></code>
+- <code><a href="./src/resources/shared.ts">ErrorObject</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionDefinition</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionParams</a></code>
+- <code><a href="./src/resources/shared.ts">GraphData</a></code>
+- <code><a href="./src/resources/shared.ts">Logprobs</a></code>
+- <code><a href="./src/resources/shared.ts">LogprobsToken</a></code>
+- <code><a href="./src/resources/shared.ts">Source</a></code>
+- <code><a href="./src/resources/shared.ts">ToolCall</a></code>
+- <code><a href="./src/resources/shared.ts">ToolCallStreaming</a></code>
+- <code><a href="./src/resources/shared.ts">ToolChoiceJsonObject</a></code>
+- <code><a href="./src/resources/shared.ts">ToolChoiceString</a></code>
+- <code><a href="./src/resources/shared.ts">ToolParam</a></code>
+
 # Applications
 
 Types:
@@ -13,19 +31,24 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/chat.ts">Chat</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletion</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionChoice</a></code>
 - <code><a href="./src/resources/chat.ts">ChatCompletionChunk</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionMessage</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionUsage</a></code>
 
 Methods:
 
-- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> Chat</code>
+- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> ChatCompletion</code>
 
 # Completions
 
 Types:
 
 - <code><a href="./src/resources/completions.ts">Completion</a></code>
-- <code><a href="./src/resources/completions.ts">StreamingData</a></code>
+- <code><a href="./src/resources/completions.ts">CompletionChunk</a></code>
+- <code><a href="./src/resources/completions.ts">CompletionParams</a></code>
 
 Methods:
 
