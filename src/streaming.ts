@@ -34,6 +34,13 @@ export class Stream<Item> implements AsyncIterable<Item> {
       let done = false;
       try {
         for await (const sse of _iterSSEMessages(response, controller)) {
+          if (done) continue;
+
+          if (sse.data.startsWith('[DONE]')) {
+            done = true;
+            continue;
+          }
+
           if (sse.event === null) {
             try {
               yield JSON.parse(sse.data);
