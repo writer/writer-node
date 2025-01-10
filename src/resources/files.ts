@@ -40,7 +40,11 @@ export class Files extends APIResource {
    * Download file
    */
   download(fileId: string, options?: Core.RequestOptions): Core.APIPromise<Response> {
-    return this._client.get(`/v1/files/${fileId}/download`, { ...options, __binaryResponse: true });
+    return this._client.get(`/v1/files/${fileId}/download`, {
+      ...options,
+      headers: { Accept: 'application/octet-stream', ...options?.headers },
+      __binaryResponse: true,
+    });
   }
 
   /**
