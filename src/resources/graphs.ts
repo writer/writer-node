@@ -123,6 +123,12 @@ export interface Graph {
   name: string;
 
   /**
+   * The type of graph, either `manual` (files are uploaded via UI or API) or
+   * `connector` (files are uploaded via a connector).
+   */
+  type: 'manual' | 'connector';
+
+  /**
    * A description of the graph.
    */
   description?: string;
