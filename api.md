@@ -20,12 +20,39 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/applications.ts">ApplicationGenerateContentChunk</a></code>
-- <code><a href="./src/resources/applications.ts">ApplicationGenerateContentResponse</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationGenerateContentChunk</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationGenerateContentResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications.ts">generateContent</a>(applicationId, { ...params }) -> ApplicationGenerateContentResponse</code>
+- <code title="post /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications/applications.ts">generateContent</a>(applicationId, { ...params }) -> ApplicationGenerateContentResponse</code>
+
+## Jobs
+
+Types:
+
+- <code><a href="./src/resources/applications/jobs.ts">JobCreateResponse</a></code>
+- <code><a href="./src/resources/applications/jobs.ts">JobRetrieveResponse</a></code>
+- <code><a href="./src/resources/applications/jobs.ts">JobListResponse</a></code>
+- <code><a href="./src/resources/applications/jobs.ts">JobRetryResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">create</a>(applicationId, { ...params }) -> JobCreateResponse</code>
+- <code title="get /v1/applications/jobs/{job_id}">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">retrieve</a>(jobId) -> JobRetrieveResponse</code>
+- <code title="get /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">list</a>(applicationId, { ...params }) -> JobListResponsesApplicationJobsOffset</code>
+- <code title="post /v1/applications/jobs/{job_id}/retry">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">retry</a>(jobId) -> JobRetryResponse</code>
+
+## Graphs
+
+Types:
+
+- <code><a href="./src/resources/applications/graphs.ts">ApplicationGraphsResponse</a></code>
+
+Methods:
+
+- <code title="put /v1/applications/{application_id}/graphs">client.applications.graphs.<a href="./src/resources/applications/graphs.ts">update</a>(applicationId, { ...params }) -> ApplicationGraphsResponse</code>
+- <code title="get /v1/applications/{application_id}/graphs">client.applications.graphs.<a href="./src/resources/applications/graphs.ts">list</a>(applicationId) -> ApplicationGraphsResponse</code>
 
 # Chat
 
