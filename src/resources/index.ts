@@ -8,7 +8,7 @@ export {
   type ApplicationGenerateContentParams,
   type ApplicationGenerateContentParamsNonStreaming,
   type ApplicationGenerateContentParamsStreaming,
-} from './applications';
+} from './applications/applications';
 export {
   Chat,
   type ChatCompletion,

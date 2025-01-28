@@ -1,12 +1,28 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { APIPromise } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../../resource';
+import { APIPromise } from '../../core';
+import * as Core from '../../core';
 import * as ApplicationsAPI from './applications';
-import { Stream } from '../streaming';
+import * as GraphsAPI from './graphs';
+import { ApplicationGraphsResponse, GraphUpdateParams, Graphs } from './graphs';
+import * as JobsAPI from './jobs';
+import {
+  JobCreateParams,
+  JobCreateResponse,
+  JobListParams,
+  JobListResponse,
+  JobListResponsesApplicationJobsOffset,
+  JobRetrieveResponse,
+  JobRetryResponse,
+  Jobs,
+} from './jobs';
+import { Stream } from '../../streaming';
 
 export class Applications extends APIResource {
+  jobs: JobsAPI.Jobs = new JobsAPI.Jobs(this._client);
+  graphs: GraphsAPI.Graphs = new GraphsAPI.Graphs(this._client);
+
   /**
    * Generate content from an existing no-code application with inputs.
    */
@@ -148,6 +164,10 @@ export interface ApplicationGenerateContentParamsStreaming extends ApplicationGe
   stream: true;
 }
 
+Applications.Jobs = Jobs;
+Applications.JobListResponsesApplicationJobsOffset = JobListResponsesApplicationJobsOffset;
+Applications.Graphs = Graphs;
+
 export declare namespace Applications {
   export {
     type ApplicationGenerateContentChunk as ApplicationGenerateContentChunk,
@@ -155,5 +175,22 @@ export declare namespace Applications {
     type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
     type ApplicationGenerateContentParamsNonStreaming as ApplicationGenerateContentParamsNonStreaming,
     type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming,
+  };
+
+  export {
+    Jobs as Jobs,
+    type JobCreateResponse as JobCreateResponse,
+    type JobRetrieveResponse as JobRetrieveResponse,
+    type JobListResponse as JobListResponse,
+    type JobRetryResponse as JobRetryResponse,
+    JobListResponsesApplicationJobsOffset as JobListResponsesApplicationJobsOffset,
+    type JobCreateParams as JobCreateParams,
+    type JobListParams as JobListParams,
+  };
+
+  export {
+    Graphs as Graphs,
+    type ApplicationGraphsResponse as ApplicationGraphsResponse,
+    type GraphUpdateParams as GraphUpdateParams,
   };
 }

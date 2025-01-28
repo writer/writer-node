@@ -80,3 +80,63 @@ export class CursorPage<Item extends { id: string }>
     return { params: { before: id } };
   }
 }
+
+export interface ApplicationJobsOffsetResponse<Item> {
+  jobs: Array<Item>;
+}
+
+export interface ApplicationJobsOffsetParams {
+  /**
+   * The number of elements to skip.
+   */
+  offset?: number;
+
+  /**
+   * The maximum number of elements to fetch.
+   */
+  limit?: number;
+}
+
+export class ApplicationJobsOffset<Item>
+  extends AbstractPage<Item>
+  implements ApplicationJobsOffsetResponse<Item>
+{
+  jobs: Array<Item>;
+
+  constructor(
+    client: APIClient,
+    response: Response,
+    body: ApplicationJobsOffsetResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.jobs = body.jobs || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.jobs ?? [];
+  }
+
+  // @deprecated Please use `nextPageInfo()` instead
+  nextPageParams(): Partial<ApplicationJobsOffsetParams> | null {
+    const info = this.nextPageInfo();
+    if (!info) return null;
+    if ('params' in info) return info.params;
+    const params = Object.fromEntries(info.url.searchParams);
+    if (!Object.keys(params).length) return null;
+    return params;
+  }
+
+  nextPageInfo(): PageInfo | null {
+    const offset = (this.options.query as ApplicationJobsOffsetParams).offset ?? 0;
+    if (!offset) {
+      return null;
+    }
+
+    const length = this.getPaginatedItems().length;
+    const currentCount = offset + length;
+
+    return { params: { offset: currentCount } };
+  }
+}
