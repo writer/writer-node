@@ -1,20 +1,18 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { type Agent } from './_shims/index';
+import * as qs from './internal/qs';
 import * as Core from './core';
 import * as Errors from './error';
 import * as Pagination from './pagination';
-import { type CursorPageParams, CursorPageResponse } from './pagination';
+import {
+  type ApplicationJobsOffsetParams,
+  ApplicationJobsOffsetResponse,
+  type CursorPageParams,
+  CursorPageResponse,
+} from './pagination';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import {
-  ApplicationGenerateContentChunk,
-  ApplicationGenerateContentParams,
-  ApplicationGenerateContentParamsNonStreaming,
-  ApplicationGenerateContentParamsStreaming,
-  ApplicationGenerateContentResponse,
-  Applications,
-} from './resources/applications';
 import {
   Chat,
   ChatChatParams,
@@ -65,6 +63,14 @@ import {
   QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
+import {
+  ApplicationGenerateContentChunk,
+  ApplicationGenerateContentParams,
+  ApplicationGenerateContentParamsNonStreaming,
+  ApplicationGenerateContentParamsStreaming,
+  ApplicationGenerateContentResponse,
+  Applications,
+} from './resources/applications/applications';
 import {
   ToolContextAwareSplittingParams,
   ToolContextAwareSplittingResponse,
@@ -209,6 +215,10 @@ export class Writer extends Core.APIClient {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
 
+  protected override stringifyQuery(query: Record<string, unknown>): string {
+    return qs.stringify(query, { arrayFormat: 'comma' });
+  }
+
   static Writer = this;
   static DEFAULT_TIMEOUT = 180000; // 3 minutes
 
@@ -244,6 +254,12 @@ export declare namespace Writer {
 
   export import CursorPage = Pagination.CursorPage;
   export { type CursorPageParams as CursorPageParams, type CursorPageResponse as CursorPageResponse };
+
+  export import ApplicationJobsOffset = Pagination.ApplicationJobsOffset;
+  export {
+    type ApplicationJobsOffsetParams as ApplicationJobsOffsetParams,
+    type ApplicationJobsOffsetResponse as ApplicationJobsOffsetResponse,
+  };
 
   export {
     Applications as Applications,
