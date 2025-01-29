@@ -21,7 +21,7 @@ export class Jobs extends APIResource {
   /**
    * Retrieves a single job created via the Async API.
    */
-  retrieve(jobId: string, options?: Core.RequestOptions): Core.APIPromise<JobRetrieveResponse> {
+  retrieve(jobId: string, options?: Core.RequestOptions): Core.APIPromise<ApplicationGenerateAsyncResponse> {
     return this._client.get(`/v1/applications/jobs/${jobId}`, options);
   }
 
@@ -33,22 +33,31 @@ export class Jobs extends APIResource {
     applicationId: string,
     query?: JobListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<JobListResponsesApplicationJobsOffset, JobListResponse>;
+  ): Core.PagePromise<
+    ApplicationGenerateAsyncResponsesApplicationJobsOffset,
+    ApplicationGenerateAsyncResponse
+  >;
   list(
     applicationId: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<JobListResponsesApplicationJobsOffset, JobListResponse>;
+  ): Core.PagePromise<
+    ApplicationGenerateAsyncResponsesApplicationJobsOffset,
+    ApplicationGenerateAsyncResponse
+  >;
   list(
     applicationId: string,
     query: JobListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<JobListResponsesApplicationJobsOffset, JobListResponse> {
+  ): Core.PagePromise<
+    ApplicationGenerateAsyncResponsesApplicationJobsOffset,
+    ApplicationGenerateAsyncResponse
+  > {
     if (isRequestOptions(query)) {
       return this.list(applicationId, {}, query);
     }
     return this._client.getAPIList(
       `/v1/applications/${applicationId}/jobs`,
-      JobListResponsesApplicationJobsOffset,
+      ApplicationGenerateAsyncResponsesApplicationJobsOffset,
       { query, ...options },
     );
   }
@@ -62,7 +71,74 @@ export class Jobs extends APIResource {
   }
 }
 
-export class JobListResponsesApplicationJobsOffset extends ApplicationJobsOffset<JobListResponse> {}
+export class ApplicationGenerateAsyncResponsesApplicationJobsOffset extends ApplicationJobsOffset<ApplicationGenerateAsyncResponse> {}
+
+export interface ApplicationGenerateAsyncResponse {
+  /**
+   * The unique identifier for the job.
+   */
+  id: string;
+
+  /**
+   * The ID of the application associated with this job.
+   */
+  application_id: string;
+
+  /**
+   * The timestamp when the job was created.
+   */
+  created_at: string;
+
+  /**
+   * The status of the job.
+   */
+  status: 'in_progress' | 'failed' | 'completed';
+
+  /**
+   * The timestamp when the job was completed.
+   */
+  completed_at?: string;
+
+  /**
+   * The result of the completed job, if applicable.
+   */
+  data?: ApplicationsAPI.ApplicationGenerateContentResponse;
+
+  /**
+   * The error message if the job failed.
+   */
+  error?: string;
+
+  /**
+   * The timestamp when the job was last updated.
+   */
+  updated_at?: string;
+}
+
+export interface ApplicationJobsListResponse {
+  result: Array<ApplicationGenerateAsyncResponse>;
+
+  pagination?: ApplicationJobsListResponse.Pagination;
+
+  /**
+   * The total number of jobs associated with the application.
+   */
+  totalCount?: number;
+}
+
+export namespace ApplicationJobsListResponse {
+  export interface Pagination {
+    /**
+     * The pagination limit for retrieving the jobs.
+     */
+    limit?: number;
+
+    /**
+     * The pagination offset for retrieving the jobs.
+     */
+    offset?: number;
+  }
+}
 
 export interface JobCreateResponse {
   /**
@@ -79,90 +155,6 @@ export interface JobCreateResponse {
    * The status of the job.
    */
   status: 'in_progress' | 'failed' | 'completed';
-}
-
-export interface JobRetrieveResponse {
-  /**
-   * The unique identifier for the job.
-   */
-  id: string;
-
-  /**
-   * The ID of the application associated with this job.
-   */
-  application_id: string;
-
-  /**
-   * The timestamp when the job was created.
-   */
-  created_at: string;
-
-  /**
-   * The status of the job.
-   */
-  status: 'in_progress' | 'failed' | 'completed';
-
-  /**
-   * The timestamp when the job was completed.
-   */
-  completed_at?: string;
-
-  /**
-   * The result of the completed job, if applicable.
-   */
-  data?: ApplicationsAPI.ApplicationGenerateContentResponse;
-
-  /**
-   * The error message if the job failed.
-   */
-  error?: string;
-
-  /**
-   * The timestamp when the job was last updated.
-   */
-  updated_at?: string;
-}
-
-export interface JobListResponse {
-  /**
-   * The unique identifier for the job.
-   */
-  id: string;
-
-  /**
-   * The ID of the application associated with this job.
-   */
-  application_id: string;
-
-  /**
-   * The timestamp when the job was created.
-   */
-  created_at: string;
-
-  /**
-   * The status of the job.
-   */
-  status: 'in_progress' | 'failed' | 'completed';
-
-  /**
-   * The timestamp when the job was completed.
-   */
-  completed_at?: string;
-
-  /**
-   * The result of the completed job, if applicable.
-   */
-  data?: ApplicationsAPI.ApplicationGenerateContentResponse;
-
-  /**
-   * The error message if the job failed.
-   */
-  error?: string;
-
-  /**
-   * The timestamp when the job was last updated.
-   */
-  updated_at?: string;
 }
 
 export interface JobRetryResponse {
@@ -215,15 +207,16 @@ export interface JobListParams extends ApplicationJobsOffsetParams {
   status?: 'in_progress' | 'failed' | 'completed';
 }
 
-Jobs.JobListResponsesApplicationJobsOffset = JobListResponsesApplicationJobsOffset;
+Jobs.ApplicationGenerateAsyncResponsesApplicationJobsOffset =
+  ApplicationGenerateAsyncResponsesApplicationJobsOffset;
 
 export declare namespace Jobs {
   export {
+    type ApplicationGenerateAsyncResponse as ApplicationGenerateAsyncResponse,
+    type ApplicationJobsListResponse as ApplicationJobsListResponse,
     type JobCreateResponse as JobCreateResponse,
-    type JobRetrieveResponse as JobRetrieveResponse,
-    type JobListResponse as JobListResponse,
     type JobRetryResponse as JobRetryResponse,
-    JobListResponsesApplicationJobsOffset as JobListResponsesApplicationJobsOffset,
+    ApplicationGenerateAsyncResponsesApplicationJobsOffset as ApplicationGenerateAsyncResponsesApplicationJobsOffset,
     type JobCreateParams as JobCreateParams,
     type JobListParams as JobListParams,
   };
