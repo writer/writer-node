@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as ApplicationsAPI from './applications';
 
 export class Jobs extends APIResource {
   /**
@@ -58,101 +57,88 @@ export interface JobCreateResponse {
   /**
    * The unique identifier for the async job created.
    */
-  id: string;
-
-  /**
-   * The timestamp when the job was created.
-   */
-  created_at: string;
-
-  /**
-   * The status of the job.
-   */
-  status: 'in_progress' | 'failed' | 'completed';
-}
-
-export interface JobRetrieveResponse {
-  /**
-   * The unique identifier for the job.
-   */
-  id: string;
+  job_id: string;
 
   /**
    * The ID of the application associated with this job.
    */
-  application_id: string;
+  application_id?: string;
 
   /**
    * The timestamp when the job was created.
    */
-  created_at: string;
+  created_at?: string;
 
   /**
-   * The status of the job.
+   * The initial status of the job (e.g., 'queued').
    */
-  status: 'in_progress' | 'failed' | 'completed';
-
-  /**
-   * The timestamp when the job was completed.
-   */
-  completed_at?: string;
-
-  /**
-   * The result of the completed job, if applicable.
-   */
-  data?: ApplicationsAPI.ApplicationGenerateContentResponse;
-
-  /**
-   * The error message if the job failed.
-   */
-  error?: string;
-
-  /**
-   * The timestamp when the job was last updated.
-   */
-  updated_at?: string;
+  status?: string;
 }
 
-export interface JobListResponse {
-  result?: Array<JobListResponse.Result>;
+export interface JobRetrieveResponse {
+  /**
+   * A list of jobs associated with the application.
+   */
+  jobs: Array<JobRetrieveResponse.Job>;
 }
 
-export namespace JobListResponse {
-  export interface Result {
-    /**
-     * The unique identifier for the job.
-     */
-    id: string;
-
-    /**
-     * The ID of the application associated with this job.
-     */
-    application_id: string;
-
+export namespace JobRetrieveResponse {
+  export interface Job {
     /**
      * The timestamp when the job was created.
      */
-    created_at: string;
+    created_at?: string;
 
     /**
-     * The status of the job.
+     * The unique identifier for the job.
      */
-    status: 'in_progress' | 'failed' | 'completed';
-
-    /**
-     * The timestamp when the job was completed.
-     */
-    completed_at?: string;
+    job_id?: string;
 
     /**
      * The result of the completed job, if applicable.
      */
-    data?: ApplicationsAPI.ApplicationGenerateContentResponse;
+    result?: string;
 
     /**
-     * The error message if the job failed.
+     * The current status of the job.
      */
-    error?: string;
+    status?: string;
+
+    /**
+     * The timestamp when the job was last updated.
+     */
+    updated_at?: string;
+  }
+}
+
+export interface JobListResponse {
+  /**
+   * A list of jobs associated with the application.
+   */
+  jobs: Array<JobListResponse.Job>;
+}
+
+export namespace JobListResponse {
+  export interface Job {
+    /**
+     * The timestamp when the job was created.
+     */
+    created_at?: string;
+
+    /**
+     * The unique identifier for the job.
+     */
+    job_id?: string;
+
+    /**
+     * The result of the completed job, if applicable.
+     */
+    result?: string;
+
+    /**
+     * The current status of the job.
+     */
+    status?: string;
 
     /**
      * The timestamp when the job was last updated.
@@ -165,17 +151,22 @@ export interface JobRetryResponse {
   /**
    * The unique identifier for the async job created.
    */
-  id: string;
+  job_id: string;
+
+  /**
+   * The ID of the application associated with this job.
+   */
+  application_id?: string;
 
   /**
    * The timestamp when the job was created.
    */
-  created_at: string;
+  created_at?: string;
 
   /**
-   * The status of the job.
+   * The initial status of the job (e.g., 'queued').
    */
-  status: 'in_progress' | 'failed' | 'completed';
+  status?: string;
 }
 
 export interface JobCreateParams {
@@ -183,42 +174,71 @@ export interface JobCreateParams {
    * A list of input objects to generate content for.
    */
   inputs: Array<JobCreateParams.Input>;
+
+  /**
+   * Optional metadata for the generation request.
+   */
+  metadata?: Record<string, string>;
 }
 
 export namespace JobCreateParams {
   export interface Input {
     /**
-     * The unique identifier for the input field from the application. All input types
-     * from the No-code application are supported (i.e. Text input, Dropdown, File
-     * upload, Image input). The identifier should be the name of the input type.
+     * The input content to be processed.
      */
-    id: string;
+    content?: string;
 
     /**
-     * The value for the input field. If file is required you will need to pass a
-     * `file_id`. See
-     * [here](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
-     * for the Files API.
+     * A unique identifier for the input object.
      */
-    value: Array<string>;
+    input_id?: string;
   }
 }
 
 export interface JobListParams {
-  /**
-   * The pagination limit for retrieving the jobs.
-   */
   limit?: number;
 
-  /**
-   * The pagination offset for retrieving the jobs.
-   */
   offset?: number;
 
-  /**
-   * The status of the job.
-   */
-  status?: 'in_progress' | 'failed' | 'completed';
+  status?: JobListParams.Status;
+}
+
+export namespace JobListParams {
+  export interface Status {
+    /**
+     * A list of jobs associated with the application.
+     */
+    jobs: Array<Status.Job>;
+  }
+
+  export namespace Status {
+    export interface Job {
+      /**
+       * The timestamp when the job was created.
+       */
+      created_at?: string;
+
+      /**
+       * The unique identifier for the job.
+       */
+      job_id?: string;
+
+      /**
+       * The result of the completed job, if applicable.
+       */
+      result?: string;
+
+      /**
+       * The current status of the job.
+       */
+      status?: string;
+
+      /**
+       * The timestamp when the job was last updated.
+       */
+      updated_at?: string;
+    }
+  }
 }
 
 export declare namespace Jobs {
