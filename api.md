@@ -40,7 +40,7 @@ Methods:
 
 - <code title="post /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">create</a>(applicationId, { ...params }) -> JobCreateResponse</code>
 - <code title="get /v1/applications/jobs/{job_id}">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">retrieve</a>(jobId) -> JobRetrieveResponse</code>
-- <code title="get /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">list</a>(applicationId, { ...params }) -> JobListResponsesApplicationJobsOffset</code>
+- <code title="get /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">list</a>(applicationId, { ...params }) -> JobListResponse</code>
 - <code title="post /v1/applications/jobs/{job_id}/retry">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">retry</a>(jobId) -> JobRetryResponse</code>
 
 ## Graphs
