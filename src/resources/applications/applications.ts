@@ -12,7 +12,6 @@ import {
   JobCreateResponse,
   JobListParams,
   JobListResponse,
-  JobListResponsesApplicationJobsOffset,
   JobRetrieveResponse,
   JobRetryResponse,
   Jobs,
@@ -165,7 +164,6 @@ export interface ApplicationGenerateContentParamsStreaming extends ApplicationGe
 }
 
 Applications.Jobs = Jobs;
-Applications.JobListResponsesApplicationJobsOffset = JobListResponsesApplicationJobsOffset;
 Applications.Graphs = Graphs;
 
 export declare namespace Applications {
@@ -183,7 +181,6 @@ export declare namespace Applications {
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobListResponse as JobListResponse,
     type JobRetryResponse as JobRetryResponse,
-    JobListResponsesApplicationJobsOffset as JobListResponsesApplicationJobsOffset,
     type JobCreateParams as JobCreateParams,
     type JobListParams as JobListParams,
   };
