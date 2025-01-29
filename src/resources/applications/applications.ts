@@ -8,12 +8,12 @@ import * as GraphsAPI from './graphs';
 import { ApplicationGraphsResponse, GraphUpdateParams, Graphs } from './graphs';
 import * as JobsAPI from './jobs';
 import {
+  ApplicationGenerateAsyncResponse,
+  ApplicationGenerateAsyncResponsesApplicationJobsOffset,
+  ApplicationJobsListResponse,
   JobCreateParams,
   JobCreateResponse,
   JobListParams,
-  JobListResponse,
-  JobListResponsesApplicationJobsOffset,
-  JobRetrieveResponse,
   JobRetryResponse,
   Jobs,
 } from './jobs';
@@ -165,7 +165,8 @@ export interface ApplicationGenerateContentParamsStreaming extends ApplicationGe
 }
 
 Applications.Jobs = Jobs;
-Applications.JobListResponsesApplicationJobsOffset = JobListResponsesApplicationJobsOffset;
+Applications.ApplicationGenerateAsyncResponsesApplicationJobsOffset =
+  ApplicationGenerateAsyncResponsesApplicationJobsOffset;
 Applications.Graphs = Graphs;
 
 export declare namespace Applications {
@@ -179,11 +180,11 @@ export declare namespace Applications {
 
   export {
     Jobs as Jobs,
+    type ApplicationGenerateAsyncResponse as ApplicationGenerateAsyncResponse,
+    type ApplicationJobsListResponse as ApplicationJobsListResponse,
     type JobCreateResponse as JobCreateResponse,
-    type JobRetrieveResponse as JobRetrieveResponse,
-    type JobListResponse as JobListResponse,
     type JobRetryResponse as JobRetryResponse,
-    JobListResponsesApplicationJobsOffset as JobListResponsesApplicationJobsOffset,
+    ApplicationGenerateAsyncResponsesApplicationJobsOffset as ApplicationGenerateAsyncResponsesApplicationJobsOffset,
     type JobCreateParams as JobCreateParams,
     type JobListParams as JobListParams,
   };
