@@ -82,7 +82,7 @@ export class CursorPage<Item extends { id: string }>
 }
 
 export interface ApplicationJobsOffsetResponse<Item> {
-  jobs: Array<Item>;
+  result: Array<Item>;
 }
 
 export interface ApplicationJobsOffsetParams {
@@ -101,7 +101,7 @@ export class ApplicationJobsOffset<Item>
   extends AbstractPage<Item>
   implements ApplicationJobsOffsetResponse<Item>
 {
-  jobs: Array<Item>;
+  result: Array<Item>;
 
   constructor(
     client: APIClient,
@@ -111,11 +111,11 @@ export class ApplicationJobsOffset<Item>
   ) {
     super(client, response, body, options);
 
-    this.jobs = body.jobs || [];
+    this.result = body.result || [];
   }
 
   getPaginatedItems(): Item[] {
-    return this.jobs ?? [];
+    return this.result ?? [];
   }
 
   // @deprecated Please use `nextPageInfo()` instead
