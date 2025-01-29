@@ -5,7 +5,8 @@ import * as Core from '../../core';
 
 export class Graphs extends APIResource {
   /**
-   * Associate graphs with a no-code chat application via API.
+   * Updates the graphs listed and associates them with the no-code chat app to be
+   * used.
    */
   update(
     applicationId: string,
@@ -32,7 +33,9 @@ export interface ApplicationGraphsResponse {
 
 export interface GraphUpdateParams {
   /**
-   * A list of graph IDs to associate with the application.
+   * A list of graph IDs to associate with the application. Note that this will
+   * replace the existing list of graphs associated with the application, not add to
+   * it.
    */
   graph_ids: Array<string>;
 }

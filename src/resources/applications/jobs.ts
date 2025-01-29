@@ -3,6 +3,8 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as ApplicationsAPI from './applications';
+import { ApplicationJobsOffset, type ApplicationJobsOffsetParams } from '../../pagination';
 
 export class Jobs extends APIResource {
   /**
@@ -31,17 +33,24 @@ export class Jobs extends APIResource {
     applicationId: string,
     query?: JobListParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<JobListResponse>;
-  list(applicationId: string, options?: Core.RequestOptions): Core.APIPromise<JobListResponse>;
+  ): Core.PagePromise<JobListResponsesApplicationJobsOffset, JobListResponse>;
+  list(
+    applicationId: string,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<JobListResponsesApplicationJobsOffset, JobListResponse>;
   list(
     applicationId: string,
     query: JobListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<JobListResponse> {
+  ): Core.PagePromise<JobListResponsesApplicationJobsOffset, JobListResponse> {
     if (isRequestOptions(query)) {
       return this.list(applicationId, {}, query);
     }
-    return this._client.get(`/v1/applications/${applicationId}/jobs`, { query, ...options });
+    return this._client.getAPIList(
+      `/v1/applications/${applicationId}/jobs`,
+      JobListResponsesApplicationJobsOffset,
+      { query, ...options },
+    );
   }
 
   /**
@@ -53,120 +62,124 @@ export class Jobs extends APIResource {
   }
 }
 
+export class JobListResponsesApplicationJobsOffset extends ApplicationJobsOffset<JobListResponse> {}
+
 export interface JobCreateResponse {
   /**
    * The unique identifier for the async job created.
    */
-  job_id: string;
-
-  /**
-   * The ID of the application associated with this job.
-   */
-  application_id?: string;
+  id: string;
 
   /**
    * The timestamp when the job was created.
    */
-  created_at?: string;
+  created_at: string;
 
   /**
-   * The initial status of the job (e.g., 'queued').
+   * The status of the job.
    */
-  status?: string;
+  status: 'in_progress' | 'failed' | 'completed';
 }
 
 export interface JobRetrieveResponse {
   /**
-   * A list of jobs associated with the application.
+   * The unique identifier for the job.
    */
-  jobs: Array<JobRetrieveResponse.Job>;
-}
+  id: string;
 
-export namespace JobRetrieveResponse {
-  export interface Job {
-    /**
-     * The timestamp when the job was created.
-     */
-    created_at?: string;
+  /**
+   * The ID of the application associated with this job.
+   */
+  application_id: string;
 
-    /**
-     * The unique identifier for the job.
-     */
-    job_id?: string;
+  /**
+   * The timestamp when the job was created.
+   */
+  created_at: string;
 
-    /**
-     * The result of the completed job, if applicable.
-     */
-    result?: string;
+  /**
+   * The status of the job.
+   */
+  status: 'in_progress' | 'failed' | 'completed';
 
-    /**
-     * The current status of the job.
-     */
-    status?: string;
+  /**
+   * The timestamp when the job was completed.
+   */
+  completed_at?: string;
 
-    /**
-     * The timestamp when the job was last updated.
-     */
-    updated_at?: string;
-  }
+  /**
+   * The result of the completed job, if applicable.
+   */
+  data?: ApplicationsAPI.ApplicationGenerateContentResponse;
+
+  /**
+   * The error message if the job failed.
+   */
+  error?: string;
+
+  /**
+   * The timestamp when the job was last updated.
+   */
+  updated_at?: string;
 }
 
 export interface JobListResponse {
   /**
-   * A list of jobs associated with the application.
+   * The unique identifier for the job.
    */
-  jobs: Array<JobListResponse.Job>;
-}
+  id: string;
 
-export namespace JobListResponse {
-  export interface Job {
-    /**
-     * The timestamp when the job was created.
-     */
-    created_at?: string;
+  /**
+   * The ID of the application associated with this job.
+   */
+  application_id: string;
 
-    /**
-     * The unique identifier for the job.
-     */
-    job_id?: string;
+  /**
+   * The timestamp when the job was created.
+   */
+  created_at: string;
 
-    /**
-     * The result of the completed job, if applicable.
-     */
-    result?: string;
+  /**
+   * The status of the job.
+   */
+  status: 'in_progress' | 'failed' | 'completed';
 
-    /**
-     * The current status of the job.
-     */
-    status?: string;
+  /**
+   * The timestamp when the job was completed.
+   */
+  completed_at?: string;
 
-    /**
-     * The timestamp when the job was last updated.
-     */
-    updated_at?: string;
-  }
+  /**
+   * The result of the completed job, if applicable.
+   */
+  data?: ApplicationsAPI.ApplicationGenerateContentResponse;
+
+  /**
+   * The error message if the job failed.
+   */
+  error?: string;
+
+  /**
+   * The timestamp when the job was last updated.
+   */
+  updated_at?: string;
 }
 
 export interface JobRetryResponse {
   /**
    * The unique identifier for the async job created.
    */
-  job_id: string;
-
-  /**
-   * The ID of the application associated with this job.
-   */
-  application_id?: string;
+  id: string;
 
   /**
    * The timestamp when the job was created.
    */
-  created_at?: string;
+  created_at: string;
 
   /**
-   * The initial status of the job (e.g., 'queued').
+   * The status of the job.
    */
-  status?: string;
+  status: 'in_progress' | 'failed' | 'completed';
 }
 
 export interface JobCreateParams {
@@ -174,72 +187,35 @@ export interface JobCreateParams {
    * A list of input objects to generate content for.
    */
   inputs: Array<JobCreateParams.Input>;
-
-  /**
-   * Optional metadata for the generation request.
-   */
-  metadata?: Record<string, string>;
 }
 
 export namespace JobCreateParams {
   export interface Input {
     /**
-     * The input content to be processed.
+     * The unique identifier for the input field from the application. All input types
+     * from the No-code application are supported (i.e. Text input, Dropdown, File
+     * upload, Image input). The identifier should be the name of the input type.
      */
-    content?: string;
+    id: string;
 
     /**
-     * A unique identifier for the input object.
+     * The value for the input field. If file is required you will need to pass a
+     * `file_id`. See
+     * [here](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
+     * for the Files API.
      */
-    input_id?: string;
+    value: Array<string>;
   }
 }
 
-export interface JobListParams {
-  limit?: number;
-
-  offset?: number;
-
-  status?: JobListParams.Status;
+export interface JobListParams extends ApplicationJobsOffsetParams {
+  /**
+   * The status of the job.
+   */
+  status?: 'in_progress' | 'failed' | 'completed';
 }
 
-export namespace JobListParams {
-  export interface Status {
-    /**
-     * A list of jobs associated with the application.
-     */
-    jobs: Array<Status.Job>;
-  }
-
-  export namespace Status {
-    export interface Job {
-      /**
-       * The timestamp when the job was created.
-       */
-      created_at?: string;
-
-      /**
-       * The unique identifier for the job.
-       */
-      job_id?: string;
-
-      /**
-       * The result of the completed job, if applicable.
-       */
-      result?: string;
-
-      /**
-       * The current status of the job.
-       */
-      status?: string;
-
-      /**
-       * The timestamp when the job was last updated.
-       */
-      updated_at?: string;
-    }
-  }
-}
+Jobs.JobListResponsesApplicationJobsOffset = JobListResponsesApplicationJobsOffset;
 
 export declare namespace Jobs {
   export {
@@ -247,6 +223,7 @@ export declare namespace Jobs {
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobListResponse as JobListResponse,
     type JobRetryResponse as JobRetryResponse,
+    JobListResponsesApplicationJobsOffset as JobListResponsesApplicationJobsOffset,
     type JobCreateParams as JobCreateParams,
     type JobListParams as JobListParams,
   };

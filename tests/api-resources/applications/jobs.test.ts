@@ -10,7 +10,9 @@ const client = new Writer({
 
 describe('resource jobs', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.applications.jobs.create('application_id', { inputs: [{}] });
+    const responsePromise = client.applications.jobs.create('application_id', {
+      inputs: [{ id: 'id', value: ['string'] }],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,8 +24,7 @@ describe('resource jobs', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.applications.jobs.create('application_id', {
-      inputs: [{ content: 'content', input_id: 'input_id' }],
-      metadata: { foo: 'string' },
+      inputs: [{ id: 'id', value: ['string'] }],
     });
   });
 
@@ -70,21 +71,7 @@ describe('resource jobs', () => {
     await expect(
       client.applications.jobs.list(
         'application_id',
-        {
-          limit: 0,
-          offset: 0,
-          status: {
-            jobs: [
-              {
-                created_at: '2019-12-27T18:11:19.117Z',
-                job_id: 'job_id',
-                result: 'result',
-                status: 'status',
-                updated_at: '2019-12-27T18:11:19.117Z',
-              },
-            ],
-          },
-        },
+        { limit: 0, offset: 0, status: 'in_progress' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Writer.NotFoundError);
