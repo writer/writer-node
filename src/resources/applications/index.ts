@@ -10,6 +10,7 @@ export {
 } from './applications';
 export { Graphs, type ApplicationGraphsResponse, type GraphUpdateParams } from './graphs';
 export {
+  JobListResponsesApplicationJobsOffset,
   Jobs,
   type JobCreateResponse,
   type JobRetrieveResponse,
