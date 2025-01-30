@@ -83,6 +83,18 @@ export class CursorPage<Item extends { id: string }>
 
 export interface ApplicationJobsOffsetResponse<Item> {
   result: Array<Item>;
+
+  totalCount: number;
+
+  pagination: ApplicationJobsOffsetResponse.Pagination;
+}
+
+export namespace ApplicationJobsOffsetResponse {
+  export interface Pagination {
+    limit?: number;
+
+    offset?: number;
+  }
 }
 
 export interface ApplicationJobsOffsetParams {
@@ -103,6 +115,10 @@ export class ApplicationJobsOffset<Item>
 {
   result: Array<Item>;
 
+  totalCount: number;
+
+  pagination: ApplicationJobsOffsetResponse.Pagination;
+
   constructor(
     client: APIClient,
     response: Response,
@@ -112,6 +128,8 @@ export class ApplicationJobsOffset<Item>
     super(client, response, body, options);
 
     this.result = body.result || [];
+    this.totalCount = body.totalCount || 0;
+    this.pagination = body.pagination || {};
   }
 
   getPaginatedItems(): Item[] {
@@ -137,6 +155,15 @@ export class ApplicationJobsOffset<Item>
     const length = this.getPaginatedItems().length;
     const currentCount = offset + length;
 
-    return { params: { offset: currentCount } };
+    const totalCount = this.totalCount;
+    if (!totalCount) {
+      return null;
+    }
+
+    if (currentCount < totalCount) {
+      return { params: { offset: currentCount } };
+    }
+
+    return null;
   }
 }
