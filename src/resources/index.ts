@@ -2,9 +2,13 @@
 
 export * from './shared';
 export {
+  ApplicationListResponsesCursorPage,
   Applications,
   type ApplicationGenerateContentChunk,
   type ApplicationGenerateContentResponse,
+  type ApplicationRetrieveResponse,
+  type ApplicationListResponse,
+  type ApplicationListParams,
   type ApplicationGenerateContentParams,
   type ApplicationGenerateContentParamsNonStreaming,
   type ApplicationGenerateContentParamsStreaming,

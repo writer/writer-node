@@ -22,9 +22,13 @@ Types:
 
 - <code><a href="./src/resources/applications/applications.ts">ApplicationGenerateContentChunk</a></code>
 - <code><a href="./src/resources/applications/applications.ts">ApplicationGenerateContentResponse</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationRetrieveResponse</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationListResponse</a></code>
 
 Methods:
 
+- <code title="get /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications/applications.ts">retrieve</a>(applicationId) -> ApplicationRetrieveResponse</code>
+- <code title="get /v1/applications">client.applications.<a href="./src/resources/applications/applications.ts">list</a>({ ...params }) -> ApplicationListResponsesCursorPage</code>
 - <code title="post /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications/applications.ts">generateContent</a>(applicationId, { ...params }) -> ApplicationGenerateContentResponse</code>
 
 ## Jobs
