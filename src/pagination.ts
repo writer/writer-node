@@ -147,7 +147,7 @@ export class ApplicationJobsOffset<Item>
   }
 
   nextPageInfo(): PageInfo | null {
-    const offset = (this.options.query as ApplicationJobsOffsetParams).offset ?? 0;
+    const offset = this.pagination?.offset;
     if (!offset) {
       return null;
     }
