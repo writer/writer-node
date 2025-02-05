@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
 import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as ApplicationsAPI from './applications';
@@ -17,11 +18,47 @@ import {
   JobRetryResponse,
   Jobs,
 } from './jobs';
+import { CursorPage, type CursorPageParams } from '../../pagination';
 import { Stream } from '../../streaming';
 
 export class Applications extends APIResource {
   jobs: JobsAPI.Jobs = new JobsAPI.Jobs(this._client);
   graphs: GraphsAPI.Graphs = new GraphsAPI.Graphs(this._client);
+
+  /**
+   * Retrieves detailed information for a specific no-code application, including its
+   * configuration and current status.
+   */
+  retrieve(
+    applicationId: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ApplicationRetrieveResponse> {
+    return this._client.get(`/v1/applications/${applicationId}`, options);
+  }
+
+  /**
+   * Retrieves a paginated list of no-code applications with optional filtering and
+   * sorting capabilities.
+   */
+  list(
+    query?: ApplicationListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ApplicationListResponsesCursorPage, ApplicationListResponse>;
+  list(
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ApplicationListResponsesCursorPage, ApplicationListResponse>;
+  list(
+    query: ApplicationListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ApplicationListResponsesCursorPage, ApplicationListResponse> {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.getAPIList('/v1/applications', ApplicationListResponsesCursorPage, {
+      query,
+      ...options,
+    });
+  }
 
   /**
    * Generate content from an existing no-code application with inputs.
@@ -55,6 +92,8 @@ export class Applications extends APIResource {
       | APIPromise<Stream<ApplicationGenerateContentChunk>>;
   }
 }
+
+export class ApplicationListResponsesCursorPage extends CursorPage<ApplicationListResponse> {}
 
 export interface ApplicationGenerateContentChunk {
   delta: ApplicationGenerateContentChunk.Delta;
@@ -108,6 +147,319 @@ export interface ApplicationGenerateContentResponse {
    * The name of the output field.
    */
   title?: string;
+}
+
+/**
+ * Detailed application object including its input configuration.
+ */
+export interface ApplicationRetrieveResponse {
+  /**
+   * Unique identifier for the application.
+   */
+  id: string;
+
+  /**
+   * Timestamp when the application was created.
+   */
+  created_at: string;
+
+  /**
+   * List of input configurations for the application.
+   */
+  inputs: Array<ApplicationRetrieveResponse.Input>;
+
+  /**
+   * Display name of the application.
+   */
+  name: string;
+
+  /**
+   * Current deployment status of the application.
+   */
+  status: 'deployed' | 'draft';
+
+  /**
+   * The type of no-code application.
+   */
+  type: 'generation';
+
+  /**
+   * Timestamp when the application was last updated.
+   */
+  updated_at: string;
+
+  /**
+   * Timestamp when the application was last deployed.
+   */
+  last_deployed_at?: string;
+}
+
+export namespace ApplicationRetrieveResponse {
+  /**
+   * Configuration for an individual input field in the application.
+   */
+  export interface Input {
+    /**
+     * Type of input field determining its behavior and validation rules.
+     */
+    input_type: 'text' | 'dropdown' | 'file' | 'media';
+
+    /**
+     * Identifier for the input field.
+     */
+    name: string;
+
+    /**
+     * Indicates if this input field is mandatory.
+     */
+    required: boolean;
+
+    /**
+     * Human-readable description of the input field's purpose.
+     */
+    description?: string;
+
+    /**
+     * Type-specific configuration options for input fields.
+     */
+    options?:
+      | Input.ApplicationInputDropdownOptions
+      | Input.ApplicationInputFileOptions
+      | Input.ApplicationInputMediaOptions
+      | Input.ApplicationInputTextOptions;
+  }
+
+  export namespace Input {
+    /**
+     * Configuration options specific to dropdown-type input fields.
+     */
+    export interface ApplicationInputDropdownOptions {
+      /**
+       * List of available options in the dropdown menu.
+       */
+      list: Array<string>;
+    }
+
+    /**
+     * Configuration options specific to file upload input fields.
+     */
+    export interface ApplicationInputFileOptions {
+      /**
+       * List of allowed file extensions.
+       */
+      file_types: Array<string>;
+
+      /**
+       * Maximum file size allowed in megabytes.
+       */
+      max_file_size_mb: number;
+
+      /**
+       * Maximum number of files that can be uploaded.
+       */
+      max_files: number;
+
+      /**
+       * Maximum number of words allowed in text files.
+       */
+      max_word_count: number;
+    }
+
+    /**
+     * Configuration options specific to media upload input fields.
+     */
+    export interface ApplicationInputMediaOptions {
+      /**
+       * List of allowed media file types.
+       */
+      file_types: Array<string>;
+
+      /**
+       * Maximum media file size allowed in megabytes.
+       */
+      max_image_size_mb: number;
+    }
+
+    /**
+     * Configuration options specific to text input fields.
+     */
+    export interface ApplicationInputTextOptions {
+      /**
+       * Maximum number of text fields allowed.
+       */
+      max_fields: number;
+
+      /**
+       * Minimum number of text fields required.
+       */
+      min_fields: number;
+    }
+  }
+}
+
+/**
+ * Detailed application object including its input configuration.
+ */
+export interface ApplicationListResponse {
+  /**
+   * Unique identifier for the application.
+   */
+  id: string;
+
+  /**
+   * Timestamp when the application was created.
+   */
+  created_at: string;
+
+  /**
+   * List of input configurations for the application.
+   */
+  inputs: Array<ApplicationListResponse.Input>;
+
+  /**
+   * Display name of the application.
+   */
+  name: string;
+
+  /**
+   * Current deployment status of the application.
+   */
+  status: 'deployed' | 'draft';
+
+  /**
+   * The type of no-code application.
+   */
+  type: 'generation';
+
+  /**
+   * Timestamp when the application was last updated.
+   */
+  updated_at: string;
+
+  /**
+   * Timestamp when the application was last deployed.
+   */
+  last_deployed_at?: string;
+}
+
+export namespace ApplicationListResponse {
+  /**
+   * Configuration for an individual input field in the application.
+   */
+  export interface Input {
+    /**
+     * Type of input field determining its behavior and validation rules.
+     */
+    input_type: 'text' | 'dropdown' | 'file' | 'media';
+
+    /**
+     * Identifier for the input field.
+     */
+    name: string;
+
+    /**
+     * Indicates if this input field is mandatory.
+     */
+    required: boolean;
+
+    /**
+     * Human-readable description of the input field's purpose.
+     */
+    description?: string;
+
+    /**
+     * Type-specific configuration options for input fields.
+     */
+    options?:
+      | Input.ApplicationInputDropdownOptions
+      | Input.ApplicationInputFileOptions
+      | Input.ApplicationInputMediaOptions
+      | Input.ApplicationInputTextOptions;
+  }
+
+  export namespace Input {
+    /**
+     * Configuration options specific to dropdown-type input fields.
+     */
+    export interface ApplicationInputDropdownOptions {
+      /**
+       * List of available options in the dropdown menu.
+       */
+      list: Array<string>;
+    }
+
+    /**
+     * Configuration options specific to file upload input fields.
+     */
+    export interface ApplicationInputFileOptions {
+      /**
+       * List of allowed file extensions.
+       */
+      file_types: Array<string>;
+
+      /**
+       * Maximum file size allowed in megabytes.
+       */
+      max_file_size_mb: number;
+
+      /**
+       * Maximum number of files that can be uploaded.
+       */
+      max_files: number;
+
+      /**
+       * Maximum number of words allowed in text files.
+       */
+      max_word_count: number;
+    }
+
+    /**
+     * Configuration options specific to media upload input fields.
+     */
+    export interface ApplicationInputMediaOptions {
+      /**
+       * List of allowed media file types.
+       */
+      file_types: Array<string>;
+
+      /**
+       * Maximum media file size allowed in megabytes.
+       */
+      max_image_size_mb: number;
+    }
+
+    /**
+     * Configuration options specific to text input fields.
+     */
+    export interface ApplicationInputTextOptions {
+      /**
+       * Maximum number of text fields allowed.
+       */
+      max_fields: number;
+
+      /**
+       * Minimum number of text fields required.
+       */
+      min_fields: number;
+    }
+  }
+}
+
+export interface ApplicationListParams extends CursorPageParams {
+  /**
+   * Maximum number of applications to return in the response.
+   */
+  limit?: number;
+
+  /**
+   * Sort order for the results based on creation time.
+   */
+  order?: 'asc' | 'desc';
+
+  /**
+   * Filter applications by their type.
+   */
+  type?: 'generation';
 }
 
 export type ApplicationGenerateContentParams =
@@ -164,6 +516,7 @@ export interface ApplicationGenerateContentParamsStreaming extends ApplicationGe
   stream: true;
 }
 
+Applications.ApplicationListResponsesCursorPage = ApplicationListResponsesCursorPage;
 Applications.Jobs = Jobs;
 Applications.ApplicationGenerateAsyncResponsesApplicationJobsOffset =
   ApplicationGenerateAsyncResponsesApplicationJobsOffset;
@@ -173,6 +526,10 @@ export declare namespace Applications {
   export {
     type ApplicationGenerateContentChunk as ApplicationGenerateContentChunk,
     type ApplicationGenerateContentResponse as ApplicationGenerateContentResponse,
+    type ApplicationRetrieveResponse as ApplicationRetrieveResponse,
+    type ApplicationListResponse as ApplicationListResponse,
+    ApplicationListResponsesCursorPage as ApplicationListResponsesCursorPage,
+    type ApplicationListParams as ApplicationListParams,
     type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
     type ApplicationGenerateContentParamsNonStreaming as ApplicationGenerateContentParamsNonStreaming,
     type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming,

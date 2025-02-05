@@ -68,6 +68,10 @@ import {
   ApplicationGenerateContentParamsNonStreaming,
   ApplicationGenerateContentParamsStreaming,
   ApplicationGenerateContentResponse,
+  ApplicationListParams,
+  ApplicationListResponse,
+  ApplicationListResponsesCursorPage,
+  ApplicationRetrieveResponse,
   Applications,
 } from './resources/applications/applications';
 import {
@@ -236,6 +240,7 @@ export class Writer extends Core.APIClient {
 }
 
 Writer.Applications = Applications;
+Writer.ApplicationListResponsesCursorPage = ApplicationListResponsesCursorPage;
 Writer.Chat = Chat;
 Writer.Completions = Completions;
 Writer.Models = Models;
@@ -260,6 +265,10 @@ export declare namespace Writer {
     Applications as Applications,
     type ApplicationGenerateContentChunk as ApplicationGenerateContentChunk,
     type ApplicationGenerateContentResponse as ApplicationGenerateContentResponse,
+    type ApplicationRetrieveResponse as ApplicationRetrieveResponse,
+    type ApplicationListResponse as ApplicationListResponse,
+    ApplicationListResponsesCursorPage as ApplicationListResponsesCursorPage,
+    type ApplicationListParams as ApplicationListParams,
     type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
     type ApplicationGenerateContentParamsNonStreaming as ApplicationGenerateContentParamsNonStreaming,
     type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming,
