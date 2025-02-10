@@ -18,20 +18,29 @@ export interface ErrorObject {
   tpe: string;
 }
 
+/**
+ * A tool that uses a custom function.
+ */
 export interface FunctionDefinition {
   /**
-   * Name of the function
+   * Name of the function.
    */
   name: string;
 
   /**
-   * Description of the function
+   * Description of the function.
    */
   description?: string;
 
+  /**
+   * The parameters of the function.
+   */
   parameters?: FunctionParams;
 }
 
+/**
+ * The parameters of the function.
+ */
 export type FunctionParams = Record<string, unknown>;
 
 export interface GraphData {
@@ -144,10 +153,13 @@ export interface ToolChoiceString {
   value: 'none' | 'auto' | 'required';
 }
 
-export type ToolParam = ToolParam.FunctionTool | ToolParam.GraphTool;
+export type ToolParam = ToolParam.FunctionTool | ToolParam.GraphTool | ToolParam.LlmTool;
 
 export namespace ToolParam {
   export interface FunctionTool {
+    /**
+     * A tool that uses a custom function.
+     */
     function: Shared.FunctionDefinition;
 
     /**
@@ -157,6 +169,9 @@ export namespace ToolParam {
   }
 
   export interface GraphTool {
+    /**
+     * A tool that uses Knowledge Graphs as context for responses.
+     */
     function: GraphTool.Function;
 
     /**
@@ -166,6 +181,9 @@ export namespace ToolParam {
   }
 
   export namespace GraphTool {
+    /**
+     * A tool that uses Knowledge Graphs as context for responses.
+     */
     export interface Function {
       /**
        * An array of graph IDs to be used in the tool.
@@ -181,6 +199,35 @@ export namespace ToolParam {
        * A description of the graph content.
        */
       description?: string;
+    }
+  }
+
+  export interface LlmTool {
+    /**
+     * A tool that uses another Writer model to generate a response.
+     */
+    function: LlmTool.Function;
+
+    /**
+     * The type of tool.
+     */
+    type?: 'llm';
+  }
+
+  export namespace LlmTool {
+    /**
+     * A tool that uses another Writer model to generate a response.
+     */
+    export interface Function {
+      /**
+       * A description of the model to be used.
+       */
+      description: string;
+
+      /**
+       * The model to be used.
+       */
+      model: string;
     }
   }
 }
