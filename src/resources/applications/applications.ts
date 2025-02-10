@@ -174,7 +174,8 @@ export interface ApplicationRetrieveResponse {
   name: string;
 
   /**
-   * Current deployment status of the application.
+   * Current deployment status of the application. Note: currently only `deployed`
+   * applications are returned.
    */
   status: 'deployed' | 'draft';
 
@@ -322,7 +323,8 @@ export interface ApplicationListResponse {
   name: string;
 
   /**
-   * Current deployment status of the application.
+   * Current deployment status of the application. Note: currently only `deployed`
+   * applications are returned.
    */
   status: 'deployed' | 'draft';
 

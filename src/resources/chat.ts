@@ -192,6 +192,8 @@ export namespace ChatCompletionChunk {
 
       graph_data?: Shared.GraphData;
 
+      llm_data?: Delta.LlmData;
+
       refusal?: string | null;
 
       /**
@@ -202,6 +204,20 @@ export namespace ChatCompletionChunk {
       role?: 'user' | 'assistant' | 'system';
 
       tool_calls?: Array<Shared.ToolCallStreaming> | null;
+    }
+
+    export namespace Delta {
+      export interface LlmData {
+        /**
+         * The model used by the tool.
+         */
+        model: string;
+
+        /**
+         * The prompt processed by the model.
+         */
+        prompt: string;
+      }
     }
   }
 }
@@ -226,7 +242,23 @@ export interface ChatCompletionMessage {
 
   graph_data?: Shared.GraphData;
 
+  llm_data?: ChatCompletionMessage.LlmData;
+
   tool_calls?: Array<Shared.ToolCall> | null;
+}
+
+export namespace ChatCompletionMessage {
+  export interface LlmData {
+    /**
+     * The model used by the tool.
+     */
+    model: string;
+
+    /**
+     * The prompt processed by the model.
+     */
+    prompt: string;
+  }
 }
 
 export interface ChatCompletionParams {
@@ -296,8 +328,8 @@ export interface ChatCompletionParams {
 
   /**
    * An array of tools described to the model using JSON schema that the model can
-   * use to generate responses. Passing graph IDs will automatically use the
-   * Knowledge Graph tool.
+   * use to generate responses. You can define your own functions or use the built-in
+   * `graph` or `llm` tools.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -433,8 +465,8 @@ export interface ChatChatParamsBase {
 
   /**
    * An array of tools described to the model using JSON schema that the model can
-   * use to generate responses. Passing graph IDs will automatically use the
-   * Knowledge Graph tool.
+   * use to generate responses. You can define your own functions or use the built-in
+   * `graph` or `llm` tools.
    */
   tools?: Array<Shared.ToolParam>;
 
