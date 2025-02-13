@@ -10,7 +10,7 @@ const client = new Writer({
 
 describe('resource chat', () => {
   test('chat: only required params', async () => {
-    const responsePromise = client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' });
+    const responsePromise = client.chat.chat({ messages: [{ role: 'user' }], model: 'model' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,7 +25,7 @@ describe('resource chat', () => {
       messages: [
         {
           role: 'user',
-          content: 'Write a memo summarizing this earnings report.',
+          content: 'content',
           graph_data: {
             sources: [{ file_id: 'file_id', snippet: 'snippet' }],
             status: 'processing',
@@ -41,7 +41,7 @@ describe('resource chat', () => {
           ],
         },
       ],
-      model: 'palmyra-x-004',
+      model: 'model',
       logprobs: true,
       max_tokens: 0,
       n: 0,
