@@ -192,7 +192,7 @@ export namespace ChatCompletionChunk {
 
       graph_data?: Shared.GraphData;
 
-      llm_data?: Delta.LlmData;
+      llm_data?: Delta.LlmData | null;
 
       refusal?: string | null;
 
@@ -242,7 +242,7 @@ export interface ChatCompletionMessage {
 
   graph_data?: Shared.GraphData;
 
-  llm_data?: ChatCompletionMessage.LlmData;
+  llm_data?: ChatCompletionMessage.LlmData | null;
 
   tool_calls?: Array<Shared.ToolCall> | null;
 }

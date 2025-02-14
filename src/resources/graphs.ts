@@ -26,7 +26,7 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Update graph
+   * Update the name and description of a Knowledge Graph.
    */
   update(
     graphID: string,
@@ -165,9 +165,9 @@ export interface Question {
    */
   question: string;
 
-  sources: Array<Shared.Source>;
+  sources: Array<Shared.Source | null>;
 
-  subqueries?: Array<Question.Subquery>;
+  subqueries?: Array<Question.Subquery | null>;
 }
 
 export namespace Question {
@@ -182,7 +182,7 @@ export namespace Question {
      */
     query: string;
 
-    sources: Array<Shared.Source>;
+    sources: Array<Shared.Source | null>;
   }
 }
 
@@ -260,26 +260,30 @@ export interface GraphRemoveFileFromGraphResponse {
 
 export interface GraphCreateParams {
   /**
-   * The name of the graph. This can be at most 255 characters.
-   */
-  name: string;
-
-  /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the graph (max 255 characters). Omitting this field leaves the
+   * description unchanged.
    */
   description?: string;
+
+  /**
+   * The name of the graph (max 255 characters). Omitting this field leaves the name
+   * unchanged.
+   */
+  name?: string;
 }
 
 export interface GraphUpdateParams {
   /**
-   * The name of the graph. This can be at most 255 characters.
-   */
-  name: string;
-
-  /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the graph (max 255 characters). Omitting this field leaves the
+   * description unchanged.
    */
   description?: string;
+
+  /**
+   * The name of the graph (max 255 characters). Omitting this field leaves the name
+   * unchanged.
+   */
+  name?: string;
 }
 
 export interface GraphListParams extends CursorPageParams {
