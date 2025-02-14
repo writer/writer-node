@@ -44,11 +44,11 @@ export interface FunctionDefinition {
 export type FunctionParams = Record<string, unknown>;
 
 export interface GraphData {
-  sources?: Array<Source>;
+  sources?: Array<Source | null>;
 
-  status?: 'processing' | 'finished';
+  status?: 'processing' | 'finished' | null;
 
-  subqueries?: Array<GraphData.Subquery>;
+  subqueries?: Array<GraphData.Subquery | null>;
 }
 
 export namespace GraphData {
@@ -63,7 +63,7 @@ export namespace GraphData {
      */
     query: string;
 
-    sources: Array<Shared.Source>;
+    sources: Array<Shared.Source | null>;
   }
 }
 

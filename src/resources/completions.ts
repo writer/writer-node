@@ -52,7 +52,7 @@ export namespace Completion {
      */
     text: string;
 
-    log_probs?: Shared.Logprobs;
+    log_probs?: Shared.Logprobs | null;
   }
 }
 
