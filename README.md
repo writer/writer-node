@@ -79,6 +79,51 @@ main();
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
 
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+```ts
+import fs from 'fs';
+import fetch from 'node-fetch';
+import Writer, { toFile } from 'writer-sdk';
+
+const client = new Writer();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.files.upload({
+  content: fs.createReadStream('/path/to/file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+
+// Or if you have the web `File` API you can pass a `File` instance:
+await client.files.upload({
+  content: new File(['my bytes'], 'file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+
+// You can also pass a `fetch` `Response`:
+await client.files.upload({
+  content: await fetch('https://somesite/file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.files.upload({
+  content: await toFile(Buffer.from('my bytes'), 'file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+await client.files.upload({
+  content: await toFile(new Uint8Array([0, 1, 2]), 'file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+```
+
 ## Handling errors
 
 When the library is unable to connect to the API,
