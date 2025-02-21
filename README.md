@@ -27,7 +27,10 @@ const client = new Writer({
 });
 
 async function main() {
-  const chatCompletion = await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' });
+  const chatCompletion = await client.chat.chat({
+    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    model: 'palmyra-x-004',
+  });
 
   console.log(chatCompletion.id);
 }
@@ -44,13 +47,13 @@ import Writer from 'writer-sdk';
 
 const client = new Writer();
 
-const stream = await client.completions.create({
-  model: 'palmyra-x-003-instruct',
-  prompt: 'Hi, my name is',
+const stream = await client.chat.chat({
+  messages: [{ content: 'Write a poem about Python', role: 'user' }],
+  model: 'palmyra-x-004',
   stream: true,
 });
-for await (const completionChunk of stream) {
-  console.log(completionChunk.choices);
+for await (const chatCompletionChunk of stream) {
+  console.log(chatCompletionChunk.id);
 }
 ```
 
@@ -70,7 +73,10 @@ const client = new Writer({
 });
 
 async function main() {
-  const params: Writer.ChatChatParams = { messages: [{ role: 'user' }], model: 'palmyra-x-004' };
+  const params: Writer.ChatChatParams = {
+    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    model: 'palmyra-x-004',
+  };
   const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
 }
 
@@ -134,7 +140,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chatCompletion = await client.chat
-    .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
+    .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -178,7 +184,7 @@ const client = new Writer({
 });
 
 // Or, configure per-request:
-await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' }, {
+await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
   maxRetries: 5,
 });
 ```
@@ -195,7 +201,7 @@ const client = new Writer({
 });
 
 // Override per-request:
-await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' }, {
+await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -248,13 +254,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const client = new Writer();
 
 const response = await client.chat
-  .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chatCompletion, response: raw } = await client.chat
-  .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chatCompletion.id);
@@ -362,7 +368,7 @@ const client = new Writer({
 
 // Override per-request:
 await client.chat.chat(
-  { messages: [{ role: 'user' }], model: 'palmyra-x-004' },
+  { messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
