@@ -55,14 +55,15 @@ export class Files extends APIResource {
    * Upload file
    */
   upload(params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
-    const { content, 'Content-Disposition': contentDisposition } = params;
+    const { content, 'Content-Disposition': contentDisposition, 'Content-Type': contentType } = params;
     return this._client.post('/v1/files', {
       body: content,
       ...options,
-      headers: buildHeaders([
-        { 'Content-Type': 'text/plain', 'Content-Disposition': contentDisposition },
-        options?.headers,
-      ]),
+      headers: {
+        'Content-Type': contentType,
+        'Content-Disposition': contentDisposition,
+        ...options?.headers,
+      },
     });
   }
 }
@@ -159,6 +160,11 @@ export interface FileUploadParams {
    * of the file, for example: `attachment; filename="example.pdf"`.
    */
   'Content-Disposition': string;
+
+  /**
+   * Header param: The content type of the file.
+   */
+  'Content-Type': string;
 }
 
 export declare namespace Files {
