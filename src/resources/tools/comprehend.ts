@@ -1,17 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIPromise } from '../../api-promise';
+import { RequestOptions } from '../../internal/request-options';
 
 export class Comprehend extends APIResource {
   /**
    * Analyze unstructured medical text to extract entities labeled with standardized
    * medical codes and confidence scores.
    */
-  medical(
-    body: ComprehendMedicalParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ComprehendMedicalResponse> {
+  medical(body: ComprehendMedicalParams, options?: RequestOptions): APIPromise<ComprehendMedicalResponse> {
     return this._client.post('/v1/tools/comprehend/medical', { body, ...options });
   }
 }

@@ -12,6 +12,7 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
+    
 
     steps:
       - uses: actions/checkout@v4
@@ -62,3 +63,4 @@ jobs:
 
       - name: Run tests
         run: ./scripts/test
+

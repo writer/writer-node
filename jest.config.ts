@@ -8,7 +8,6 @@ const config: JestConfigWithTsJest = {
   },
   moduleNameMapper: {
     '^writer-sdk$': '<rootDir>/src/index.ts',
-    '^writer-sdk/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
     '^writer-sdk/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [

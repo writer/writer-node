@@ -1,13 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIPromise } from '../api-promise';
+import { RequestOptions } from '../internal/request-options';
 
 export class Models extends APIResource {
   /**
    * List models
    */
-  list(options?: Core.RequestOptions): Core.APIPromise<ModelListResponse> {
+  list(options?: RequestOptions): APIPromise<ModelListResponse> {
     return this._client.get('/v1/models', options);
   }
 }

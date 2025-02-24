@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Writer from 'writer-sdk';
-import { Response } from 'node-fetch';
 
 const client = new Writer({
   apiKey: 'My API Key',
@@ -9,8 +8,8 @@ const client = new Writer({
 });
 
 describe('resource graphs', () => {
-  test('create: only required params', async () => {
-    const responsePromise = client.graphs.create({ name: 'name' });
+  test('create', async () => {
+    const responsePromise = client.graphs.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,10 +17,6 @@ describe('resource graphs', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('create: required and optional params', async () => {
-    const response = await client.graphs.create({ name: 'name', description: 'description' });
   });
 
   test('retrieve', async () => {
@@ -35,15 +30,8 @@ describe('resource graphs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Writer.NotFoundError);
-  });
-
-  test('update: only required params', async () => {
-    const responsePromise = client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { name: 'name' });
+  test('update', async () => {
+    const responsePromise = client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -51,13 +39,6 @@ describe('resource graphs', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: required and optional params', async () => {
-    const response = await client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      name: 'name',
-      description: 'description',
-    });
   });
 
   test('list', async () => {
@@ -69,13 +50,6 @@ describe('resource graphs', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.graphs.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Writer.NotFoundError,
-    );
   });
 
   test('list: request options and params are passed correctly', async () => {
@@ -102,13 +76,6 @@ describe('resource graphs', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('delete: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Writer.NotFoundError);
   });
 
   test('addFileToGraph: only required params', async () => {
@@ -155,11 +122,10 @@ describe('resource graphs', () => {
     });
   });
 
-  test('removeFileFromGraph', async () => {
-    const responsePromise = client.graphs.removeFileFromGraph(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      'file_id',
-    );
+  test('removeFileFromGraph: only required params', async () => {
+    const responsePromise = client.graphs.removeFileFromGraph('file_id', {
+      graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -169,12 +135,9 @@ describe('resource graphs', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('removeFileFromGraph: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.graphs.removeFileFromGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', 'file_id', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Writer.NotFoundError);
+  test('removeFileFromGraph: required and optional params', async () => {
+    const response = await client.graphs.removeFileFromGraph('file_id', {
+      graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

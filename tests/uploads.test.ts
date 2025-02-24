@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'writer-sdk/uploads';
-import { File } from 'writer-sdk/_shims/index';
+import type { ResponseLike } from 'writer-sdk/internal/uploads';
+import { toFile } from 'writer-sdk/uploads';
 
 class MyClass {
   name: string = 'foo';
@@ -9,7 +9,7 @@ class MyClass {
 function mockResponse({ url, content }: { url: string; content?: Blob }): ResponseLike {
   return {
     url,
-    blob: async () => content as any,
+    blob: async () => content || new Blob([]),
   };
 }
 
@@ -62,4 +62,15 @@ describe('toFile', () => {
     expect(file.name).toEqual('input.jsonl');
     expect(file.type).toBe('jsonl');
   });
+});
+
+test('missing File error message', async () => {
+  // @ts-ignore
+  globalThis.File = undefined;
+
+  await expect(
+    toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
+  ).rejects.toMatchInlineSnapshot(
+    `[Error: \`File\` is not defined as a global which is required for file uploads]`,
+  );
 });

@@ -1,4 +1,4 @@
-# Writer Node API Library
+# Writer TypeScript API Library
 
 [![NPM version](https://img.shields.io/npm/v/writer-sdk.svg)](https://npmjs.org/package/writer-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/writer-sdk)
 
@@ -11,8 +11,11 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install writer-sdk
+npm install git+ssh://git@github.com:stainless-sdks/writer-typescript.git
 ```
+
+> [!NOTE]
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install writer-sdk`
 
 ## Usage
 
@@ -27,9 +30,12 @@ const client = new Writer({
 });
 
 async function main() {
-  const chat = await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' });
+  const chatCompletion = await client.chat.chat({
+    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    model: 'palmyra-x-004',
+  });
 
-  console.log(chat.id);
+  console.log(chatCompletion.id);
 }
 
 main();
@@ -44,13 +50,13 @@ import Writer from 'writer-sdk';
 
 const client = new Writer();
 
-const stream = await client.completions.create({
-  model: 'palmyra-x-003-instruct',
-  prompt: 'Hi, my name is',
+const stream = await client.chat.chat({
+  messages: [{ content: 'Write a poem about Python', role: 'user' }],
+  model: 'palmyra-x-004',
   stream: true,
 });
-for await (const streamingData of stream) {
-  console.log(streamingData.value);
+for await (const chatCompletionChunk of stream) {
+  console.log(chatCompletionChunk.id);
 }
 ```
 
@@ -70,14 +76,61 @@ const client = new Writer({
 });
 
 async function main() {
-  const params: Writer.ChatChatParams = { messages: [{ role: 'user' }], model: 'palmyra-x-004' };
-  const chat: Writer.Chat = await client.chat.chat(params);
+  const params: Writer.ChatChatParams = {
+    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    model: 'palmyra-x-004',
+  };
+  const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
 }
 
 main();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+```ts
+import fs from 'fs';
+import Writer, { toFile } from 'writer-sdk';
+
+const client = new Writer();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.files.upload({
+  content: fs.createReadStream('/path/to/file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+
+// Or if you have the web `File` API you can pass a `File` instance:
+await client.files.upload({
+  content: new File(['my bytes'], 'file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+
+// You can also pass a `fetch` `Response`:
+await client.files.upload({
+  content: await fetch('https://somesite/file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.files.upload({
+  content: await toFile(Buffer.from('my bytes'), 'file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+await client.files.upload({
+  content: await toFile(new Uint8Array([0, 1, 2]), 'file'),
+  'Content-Disposition': 'Content-Disposition',
+});
+```
 
 ## Handling errors
 
@@ -88,8 +141,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const chat = await client.chat
-    .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
+  const chatCompletion = await client.chat
+    .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -133,7 +186,7 @@ const client = new Writer({
 });
 
 // Or, configure per-request:
-await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' }, {
+await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
   maxRetries: 5,
 });
 ```
@@ -150,7 +203,7 @@ const client = new Writer({
 });
 
 // Override per-request:
-await client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' }, {
+await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -203,16 +256,69 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const client = new Writer();
 
 const response = await client.chat
-  .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: chat, response: raw } = await client.chat
-  .chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' })
+const { data: chatCompletion, response: raw } = await client.chat
+  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(chat.id);
+console.log(chatCompletion.id);
+```
+
+### Logging
+
+> [!IMPORTANT]
+> All log messages are intended for debugging only. The format and content of log messages
+> may change between releases.
+
+#### Log levels
+
+The log level can be configured in two ways:
+
+1. Via the `WRITER_LOG` environment variable
+2. Using the `logLevel` client option (overrides the environment variable if set)
+
+```ts
+import Writer from 'writer-sdk';
+
+const client = new Writer({
+  logLevel: 'debug', // Show all log messages
+});
+```
+
+Available log levels, from most to least verbose:
+
+- `'debug'` - Show debug messages, info, warnings, and errors
+- `'info'` - Show info messages, warnings, and errors
+- `'warn'` - Show warnings and errors (default)
+- `'error'` - Show only errors
+- `'off'` - Disable all logging
+
+At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
+Some authentication-related headers are redacted, but sensitive data in request and response bodies
+may still be visible.
+
+#### Custom logger
+
+By default, this library logs to `globalThis.console`. You can also provide a custom logger.
+Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.
+
+When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
+below the configured level will not be sent to your logger.
+
+```ts
+import Writer from 'writer-sdk';
+import pino from 'pino';
+
+const logger = pino();
+
+const client = new Writer({
+  logger: logger.child({ name: 'Writer' }),
+  logLevel: 'debug', // Send all messages to pino, allowing it to filter
+});
 ```
 
 ### Making custom/undocumented requests
@@ -261,84 +367,100 @@ validate or strip extra properties from the response from the API.
 
 ### Customizing the fetch client
 
-By default, this library uses `node-fetch` in Node, and expects a global `fetch` function in other environments.
+By default, this library expects a global `fetch` function is defined.
 
-If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
-(for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "Writer"`:
+If you want to use a different `fetch` function, you can either polyfill the global:
 
 ```ts
-// Tell TypeScript and the package to use the global web fetch instead of node-fetch.
-// Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'writer-sdk/shims/web';
-import Writer from 'writer-sdk';
+import fetch from 'my-fetch';
+
+globalThis.fetch = fetch;
 ```
 
-To do the inverse, add `import "writer-sdk/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/writer/writer-node/tree/main/src/_shims#readme)).
-
-### Logging and middleware
-
-You may also provide a custom `fetch` function when instantiating the client,
-which can be used to inspect or alter the `Request` or `Response` before/after each request:
+Or pass it to the client:
 
 ```ts
-import { fetch } from 'undici'; // as one example
+import Writer from 'writer-sdk';
+import fetch from 'my-fetch';
+
+const client = new Writer({ fetch });
+```
+
+### Fetch options
+
+If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
+
+```ts
 import Writer from 'writer-sdk';
 
 const client = new Writer({
-  fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
-    console.log('About to make a request', url, init);
-    const response = await fetch(url, init);
-    console.log('Got response', response);
-    return response;
+  fetchOptions: {
+    // `RequestInit` options
   },
 });
 ```
 
-Note that if given a `DEBUG=true` environment variable, this library will log all requests and responses automatically.
-This is intended for debugging purposes only and may change in the future without notice.
+#### Configuring proxies
 
-### Configuring an HTTP(S) Agent (e.g., for proxies)
+To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy
+options to requests:
 
-By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
-If you would like to disable or customize this behavior, for example to use the API behind a proxy, you can pass an `httpAgent` which is used for all requests (be they http or https), for example:
-
-<!-- prettier-ignore -->
 ```ts
-import http from 'http';
-import { HttpsProxyAgent } from 'https-proxy-agent';
+import Writer from 'writer-sdk';
+import * as undici from 'undici';
 
-// Configure the default for all requests:
+const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
 const client = new Writer({
-  httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
-});
-
-// Override per-request:
-await client.chat.chat(
-  { messages: [{ role: 'user' }], model: 'palmyra-x-004' },
-  {
-    httpAgent: new http.Agent({ keepAlive: false }),
+  fetchOptions: {
+    dispatcher: proxyAgent,
   },
-);
+});
 ```
+
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
+
+```ts
+import Writer from 'writer-sdk';
+
+const client = new Writer({
+  fetchOptions: {
+    proxy: 'http://localhost:8888',
+  },
+});
+```
+
+<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
+
+```ts
+import Writer from 'npm:writer-sdk';
+
+const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
+const client = new Writer({
+  fetchOptions: {
+    client: httpClient,
+  },
+});
+```
+
+## Frequently Asked Questions
 
 ## Semantic versioning
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
 1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals)_.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
 3. Changes that we do not expect to impact the vast majority of users in practice.
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/writer/writer-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/writer-typescript/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
-TypeScript >= 4.5 is supported.
+TypeScript >= 4.9 is supported.
 
 The following runtimes are supported:
 

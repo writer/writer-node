@@ -1,74 +1,73 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
-import { type Response } from '../_shims/index';
+import { APIPromise } from '../api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../pagination';
+import { type Uploadable } from '../uploads';
+import { buildHeaders } from '../internal/headers';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Files extends APIResource {
   /**
    * Retrieve file
    */
-  retrieve(fileId: string, options?: Core.RequestOptions): Core.APIPromise<File> {
-    return this._client.get(`/v1/files/${fileId}`, options);
+  retrieve(fileID: string, options?: RequestOptions): APIPromise<File> {
+    return this._client.get(path`/v1/files/${fileID}`, options);
   }
 
   /**
    * List files
    */
-  list(query?: FileListParams, options?: Core.RequestOptions): Core.PagePromise<FilesCursorPage, File>;
-  list(options?: Core.RequestOptions): Core.PagePromise<FilesCursorPage, File>;
   list(
-    query: FileListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FilesCursorPage, File> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/files', FilesCursorPage, { query, ...options });
+    query: FileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FilesCursorPage, File> {
+    return this._client.getAPIList('/v1/files', CursorPage<File>, { query, ...options });
   }
 
   /**
    * Delete file
    */
-  delete(fileId: string, options?: Core.RequestOptions): Core.APIPromise<FileDeleteResponse> {
-    return this._client.delete(`/v1/files/${fileId}`, options);
+  delete(fileID: string, options?: RequestOptions): APIPromise<FileDeleteResponse> {
+    return this._client.delete(path`/v1/files/${fileID}`, options);
   }
 
   /**
    * Download file
    */
-  download(fileId: string, options?: Core.RequestOptions): Core.APIPromise<Response> {
-    return this._client.get(`/v1/files/${fileId}/download`, { ...options, __binaryResponse: true });
+  download(fileID: string, options?: RequestOptions): APIPromise<Response> {
+    return this._client.get(path`/v1/files/${fileID}/download`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
+      __binaryResponse: true,
+    });
   }
 
   /**
    * Retry failed files
    */
-  retry(body: FileRetryParams, options?: Core.RequestOptions): Core.APIPromise<FileRetryResponse> {
+  retry(body: FileRetryParams, options?: RequestOptions): APIPromise<FileRetryResponse> {
     return this._client.post('/v1/files/retry', { body, ...options });
   }
 
   /**
    * Upload file
    */
-  upload(params: FileUploadParams, options?: Core.RequestOptions): Core.APIPromise<File> {
-    const { content, 'Content-Disposition': contentDisposition, 'Content-Type': contentType } = params;
+  upload(params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
+    const { content, 'Content-Disposition': contentDisposition } = params;
     return this._client.post('/v1/files', {
       body: content,
       ...options,
-      headers: {
-        'Content-Type': contentType,
-        'Content-Disposition': contentDisposition,
-        ...options?.headers,
-      },
-      __binaryRequest: true,
+      headers: buildHeaders([
+        { 'Content-Type': 'text/plain', 'Content-Disposition': contentDisposition },
+        options?.headers,
+      ]),
     });
   }
 }
 
-export class FilesCursorPage extends CursorPage<File> {}
+export type FilesCursorPage = CursorPage<File>;
 
 export interface File {
   /**
@@ -152,7 +151,7 @@ export interface FileUploadParams {
   /**
    * Body param:
    */
-  content: Core.Uploadable;
+  content: Uploadable;
 
   /**
    * Header param: The disposition type of the file, typically used to indicate the
@@ -160,21 +159,14 @@ export interface FileUploadParams {
    * of the file, for example: `attachment; filename="example.pdf"`.
    */
   'Content-Disposition': string;
-
-  /**
-   * Header param: The content type of the file.
-   */
-  'Content-Type': string;
 }
-
-Files.FilesCursorPage = FilesCursorPage;
 
 export declare namespace Files {
   export {
     type File as File,
     type FileDeleteResponse as FileDeleteResponse,
     type FileRetryResponse as FileRetryResponse,
-    FilesCursorPage as FilesCursorPage,
+    type FilesCursorPage as FilesCursorPage,
     type FileListParams as FileListParams,
     type FileRetryParams as FileRetryParams,
     type FileUploadParams as FileUploadParams,
