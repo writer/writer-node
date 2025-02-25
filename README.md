@@ -135,6 +135,57 @@ main();
 
 Documentation for each method, request parameter, and response field are available in docstrings and will appear on hover in most modern editors.
 
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+The `Content-Type` parameter is the [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/MIME_types/Common_types) of the file being uploaded. The file upload supports `txt`, `doc`, `docx`, `ppt`, `pptx`, `jpg`, `png`, `eml`, `html`, `pdf`, `srt`, `csv`, `xls`, and `xlsx` file extensions.
+
+```ts
+import fs from 'fs';
+import Writer, { toFile } from 'writer-sdk';
+
+const client = new Writer();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.files.upload({
+  content: fs.createReadStream('/path/to/file.pdf'),
+  'Content-Disposition': 'attachment; filename="example.pdf"',
+  'Content-Type': 'application/pdf',
+});
+
+// If you have the web `File` API you can pass a `File` instance:
+await client.files.upload({
+  content: new File(['my bytes'], 'example.txt'),
+  'Content-Disposition': 'attachment; filename="example.txt"',
+  'Content-Type': 'text/plain',
+});
+
+// You can also pass a `fetch` `Response`:
+await client.files.upload({
+  content: await fetch('https://example.com/example.pdf'),
+  'Content-Disposition': 'attachment; filename="example.pdf"',
+  'Content-Type': 'application/pdf',
+});
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.files.upload({
+  content: await toFile(Buffer.from('my bytes'), 'example.txt'),
+  'Content-Disposition': 'attachment; filename="example.txt"',
+  'Content-Type': 'text/plain',
+});
+await client.files.upload({
+  content: await toFile(new Uint8Array([0, 1, 2]), 'example.txt'),
+  'Content-Disposition': 'attachment; filename="example.txt"',
+  'Content-Type': 'text/plain',
+});
+```
+
 ## Error handling
 
 When the library is unable to connect to the API (for example, due to a network connectivity problem or a firewall that doesn't allow the connection),
