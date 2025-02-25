@@ -81,7 +81,7 @@ export interface File {
   created_at: string;
 
   /**
-   * A list of graph IDs that the file is associated with.
+   * A list of Knowledge Graph IDs that the file is associated with.
    */
   graph_ids: Array<string>;
 

@@ -7,8 +7,8 @@ import { path } from '../../internal/utils/path';
 
 export class Graphs extends APIResource {
   /**
-   * Updates the graphs listed and associates them with the no-code chat app to be
-   * used.
+   * Updates the Knowledge Graphs listed and associates them with the no-code chat
+   * app to be used.
    */
   update(
     applicationID: string,
@@ -19,7 +19,7 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Retrieve graphs associated with a no-code chat application.
+   * Retrieve Knowledge Graphs associated with a no-code chat application.
    */
   list(applicationID: string, options?: RequestOptions): APIPromise<ApplicationGraphsResponse> {
     return this._client.get(path`/v1/applications/${applicationID}/graphs`, options);
@@ -28,16 +28,16 @@ export class Graphs extends APIResource {
 
 export interface ApplicationGraphsResponse {
   /**
-   * A list of graphs associated with the application.
+   * A list of Knowledge Graphs associated with the application.
    */
   graph_ids: Array<string>;
 }
 
 export interface GraphUpdateParams {
   /**
-   * A list of graph IDs to associate with the application. Note that this will
-   * replace the existing list of graphs associated with the application, not add to
-   * it.
+   * A list of Knowledge Graph IDs to associate with the application. Note that this
+   * will replace the existing list of Knowledge Graphs associated with the
+   * application, not add to it.
    */
   graph_ids: Array<string>;
 }
