@@ -12,14 +12,14 @@ import { path } from '../internal/utils/path';
 
 export class Graphs extends APIResource {
   /**
-   * Create graph
+   * Create a new Knowledge Graph.
    */
   create(body: GraphCreateParams, options?: RequestOptions): APIPromise<GraphCreateResponse> {
     return this._client.post('/v1/graphs', { body, ...options });
   }
 
   /**
-   * Retrieve graph
+   * Retrieve a Knowledge Graph.
    */
   retrieve(graphID: string, options?: RequestOptions): APIPromise<Graph> {
     return this._client.get(path`/v1/graphs/${graphID}`, options);
@@ -37,7 +37,7 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * List graphs
+   * Retrieve a list of Knowledge Graphs.
    */
   list(
     query: GraphListParams | null | undefined = {},
@@ -47,14 +47,14 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Delete graph
+   * Delete a Knowledge Graph.
    */
   delete(graphID: string, options?: RequestOptions): APIPromise<GraphDeleteResponse> {
     return this._client.delete(path`/v1/graphs/${graphID}`, options);
   }
 
   /**
-   * Add file to graph
+   * Add a file to a Knowledge Graph.
    */
   addFileToGraph(
     graphID: string,
@@ -86,7 +86,7 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Remove file from graph
+   * Remove a file from a Knowledge Graph.
    */
   removeFileFromGraph(
     fileID: string,
@@ -102,30 +102,30 @@ export type GraphsCursorPage = CursorPage<Graph>;
 
 export interface Graph {
   /**
-   * A unique identifier of the graph.
+   * The unique identifier of the Knowledge Graph.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the Knowledge Graph was created.
    */
   created_at: string;
 
   file_status: Graph.FileStatus;
 
   /**
-   * The name of the graph.
+   * The name of the Knowledge Graph.
    */
   name: string;
 
   /**
-   * The type of graph, either `manual` (files are uploaded via UI or API) or
-   * `connector` (files are uploaded via a connector).
+   * The type of Knowledge Graph, either `manual` (files are uploaded via UI or API)
+   * or `connector` (files are uploaded via a connector).
    */
   type: 'manual' | 'connector';
 
   /**
-   * A description of the graph.
+   * A description of the Knowledge Graph.
    */
   description?: string;
 }
@@ -148,7 +148,7 @@ export namespace Graph {
     in_progress: number;
 
     /**
-     * The total number of files associated with the graph.
+     * The total number of files associated with the Knowledge Graph.
      */
     total: number;
   }
@@ -192,56 +192,56 @@ export interface QuestionResponseChunk {
 
 export interface GraphCreateResponse {
   /**
-   * A unique identifier of the graph.
+   * A unique identifier of the Knowledge Graph.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the Knowledge Graph was created.
    */
   created_at: string;
 
   /**
-   * The name of the graph. This can be at most 255 characters.
+   * The name of the Knowledge Graph (max 255 characters).
    */
   name: string;
 
   /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
 }
 
 export interface GraphUpdateResponse {
   /**
-   * A unique identifier of the graph.
+   * A unique identifier of the Knowledge Graph.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the Knowledge Graph was created.
    */
   created_at: string;
 
   /**
-   * The name of the graph. This can be at most 255 characters.
+   * The name of the Knowledge Graph (max 255 characters).
    */
   name: string;
 
   /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
 }
 
 export interface GraphDeleteResponse {
   /**
-   * A unique identifier of the deleted graph.
+   * A unique identifier of the deleted Knowledge Graph.
    */
   id: string;
 
   /**
-   * Indicates whether the graph was successfully deleted.
+   * Indicates whether the Knowledge Graph was successfully deleted.
    */
   deleted: boolean;
 }
@@ -260,28 +260,28 @@ export interface GraphRemoveFileFromGraphResponse {
 
 export interface GraphCreateParams {
   /**
-   * A description of the graph (max 255 characters). Omitting this field leaves the
-   * description unchanged.
+   * A description of the Knowledge Graph (max 255 characters). Omitting this field
+   * leaves the description unchanged.
    */
   description?: string;
 
   /**
-   * The name of the graph (max 255 characters). Omitting this field leaves the name
-   * unchanged.
+   * The name of the Knowledge Graph (max 255 characters). Omitting this field leaves
+   * the name unchanged.
    */
   name?: string;
 }
 
 export interface GraphUpdateParams {
   /**
-   * A description of the graph (max 255 characters). Omitting this field leaves the
-   * description unchanged.
+   * A description of the Knowledge Graph (max 255 characters). Omitting this field
+   * leaves the description unchanged.
    */
   description?: string;
 
   /**
-   * The name of the graph (max 255 characters). Omitting this field leaves the name
-   * unchanged.
+   * The name of the Knowledge Graph (max 255 characters). Omitting this field leaves
+   * the name unchanged.
    */
   name?: string;
 }
@@ -358,7 +358,7 @@ export interface GraphQuestionParamsStreaming extends GraphQuestionParamsBase {
 
 export interface GraphRemoveFileFromGraphParams {
   /**
-   * The unique identifier of the graph to which the files belong.
+   * The unique identifier of the Knowledge Graph to which the files belong.
    */
   graph_id: string;
 }
