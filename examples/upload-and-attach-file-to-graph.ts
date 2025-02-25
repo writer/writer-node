@@ -11,34 +11,34 @@ async function main() {
     description: 'This is a graph created from the SDK',
   });
 
-  const file = await client.files.upload({
+  let file = await client.files.upload({
     'Content-Type': 'text/plain',
     'Content-Disposition': 'attachment; filename="example.txt"',
     content: fs.createReadStream('examples/example.txt'),
   });
 
+  console.log(file.id);
+
   console.log('✅ File uploaded:', JSON.stringify(file, null, 2));
 
-  let status = file.status;
-
   // wait for file status to be 'processed'
-  while (status == 'in_progress') {
+  while (file.status == 'in_progress') {
     console.log('⏱️ File processing in progress...');
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const { status: currentStatus } = await client.files.retrieve(file.id);
-    status = currentStatus;
+    file = await client.files.retrieve(file.id);
   }
 
-  console.log('✅ File finished processing: ', status);
+  console.log('✅ File finished processing: ', file.status);
 
-  if (status == 'completed') {
+  if (file.status == 'completed') {
     await client.graphs.addFileToGraph(graph.id, {
       file_id: file.id,
     });
 
     console.log('✅ File attached to graph');
   } else {
-    console.log('⚠️ File processing did not complete. Status:', status);
+    console.log('⚠️ File processing did not complete. Status:', file.status);
+    console.log(file);
     return;
   }
 }
