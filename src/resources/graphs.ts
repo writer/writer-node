@@ -1,105 +1,84 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import { APIPromise } from '../core';
-import * as Core from '../core';
 import * as GraphsAPI from './graphs';
 import * as FilesAPI from './files';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import * as Shared from './shared';
+import { APIPromise } from '../api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../pagination';
 import { Stream } from '../streaming';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Graphs extends APIResource {
   /**
-   * Create graph
+   * Create a new Knowledge Graph.
    */
-  create(body: GraphCreateParams, options?: Core.RequestOptions): Core.APIPromise<GraphCreateResponse> {
+  create(body: GraphCreateParams, options?: RequestOptions): APIPromise<GraphCreateResponse> {
     return this._client.post('/v1/graphs', { body, ...options });
   }
 
   /**
-   * Retrieve graph
+   * Retrieve a Knowledge Graph.
    */
-  retrieve(graphId: string, options?: Core.RequestOptions): Core.APIPromise<Graph> {
-    return this._client.get(`/v1/graphs/${graphId}`, options);
+  retrieve(graphID: string, options?: RequestOptions): APIPromise<Graph> {
+    return this._client.get(path`/v1/graphs/${graphID}`, options);
   }
 
   /**
-   * Update graph
+   * Update the name and description of a Knowledge Graph.
    */
   update(
-    graphId: string,
+    graphID: string,
     body: GraphUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<GraphUpdateResponse> {
-    return this._client.put(`/v1/graphs/${graphId}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<GraphUpdateResponse> {
+    return this._client.put(path`/v1/graphs/${graphID}`, { body, ...options });
   }
 
   /**
-   * List graphs
+   * Retrieve a list of Knowledge Graphs.
    */
-  list(query?: GraphListParams, options?: Core.RequestOptions): Core.PagePromise<GraphsCursorPage, Graph>;
-  list(options?: Core.RequestOptions): Core.PagePromise<GraphsCursorPage, Graph>;
   list(
-    query: GraphListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<GraphsCursorPage, Graph> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/graphs', GraphsCursorPage, { query, ...options });
+    query: GraphListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<GraphsCursorPage, Graph> {
+    return this._client.getAPIList('/v1/graphs', CursorPage<Graph>, { query, ...options });
   }
 
   /**
-   * Delete graph
+   * Delete a Knowledge Graph.
    */
-  delete(graphId: string, options?: Core.RequestOptions): Core.APIPromise<GraphDeleteResponse> {
-    return this._client.delete(`/v1/graphs/${graphId}`, options);
+  delete(graphID: string, options?: RequestOptions): APIPromise<GraphDeleteResponse> {
+    return this._client.delete(path`/v1/graphs/${graphID}`, options);
   }
 
   /**
-   * Add file to graph
+   * Add a file to a Knowledge Graph.
    */
   addFileToGraph(
-    graphId: string,
+    graphID: string,
     body: GraphAddFileToGraphParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FilesAPI.File> {
-    return this._client.post(`/v1/graphs/${graphId}/file`, { body, ...options });
-  }
-
-  /**
-   * Upload and add file to graph
-   */
-  uploadAndAddFileToGraph(
-    graphId: string,
-    params: FilesAPI.FileUploadParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FilesAPI.File> {
-    return this._client.files.upload(params, options).then((uploadedFile) => {
-      return this.addFileToGraph(
-        graphId,
-        { file_id: uploadedFile.id },
-        options,
-      ) as Core.APIPromise<FilesAPI.File>;
-    }) as Core.APIPromise<FilesAPI.File>;
+    options?: RequestOptions,
+  ): APIPromise<FilesAPI.File> {
+    return this._client.post(path`/v1/graphs/${graphID}/file`, { body, ...options });
   }
 
   /**
    * Ask a question to specified Knowledge Graphs.
    */
-  question(body: GraphQuestionParamsNonStreaming, options?: Core.RequestOptions): APIPromise<Question>;
+  question(body: GraphQuestionParamsNonStreaming, options?: RequestOptions): APIPromise<Question>;
   question(
     body: GraphQuestionParamsStreaming,
-    options?: Core.RequestOptions,
+    options?: RequestOptions,
   ): APIPromise<Stream<QuestionResponseChunk>>;
   question(
     body: GraphQuestionParamsBase,
-    options?: Core.RequestOptions,
+    options?: RequestOptions,
   ): APIPromise<Stream<QuestionResponseChunk> | Question>;
   question(
     body: GraphQuestionParams,
-    options?: Core.RequestOptions,
+    options?: RequestOptions,
   ): APIPromise<Question> | APIPromise<Stream<QuestionResponseChunk>> {
     return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as
       | APIPromise<Question>
@@ -107,39 +86,46 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Remove file from graph
+   * Remove a file from a Knowledge Graph.
    */
   removeFileFromGraph(
-    graphId: string,
-    fileId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<GraphRemoveFileFromGraphResponse> {
-    return this._client.delete(`/v1/graphs/${graphId}/file/${fileId}`, options);
+    fileID: string,
+    params: GraphRemoveFileFromGraphParams,
+    options?: RequestOptions,
+  ): APIPromise<GraphRemoveFileFromGraphResponse> {
+    const { graph_id } = params;
+    return this._client.delete(path`/v1/graphs/${graph_id}/file/${fileID}`, options);
   }
 }
 
-export class GraphsCursorPage extends CursorPage<Graph> {}
+export type GraphsCursorPage = CursorPage<Graph>;
 
 export interface Graph {
   /**
-   * A unique identifier of the graph.
+   * The unique identifier of the Knowledge Graph.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the Knowledge Graph was created.
    */
   created_at: string;
 
   file_status: Graph.FileStatus;
 
   /**
-   * The name of the graph.
+   * The name of the Knowledge Graph.
    */
   name: string;
 
   /**
-   * A description of the graph.
+   * The type of Knowledge Graph, either `manual` (files are uploaded via UI or API)
+   * or `connector` (files are uploaded via a connector).
+   */
+  type: 'manual' | 'connector';
+
+  /**
+   * A description of the Knowledge Graph.
    */
   description?: string;
 }
@@ -162,7 +148,7 @@ export namespace Graph {
     in_progress: number;
 
     /**
-     * The total number of files associated with the graph.
+     * The total number of files associated with the Knowledge Graph.
      */
     total: number;
   }
@@ -179,24 +165,12 @@ export interface Question {
    */
   question: string;
 
-  sources: Array<Question.Source>;
+  sources: Array<Shared.Source | null>;
 
-  subqueries?: Array<Question.Subquery>;
+  subqueries?: Array<Question.Subquery | null>;
 }
 
 export namespace Question {
-  export interface Source {
-    /**
-     * The unique identifier of the file.
-     */
-    file_id: string;
-
-    /**
-     * A snippet of text from the source file.
-     */
-    snippet: string;
-  }
-
   export interface Subquery {
     /**
      * The answer to the subquery.
@@ -208,21 +182,7 @@ export namespace Question {
      */
     query: string;
 
-    sources: Array<Subquery.Source>;
-  }
-
-  export namespace Subquery {
-    export interface Source {
-      /**
-       * The unique identifier of the file.
-       */
-      file_id: string;
-
-      /**
-       * A snippet of text from the source file.
-       */
-      snippet: string;
-    }
+    sources: Array<Shared.Source | null>;
   }
 }
 
@@ -232,56 +192,56 @@ export interface QuestionResponseChunk {
 
 export interface GraphCreateResponse {
   /**
-   * A unique identifier of the graph.
+   * A unique identifier of the Knowledge Graph.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the Knowledge Graph was created.
    */
   created_at: string;
 
   /**
-   * The name of the graph. This can be at most 255 characters.
+   * The name of the Knowledge Graph (max 255 characters).
    */
   name: string;
 
   /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
 }
 
 export interface GraphUpdateResponse {
   /**
-   * A unique identifier of the graph.
+   * A unique identifier of the Knowledge Graph.
    */
   id: string;
 
   /**
-   * The timestamp when the graph was created.
+   * The timestamp when the Knowledge Graph was created.
    */
   created_at: string;
 
   /**
-   * The name of the graph. This can be at most 255 characters.
+   * The name of the Knowledge Graph (max 255 characters).
    */
   name: string;
 
   /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
 }
 
 export interface GraphDeleteResponse {
   /**
-   * A unique identifier of the deleted graph.
+   * A unique identifier of the deleted Knowledge Graph.
    */
   id: string;
 
   /**
-   * Indicates whether the graph was successfully deleted.
+   * Indicates whether the Knowledge Graph was successfully deleted.
    */
   deleted: boolean;
 }
@@ -300,26 +260,30 @@ export interface GraphRemoveFileFromGraphResponse {
 
 export interface GraphCreateParams {
   /**
-   * The name of the graph. This can be at most 255 characters.
-   */
-  name: string;
-
-  /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the Knowledge Graph (max 255 characters). Omitting this field
+   * leaves the description unchanged.
    */
   description?: string;
+
+  /**
+   * The name of the Knowledge Graph (max 255 characters). Omitting this field leaves
+   * the name unchanged.
+   */
+  name?: string;
 }
 
 export interface GraphUpdateParams {
   /**
-   * The name of the graph. This can be at most 255 characters.
-   */
-  name: string;
-
-  /**
-   * A description of the graph. This can be at most 255 characters.
+   * A description of the Knowledge Graph (max 255 characters). Omitting this field
+   * leaves the description unchanged.
    */
   description?: string;
+
+  /**
+   * The name of the Knowledge Graph (max 255 characters). Omitting this field leaves
+   * the name unchanged.
+   */
+  name?: string;
 }
 
 export interface GraphListParams extends CursorPageParams {
@@ -392,7 +356,12 @@ export interface GraphQuestionParamsStreaming extends GraphQuestionParamsBase {
   stream: true;
 }
 
-Graphs.GraphsCursorPage = GraphsCursorPage;
+export interface GraphRemoveFileFromGraphParams {
+  /**
+   * The unique identifier of the Knowledge Graph to which the files belong.
+   */
+  graph_id: string;
+}
 
 export declare namespace Graphs {
   export {
@@ -403,7 +372,7 @@ export declare namespace Graphs {
     type GraphUpdateResponse as GraphUpdateResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
     type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
-    GraphsCursorPage as GraphsCursorPage,
+    type GraphsCursorPage as GraphsCursorPage,
     type GraphCreateParams as GraphCreateParams,
     type GraphUpdateParams as GraphUpdateParams,
     type GraphListParams as GraphListParams,
@@ -411,5 +380,6 @@ export declare namespace Graphs {
     type GraphQuestionParams as GraphQuestionParams,
     type GraphQuestionParamsNonStreaming as GraphQuestionParamsNonStreaming,
     type GraphQuestionParamsStreaming as GraphQuestionParamsStreaming,
+    type GraphRemoveFileFromGraphParams as GraphRemoveFileFromGraphParams,
   };
 }

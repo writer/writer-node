@@ -1,9 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as Core from '../../core';
 import * as ComprehendAPI from './comprehend';
 import { Comprehend, ComprehendMedicalParams, ComprehendMedicalResponse } from './comprehend';
+import { APIPromise } from '../../api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Tools extends APIResource {
   comprehend: ComprehendAPI.Comprehend = new ComprehendAPI.Comprehend(this._client);
@@ -14,8 +16,8 @@ export class Tools extends APIResource {
    */
   contextAwareSplitting(
     body: ToolContextAwareSplittingParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ToolContextAwareSplittingResponse> {
+    options?: RequestOptions,
+  ): APIPromise<ToolContextAwareSplittingResponse> {
     return this._client.post('/v1/tools/context-aware-splitting', { body, ...options });
   }
 
@@ -23,11 +25,11 @@ export class Tools extends APIResource {
    * Parse PDF to other formats.
    */
   parsePdf(
-    fileId: string,
+    fileID: string,
     body: ToolParsePdfParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ToolParsePdfResponse> {
-    return this._client.post(`/v1/tools/pdf-parser/${fileId}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<ToolParsePdfResponse> {
+    return this._client.post(path`/v1/tools/pdf-parser/${fileID}`, { body, ...options });
   }
 }
 

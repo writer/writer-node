@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Writer from 'writer-sdk';
-import { Response } from 'node-fetch';
 
 const client = new Writer({
   apiKey: 'My API Key',

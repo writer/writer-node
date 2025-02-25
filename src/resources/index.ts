@@ -1,17 +1,26 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
 export {
   Applications,
   type ApplicationGenerateContentChunk,
   type ApplicationGenerateContentResponse,
+  type ApplicationRetrieveResponse,
+  type ApplicationListResponse,
+  type ApplicationListParams,
   type ApplicationGenerateContentParams,
   type ApplicationGenerateContentParamsNonStreaming,
   type ApplicationGenerateContentParamsStreaming,
-} from './applications';
+  type ApplicationListResponsesCursorPage,
+} from './applications/applications';
 export {
-  ChatResource,
-  type Chat,
+  Chat,
+  type ChatCompletion,
+  type ChatCompletionChoice,
   type ChatCompletionChunk,
+  type ChatCompletionMessage,
+  type ChatCompletionParams,
+  type ChatCompletionUsage,
   type ChatChatParams,
   type ChatChatParamsNonStreaming,
   type ChatChatParamsStreaming,
@@ -19,13 +28,13 @@ export {
 export {
   Completions,
   type Completion,
-  type StreamingData,
+  type CompletionChunk,
+  type CompletionParams,
   type CompletionCreateParams,
   type CompletionCreateParamsNonStreaming,
   type CompletionCreateParamsStreaming,
 } from './completions';
 export {
-  FilesCursorPage,
   Files,
   type File,
   type FileDeleteResponse,
@@ -33,9 +42,9 @@ export {
   type FileListParams,
   type FileRetryParams,
   type FileUploadParams,
+  type FilesCursorPage,
 } from './files';
 export {
-  GraphsCursorPage,
   Graphs,
   type Graph,
   type Question,
@@ -51,6 +60,8 @@ export {
   type GraphQuestionParams,
   type GraphQuestionParamsNonStreaming,
   type GraphQuestionParamsStreaming,
+  type GraphRemoveFileFromGraphParams,
+  type GraphsCursorPage,
 } from './graphs';
 export { Models, type ModelListResponse } from './models';
 export {

@@ -1,31 +1,85 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">ErrorMessage</a></code>
+- <code><a href="./src/resources/shared.ts">ErrorObject</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionDefinition</a></code>
+- <code><a href="./src/resources/shared.ts">FunctionParams</a></code>
+- <code><a href="./src/resources/shared.ts">GraphData</a></code>
+- <code><a href="./src/resources/shared.ts">Logprobs</a></code>
+- <code><a href="./src/resources/shared.ts">LogprobsToken</a></code>
+- <code><a href="./src/resources/shared.ts">Source</a></code>
+- <code><a href="./src/resources/shared.ts">ToolCall</a></code>
+- <code><a href="./src/resources/shared.ts">ToolCallStreaming</a></code>
+- <code><a href="./src/resources/shared.ts">ToolChoiceJsonObject</a></code>
+- <code><a href="./src/resources/shared.ts">ToolChoiceString</a></code>
+- <code><a href="./src/resources/shared.ts">ToolParam</a></code>
+
 # Applications
 
 Types:
 
-- <code><a href="./src/resources/applications.ts">ApplicationGenerateContentChunk</a></code>
-- <code><a href="./src/resources/applications.ts">ApplicationGenerateContentResponse</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationGenerateContentChunk</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationGenerateContentResponse</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationRetrieveResponse</a></code>
+- <code><a href="./src/resources/applications/applications.ts">ApplicationListResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications.ts">generateContent</a>(applicationId, { ...params }) -> ApplicationGenerateContentResponse</code>
+- <code title="get /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications/applications.ts">retrieve</a>(applicationID) -> ApplicationRetrieveResponse</code>
+- <code title="get /v1/applications">client.applications.<a href="./src/resources/applications/applications.ts">list</a>({ ...params }) -> ApplicationListResponsesCursorPage</code>
+- <code title="post /v1/applications/{application_id}">client.applications.<a href="./src/resources/applications/applications.ts">generateContent</a>(applicationID, { ...params }) -> ApplicationGenerateContentResponse</code>
+
+## Jobs
+
+Types:
+
+- <code><a href="./src/resources/applications/jobs.ts">ApplicationGenerateAsyncResponse</a></code>
+- <code><a href="./src/resources/applications/jobs.ts">ApplicationJobsListResponse</a></code>
+- <code><a href="./src/resources/applications/jobs.ts">JobCreateResponse</a></code>
+- <code><a href="./src/resources/applications/jobs.ts">JobRetryResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">create</a>(applicationID, { ...params }) -> JobCreateResponse</code>
+- <code title="get /v1/applications/jobs/{job_id}">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">retrieve</a>(jobID) -> ApplicationGenerateAsyncResponse</code>
+- <code title="get /v1/applications/{application_id}/jobs">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">list</a>(applicationID, { ...params }) -> ApplicationGenerateAsyncResponsesApplicationJobsOffset</code>
+- <code title="post /v1/applications/jobs/{job_id}/retry">client.applications.jobs.<a href="./src/resources/applications/jobs.ts">retry</a>(jobID) -> JobRetryResponse</code>
+
+## Graphs
+
+Types:
+
+- <code><a href="./src/resources/applications/graphs.ts">ApplicationGraphsResponse</a></code>
+
+Methods:
+
+- <code title="put /v1/applications/{application_id}/graphs">client.applications.graphs.<a href="./src/resources/applications/graphs.ts">update</a>(applicationID, { ...params }) -> ApplicationGraphsResponse</code>
+- <code title="get /v1/applications/{application_id}/graphs">client.applications.graphs.<a href="./src/resources/applications/graphs.ts">list</a>(applicationID) -> ApplicationGraphsResponse</code>
 
 # Chat
 
 Types:
 
-- <code><a href="./src/resources/chat.ts">Chat</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletion</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionChoice</a></code>
 - <code><a href="./src/resources/chat.ts">ChatCompletionChunk</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionMessage</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionParams</a></code>
+- <code><a href="./src/resources/chat.ts">ChatCompletionUsage</a></code>
 
 Methods:
 
-- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> Chat</code>
+- <code title="post /v1/chat">client.chat.<a href="./src/resources/chat.ts">chat</a>({ ...params }) -> ChatCompletion</code>
 
 # Completions
 
 Types:
 
 - <code><a href="./src/resources/completions.ts">Completion</a></code>
-- <code><a href="./src/resources/completions.ts">StreamingData</a></code>
+- <code><a href="./src/resources/completions.ts">CompletionChunk</a></code>
+- <code><a href="./src/resources/completions.ts">CompletionParams</a></code>
 
 Methods:
 
@@ -56,13 +110,13 @@ Types:
 Methods:
 
 - <code title="post /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">create</a>({ ...params }) -> GraphCreateResponse</code>
-- <code title="get /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">retrieve</a>(graphId) -> Graph</code>
-- <code title="put /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">update</a>(graphId, { ...params }) -> GraphUpdateResponse</code>
+- <code title="get /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">retrieve</a>(graphID) -> Graph</code>
+- <code title="put /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">update</a>(graphID, { ...params }) -> GraphUpdateResponse</code>
 - <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphsCursorPage</code>
-- <code title="delete /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">delete</a>(graphId) -> GraphDeleteResponse</code>
-- <code title="post /v1/graphs/{graph_id}/file">client.graphs.<a href="./src/resources/graphs.ts">addFileToGraph</a>(graphId, { ...params }) -> File</code>
+- <code title="delete /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">delete</a>(graphID) -> GraphDeleteResponse</code>
+- <code title="post /v1/graphs/{graph_id}/file">client.graphs.<a href="./src/resources/graphs.ts">addFileToGraph</a>(graphID, { ...params }) -> File</code>
 - <code title="post /v1/graphs/question">client.graphs.<a href="./src/resources/graphs.ts">question</a>({ ...params }) -> Question</code>
-- <code title="delete /v1/graphs/{graph_id}/file/{file_id}">client.graphs.<a href="./src/resources/graphs.ts">removeFileFromGraph</a>(graphId, fileId) -> GraphRemoveFileFromGraphResponse</code>
+- <code title="delete /v1/graphs/{graph_id}/file/{file_id}">client.graphs.<a href="./src/resources/graphs.ts">removeFileFromGraph</a>(fileID, { ...params }) -> GraphRemoveFileFromGraphResponse</code>
 
 # Files
 
@@ -74,10 +128,10 @@ Types:
 
 Methods:
 
-- <code title="get /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">retrieve</a>(fileId) -> File</code>
+- <code title="get /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">retrieve</a>(fileID) -> File</code>
 - <code title="get /v1/files">client.files.<a href="./src/resources/files.ts">list</a>({ ...params }) -> FilesCursorPage</code>
-- <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileId) -> FileDeleteResponse</code>
-- <code title="get /v1/files/{file_id}/download">client.files.<a href="./src/resources/files.ts">download</a>(fileId) -> Response</code>
+- <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileID) -> FileDeleteResponse</code>
+- <code title="get /v1/files/{file_id}/download">client.files.<a href="./src/resources/files.ts">download</a>(fileID) -> Response</code>
 - <code title="post /v1/files/retry">client.files.<a href="./src/resources/files.ts">retry</a>({ ...params }) -> FileRetryResponse</code>
 - <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>
 
@@ -91,7 +145,7 @@ Types:
 Methods:
 
 - <code title="post /v1/tools/context-aware-splitting">client.tools.<a href="./src/resources/tools/tools.ts">contextAwareSplitting</a>({ ...params }) -> ToolContextAwareSplittingResponse</code>
-- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileId, { ...params }) -> ToolParsePdfResponse</code>
+- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
 
 ## Comprehend
 

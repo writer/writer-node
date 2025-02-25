@@ -1,6 +1,6 @@
 {
   "include": ["src", "tests", "examples"],
-  "exclude": ["src/_shims/**/*-deno.ts"],
+  "exclude": [],
   "compilerOptions": {
     "target": "es2020",
     "lib": ["es2020"],
@@ -9,7 +9,6 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "writer-sdk/_shims/auto/*": ["src/_shims/auto/*-node"],
       "writer-sdk/*": ["src/*"],
       "writer-sdk": ["src/index.ts"]
     },
