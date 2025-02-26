@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0 (2025-02-26)
+
+Full Changelog: [v2.0.0-rc.1...v2.0.0](https://github.com/writer/writer-node/compare/v2.0.0-rc.1...v2.0.0)
+
+### Chores
+
+* **internal:** improve streaming tests ([#172](https://github.com/writer/writer-node/issues/172)) ([36ff013](https://github.com/writer/writer-node/commit/36ff01390464adb669b6a30fd2e0806494406f88))
+
 ## 2.0.0-rc.1 (2025-02-25)
 
 Full Changelog: [v0.0.1-alpha.0...v2.0.0-rc.1](https://github.com/writer/writer-node/compare/v0.0.1-alpha.0...v2.0.0-rc.1)
