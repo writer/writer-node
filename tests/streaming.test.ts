@@ -226,7 +226,10 @@ test('error handling', async () => {
     yield Buffer.from('\n\n');
   }
 
-  const stream = Stream.fromSSEResponse(new Response(ReadableStreamFrom(body())), new AbortController());
+  const stream = Stream.fromSSEResponse(
+    new Response(await ReadableStreamFrom(body())),
+    new AbortController(),
+  );
 
   const err = expect(
     (async () => {
