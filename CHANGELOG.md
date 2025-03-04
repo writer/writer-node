@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.0.1 (2025-03-04)
+
+Full Changelog: [v2.0.0...v2.0.1](https://github.com/writer/writer-node/compare/v2.0.0...v2.0.1)
+
+### Bug Fixes
+
+* **client:** fix TypeError with undefined File ([#181](https://github.com/writer/writer-node/issues/181)) ([50b448c](https://github.com/writer/writer-node/commit/50b448c630c896af6e1b4c5d884fc479121dad38))
+* **internal:** clean up undefined File test ([#182](https://github.com/writer/writer-node/issues/182)) ([490da8e](https://github.com/writer/writer-node/commit/490da8e97ac627379d6cdde4c6ec729bb2d8718a))
+* **tests:** manually reset node:buffer File ([#183](https://github.com/writer/writer-node/issues/183)) ([4fcf113](https://github.com/writer/writer-node/commit/4fcf1135890f63c646e7379d81b7cef6f063ffdd))
+
+
+### Chores
+
+* **client:** only accept standard types for file uploads ([#178](https://github.com/writer/writer-node/issues/178)) ([7dec96f](https://github.com/writer/writer-node/commit/7dec96fd2078b2dffb0bec94813b3319a4fdf141))
+* **internal:** constrain synckit dev dependency ([#180](https://github.com/writer/writer-node/issues/180)) ([9f99a49](https://github.com/writer/writer-node/commit/9f99a492e04fc6c090c122a121c00a53d4fa268a))
+* **internal:** fix tests failing on node v18 ([#179](https://github.com/writer/writer-node/issues/179)) ([c8777ed](https://github.com/writer/writer-node/commit/c8777edceae587033b7c7c054b79b9d266b88fa5))
+* **types:** improved go to definition on fetchOptions ([#184](https://github.com/writer/writer-node/issues/184)) ([f4bf1f0](https://github.com/writer/writer-node/commit/f4bf1f0da6721df65ad86daeae38696a9b913d1b))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#176](https://github.com/writer/writer-node/issues/176)) ([7a061f9](https://github.com/writer/writer-node/commit/7a061f915cf5fd7e080f72e736304f1755df90d1))
+
 ## 2.0.0 (2025-02-26)
 
 Full Changelog: [v2.0.0-rc.1...v2.0.0](https://github.com/writer/writer-node/compare/v2.0.0-rc.1...v2.0.0)
