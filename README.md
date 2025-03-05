@@ -302,8 +302,10 @@ while (page.hasNextPage()) {
 ### Accessing raw response data
 
 When you use `fetch()` to make requests, you can access the raw `Response` through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
 
 You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
 
 <!-- prettier-ignore -->
 ```ts
