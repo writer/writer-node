@@ -36,7 +36,7 @@ describe('resource chat', () => {
           refusal: 'refusal',
           tool_call_id: 'tool_call_id',
           tool_calls: [
-            { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'type', index: 0 },
+            { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'function', index: 0 },
           ],
         },
       ],

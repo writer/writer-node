@@ -114,7 +114,7 @@ export interface ToolCall {
 
   function: ToolCall.Function;
 
-  type: string;
+  type: 'function';
 
   index?: number;
 }
@@ -134,7 +134,7 @@ export interface ToolCallStreaming {
 
   function?: ToolCallStreaming.Function;
 
-  type?: string;
+  type?: 'function';
 }
 
 export namespace ToolCallStreaming {
@@ -211,7 +211,7 @@ export namespace ToolParam {
     /**
      * The type of tool.
      */
-    type?: 'llm';
+    type: 'llm';
   }
 
   export namespace LlmTool {
