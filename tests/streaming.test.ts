@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { Stream, _iterSSEMessages } from 'writer-sdk/streaming';
-import { APIConnectionError } from 'writer-sdk/error';
-import { ReadableStreamFrom } from 'writer-sdk/internal/shims';
+import { Stream, _iterSSEMessages } from '../src/streaming';
+import { APIConnectionError } from '../src/error';
+import { ReadableStreamFrom } from '../src/internal/shims';
 
 describe('streaming decoding', () => {
   test('basic', async () => {

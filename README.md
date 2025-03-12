@@ -84,6 +84,25 @@ async function main() {
 main();
 ```
 
+### Streaming Helpers
+
+The SDK also includes helpers to process streams and handle the incoming events.
+
+```ts
+const runner = writer.chat
+  .stream({
+    model: 'palmyra-x-003-instruct',
+    messages: [{ role: 'user', content: 'Hi, today I want to write about' }],
+  })
+  .on('message', (msg) => console.log(msg))
+  .on('content', (diff) => process.stdout.write(diff));
+
+const result = await runner.finalChatCompletion();
+console.log(result);
+```
+
+More information on streaming helpers can be found in the dedicated documentation: [helpers.md](helpers.md)
+
 ## Streaming responses
 
 We provide support for streaming responses using Server Sent Events (SSE).

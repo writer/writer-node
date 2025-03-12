@@ -6,6 +6,9 @@ import * as Shared from './shared';
 import { APIPromise } from '../api-promise';
 import { Stream } from '../streaming';
 import { RequestOptions } from '../internal/request-options';
+import { ToolCall } from './shared';
+import { ChatCompletionStream, ChatCompletionStreamParams } from '../lib/ChatCompletionStream';
+import { ExtractParsedContentFromParams } from '../lib/parser';
 
 export class Chat extends APIResource {
   /**
@@ -26,6 +29,16 @@ export class Chat extends APIResource {
     return this._client.post('/v1/chat', { body, ...options, stream: body.stream ?? false }) as
       | APIPromise<ChatCompletion>
       | APIPromise<Stream<ChatCompletionChunk>>;
+  }
+
+  /**
+   * Creates a chat completion stream
+   */
+  stream<Params extends ChatCompletionStreamParams, ParsedT = ExtractParsedContentFromParams<Params>>(
+    body: Params,
+    options?: RequestOptions,
+  ): ChatCompletionStream<ParsedT> {
+    return ChatCompletionStream.createChatCompletion(this._client, body, options);
   }
 }
 
@@ -240,7 +253,7 @@ export interface ChatCompletionMessage {
    */
   role: 'assistant';
 
-  graph_data?: Shared.GraphData;
+  graph_data?: Shared.GraphData | null;
 
   llm_data?: ChatCompletionMessage.LlmData | null;
 
@@ -528,6 +541,29 @@ export interface ChatChatParamsStreaming extends ChatChatParamsBase {
   stream: true;
 }
 
+export interface ParsedFunction extends ToolCall.Function {
+  parsed_arguments?: unknown;
+}
+
+export interface ParsedFunctionToolCall extends ToolCall {
+  function: ParsedFunction;
+}
+
+export interface ParsedChatCompletionMessage<ParsedT> extends ChatCompletionMessage {
+  parsed: ParsedT | null;
+  tool_calls: Array<ParsedFunctionToolCall>;
+}
+
+export interface ParsedChoice<ParsedT> extends ChatCompletionChoice {
+  message: ParsedChatCompletionMessage<ParsedT>;
+}
+
+export interface ParsedChatCompletion<ParsedT> extends ChatCompletion {
+  choices: Array<ParsedChoice<ParsedT>>;
+}
+
+export type ChatCompletionParseParams = ChatChatParamsNonStreaming;
+
 export declare namespace Chat {
   export {
     type ChatCompletion as ChatCompletion,
@@ -539,5 +575,11 @@ export declare namespace Chat {
     type ChatChatParams as ChatChatParams,
     type ChatChatParamsNonStreaming as ChatChatParamsNonStreaming,
     type ChatChatParamsStreaming as ChatChatParamsStreaming,
+    type ParsedFunction as ParsedFunction,
+    type ParsedFunctionToolCall as ParsedFunctionToolCall,
+    type ParsedChatCompletionMessage as ParsedChatCompletionMessage,
+    type ParsedChoice as ParsedChoice,
+    type ParsedChatCompletion as ParsedChatCompletion,
+    type ChatCompletionParseParams as ChatCompletionParseParams,
   };
 }

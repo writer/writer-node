@@ -1,7 +1,7 @@
 import fs from 'fs';
-import type { ResponseLike } from 'writer-sdk/internal/to-file';
-import { toFile } from 'writer-sdk/uploads';
 import { File } from 'node:buffer';
+import { toFile } from '../src/uploads';
+import { ResponseLike } from '../src/internal/to-file';
 
 class MyClass {
   name: string = 'foo';
