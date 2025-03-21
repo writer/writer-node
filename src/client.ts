@@ -79,6 +79,7 @@ import {
   QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
+import { Vision, VisionAnalyzeImagesParams, VisionRequest, VisionResponse } from './resources/vision';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -777,6 +778,7 @@ export class Writer {
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
   tools: API.Tools = new API.Tools(this);
+  vision: API.Vision = new API.Vision(this);
 }
 Writer.Applications = Applications;
 Writer.Chat = Chat;
@@ -785,6 +787,7 @@ Writer.Models = Models;
 Writer.Graphs = Graphs;
 Writer.Files = Files;
 Writer.Tools = Tools;
+Writer.Vision = Vision;
 export declare namespace Writer {
   export type RequestOptions = Opts.RequestOptions;
 
@@ -872,6 +875,13 @@ export declare namespace Writer {
     type ToolParsePdfResponse as ToolParsePdfResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+  };
+
+  export {
+    Vision as Vision,
+    type VisionRequest as VisionRequest,
+    type VisionResponse as VisionResponse,
+    type VisionAnalyzeImagesParams as VisionAnalyzeImagesParams,
   };
 
   export type ErrorMessage = API.ErrorMessage;
