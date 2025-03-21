@@ -166,4 +166,4 @@ Types:
 
 Methods:
 
-- <code title="post /v1/vision">client.vision.<a href="./src/resources/vision.ts">analyzeImages</a>({ ...params }) -> VisionResponse</code>
+- <code title="post /v1/vision">client.vision.<a href="./src/resources/vision.ts">analyze</a>({ ...params }) -> VisionResponse</code>
