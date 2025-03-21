@@ -180,6 +180,25 @@ This affects the following methods:
 - `client.graphs.list()`
 - `client.files.list()`
 
+### Method params must be an object
+
+When making requests to endpoints that expect something other than a JSON object, you must now pass the body as a property instead
+of an individual argument.
+
+For example, an endpoint that takes an array:
+
+```typescript
+// Before
+client.example.create([{ name: 'name' }, { name: 'name' }]);
+
+// After
+client.example.create({ items: [{ name: 'name' }, { name: 'name' }] });
+```
+
+This affects the following methods:
+
+- `client.files.upload()`
+
 ### Pagination changes
 
 Note that the `for await` syntax is _not_ affected. This still works as-is:
@@ -260,25 +279,6 @@ import Writer from 'writer-sdk/src';
 // After
 import Writer from 'writer-sdk';
 ```
-
-### Method params must be an object
-
-When making requests to endpoints that expect something other than a JSON object, you must now pass the body as a property instead
-of an individual argument.
-
-For example, an endpoint that takes an array:
-
-```typescript
-// Before
-client.example.create([{ name: 'name' }, { name: 'name' }]);
-
-// After
-client.example.create({ items: [{ name: 'name' }, { name: 'name' }] });
-```
-
-This affects the following methods:
-
-- `client.files.upload()`
 
 ### Headers
 
