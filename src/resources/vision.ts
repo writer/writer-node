@@ -8,7 +8,7 @@ export class Vision extends APIResource {
   /**
    * Submit images and a prompt to generate an analysis of the images.
    */
-  analyzeImages(body: VisionAnalyzeImagesParams, options?: RequestOptions): APIPromise<VisionResponse> {
+  analyze(body: VisionAnalyzeParams, options?: RequestOptions): APIPromise<VisionResponse> {
     return this._client.post('/v1/vision', { body, ...options });
   }
 }
@@ -60,7 +60,7 @@ export interface VisionResponse {
   data: string;
 }
 
-export interface VisionAnalyzeImagesParams {
+export interface VisionAnalyzeParams {
   /**
    * The model to be used for image analysis. Currently only supports
    * `palmyra-vision`.
@@ -74,10 +74,10 @@ export interface VisionAnalyzeImagesParams {
    */
   prompt: string;
 
-  variables: Array<VisionAnalyzeImagesParams.Variable>;
+  variables: Array<VisionAnalyzeParams.Variable>;
 }
 
-export namespace VisionAnalyzeImagesParams {
+export namespace VisionAnalyzeParams {
   /**
    * An array of file variables required for the analysis. The image files must be
    * uploaded to the Writer platform before they can be used in a vision request.
@@ -104,6 +104,6 @@ export declare namespace Vision {
   export {
     type VisionRequest as VisionRequest,
     type VisionResponse as VisionResponse,
-    type VisionAnalyzeImagesParams as VisionAnalyzeImagesParams,
+    type VisionAnalyzeParams as VisionAnalyzeParams,
   };
 }

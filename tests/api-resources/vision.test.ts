@@ -8,8 +8,8 @@ const client = new Writer({
 });
 
 describe('resource vision', () => {
-  test('analyzeImages: only required params', async () => {
-    const responsePromise = client.vision.analyzeImages({
+  test('analyze: only required params', async () => {
+    const responsePromise = client.vision.analyze({
       model: 'palmyra-vision',
       prompt: 'Describe the difference between the image {{image_1}} and the image {{image_2}}.',
       variables: [
@@ -26,8 +26,8 @@ describe('resource vision', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('analyzeImages: required and optional params', async () => {
-    const response = await client.vision.analyzeImages({
+  test('analyze: required and optional params', async () => {
+    const response = await client.vision.analyze({
       model: 'palmyra-vision',
       prompt: 'Describe the difference between the image {{image_1}} and the image {{image_2}}.',
       variables: [
