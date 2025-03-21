@@ -79,7 +79,7 @@ import {
   QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
-import { Vision, VisionAnalyzeImagesParams, VisionRequest, VisionResponse } from './resources/vision';
+import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -881,7 +881,7 @@ export declare namespace Writer {
     Vision as Vision,
     type VisionRequest as VisionRequest,
     type VisionResponse as VisionResponse,
-    type VisionAnalyzeImagesParams as VisionAnalyzeImagesParams,
+    type VisionAnalyzeParams as VisionAnalyzeParams,
   };
 
   export type ErrorMessage = API.ErrorMessage;
