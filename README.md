@@ -74,7 +74,7 @@ const client = new Writer();
 
 async function main() {
   const chatCompletion = await client.chat.chat({
-    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
     model: 'palmyra-x-004',
   });
 
@@ -94,7 +94,7 @@ import Writer from 'writer-sdk';
 const client = new Writer();
 
 const stream = await client.chat.chat({
-  messages: [{ content: 'Write a poem about Python', role: 'user' }],
+  messages: [{ content: 'Write a haiku about programming', role: 'user' }],
   model: 'palmyra-x-004',
   stream: true,
 });
@@ -124,7 +124,7 @@ const client = new Writer();
 
 async function main() {
   const params: Writer.ChatChatParams = {
-    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
     model: 'palmyra-x-004',
   };
   const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
@@ -198,7 +198,10 @@ a subclass of `APIError` will be thrown.
 ```ts
 async function main() {
   const chatCompletion = await client.chat
-    .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
+    .chat({
+      messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+      model: 'palmyra-x-004',
+    })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -239,8 +242,9 @@ const client = new Writer({
   maxRetries: 0, // default is 2
 });
 
-// Or, configure per request:
-await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
+// Or, configure per-request:
+await client.chat.chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' }, {
+
   maxRetries: 5,
 });
 ```
@@ -256,8 +260,9 @@ const client = new Writer({
   timeout: 20 * 1000, // 20 seconds (default is 3 minutes)
 });
 
-// Override per request:
-await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
+// Override per-request:
+await client.chat.chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' }, {
+
   timeout: 5 * 1000,
 });
 ```
@@ -312,13 +317,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new Writer();
 
 const response = await client.chat
-  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chatCompletion, response: raw } = await client.chat
-  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chatCompletion.id);
