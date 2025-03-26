@@ -153,7 +153,11 @@ export interface ToolChoiceString {
   value: 'none' | 'auto' | 'required';
 }
 
-export type ToolParam = ToolParam.FunctionTool | ToolParam.GraphTool | ToolParam.LlmTool;
+export type ToolParam =
+  | ToolParam.FunctionTool
+  | ToolParam.GraphTool
+  | ToolParam.LlmTool
+  | ToolParam.VisionTool;
 
 export namespace ToolParam {
   export interface FunctionTool {
@@ -228,6 +232,50 @@ export namespace ToolParam {
        * The model to be used.
        */
       model: string;
+    }
+  }
+
+  export interface VisionTool {
+    /**
+     * A tool that uses Palmyra Vision to analyze images.
+     */
+    function: VisionTool.Function;
+
+    /**
+     * The type of tool.
+     */
+    type: 'vision';
+  }
+
+  export namespace VisionTool {
+    /**
+     * A tool that uses Palmyra Vision to analyze images.
+     */
+    export interface Function {
+      /**
+       * The model to be used for image analysis. Must be `palmyra-vision`.
+       */
+      model: string;
+
+      variables: Array<Function.Variable>;
+    }
+
+    export namespace Function {
+      export interface Variable {
+        /**
+         * The File ID of the image to be analyzed. The file must be uploaded to the Writer
+         * platform before you use it with the Vision tool.
+         */
+        file_id: string;
+
+        /**
+         * The name of the file variable. You must reference this name in the
+         * `message.content` field of the request to the chat completions endpoint. Use
+         * double curly braces (`{{}}`) to reference the file. For example,
+         * `Describe the difference between the image {{image_1}} and the image {{image_2}}`.
+         */
+        name: string;
+      }
     }
   }
 }
