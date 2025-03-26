@@ -325,12 +325,12 @@ export interface GraphQuestionParamsBase {
    * generated and sent incrementally, which can be useful for real-time
    * applications.
    */
-  stream: boolean;
+  stream?: boolean;
 
   /**
    * Specify whether to include subqueries.
    */
-  subqueries: boolean;
+  subqueries?: boolean;
 }
 
 export namespace GraphQuestionParams {
@@ -344,7 +344,7 @@ export interface GraphQuestionParamsNonStreaming extends GraphQuestionParamsBase
    * generated and sent incrementally, which can be useful for real-time
    * applications.
    */
-  stream: false;
+  stream?: false;
 }
 
 export interface GraphQuestionParamsStreaming extends GraphQuestionParamsBase {
