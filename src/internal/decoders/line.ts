@@ -1,4 +1,4 @@
-import { WriterError } from '../../error';
+import { WriterError } from '../../core/error';
 
 export type Bytes = string | ArrayBuffer | Uint8Array | null | undefined;
 

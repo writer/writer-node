@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { Stream, _iterSSEMessages } from 'writer-sdk/streaming';
-import { APIError } from 'writer-sdk/error';
+import { Stream, _iterSSEMessages } from 'writer-sdk/core/streaming';
+import { APIError } from 'writer-sdk/core/error';
 import { ReadableStreamFrom } from 'writer-sdk/internal/shims';
 
 describe('streaming decoding', () => {
