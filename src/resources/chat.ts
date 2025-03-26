@@ -346,6 +346,11 @@ export interface ChatCompletionParams {
 
 export namespace ChatCompletionParams {
   export interface Message {
+    /**
+     * The role of the chat message. You can provide a system prompt by setting the
+     * role to `system`, or specify that a message is the result of a
+     * [tool call](/api-guides/tool-calling) by setting the role to `tool`.
+     */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
     content?: string | null;
@@ -485,6 +490,11 @@ export interface ChatChatParamsBase {
 
 export namespace ChatChatParams {
   export interface Message {
+    /**
+     * The role of the chat message. You can provide a system prompt by setting the
+     * role to `system`, or specify that a message is the result of a
+     * [tool call](/api-guides/tool-calling) by setting the role to `tool`.
+     */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
     content?: string | null;
