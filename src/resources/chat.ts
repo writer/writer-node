@@ -327,9 +327,11 @@ export interface ChatCompletionParams {
   tool_choice?: Shared.ToolChoiceString | Shared.ToolChoiceJsonObject;
 
   /**
-   * An array of tools described to the model using JSON schema that the model can
-   * use to generate responses. You can define your own functions or use the built-in
-   * `graph` or `llm` tools.
+   * An array containing tool definitions for tools that the model can use to
+   * generate responses. The tool definitions use JSON schema. You can define your
+   * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
+   * that you can only use one built-in tool type in the array (only one of `graph`,
+   * `llm`, or `vision`).
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -464,9 +466,11 @@ export interface ChatChatParamsBase {
   tool_choice?: Shared.ToolChoiceString | Shared.ToolChoiceJsonObject;
 
   /**
-   * An array of tools described to the model using JSON schema that the model can
-   * use to generate responses. You can define your own functions or use the built-in
-   * `graph` or `llm` tools.
+   * An array containing tool definitions for tools that the model can use to
+   * generate responses. The tool definitions use JSON schema. You can define your
+   * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
+   * that you can only use one built-in tool type in the array (only one of `graph`,
+   * `llm`, or `vision`).
    */
   tools?: Array<Shared.ToolParam>;
 

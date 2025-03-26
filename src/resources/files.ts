@@ -156,7 +156,7 @@ export interface FileUploadParams {
   /**
    * Header param: The disposition type of the file, typically used to indicate the
    * form-data name. Use `attachment` with the filename parameter to specify the name
-   * of the file, for example: `attachment; filename="example.pdf"`.
+   * of the file, for example: `attachment; filename=example.pdf`.
    */
   'Content-Disposition': string;
 }
