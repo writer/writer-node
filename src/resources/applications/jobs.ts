@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as ApplicationsAPI from './applications';
-import { APIPromise } from '../../api-promise';
-import { ApplicationJobsOffset, type ApplicationJobsOffsetParams, PagePromise } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { ApplicationJobsOffset, type ApplicationJobsOffsetParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 

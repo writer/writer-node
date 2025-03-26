@@ -1,4 +1,4 @@
-import { WriterError } from '../../error';
+import { WriterError } from '../../core/error';
 
 /**
  * Percent-encode everything that isn't safe to have in a path without encoding safe chars.
