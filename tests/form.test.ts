@@ -1,5 +1,5 @@
 import { multipartFormRequestOptions, createForm } from 'writer-sdk/internal/uploads';
-import { toFile } from 'writer-sdk/uploads';
+import { toFile } from 'writer-sdk/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

@@ -180,6 +180,25 @@ This affects the following methods:
 - `client.graphs.list()`
 - `client.files.list()`
 
+### Method params must be an object
+
+When making requests to endpoints that expect something other than a JSON object, you must now pass the body as a property instead
+of an individual argument.
+
+For example, an endpoint that takes an array:
+
+```typescript
+// Before
+client.example.create([{ name: 'name' }, { name: 'name' }]);
+
+// After
+client.example.create({ items: [{ name: 'name' }, { name: 'name' }] });
+```
+
+This affects the following methods:
+
+- `client.files.upload()`
+
 ### Pagination changes
 
 Note that the `for await` syntax is _not_ affected. This still works as-is:
@@ -232,7 +251,7 @@ import fs from 'fs';
 fs.createReadStream('path/to/file');
 ```
 
-Note that this function previously only worked on Node.j. If you're using Bun, you can use [`Bun.file`](https://bun.sh/docs/api/file-io) instead.
+Note that this function previously only worked on Node.js. If you're using Bun, you can use [`Bun.file`](https://bun.sh/docs/api/file-io) instead.
 
 ### Shims removal
 
@@ -261,74 +280,54 @@ import Writer from 'writer-sdk/src';
 import Writer from 'writer-sdk';
 ```
 
-### Method params must be an object
-
-When making requests to endpoints that expect something other than a JSON object, you must now pass the body as a property instead
-of an individual argument.
-
-For example, an endpoint that takes an array:
-
-```typescript
-// Before
-client.example.create([{ name: 'name' }, { name: 'name' }]);
-
-// After
-client.example.create({ items: [{ name: 'name' }, { name: 'name' }] });
-```
-
-This affects the following methods:
-
-- `client.files.upload()`
-
 ### Headers
 
 The `headers` property on `APIError` objects is now an instance of the Web [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) class. It was previously just `Record<string, string | null | undefined>`.
 
 ### Removed exports
 
-#### `Response`
-
-```typescript
-// Before
-import { Response } from 'writer-sdk';
-
-// After
-// `Response` must now come from the builtin types
-```
-
 #### Resource classes
 
-If you were importing resource classes from the root package then you must now import them from the file they are defined in:
+If you were importing resource classes from the root package then you must now import them from the file they are defined in.
+This was never valid at the type level and only worked in CommonJS files.
 
 ```typescript
 // Before
-import { Applications } from 'writer-sdk';
+const { Applications } = require('writer-sdk');
 
 // After
-import { Applications } from 'writer-sdk/resources/applications/applications';
+const { Writer } = require('writer-sdk');
+Writer.Applications; // or import directly from writer-sdk/resources/applications/applications
 ```
 
-#### `writer-sdk/core`
+#### Refactor of `writer-sdk/core`, `error`, `pagination`, `resource`, `streaming` and `uploads`
 
-The `writer-sdk/core` file was intended to be internal-only but it was publicly accessible, as such it has been refactored and split up into internal files.
+Much of the `writer-sdk/core` file was intended to be internal-only but it was publicly accessible, as such it has been refactored and split up into internal and public files, with public-facing code moved to a new `core` folder and internal code moving to the private `internal` folder.
+
+At the same time, we moved some public-facing files which were previously at the top level into `core` to make the file structure cleaner and more clear:
+
+```typescript
+// Before
+import 'writer-sdk/error';
+import 'writer-sdk/pagination';
+import 'writer-sdk/resource';
+import 'writer-sdk/streaming';
+import 'writer-sdk/uploads';
+
+// After
+import 'writer-sdk/core/error';
+import 'writer-sdk/core/pagination';
+import 'writer-sdk/core/resource';
+import 'writer-sdk/core/streaming';
+import 'writer-sdk/core/uploads';
+```
 
 If you were relying on anything that was only exported from `writer-sdk/core` and is also not accessible anywhere else, please open an issue and we'll consider adding it to the public API.
 
-#### `APIClient`
+#### Cleaned up `uploads` exports
 
-The `APIClient` base client class has been removed as it is no longer needed. If you were importing this class then you must now import the main client class:
-
-```typescript
-// Before
-import { APIClient } from 'writer-sdk/core';
-
-// After
-import { Writer } from 'writer-sdk';
-```
-
-#### Cleaned up `writer-sdk/uploads` exports
-
-The following exports have been removed from `writer-sdk/uploads` as they were not intended to be a part of the public API:
+As part of the `core` refactor, `writer-sdk/uploads` was moved to `writer-sdk/core/uploads`
+and the following exports were removed, as they were not intended to be a part of the public API:
 
 - `fileFromPath`
 - `BlobPart`
@@ -347,5 +346,17 @@ The following exports have been removed from `writer-sdk/uploads` as they were n
 Note that `Uploadable` & `toFile` **are** still exported:
 
 ```typescript
-import { type Uploadable, toFile } from 'writer-sdk/uploads';
+import { type Uploadable, toFile } from 'writer-sdk/core/uploads';
+```
+
+#### `APIClient`
+
+The `APIClient` base client class has been removed as it is no longer needed. If you were importing this class then you must now import the main client class:
+
+```typescript
+// Before
+import { APIClient } from 'writer-sdk/core';
+
+// After
+import { Writer } from 'writer-sdk';
 ```

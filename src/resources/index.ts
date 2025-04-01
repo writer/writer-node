@@ -71,3 +71,4 @@ export {
   type ToolContextAwareSplittingParams,
   type ToolParsePdfParams,
 } from './tools/tools';
+export { Vision, type VisionRequest, type VisionResponse, type VisionAnalyzeParams } from './vision';

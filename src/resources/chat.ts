@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
+import { APIResource } from '../core/resource';
 import * as ChatAPI from './chat';
 import * as Shared from './shared';
-import { APIPromise } from '../api-promise';
-import { Stream } from '../streaming';
+import { APIPromise } from '../core/api-promise';
+import { Stream } from '../core/streaming';
 import { RequestOptions } from '../internal/request-options';
 import { ToolCall } from './shared';
 import { ChatCompletionStream, ChatCompletionStreamParams } from '../lib/ChatCompletionStream';
@@ -340,9 +340,11 @@ export interface ChatCompletionParams {
   tool_choice?: Shared.ToolChoiceString | Shared.ToolChoiceJsonObject;
 
   /**
-   * An array of tools described to the model using JSON schema that the model can
-   * use to generate responses. You can define your own functions or use the built-in
-   * `graph` or `llm` tools.
+   * An array containing tool definitions for tools that the model can use to
+   * generate responses. The tool definitions use JSON schema. You can define your
+   * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
+   * that you can only use one built-in tool type in the array (only one of `graph`,
+   * `llm`, or `vision`).
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -357,6 +359,11 @@ export interface ChatCompletionParams {
 
 export namespace ChatCompletionParams {
   export interface Message {
+    /**
+     * The role of the chat message. You can provide a system prompt by setting the
+     * role to `system`, or specify that a message is the result of a
+     * [tool call](/api-guides/tool-calling) by setting the role to `tool`.
+     */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
     content?: string | null;
@@ -477,9 +484,11 @@ export interface ChatChatParamsBase {
   tool_choice?: Shared.ToolChoiceString | Shared.ToolChoiceJsonObject;
 
   /**
-   * An array of tools described to the model using JSON schema that the model can
-   * use to generate responses. You can define your own functions or use the built-in
-   * `graph` or `llm` tools.
+   * An array containing tool definitions for tools that the model can use to
+   * generate responses. The tool definitions use JSON schema. You can define your
+   * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
+   * that you can only use one built-in tool type in the array (only one of `graph`,
+   * `llm`, or `vision`).
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -494,6 +503,11 @@ export interface ChatChatParamsBase {
 
 export namespace ChatChatParams {
   export interface Message {
+    /**
+     * The role of the chat message. You can provide a system prompt by setting the
+     * role to `system`, or specify that a message is the result of a
+     * [tool call](/api-guides/tool-calling) by setting the role to `tool`.
+     */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
     content?: string | null;

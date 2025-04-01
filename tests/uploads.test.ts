@@ -1,7 +1,7 @@
 import fs from 'fs';
+import type { ResponseLike } from 'writer-sdk/internal/to-file';
+import { toFile } from 'writer-sdk/core/uploads';
 import { File } from 'node:buffer';
-import { toFile } from '../src/uploads';
-import { ResponseLike } from '../src/internal/to-file';
 
 class MyClass {
   name: string = 'foo';
@@ -97,7 +97,7 @@ describe('missing File error message', () => {
   });
 
   test('is thrown', async () => {
-    const uploads = await import('writer-sdk/uploads');
+    const uploads = await import('writer-sdk/core/uploads');
     await expect(
       uploads.toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
     ).rejects.toMatchInlineSnapshot(
