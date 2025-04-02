@@ -1,5 +1,53 @@
 # Changelog
 
+## 2.1.0-rc.1 (2025-04-02)
+
+Full Changelog: [v2.0.0...v2.1.0-rc.1](https://github.com/writer/writer-node/compare/v2.0.0...v2.1.0-rc.1)
+
+### Features
+
+* add chat streaming helpers ([#190](https://github.com/writer/writer-node/issues/190)) ([fb61df1](https://github.com/writer/writer-node/commit/fb61df128d092251b1cc25eef499364117a7e3c0))
+* add SKIP_BREW env var to ./scripts/bootstrap ([#187](https://github.com/writer/writer-node/issues/187)) ([39fdb36](https://github.com/writer/writer-node/commit/39fdb36ca157970fa4199150abfd21d84d9e5a88))
+* **api:** Add Vision endpoint. ([#202](https://github.com/writer/writer-node/issues/202)) ([ad5a874](https://github.com/writer/writer-node/commit/ad5a874ca34231205eebb944724c2e466e1bebe4))
+* **api:** Add Vision endpoint. ([#203](https://github.com/writer/writer-node/issues/203)) ([e628937](https://github.com/writer/writer-node/commit/e6289373144728f15ac60d01dcaad4d0c7776eaf))
+* **client:** accept RFC6838 JSON content types ([#188](https://github.com/writer/writer-node/issues/188)) ([22721b6](https://github.com/writer/writer-node/commit/22721b6e33dfd524c0bece099496d8d1ac63a0ba))
+
+
+### Bug Fixes
+
+* **client:** fix TypeError with undefined File ([#181](https://github.com/writer/writer-node/issues/181)) ([50b448c](https://github.com/writer/writer-node/commit/50b448c630c896af6e1b4c5d884fc479121dad38))
+* **exports:** ensure resource imports don't require /index ([#192](https://github.com/writer/writer-node/issues/192)) ([6a9e294](https://github.com/writer/writer-node/commit/6a9e2948c979a34f03af9ad77697d020f1551551))
+* **internal:** add mts file + crypto shim types ([#193](https://github.com/writer/writer-node/issues/193)) ([881ff5e](https://github.com/writer/writer-node/commit/881ff5ea019b8f207a00ed60c22dae0b9eaad14b))
+* **internal:** clean up undefined File test ([#182](https://github.com/writer/writer-node/issues/182)) ([490da8e](https://github.com/writer/writer-node/commit/490da8e97ac627379d6cdde4c6ec729bb2d8718a))
+* **tests:** manually reset node:buffer File ([#183](https://github.com/writer/writer-node/issues/183)) ([4fcf113](https://github.com/writer/writer-node/commit/4fcf1135890f63c646e7379d81b7cef6f063ffdd))
+
+
+### Chores
+
+* **client:** more accurate streaming errors ([#205](https://github.com/writer/writer-node/issues/205)) ([373e288](https://github.com/writer/writer-node/commit/373e288825f61889b8acd4ccd6557f4cc0253707))
+* **client:** only accept standard types for file uploads ([#178](https://github.com/writer/writer-node/issues/178)) ([7dec96f](https://github.com/writer/writer-node/commit/7dec96fd2078b2dffb0bec94813b3319a4fdf141))
+* **docs:** fix typo ([#197](https://github.com/writer/writer-node/issues/197)) ([3fd6d5e](https://github.com/writer/writer-node/commit/3fd6d5e8e3abed1c4119f1ff924e62ba0ddafd85))
+* **docs:** improve docs for withResponse/asResponse ([#185](https://github.com/writer/writer-node/issues/185)) ([22f5e8d](https://github.com/writer/writer-node/commit/22f5e8dbe774c9e3ce47fcde1fd19c72fb42821a))
+* **docs:** migration guide re-ordering ([#198](https://github.com/writer/writer-node/issues/198)) ([5f39d5d](https://github.com/writer/writer-node/commit/5f39d5d8629b6217f886dd81a46482bb6be341ba))
+* **exports:** cleaner resource index imports ([#195](https://github.com/writer/writer-node/issues/195)) ([c568461](https://github.com/writer/writer-node/commit/c5684611524bf791895fcea3c9c28da06602019b))
+* **exports:** stop using path fallbacks ([#196](https://github.com/writer/writer-node/issues/196)) ([3cc4c12](https://github.com/writer/writer-node/commit/3cc4c12034096679e4b964cce6233db6758d4a30))
+* **internal:** codegen related update ([#206](https://github.com/writer/writer-node/issues/206)) ([afbf140](https://github.com/writer/writer-node/commit/afbf140a611c3dc9ec45be404313ec35d4979d8d))
+* **internal:** constrain synckit dev dependency ([#180](https://github.com/writer/writer-node/issues/180)) ([9f99a49](https://github.com/writer/writer-node/commit/9f99a492e04fc6c090c122a121c00a53d4fa268a))
+* **internal:** Fix README samples. ([#200](https://github.com/writer/writer-node/issues/200)) ([68e5023](https://github.com/writer/writer-node/commit/68e50235edfca036e199435ca951e8af21b32f68))
+* **internal:** fix tests failing on node v18 ([#179](https://github.com/writer/writer-node/issues/179)) ([c8777ed](https://github.com/writer/writer-node/commit/c8777edceae587033b7c7c054b79b9d266b88fa5))
+* **internal:** minor client file refactoring ([#194](https://github.com/writer/writer-node/issues/194)) ([80629b0](https://github.com/writer/writer-node/commit/80629b04bdb931e9db32a572b266688db9ba0917))
+* **internal:** remove extra empty newlines ([#191](https://github.com/writer/writer-node/issues/191)) ([4f3f316](https://github.com/writer/writer-node/commit/4f3f31695038997da9487d45898ad4f3512cb69d))
+* **types:** improved go to definition on fetchOptions ([#184](https://github.com/writer/writer-node/issues/184)) ([f4bf1f0](https://github.com/writer/writer-node/commit/f4bf1f0da6721df65ad86daeae38696a9b913d1b))
+
+
+### Documentation
+
+* **api:** updates to API spec ([#189](https://github.com/writer/writer-node/issues/189)) ([2c07888](https://github.com/writer/writer-node/commit/2c07888553957b571929887afaaf8d9baec0bc83))
+* **api:** updates to API spec ([#199](https://github.com/writer/writer-node/issues/199)) ([01722fd](https://github.com/writer/writer-node/commit/01722fd2194f45bc8ce082be0cfa046620aa6481))
+* **api:** updates to API spec ([#204](https://github.com/writer/writer-node/issues/204)) ([eecd179](https://github.com/writer/writer-node/commit/eecd179a9ea21df0868968ee019569a12bf02b55))
+* **api:** updates to API spec ([#207](https://github.com/writer/writer-node/issues/207)) ([a0e0f73](https://github.com/writer/writer-node/commit/a0e0f73f25eedabcf793a111331edba20094fabd))
+* update URLs from stainlessapi.com to stainless.com ([#176](https://github.com/writer/writer-node/issues/176)) ([7a061f9](https://github.com/writer/writer-node/commit/7a061f915cf5fd7e080f72e736304f1755df90d1))
+
 ## 2.0.0 (2025-02-26)
 
 Full Changelog: [v2.0.0-rc.1...v2.0.0](https://github.com/writer/writer-node/compare/v2.0.0-rc.1...v2.0.0)
