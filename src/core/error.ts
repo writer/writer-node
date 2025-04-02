@@ -128,3 +128,15 @@ export class UnprocessableEntityError extends APIError<422, Headers> {}
 export class RateLimitError extends APIError<429, Headers> {}
 
 export class InternalServerError extends APIError<number, Headers> {}
+
+export class LengthFinishReasonError extends WriterError {
+  constructor() {
+    super(`Could not parse response content as the length limit was reached`);
+  }
+}
+
+export class ContentFilterFinishReasonError extends WriterError {
+  constructor() {
+    super(`Could not parse response content as the request was rejected by the content filter`);
+  }
+}
