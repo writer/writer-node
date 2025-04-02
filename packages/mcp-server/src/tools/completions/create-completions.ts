@@ -1,7 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import type { Metadata } from '../';
 import Writer from 'writer-sdk';
+
+export const metadata: Metadata = {
+  resource: 'completions',
+  operation: 'write',
+  tags: [],
+};
 
 export const tool: Tool = {
   name: 'create_completions',
@@ -134,4 +141,4 @@ export const handler = (client: Writer, args: any) => {
   return client.completions.create(body);
 };
 
-export default { tool, handler };
+export default { metadata, tool, handler };
