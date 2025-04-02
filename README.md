@@ -6,7 +6,7 @@ This library provides access to the Writer REST API from server-side TypeScript(
 
 The REST API documentation can be found on [dev.writer.com](https://dev.writer.com/api-guides/introduction). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
@@ -74,7 +74,7 @@ const client = new Writer();
 
 async function main() {
   const chatCompletion = await client.chat.chat({
-    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
     model: 'palmyra-x-004',
   });
 
@@ -83,6 +83,25 @@ async function main() {
 
 main();
 ```
+
+### Streaming Helpers
+
+The SDK also includes helpers to process streams and handle the incoming events.
+
+```ts
+const runner = writer.chat
+  .stream({
+    model: 'palmyra-x-003-instruct',
+    messages: [{ role: 'user', content: 'Hi, today I want to write about' }],
+  })
+  .on('message', (msg) => console.log(msg))
+  .on('content', (diff) => process.stdout.write(diff));
+
+const result = await runner.finalChatCompletion();
+console.log(result);
+```
+
+More information on streaming helpers can be found in the dedicated documentation: [helpers.md](helpers.md)
 
 ## Streaming responses
 
@@ -94,7 +113,7 @@ import Writer from 'writer-sdk';
 const client = new Writer();
 
 const stream = await client.chat.chat({
-  messages: [{ content: 'Write a poem about Python', role: 'user' }],
+  messages: [{ content: 'Write a haiku about programming', role: 'user' }],
   model: 'palmyra-x-004',
   stream: true,
 });
@@ -124,7 +143,7 @@ const client = new Writer();
 
 async function main() {
   const params: Writer.ChatChatParams = {
-    messages: [{ content: 'Write a poem about Python', role: 'user' }],
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
     model: 'palmyra-x-004',
   };
   const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
@@ -198,7 +217,10 @@ a subclass of `APIError` will be thrown.
 ```ts
 async function main() {
   const chatCompletion = await client.chat
-    .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
+    .chat({
+      messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+      model: 'palmyra-x-004',
+    })
     .catch(async (err) => {
       if (err instanceof Writer.APIError) {
         console.log(err.status); // 400
@@ -239,8 +261,9 @@ const client = new Writer({
   maxRetries: 0, // default is 2
 });
 
-// Or, configure per request:
-await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
+// Or, configure per-request:
+await client.chat.chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' }, {
+
   maxRetries: 5,
 });
 ```
@@ -256,8 +279,9 @@ const client = new Writer({
   timeout: 20 * 1000, // 20 seconds (default is 3 minutes)
 });
 
-// Override per request:
-await client.chat.chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' }, {
+// Override per-request:
+await client.chat.chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' }, {
+
   timeout: 5 * 1000,
 });
 ```
@@ -302,21 +326,23 @@ while (page.hasNextPage()) {
 ### Accessing raw response data
 
 When you use `fetch()` to make requests, you can access the raw `Response` through the `.asResponse()` method on the `APIPromise` type that all methods return.
+This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
 
 You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
 
 <!-- prettier-ignore -->
 ```ts
 const client = new Writer();
 
 const response = await client.chat
-  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chatCompletion, response: raw } = await client.chat
-  .chat({ messages: [{ content: 'Write a poem about Python', role: 'user' }], model: 'palmyra-x-004' })
+  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x-004' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chatCompletion.id);

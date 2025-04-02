@@ -1,4 +1,4 @@
-import { fromBase64, toBase64 } from 'writer-sdk/internal/utils/base64';
+import { fromBase64, toBase64 } from 'writer-sdk/internal/utils';
 
 describe.each(['Buffer', 'atob'])('with %s', (mode) => {
   let originalBuffer: BufferConstructor;

@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { Stream, _iterSSEMessages } from 'writer-sdk/streaming';
-import { APIConnectionError } from 'writer-sdk/error';
+import { Stream, _iterSSEMessages } from 'writer-sdk/core/streaming';
+import { APIError } from 'writer-sdk/core/error';
 import { ReadableStreamFrom } from 'writer-sdk/internal/shims';
 
 describe('streaming decoding', () => {
@@ -241,5 +241,5 @@ test('error handling', async () => {
   await err.toMatchInlineSnapshot(
     `[Error: {"type":"error","error":{"type":"overloaded_error","message":"Overloaded"}}]`,
   );
-  await err.toBeInstanceOf(APIConnectionError);
+  await err.toBeInstanceOf(APIError);
 });

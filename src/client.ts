@@ -1,28 +1,30 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import type { RequestInit, RequestInfo, BodyInit } from './internal/builtin-types';
-import type { HTTPMethod, PromiseOrValue, MergedRequestInit } from './internal/types';
+import type { HTTPMethod, PromiseOrValue, MergedRequestInit, FinalizedRequestInit } from './internal/types';
 import { uuid4 } from './internal/utils/uuid';
-import { validatePositiveInteger, isAbsoluteURL, hasOwn } from './internal/utils/values';
+import { validatePositiveInteger, isAbsoluteURL, safeJSON } from './internal/utils/values';
 import { sleep } from './internal/utils/sleep';
+import { type Logger, type LogLevel, parseLogLevel } from './internal/utils/log';
+export type { Logger, LogLevel } from './internal/utils/log';
 import { castToError, isAbortError } from './internal/errors';
 import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
 import { VERSION } from './version';
-import * as Errors from './error';
-import * as Pagination from './pagination';
+import * as Errors from './core/error';
+import * as Pagination from './core/pagination';
 import {
   AbstractPage,
   type ApplicationJobsOffsetParams,
   ApplicationJobsOffsetResponse,
   type CursorPageParams,
   CursorPageResponse,
-} from './pagination';
-import * as Uploads from './uploads';
+} from './core/pagination';
+import * as Uploads from './core/uploads';
 import * as API from './resources/index';
-import { APIPromise } from './api-promise';
+import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -77,6 +79,7 @@ import {
   QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
+import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
@@ -99,48 +102,6 @@ import {
   ToolParsePdfResponse,
   Tools,
 } from './resources/tools/tools';
-
-const safeJSON = (text: string) => {
-  try {
-    return JSON.parse(text);
-  } catch (err) {
-    return undefined;
-  }
-};
-
-type LogFn = (message: string, ...rest: unknown[]) => void;
-export type Logger = {
-  error: LogFn;
-  warn: LogFn;
-  info: LogFn;
-  debug: LogFn;
-};
-export type LogLevel = 'off' | 'error' | 'warn' | 'info' | 'debug';
-const parseLogLevel = (
-  maybeLevel: string | undefined,
-  sourceName: string,
-  client: Writer,
-): LogLevel | undefined => {
-  if (!maybeLevel) {
-    return undefined;
-  }
-  const levels: Record<LogLevel, true> = {
-    off: true,
-    error: true,
-    warn: true,
-    info: true,
-    debug: true,
-  };
-  if (hasOwn(levels, maybeLevel)) {
-    return maybeLevel;
-  }
-  loggerFor(client).warn(
-    `${sourceName} was set to ${JSON.stringify(maybeLevel)}, expected one of ${JSON.stringify(
-      Object.keys(levels),
-    )}`,
-  );
-  return undefined;
-};
 
 export interface ClientOptions {
   /**
@@ -214,8 +175,6 @@ export interface ClientOptions {
    */
   logger?: Logger | undefined;
 }
-
-type FinalizedRequestInit = RequestInit & { headers: Headers };
 
 /**
  * API Client for interfacing with the Writer API.
@@ -591,7 +550,9 @@ export class Writer {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    const isReadableBody = Shims.isReadableLike(options.body);
+    const isReadableBody =
+      ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
+      (typeof options.body === 'object' && options.body !== null && Symbol.asyncIterator in options.body);
 
     const fetchOptions: RequestInit = {
       signal: controller.signal as any,
@@ -817,6 +778,7 @@ export class Writer {
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
   tools: API.Tools = new API.Tools(this);
+  vision: API.Vision = new API.Vision(this);
 }
 Writer.Applications = Applications;
 Writer.Chat = Chat;
@@ -825,6 +787,7 @@ Writer.Models = Models;
 Writer.Graphs = Graphs;
 Writer.Files = Files;
 Writer.Tools = Tools;
+Writer.Vision = Vision;
 export declare namespace Writer {
   export type RequestOptions = Opts.RequestOptions;
 
@@ -912,6 +875,13 @@ export declare namespace Writer {
     type ToolParsePdfResponse as ToolParsePdfResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+  };
+
+  export {
+    Vision as Vision,
+    type VisionRequest as VisionRequest,
+    type VisionResponse as VisionResponse,
+    type VisionAnalyzeParams as VisionAnalyzeParams,
   };
 
   export type ErrorMessage = API.ErrorMessage;

@@ -156,3 +156,14 @@ Types:
 Methods:
 
 - <code title="post /v1/tools/comprehend/medical">client.tools.comprehend.<a href="./src/resources/tools/comprehend.ts">medical</a>({ ...params }) -> ComprehendMedicalResponse</code>
+
+# Vision
+
+Types:
+
+- <code><a href="./src/resources/vision.ts">VisionRequest</a></code>
+- <code><a href="./src/resources/vision.ts">VisionResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/vision">client.vision.<a href="./src/resources/vision.ts">analyze</a>({ ...params }) -> VisionResponse</code>

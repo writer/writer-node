@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import type { FinalRequestOptions } from './request-options';
-import { Stream } from '../streaming';
+import { Stream } from '../core/streaming';
 import { type Writer } from '../client';
 import { formatRequestDetails, loggerFor } from './utils/log';
 
@@ -40,8 +40,8 @@ export async function defaultParseResponse<T>(client: Writer, props: APIResponse
     }
 
     const contentType = response.headers.get('content-type');
-    const isJSON =
-      contentType?.includes('application/json') || contentType?.includes('application/vnd.api+json');
+    const mediaType = contentType?.split(';')[0]?.trim();
+    const isJSON = mediaType?.includes('application/json') || mediaType?.endsWith('+json');
     if (isJSON) {
       const json = await response.json();
       return json as T;

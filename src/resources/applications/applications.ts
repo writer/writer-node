@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as ApplicationsAPI from './applications';
 import * as GraphsAPI from './graphs';
 import { ApplicationGraphsResponse, GraphUpdateParams, Graphs } from './graphs';
@@ -15,9 +15,9 @@ import {
   JobRetryResponse,
   Jobs,
 } from './jobs';
-import { APIPromise } from '../../api-promise';
-import { CursorPage, type CursorPageParams, PagePromise } from '../../pagination';
-import { Stream } from '../../streaming';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { Stream } from '../../core/streaming';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -475,10 +475,14 @@ export namespace ApplicationGenerateContentParams {
     id: string;
 
     /**
-     * The value for the input field. If file is required you will need to pass a
-     * `file_id`. See
-     * [here](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
-     * for the Files API.
+     * The value for the input field.
+     *
+     * If the input type is "File upload", you must pass the `file_id` of an uploaded
+     * file. You cannot pass a file object directly. See the
+     * [file upload endpoint](/api-guides/api-reference/file-api/upload-files) for
+     * instructions on uploading files or the
+     * [list files endpoint](/api-guides/api-reference/file-api/get-all-files) for how
+     * to see a list of uploaded files and their IDs.
      */
     value: Array<string>;
   }
