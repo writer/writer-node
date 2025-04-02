@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Shared from './shared';
-
 export interface ErrorMessage {
   description: string;
 
@@ -63,7 +61,7 @@ export namespace GraphData {
      */
     query: string;
 
-    sources: Array<Shared.Source | null>;
+    sources: Array<Source | null>;
   }
 }
 
@@ -164,7 +162,7 @@ export namespace ToolParam {
     /**
      * A tool that uses a custom function.
      */
-    function: Shared.FunctionDefinition;
+    function: FunctionDefinition;
 
     /**
      * The type of tool.
@@ -278,4 +276,48 @@ export namespace ToolParam {
       }
     }
   }
+}
+
+export interface ResponseFormatJSONObject {
+  /**
+   * The type of response format being defined: `json_object`
+   */
+  type: 'json_object';
+}
+
+export interface ResponseFormatJSONSchema {
+  json_schema: ResponseFormatJSONSchema.JSONSchema;
+
+  /**
+   * The type of response format being defined: `json_schema`
+   */
+  type: 'json_schema';
+}
+
+export namespace ResponseFormatJSONSchema {
+  export interface JSONSchema {
+    /**
+     * The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores
+     * and dashes, with a maximum length of 64.
+     */
+    name: string;
+
+    /**
+     * A description of what the response format is for, used by the model to determine
+     * how to respond in the format.
+     */
+    description?: string;
+
+    /**
+     * The schema for the response format, described as a JSON Schema object.
+     */
+    schema?: Record<string, unknown>;
+  }
+}
+
+export interface ResponseFormatText {
+  /**
+   * The type of response format being defined: `text`
+   */
+  type: 'text';
 }
