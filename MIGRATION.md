@@ -102,10 +102,10 @@ For example, for a method that would call an endpoint at `/v1/parents/{parent_id
 
 ```ts
 // Before
-client.parents.children.create('p_123', 'c_456');
+client.parents.children.retrieve('p_123', 'c_456');
 
 // After
-client.example.create('c_456', { parent_id: 'p_123' });
+client.parents.children.retrieve('c_456', { parent_id: 'p_123' });
 ```
 
 This affects the following methods:
@@ -121,10 +121,49 @@ For example:
 
 ```diff
 - client.example.retrieve(encodeURIComponent('string/with/slash'))
-+ client.example.retrieve('string/with/slash') // renders example/string%2Fwith%2Fslash
++ client.example.retrieve('string/with/slash') // retrieves /example/string%2Fwith%2Fslash
 ```
 
 Previously without the `encodeURIComponent()` call we would have used the path `/example/string/with/slash`; now we'll use `/example/string%2Fwith%2Fslash`.
+
+### Method params must be an object
+
+When making requests to endpoints that expect something other than a JSON object, you must now pass the body as a property instead
+of an individual argument.
+
+For example, an endpoint that takes an array:
+
+```typescript
+// Before
+client.example.create([{ name: 'name' }, { name: 'name' }]);
+
+// After
+client.example.create({ items: [{ name: 'name' }, { name: 'name' }] });
+```
+
+This affects the following methods:
+
+- `client.files.upload()`
+
+### Removed request options overloads
+
+When making requests with no required body, query or header parameters, you must now explicitly pass `null`, `undefined` or an empty object `{}` to the params argument in order to customise request options.
+
+```diff
+client.example.list();
+client.example.list({}, { headers: { ... } });
+client.example.list(null, { headers: { ... } });
+client.example.list(undefined, { headers: { ... } });
+- client.example.list({ headers: { ... } });
++ client.example.list({}, { headers: { ... } });
+```
+
+This affects the following methods:
+
+- `client.applications.list()`
+- `client.applications.jobs.list()`
+- `client.graphs.list()`
+- `client.files.list()`
 
 ### Removed `httpAgent` in favor of `fetchOptions`
 
@@ -160,145 +199,7 @@ const client = new Writer({
 });
 ```
 
-### Removed request options overloads
-
-When making requests with no required body, query or header parameters, you must now explicitly pass `null`, `undefined` or an empty object `{}` to the params argument in order to customise request options.
-
-```diff
-client.example.list();
-client.example.list({}, { headers: { ... } });
-client.example.list(null, { headers: { ... } });
-client.example.list(undefined, { headers: { ... } });
-- client.example.list({ headers: { ... } });
-+ client.example.list({}, { headers: { ... } });
-```
-
-This affects the following methods:
-
-- `client.applications.list()`
-- `client.applications.jobs.list()`
-- `client.graphs.list()`
-- `client.files.list()`
-
-### Method params must be an object
-
-When making requests to endpoints that expect something other than a JSON object, you must now pass the body as a property instead
-of an individual argument.
-
-For example, an endpoint that takes an array:
-
-```typescript
-// Before
-client.example.create([{ name: 'name' }, { name: 'name' }]);
-
-// After
-client.example.create({ items: [{ name: 'name' }, { name: 'name' }] });
-```
-
-This affects the following methods:
-
-- `client.files.upload()`
-
-### Pagination changes
-
-Note that the `for await` syntax is _not_ affected. This still works as-is:
-
-```ts
-// Automatically fetches more pages as needed.
-for await (const graph of client.graphs.list()) {
-  console.log(graph);
-}
-```
-
-#### Simplified interface
-
-The pagination interface has been simplified:
-
-```ts
-// Before
-page.nextPageParams();
-page.nextPageInfo();
-// Required manually handling { url } | { params } type
-
-// After
-page.nextPageRequestOptions();
-```
-
-#### Removed unnecessary classes
-
-Page classes for individual methods are now type aliases:
-
-```ts
-// Before
-export class GraphsCursorPage extends CursorPage<Graph> {}
-
-// After
-export type GraphsCursorPage = CursorPage<Graph>;
-```
-
-If you were importing these classes at runtime, you'll need to switch to importing the base class or only import them at the type-level.
-
-### File handling
-
-The deprecated `fileFromPath` helper has been removed in favor of native Node.js streams:
-
-```ts
-// Before
-Writer.fileFromPath('path/to/file');
-
-// After
-import fs from 'fs';
-fs.createReadStream('path/to/file');
-```
-
-Note that this function previously only worked on Node.js. If you're using Bun, you can use [`Bun.file`](https://bun.sh/docs/api/file-io) instead.
-
-### Shims removal
-
-Previously you could configure the types that the SDK used like this:
-
-```ts
-// Tell TypeScript and the package to use the global Web fetch instead of node-fetch.
-import 'writer-sdk/shims/web';
-import Writer from 'writer-sdk';
-```
-
-The `writer-sdk/shims` imports have been removed. Your global types must now be [correctly configured](#minimum-types-requirements).
-
-### `writer-sdk/src` directory removed
-
-Previously IDEs may have auto-completed imports from the `writer-sdk/src` directory, however this
-directory was only included for an improved go-to-definition experience and should not have been used at runtime.
-
-If you have any `writer-sdk/src` imports, you must replace it with `writer-sdk`.
-
-```ts
-// Before
-import Writer from 'writer-sdk/src';
-
-// After
-import Writer from 'writer-sdk';
-```
-
-### Headers
-
-The `headers` property on `APIError` objects is now an instance of the Web [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) class. It was previously just `Record<string, string | null | undefined>`.
-
-### Removed exports
-
-#### Resource classes
-
-If you were importing resource classes from the root package then you must now import them from the file they are defined in.
-This was never valid at the type level and only worked in CommonJS files.
-
-```typescript
-// Before
-const { Applications } = require('writer-sdk');
-
-// After
-const { Writer } = require('writer-sdk');
-Writer.Applications; // or import directly from writer-sdk/resources/applications/applications
-```
+### Changed exports
 
 #### Refactor of `writer-sdk/core`, `error`, `pagination`, `resource`, `streaming` and `uploads`
 
@@ -323,6 +224,20 @@ import 'writer-sdk/core/uploads';
 ```
 
 If you were relying on anything that was only exported from `writer-sdk/core` and is also not accessible anywhere else, please open an issue and we'll consider adding it to the public API.
+
+#### Resource classes
+
+Previously under certain circumstances it was possible to import resource classes like `Applications` directly from the root of the package. This was never valid at the type level and only worked in CommonJS files.
+Now you must always either reference them as static class properties or import them directly from the files in which they are defined.
+
+```typescript
+// Before
+const { Applications } = require('writer-sdk');
+
+// After
+const { Writer } = require('writer-sdk');
+Writer.Applications; // or import directly from writer-sdk/resources/applications/applications
+```
 
 #### Cleaned up `uploads` exports
 
@@ -360,3 +275,86 @@ import { APIClient } from 'writer-sdk/core';
 // After
 import { Writer } from 'writer-sdk';
 ```
+
+### File handling
+
+The deprecated `fileFromPath` helper has been removed in favor of native Node.js streams:
+
+```ts
+// Before
+Writer.fileFromPath('path/to/file');
+
+// After
+import fs from 'fs';
+fs.createReadStream('path/to/file');
+```
+
+Note that this function previously only worked on Node.js. If you're using Bun, you can use [`Bun.file`](https://bun.sh/docs/api/file-io) instead.
+
+### Shims removal
+
+Previously you could configure the types that the SDK used like this:
+
+```ts
+// Tell TypeScript and the package to use the global Web fetch instead of node-fetch.
+import 'writer-sdk/shims/web';
+import Writer from 'writer-sdk';
+```
+
+The `writer-sdk/shims` imports have been removed. Your global types must now be [correctly configured](#minimum-types-requirements).
+
+### Pagination changes
+
+The `for await` syntax **is not affected**. This still works as-is:
+
+```ts
+// Automatically fetches more pages as needed.
+for await (const graph of client.graphs.list()) {
+  console.log(graph);
+}
+```
+
+The interface for manually paginating through list results has been simplified:
+
+```ts
+// Before
+page.nextPageParams();
+page.nextPageInfo();
+// Required manually handling { url } | { params } type
+
+// After
+page.nextPageRequestOptions();
+```
+
+#### Removed unnecessary classes
+
+Page classes for individual methods are now type aliases:
+
+```ts
+// Before
+export class GraphsCursorPage extends CursorPage<Graph> {}
+
+// After
+export type GraphsCursorPage = CursorPage<Graph>;
+```
+
+If you were importing these classes at runtime, you'll need to switch to importing the base class or only import them at the type-level.
+
+### `writer-sdk/src` directory removed
+
+Previously IDEs may have auto-completed imports from the `writer-sdk/src` directory, however this
+directory was only included for an improved go-to-definition experience and should not have been used at runtime.
+
+If you have any `writer-sdk/src/*` imports, you will need to replace them with `writer-sdk/*`.
+
+```ts
+// Before
+import Writer from 'writer-sdk/src';
+
+// After
+import Writer from 'writer-sdk';
+```
+
+### Headers
+
+The `headers` property on `APIError` objects is now an instance of the Web [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) class. It was previously just `Record<string, string | null | undefined>`.
