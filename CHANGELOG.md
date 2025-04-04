@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.1.0 (2025-04-04)
+
+Full Changelog: [v2.1.0-rc.1...v2.1.0](https://github.com/writer/writer-node/compare/v2.1.0-rc.1...v2.1.0)
+
+### Features
+
+* **api:** manual updates ([#217](https://github.com/writer/writer-node/issues/217)) ([9217f0e](https://github.com/writer/writer-node/commit/9217f0ecef3606bc5fdc00fdee5e008b240c8a93))
+* **mcp:** support end-user filtering of tools, resources, and tags ([#212](https://github.com/writer/writer-node/issues/212)) ([857be4f](https://github.com/writer/writer-node/commit/857be4fac72fc6dca9e50e1d15c3c600edbdaa72))
+
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#214](https://github.com/writer/writer-node/issues/214)) ([0169d65](https://github.com/writer/writer-node/commit/0169d650344f16d5a69420a888325ed22567fa02))
+* **client:** send `X-Stainless-Timeout` in seconds ([#209](https://github.com/writer/writer-node/issues/209)) ([6f6b153](https://github.com/writer/writer-node/commit/6f6b1535d1bacf27de69fdc1f8ae7162f32d82e4))
+* **mcp:** remove unused tools.ts ([d704d7e](https://github.com/writer/writer-node/commit/d704d7e50631099d01db5c0e5f3022125c1dc926))
+
+
+### Chores
+
+* configure new SDK language ([#211](https://github.com/writer/writer-node/issues/211)) ([493af23](https://github.com/writer/writer-node/commit/493af23d9284274db7741ce1c988aff29ce051e4))
+* **docs:** improve migration doc ([#216](https://github.com/writer/writer-node/issues/216)) ([b2880ad](https://github.com/writer/writer-node/commit/b2880ad53b4caddd681b0647fe1c106efed08372))
+* **internal:** add aliases for Record and Array ([#213](https://github.com/writer/writer-node/issues/213)) ([af62acf](https://github.com/writer/writer-node/commit/af62acfce3f4b7b1fe774ca716e06bcdd3a207b6))
+
+
+### Documentation
+
+* **mcp:** improve MCP readme docs ([#215](https://github.com/writer/writer-node/issues/215)) ([334ccf4](https://github.com/writer/writer-node/commit/334ccf4c10e951725592fee3f9925df258197af7))
+
 ## 2.1.0-rc.1 (2025-04-02)
 
 Full Changelog: [v2.0.0...v2.1.0-rc.1](https://github.com/writer/writer-node/compare/v2.0.0...v2.1.0-rc.1)
