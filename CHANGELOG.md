@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.1.0 (2025-04-04)
+
+Full Changelog: [v2.1.0-rc.1...v2.1.0](https://github.com/writer/writer-node/compare/v2.1.0-rc.1...v2.1.0)
+
+### Features
+
+* **api:** manual updates ([#217](https://github.com/writer/writer-node/issues/217)) ([9217f0e](https://github.com/writer/writer-node/commit/9217f0ecef3606bc5fdc00fdee5e008b240c8a93))
+
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#214](https://github.com/writer/writer-node/issues/214)) ([0169d65](https://github.com/writer/writer-node/commit/0169d650344f16d5a69420a888325ed22567fa02))
+* **client:** send `X-Stainless-Timeout` in seconds ([#209](https://github.com/writer/writer-node/issues/209)) ([6f6b153](https://github.com/writer/writer-node/commit/6f6b1535d1bacf27de69fdc1f8ae7162f32d82e4))
+
+### Chores
+
+* **docs:** improve migration doc ([#216](https://github.com/writer/writer-node/issues/216)) ([b2880ad](https://github.com/writer/writer-node/commit/b2880ad53b4caddd681b0647fe1c106efed08372))
+* **internal:** add aliases for Record and Array ([#213](https://github.com/writer/writer-node/issues/213)) ([af62acf](https://github.com/writer/writer-node/commit/af62acfce3f4b7b1fe774ca716e06bcdd3a207b6))
+
+
 ## 2.1.0-rc.1 (2025-04-02)
 
 Full Changelog: [v2.0.0...v2.1.0-rc.1](https://github.com/writer/writer-node/compare/v2.0.0...v2.1.0-rc.1)
