@@ -16,7 +16,6 @@ Full Changelog: [v2.1.0-rc.1...v2.1.0](https://github.com/writer/writer-node/com
 
 ### Chores
 
-* configure new SDK language ([#211](https://github.com/writer/writer-node/issues/211)) ([493af23](https://github.com/writer/writer-node/commit/493af23d9284274db7741ce1c988aff29ce051e4))
 * **docs:** improve migration doc ([#216](https://github.com/writer/writer-node/issues/216)) ([b2880ad](https://github.com/writer/writer-node/commit/b2880ad53b4caddd681b0647fe1c106efed08372))
 * **internal:** add aliases for Record and Array ([#213](https://github.com/writer/writer-node/issues/213)) ([af62acf](https://github.com/writer/writer-node/commit/af62acfce3f4b7b1fe774ca716e06bcdd3a207b6))
 
