@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.1.1 (2025-04-10)
+
+Full Changelog: [v2.1.0...v2.1.1](https://github.com/writer/writer-node/compare/v2.1.0...v2.1.1)
+
+### Bug Fixes
+
+* **client:** send all configured auth headers ([#222](https://github.com/writer/writer-node/issues/222)) ([22d5e6f](https://github.com/writer/writer-node/commit/22d5e6f54afcc60ffdf9fecc50246045c51202be))
+* **internal:** fix file uploads in node 18 jest ([623fdd9](https://github.com/writer/writer-node/commit/623fdd95d8313a0f502d6a9170c38cca70700390))
+
+
+### Chores
+
+* **internal:** improve node 18 shims ([#225](https://github.com/writer/writer-node/issues/225)) ([7012687](https://github.com/writer/writer-node/commit/7012687bb4d33eb021c8ef8f6188ae11eeea8636))
+* **internal:** reduce CI branch coverage ([afaeb00](https://github.com/writer/writer-node/commit/afaeb0081bdcddeeccb931c838f1df15a13cfbbe))
+* **internal:** upload builds and expand CI branch coverage ([#224](https://github.com/writer/writer-node/issues/224)) ([76336c3](https://github.com/writer/writer-node/commit/76336c38c9fff2672b5e0c90c585039f9d72c331))
+
+
+### Documentation
+
+* swap examples used in readme ([#220](https://github.com/writer/writer-node/issues/220)) ([72d9f65](https://github.com/writer/writer-node/commit/72d9f657faebb7cfe80635d17c63605f9e894610))
+
 ## 2.1.0 (2025-04-04)
 
 Full Changelog: [v2.1.0-rc.1...v2.1.0](https://github.com/writer/writer-node/compare/v2.1.0-rc.1...v2.1.0)
