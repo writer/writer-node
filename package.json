@@ -1,6 +1,6 @@
 {
   "name": "writer-sdk",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "The official TypeScript library for the Writer API",
   "author": "Writer <dev-feedback@writer.com>",
   "types": "dist/index.d.ts",
@@ -49,6 +49,10 @@
   },
   "resolutions": {
     "synckit": "0.8.8"
+  },
+  "browser": {
+    "./internal/shims/getBuiltinModule.mjs": "./internal/shims/nullGetBuiltinModule.mjs",
+    "./internal/shims/getBuiltinModule.js": "./internal/shims/nullGetBuiltinModule.js"
   },
   "imports": {
     "writer-sdk": ".",
