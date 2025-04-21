@@ -157,6 +157,17 @@ Methods:
 
 - <code title="post /v1/tools/comprehend/medical">client.tools.comprehend.<a href="./src/resources/tools/comprehend.ts">medical</a>({ ...params }) -> ComprehendMedicalResponse</code>
 
+# Translation
+
+Types:
+
+- <code><a href="./src/resources/translation.ts">TranslationRequest</a></code>
+- <code><a href="./src/resources/translation.ts">TranslationResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/translation">client.translation.<a href="./src/resources/translation.ts">translate</a>({ ...params }) -> TranslationResponse</code>
+
 # Vision
 
 Types:
