@@ -79,6 +79,12 @@ import {
   QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
+import {
+  Translation,
+  TranslationRequest,
+  TranslationResponse,
+  TranslationTranslateParams,
+} from './resources/translation';
 import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
@@ -778,6 +784,7 @@ export class Writer {
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
   tools: API.Tools = new API.Tools(this);
+  translation: API.Translation = new API.Translation(this);
   vision: API.Vision = new API.Vision(this);
 }
 Writer.Applications = Applications;
@@ -787,6 +794,7 @@ Writer.Models = Models;
 Writer.Graphs = Graphs;
 Writer.Files = Files;
 Writer.Tools = Tools;
+Writer.Translation = Translation;
 Writer.Vision = Vision;
 export declare namespace Writer {
   export type RequestOptions = Opts.RequestOptions;
@@ -875,6 +883,13 @@ export declare namespace Writer {
     type ToolParsePdfResponse as ToolParsePdfResponse,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+  };
+
+  export {
+    Translation as Translation,
+    type TranslationRequest as TranslationRequest,
+    type TranslationResponse as TranslationResponse,
+    type TranslationTranslateParams as TranslationTranslateParams,
   };
 
   export {

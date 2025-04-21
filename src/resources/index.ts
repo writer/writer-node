@@ -71,4 +71,10 @@ export {
   type ToolContextAwareSplittingParams,
   type ToolParsePdfParams,
 } from './tools/tools';
+export {
+  Translation,
+  type TranslationRequest,
+  type TranslationResponse,
+  type TranslationTranslateParams,
+} from './translation';
 export { Vision, type VisionRequest, type VisionResponse, type VisionAnalyzeParams } from './vision';
