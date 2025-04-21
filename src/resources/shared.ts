@@ -188,7 +188,7 @@ export namespace ToolParam {
      */
     export interface Function {
       /**
-       * An array of graph IDs to be used in the tool.
+       * An array of graph IDs to use in the tool.
        */
       graph_ids: Array<string>;
 
@@ -222,12 +222,12 @@ export namespace ToolParam {
      */
     export interface Function {
       /**
-       * A description of the model to be used.
+       * A description of the model to use.
        */
       description: string;
 
       /**
-       * The model to be used.
+       * The model to use.
        */
       model: string;
     }
@@ -251,9 +251,9 @@ export namespace ToolParam {
      */
     export interface Function {
       /**
-       * The model to be used for image analysis. Must be `palmyra-vision`.
+       * The model to use for image analysis.
        */
-      model: string;
+      model: 'palmyra-vision';
 
       variables: Array<Function.Variable>;
     }
@@ -261,7 +261,7 @@ export namespace ToolParam {
     export namespace Function {
       export interface Variable {
         /**
-         * The File ID of the image to be analyzed. The file must be uploaded to the Writer
+         * The File ID of the image to analyze. The file must be uploaded to the Writer
          * platform before you use it with the Vision tool.
          */
         file_id: string;

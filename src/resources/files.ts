@@ -143,7 +143,7 @@ export interface FileListParams extends CursorPageParams {
 
 export interface FileRetryParams {
   /**
-   * The unique identifier of the files to be retried.
+   * The unique identifier of the files to retry.
    */
   file_ids: Array<string>;
 }
