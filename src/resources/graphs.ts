@@ -311,12 +311,12 @@ export type GraphQuestionParams = GraphQuestionParamsNonStreaming | GraphQuestio
 
 export interface GraphQuestionParamsBase {
   /**
-   * The unique identifiers of the Knowledge Graphs to be queried.
+   * The unique identifiers of the Knowledge Graphs to query.
    */
   graph_ids: Array<string>;
 
   /**
-   * The question to be answered using the Knowledge Graph.
+   * The question to answer using the Knowledge Graph.
    */
   question: string;
 

@@ -99,14 +99,14 @@ export namespace ComprehendMedicalResponse {
 
 export interface ComprehendMedicalParams {
   /**
-   * The text to be analyzed.
+   * The text to analyze.
    */
   content: string;
 
   /**
-   * The structure of the response to be returned. `Entities` returns medical
-   * entities, `RxNorm` returns medication information, `ICD-10-CM` returns diagnosis
-   * codes, and `SNOMED CT` returns medical concepts.
+   * The structure of the response to return. `Entities` returns medical entities,
+   * `RxNorm` returns medication information, `ICD-10-CM` returns diagnosis codes,
+   * and `SNOMED CT` returns medical concepts.
    */
   response_type: 'Entities' | 'RxNorm' | 'ICD-10-CM' | 'SNOMED CT';
 }

@@ -9,7 +9,8 @@ import { path } from '../../internal/utils/path';
 
 export class Jobs extends APIResource {
   /**
-   * Generate content asynchronously from an existing application with inputs.
+   * Generate content asynchronously from an existing no-code agent (formerly called
+   * no-code applications) with inputs.
    */
   create(
     applicationID: string,
@@ -176,10 +177,10 @@ export namespace JobCreateParams {
      *
      * If the input type is "File upload", you must pass the `file_id` of an uploaded
      * file. You cannot pass a file object directly. See the
-     * [file upload endpoint](/api-guides/api-reference/file-api/upload-files) for
-     * instructions on uploading files or the
-     * [list files endpoint](/api-guides/api-reference/file-api/get-all-files) for how
-     * to see a list of uploaded files and their IDs.
+     * [file upload endpoint](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
+     * for instructions on uploading files or the
+     * [list files endpoint](https://dev.writer.com/api-guides/api-reference/file-api/get-all-files)
+     * for how to see a list of uploaded files and their IDs.
      */
     value: Array<string>;
   }

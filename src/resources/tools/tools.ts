@@ -50,14 +50,14 @@ export interface ToolParsePdfResponse {
 
 export interface ToolContextAwareSplittingParams {
   /**
-   * The strategy to be used for splitting the text into chunks. `llm_split` uses the
+   * The strategy to use for splitting the text into chunks. `llm_split` uses the
    * language model to split the text, `fast_split` uses a fast heuristic-based
    * approach, and `hybrid_split` combines both strategies.
    */
   strategy: 'llm_split' | 'fast_split' | 'hybrid_split';
 
   /**
-   * The text to be split into chunks.
+   * The text to split into chunks.
    */
   text: string;
 }

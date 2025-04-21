@@ -15,7 +15,8 @@ export class Models extends APIResource {
 
 export interface ModelListResponse {
   /**
-   * The identifier of the model to be used for processing the request.
+   * The [ID of the model](https://dev.writer.com/home/models) to use for processing
+   * the request.
    */
   models: Array<ModelListResponse.Model>;
 }

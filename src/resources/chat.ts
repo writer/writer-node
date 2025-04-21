@@ -11,7 +11,7 @@ export class Chat extends APIResource {
   /**
    * Generate a chat completion based on the provided messages. The response shown
    * below is for non-streaming. To learn about streaming responses, see the
-   * [chat completion guide](/api-guides/chat-completion).
+   * [chat completion guide](https://dev.writer.com/api-guides/chat-completion).
    */
   chat(body: ChatChatParamsNonStreaming, options?: RequestOptions): APIPromise<ChatCompletion>;
   chat(body: ChatChatParamsStreaming, options?: RequestOptions): APIPromise<Stream<ChatCompletionChunk>>;
@@ -269,10 +269,10 @@ export interface ChatCompletionParams {
   messages: Array<ChatCompletionParams.Message>;
 
   /**
-   * Specifies the model to be used for generating responses. The chat model is
-   * always `palmyra-x-004` for conversational use.
+   * The [ID of the model](https://dev.writer.com/home/models) to use for creating
+   * the chat completion.
    */
-  model: string;
+  model: 'palmyra-x-004' | 'palmyra-fin' | 'palmyra-med' | 'palmyra-creative' | 'palmyra-x-003-instruct';
 
   /**
    * Specifies whether to return log probabilities of the output tokens.
@@ -288,7 +288,7 @@ export interface ChatCompletionParams {
 
   /**
    * Specifies the number of completions (responses) to generate from the model in a
-   * single request. This parameter allows multiple responses to be generated,
+   * single request. This parameter allows for generating multiple responses,
    * offering a variety of potential replies from which to choose.
    */
   n?: number;
@@ -331,7 +331,9 @@ export interface ChatCompletionParams {
    * generate responses. The tool definitions use JSON schema. You can define your
    * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
    * that you can only use one built-in tool type in the array (only one of `graph`,
-   * `llm`, or `vision`).
+   * `llm`, or `vision`). You can pass multiple custom
+   * tools](https://dev.writer.com/api-guides/tool-calling) of type `function` in the
+   * same request.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -349,7 +351,8 @@ export namespace ChatCompletionParams {
     /**
      * The role of the chat message. You can provide a system prompt by setting the
      * role to `system`, or specify that a message is the result of a
-     * [tool call](/api-guides/tool-calling) by setting the role to `tool`.
+     * [tool call](https://dev.writer.com/api-guides/tool-calling) by setting the role
+     * to `tool`.
      */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
@@ -413,10 +416,10 @@ export interface ChatChatParamsBase {
   messages: Array<ChatChatParams.Message>;
 
   /**
-   * Specifies the model to be used for generating responses. The chat model is
-   * always `palmyra-x-004` for conversational use.
+   * The [ID of the model](https://dev.writer.com/home/models) to use for creating
+   * the chat completion.
    */
-  model: string;
+  model: 'palmyra-x-004' | 'palmyra-fin' | 'palmyra-med' | 'palmyra-creative' | 'palmyra-x-003-instruct';
 
   /**
    * Specifies whether to return log probabilities of the output tokens.
@@ -432,7 +435,7 @@ export interface ChatChatParamsBase {
 
   /**
    * Specifies the number of completions (responses) to generate from the model in a
-   * single request. This parameter allows multiple responses to be generated,
+   * single request. This parameter allows for generating multiple responses,
    * offering a variety of potential replies from which to choose.
    */
   n?: number;
@@ -475,7 +478,9 @@ export interface ChatChatParamsBase {
    * generate responses. The tool definitions use JSON schema. You can define your
    * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
    * that you can only use one built-in tool type in the array (only one of `graph`,
-   * `llm`, or `vision`).
+   * `llm`, or `vision`). You can pass multiple custom
+   * tools](https://dev.writer.com/api-guides/tool-calling) of type `function` in the
+   * same request.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -493,7 +498,8 @@ export namespace ChatChatParams {
     /**
      * The role of the chat message. You can provide a system prompt by setting the
      * role to `system`, or specify that a message is the result of a
-     * [tool call](/api-guides/tool-calling) by setting the role to `tool`.
+     * [tool call](https://dev.writer.com/api-guides/tool-calling) by setting the role
+     * to `tool`.
      */
     role: 'user' | 'assistant' | 'system' | 'tool';
 

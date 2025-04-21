@@ -7,8 +7,7 @@ import { path } from '../../internal/utils/path';
 
 export class Graphs extends APIResource {
   /**
-   * Updates the Knowledge Graphs listed and associates them with the no-code chat
-   * app to be used.
+   * Updates the Knowledge Graphs listed and associates them with the no-code agent.
    */
   update(
     applicationID: string,
@@ -19,7 +18,8 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Retrieve Knowledge Graphs associated with a no-code chat application.
+   * Retrieve Knowledge Graphs associated with a no-code agent that has chat
+   * capabilities.
    */
   list(applicationID: string, options?: RequestOptions): APIPromise<ApplicationGraphsResponse> {
     return this._client.get(path`/v1/applications/${applicationID}/graphs`, options);
