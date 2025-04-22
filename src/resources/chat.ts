@@ -270,9 +270,10 @@ export interface ChatCompletionParams {
 
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for creating
-   * the chat completion.
+   * the chat completion. Supports `palmyra-x-004`, `palmyra-fin`, `palmyra-med`,
+   * `palmyra-creative`, and `palmyra-x-003-instruct`.
    */
-  model: 'palmyra-x-004' | 'palmyra-fin' | 'palmyra-med' | 'palmyra-creative' | 'palmyra-x-003-instruct';
+  model: string;
 
   /**
    * Specifies whether to return log probabilities of the output tokens.
@@ -292,6 +293,16 @@ export interface ChatCompletionParams {
    * offering a variety of potential replies from which to choose.
    */
   n?: number;
+
+  /**
+   * The response format to use for the chat completion, available with
+   * `palmyra-x-004`.
+   *
+   * `text` is the default response format. [JSON Schema](https://json-schema.org/)
+   * is supported for structured responses. If you specify `json_schema`, you must
+   * also provide a `json_schema` object.
+   */
+  response_format?: ChatCompletionParams.ResponseFormat;
 
   /**
    * A token or sequence of tokens that, when generated, will cause the model to stop
@@ -370,6 +381,26 @@ export namespace ChatCompletionParams {
   }
 
   /**
+   * The response format to use for the chat completion, available with
+   * `palmyra-x-004`.
+   *
+   * `text` is the default response format. [JSON Schema](https://json-schema.org/)
+   * is supported for structured responses. If you specify `json_schema`, you must
+   * also provide a `json_schema` object.
+   */
+  export interface ResponseFormat {
+    /**
+     * The type of response format to use.
+     */
+    type: 'text' | 'json_schema';
+
+    /**
+     * The JSON schema to use for the response format.
+     */
+    json_schema?: unknown;
+  }
+
+  /**
    * Additional options for streaming.
    */
   export interface StreamOptions {
@@ -417,9 +448,10 @@ export interface ChatChatParamsBase {
 
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for creating
-   * the chat completion.
+   * the chat completion. Supports `palmyra-x-004`, `palmyra-fin`, `palmyra-med`,
+   * `palmyra-creative`, and `palmyra-x-003-instruct`.
    */
-  model: 'palmyra-x-004' | 'palmyra-fin' | 'palmyra-med' | 'palmyra-creative' | 'palmyra-x-003-instruct';
+  model: string;
 
   /**
    * Specifies whether to return log probabilities of the output tokens.
@@ -439,6 +471,16 @@ export interface ChatChatParamsBase {
    * offering a variety of potential replies from which to choose.
    */
   n?: number;
+
+  /**
+   * The response format to use for the chat completion, available with
+   * `palmyra-x-004`.
+   *
+   * `text` is the default response format. [JSON Schema](https://json-schema.org/)
+   * is supported for structured responses. If you specify `json_schema`, you must
+   * also provide a `json_schema` object.
+   */
+  response_format?: ChatChatParams.ResponseFormat;
 
   /**
    * A token or sequence of tokens that, when generated, will cause the model to stop
@@ -514,6 +556,26 @@ export namespace ChatChatParams {
     tool_call_id?: string | null;
 
     tool_calls?: Array<Shared.ToolCall> | null;
+  }
+
+  /**
+   * The response format to use for the chat completion, available with
+   * `palmyra-x-004`.
+   *
+   * `text` is the default response format. [JSON Schema](https://json-schema.org/)
+   * is supported for structured responses. If you specify `json_schema`, you must
+   * also provide a `json_schema` object.
+   */
+  export interface ResponseFormat {
+    /**
+     * The type of response format to use.
+     */
+    type: 'text' | 'json_schema';
+
+    /**
+     * The JSON schema to use for the response format.
+     */
+    json_schema?: unknown;
   }
 
   /**

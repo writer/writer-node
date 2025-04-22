@@ -9,7 +9,7 @@ const client = new Writer({
 
 describe('resource chat', () => {
   test('chat: only required params', async () => {
-    const responsePromise = client.chat.chat({ messages: [{ role: 'user' }], model: 'palmyra-x-004' });
+    const responsePromise = client.chat.chat({ messages: [{ role: 'user' }], model: 'model' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -40,10 +40,11 @@ describe('resource chat', () => {
           ],
         },
       ],
-      model: 'palmyra-x-004',
+      model: 'model',
       logprobs: true,
       max_tokens: 0,
       n: 0,
+      response_format: { type: 'text', json_schema: {} },
       stop: ['string'],
       stream: false,
       stream_options: { include_usage: true },
