@@ -63,9 +63,10 @@ export interface CompletionChunk {
 export interface CompletionParams {
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for generating
-   * text.
+   * text. Supports `palmyra-x-004`, `palmyra-fin`, `palmyra-med`,
+   * `palmyra-creative`, and `palmyra-x-003-instruct`.
    */
-  model: 'palmyra-x-004' | 'palmyra-fin' | 'palmyra-med' | 'palmyra-creative' | 'palmyra-x-003-instruct';
+  model: string;
 
   /**
    * The input text that the model will process to generate a response.
@@ -122,9 +123,10 @@ export type CompletionCreateParams = CompletionCreateParamsNonStreaming | Comple
 export interface CompletionCreateParamsBase {
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for generating
-   * text.
+   * text. Supports `palmyra-x-004`, `palmyra-fin`, `palmyra-med`,
+   * `palmyra-creative`, and `palmyra-x-003-instruct`.
    */
-  model: 'palmyra-x-004' | 'palmyra-fin' | 'palmyra-med' | 'palmyra-creative' | 'palmyra-x-003-instruct';
+  model: string;
 
   /**
    * The input text that the model will process to generate a response.
