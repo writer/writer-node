@@ -102,6 +102,8 @@ import {
   Applications,
 } from './resources/applications/applications';
 import {
+  ToolAIDetectParams,
+  ToolAIDetectResponse,
   ToolContextAwareSplittingParams,
   ToolContextAwareSplittingResponse,
   ToolParsePdfParams,
@@ -879,8 +881,10 @@ export declare namespace Writer {
 
   export {
     Tools as Tools,
+    type ToolAIDetectResponse as ToolAIDetectResponse,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolAIDetectParams as ToolAIDetectParams,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
   };
