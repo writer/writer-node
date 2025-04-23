@@ -66,8 +66,10 @@ export {
 export { Models, type ModelListResponse } from './models';
 export {
   Tools,
+  type ToolAIDetectResponse,
   type ToolContextAwareSplittingResponse,
   type ToolParsePdfResponse,
+  type ToolAIDetectParams,
   type ToolContextAwareSplittingParams,
   type ToolParsePdfParams,
 } from './tools/tools';
