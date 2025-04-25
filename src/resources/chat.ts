@@ -244,7 +244,7 @@ export interface ChatCompletionMessage {
    * The text content produced by the model. This field contains the actual output
    * generated, reflecting the model's response to the input query or command.
    */
-  content: unknown;
+  content: string;
 
   refusal: string | null;
 
