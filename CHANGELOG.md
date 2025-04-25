@@ -1,5 +1,42 @@
 # Changelog
 
+## 2.2.0-rc.1 (2025-04-25)
+
+Full Changelog: [v2.1.0...v2.2.0-rc.1](https://github.com/writer/writer-node/compare/v2.1.0...v2.2.0-rc.1)
+
+### Features
+
+* **api:** add ai detect tool endpoint ([d41c51e](https://github.com/writer/writer-node/commit/d41c51e1301157e88f75a42d4872fe26bfb116e7))
+* **api:** add translation endpoint ([2bd71ae](https://github.com/writer/writer-node/commit/2bd71aef9490235eaac25f3fdd71a4d6ffe4badf))
+* **client:** add parse method ([#226](https://github.com/writer/writer-node/issues/226)) ([da86456](https://github.com/writer/writer-node/commit/da86456495b32ec8e2c5b86b6a45e012a81254a1))
+
+
+### Bug Fixes
+
+* **client:** send all configured auth headers ([#222](https://github.com/writer/writer-node/issues/222)) ([22d5e6f](https://github.com/writer/writer-node/commit/22d5e6f54afcc60ffdf9fecc50246045c51202be))
+* **internal:** fix file uploads in node 18 jest ([623fdd9](https://github.com/writer/writer-node/commit/623fdd95d8313a0f502d6a9170c38cca70700390))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([93abeda](https://github.com/writer/writer-node/commit/93abedab0fb7742bb9a474df94e5be7b3bbc864e))
+* **ci:** only use depot for staging repos ([788c1d6](https://github.com/writer/writer-node/commit/788c1d6990de300417c44c431adbd713f04ebc36))
+* **ci:** run on more branches and use depot runners ([8a5e6e8](https://github.com/writer/writer-node/commit/8a5e6e85b943696602a67f23fd43dbdc995a6631))
+* **client:** minor internal fixes ([a1c6989](https://github.com/writer/writer-node/commit/a1c6989afc29d3a477470c6715f8ba5d07e0ab89))
+* **internal:** improve node 18 shims ([#225](https://github.com/writer/writer-node/issues/225)) ([7012687](https://github.com/writer/writer-node/commit/7012687bb4d33eb021c8ef8f6188ae11eeea8636))
+* **internal:** reduce CI branch coverage ([afaeb00](https://github.com/writer/writer-node/commit/afaeb0081bdcddeeccb931c838f1df15a13cfbbe))
+* **internal:** upload builds and expand CI branch coverage ([#224](https://github.com/writer/writer-node/issues/224)) ([76336c3](https://github.com/writer/writer-node/commit/76336c38c9fff2672b5e0c90c585039f9d72c331))
+* **perf:** faster base64 decoding ([4e9eb5a](https://github.com/writer/writer-node/commit/4e9eb5aa2b55874a94ddbc1d68574358297e3315))
+
+
+### Documentation
+
+* **api:** updates to API spec ([4c495f6](https://github.com/writer/writer-node/commit/4c495f64ca2851ffa12ef2cb6ef9c8d6ed66df70))
+* **api:** updates to API spec ([5014f1d](https://github.com/writer/writer-node/commit/5014f1d33574a41881b43e2106cee4461d203ae5))
+* **api:** updates to API spec ([94a7c72](https://github.com/writer/writer-node/commit/94a7c72b42dc1b9610141444487150c4e1894d52))
+* **api:** updates to API spec ([32c703f](https://github.com/writer/writer-node/commit/32c703ff339589dae937e6871fc0f5c1c24a15f5))
+* swap examples used in readme ([#220](https://github.com/writer/writer-node/issues/220)) ([72d9f65](https://github.com/writer/writer-node/commit/72d9f657faebb7cfe80635d17c63605f9e894610))
+
 ## 2.1.0 (2025-04-04)
 
 Full Changelog: [v2.1.0-rc.1...v2.1.0](https://github.com/writer/writer-node/compare/v2.1.0-rc.1...v2.1.0)

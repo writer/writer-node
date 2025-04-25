@@ -15,10 +15,9 @@ export class Vision extends APIResource {
 
 export interface VisionRequest {
   /**
-   * The model to be used for image analysis. Currently only supports
-   * `palmyra-vision`.
+   * The model to use for image analysis.
    */
-  model: string;
+  model: 'palmyra-vision';
 
   /**
    * The prompt to use for the image analysis. The prompt must include the name of
@@ -35,11 +34,11 @@ export namespace VisionRequest {
    * An array of file variables required for the analysis. The image files must be
    * uploaded to the Writer platform before they can be used in a vision request.
    * Learn how to upload files using the
-   * [Files API](/api-guides/api-reference/file-api/upload-files).
+   * [Files API](https://dev.writer.com/api-guides/api-reference/file-api/upload-files).
    */
   export interface Variable {
     /**
-     * The File ID of the image to be analyzed. The file must be uploaded to the Writer
+     * The File ID of the image to analyze. The file must be uploaded to the Writer
      * platform before it can be used in a vision request.
      */
     file_id: string;
@@ -62,10 +61,9 @@ export interface VisionResponse {
 
 export interface VisionAnalyzeParams {
   /**
-   * The model to be used for image analysis. Currently only supports
-   * `palmyra-vision`.
+   * The model to use for image analysis.
    */
-  model: string;
+  model: 'palmyra-vision';
 
   /**
    * The prompt to use for the image analysis. The prompt must include the name of
@@ -82,11 +80,11 @@ export namespace VisionAnalyzeParams {
    * An array of file variables required for the analysis. The image files must be
    * uploaded to the Writer platform before they can be used in a vision request.
    * Learn how to upload files using the
-   * [Files API](/api-guides/api-reference/file-api/upload-files).
+   * [Files API](https://dev.writer.com/api-guides/api-reference/file-api/upload-files).
    */
   export interface Variable {
     /**
-     * The File ID of the image to be analyzed. The file must be uploaded to the Writer
+     * The File ID of the image to analyze. The file must be uploaded to the Writer
      * platform before it can be used in a vision request.
      */
     file_id: string;

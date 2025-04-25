@@ -79,6 +79,12 @@ import {
   QuestionResponseChunk,
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
+import {
+  Translation,
+  TranslationRequest,
+  TranslationResponse,
+  TranslationTranslateParams,
+} from './resources/translation';
 import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
@@ -96,6 +102,8 @@ import {
   Applications,
 } from './resources/applications/applications';
 import {
+  ToolAIDetectParams,
+  ToolAIDetectResponse,
   ToolContextAwareSplittingParams,
   ToolContextAwareSplittingResponse,
   ToolParsePdfParams,
@@ -251,8 +259,8 @@ export class Writer {
     return;
   }
 
-  protected authHeaders(opts: FinalRequestOptions): Headers | undefined {
-    return new Headers({ Authorization: `Bearer ${this.apiKey}` });
+  protected authHeaders(opts: FinalRequestOptions): NullableHeaders | undefined {
+    return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
   /**
@@ -652,17 +660,17 @@ export class Writer {
   }
 
   buildRequest(
-    options: FinalRequestOptions,
+    inputOptions: FinalRequestOptions,
     { retryCount = 0 }: { retryCount?: number } = {},
   ): { req: FinalizedRequestInit; url: string; timeout: number } {
-    options = { ...options };
+    const options = { ...inputOptions };
     const { method, path, query } = options;
 
     const url = this.buildURL(path!, query as Record<string, unknown>);
     if ('timeout' in options) validatePositiveInteger('timeout', options.timeout);
     options.timeout = options.timeout ?? this.timeout;
     const { bodyHeaders, body } = this.buildBody({ options });
-    const reqHeaders = this.buildHeaders({ options, method, bodyHeaders, retryCount });
+    const reqHeaders = this.buildHeaders({ options: inputOptions, method, bodyHeaders, retryCount });
 
     const req: FinalizedRequestInit = {
       method,
@@ -778,6 +786,7 @@ export class Writer {
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
   tools: API.Tools = new API.Tools(this);
+  translation: API.Translation = new API.Translation(this);
   vision: API.Vision = new API.Vision(this);
 }
 Writer.Applications = Applications;
@@ -787,6 +796,7 @@ Writer.Models = Models;
 Writer.Graphs = Graphs;
 Writer.Files = Files;
 Writer.Tools = Tools;
+Writer.Translation = Translation;
 Writer.Vision = Vision;
 export declare namespace Writer {
   export type RequestOptions = Opts.RequestOptions;
@@ -871,10 +881,19 @@ export declare namespace Writer {
 
   export {
     Tools as Tools,
+    type ToolAIDetectResponse as ToolAIDetectResponse,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolAIDetectParams as ToolAIDetectParams,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+  };
+
+  export {
+    Translation as Translation,
+    type TranslationRequest as TranslationRequest,
+    type TranslationResponse as TranslationResponse,
+    type TranslationTranslateParams as TranslationTranslateParams,
   };
 
   export {

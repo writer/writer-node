@@ -44,6 +44,7 @@ describe('resource chat', () => {
       logprobs: true,
       max_tokens: 0,
       n: 0,
+      response_format: { type: 'text', json_schema: {} },
       stop: ['string'],
       stream: false,
       stream_options: { include_usage: true },

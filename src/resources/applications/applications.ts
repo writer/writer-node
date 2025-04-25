@@ -26,16 +26,16 @@ export class Applications extends APIResource {
   graphs: GraphsAPI.Graphs = new GraphsAPI.Graphs(this._client);
 
   /**
-   * Retrieves detailed information for a specific no-code application, including its
-   * configuration and current status.
+   * Retrieves detailed information for a specific no-code agent (formerly called
+   * no-code applications), including its configuration and current status.
    */
   retrieve(applicationID: string, options?: RequestOptions): APIPromise<ApplicationRetrieveResponse> {
     return this._client.get(path`/v1/applications/${applicationID}`, options);
   }
 
   /**
-   * Retrieves a paginated list of no-code applications with optional filtering and
-   * sorting capabilities.
+   * Retrieves a paginated list of no-code agents (formerly called no-code
+   * applications) with optional filtering and sorting capabilities.
    */
   list(
     query: ApplicationListParams | null | undefined = {},
@@ -48,7 +48,8 @@ export class Applications extends APIResource {
   }
 
   /**
-   * Generate content from an existing no-code application with inputs.
+   * Generate content from an existing no-code agent (formerly called no-code
+   * applications) with inputs.
    */
   generateContent(
     applicationID: string,
@@ -479,10 +480,10 @@ export namespace ApplicationGenerateContentParams {
      *
      * If the input type is "File upload", you must pass the `file_id` of an uploaded
      * file. You cannot pass a file object directly. See the
-     * [file upload endpoint](/api-guides/api-reference/file-api/upload-files) for
-     * instructions on uploading files or the
-     * [list files endpoint](/api-guides/api-reference/file-api/get-all-files) for how
-     * to see a list of uploaded files and their IDs.
+     * [file upload endpoint](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
+     * for instructions on uploading files or the
+     * [list files endpoint](https://dev.writer.com/api-guides/api-reference/file-api/get-all-files)
+     * for how to see a list of uploaded files and their IDs.
      */
     value: Array<string>;
   }
