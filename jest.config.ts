@@ -17,6 +17,7 @@ const config: JestConfigWithTsJest = {
     '<rootDir>/deno_tests/',
   ],
   testPathIgnorePatterns: ['scripts'],
+  prettierPath: require.resolve('prettier-2'),
 };
 
 export default config;
