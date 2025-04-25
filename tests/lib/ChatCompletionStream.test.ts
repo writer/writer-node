@@ -33,7 +33,10 @@ describe('.stream()', () => {
         "logprobs": null,
         "message": {
           "content": "{"city":"San Francisco","units":"c"}",
-          "parsed": null,
+          "parsed": {
+            "city": "San Francisco",
+            "units": "c",
+          },
           "refusal": null,
           "role": "assistant",
           "tool_calls": [],
@@ -189,7 +192,10 @@ describe('.stream()', () => {
         },
         "message": {
           "content": "{"city":"San Francisco","units":"f"}",
-          "parsed": null,
+          "parsed": {
+            "city": "San Francisco",
+            "units": "f",
+          },
           "refusal": null,
           "role": "assistant",
           "tool_calls": [],

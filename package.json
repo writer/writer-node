@@ -73,5 +73,13 @@
       "import": "./dist/*.mjs",
       "require": "./dist/*.js"
     }
+  },
+  "peerDependencies": {
+    "zod": "^3.23.8"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
   }
 }
