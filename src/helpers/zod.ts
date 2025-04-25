@@ -66,7 +66,8 @@ export function zodResponseFormat<ZodInput extends ZodType>(
       json_schema: {
         ...props,
         name,
-        // strict: true,
+        // @ts-ignore
+        strict: true,
         schema: zodToJsonSchema(zodObject, { name }),
       },
     },
@@ -96,7 +97,8 @@ export function zodFunction<Parameters extends ZodType>(options: {
       function: {
         name: options.name,
         parameters: zodToJsonSchema(options.parameters, { name: options.name }),
-        // strict: true,
+        // @ts-ignore
+        strict: true,
         ...(options.description ? { description: options.description } : undefined),
       },
     },

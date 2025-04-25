@@ -7,8 +7,9 @@ import { APIPromise } from '../core/api-promise';
 import { Stream } from '../core/streaming';
 import { RequestOptions } from '../internal/request-options';
 import { ToolCall } from './shared';
+import { ResponseFormatJSONSchema } from './shared';
 import { ChatCompletionStream, ChatCompletionStreamParams } from '../lib/ChatCompletionStream';
-import { ExtractParsedContentFromParams } from '../lib/parser';
+import { validateInputTools, maybeParseChatCompletion, ExtractParsedContentFromParams } from '../lib/parser';
 
 export class Chat extends APIResource {
   /**
@@ -29,6 +30,57 @@ export class Chat extends APIResource {
     return this._client.post('/v1/chat', { body, ...options, stream: body.stream ?? false }) as
       | APIPromise<ChatCompletion>
       | APIPromise<Stream<ChatCompletionChunk>>;
+  }
+
+  /**
+   * Create a completion and also parse the response
+   *
+   * This method automatically parses the response content into a structured format
+   * based on the provided response_format. It uses either:
+   *
+   * 1. A Zod schema provided with zodResponseFormat() to validate and parse the output
+   * 2. The raw JSON schema response if json_schema is specified directly
+   *
+   * For tools, it will parse function arguments into structured objects if the tools
+   * are created using zodFunction().
+   *
+   * ```ts
+   * const completion = await client.chat.parse({
+   *    model: 'palmyra-x-004',
+   *    messages: [
+   *      { role: 'system', content: 'You are a helpful math tutor.' },
+   *      { role: 'user', content: 'solve 8x + 31 = 2' },
+   *    ],
+   *    response_format: zodResponseFormat(
+   *      z.object({
+   *        steps: z.array(z.object({
+   *          explanation: z.string(),
+   *          answer: z.string(),
+   *        })),
+   *        final_answer: z.string(),
+   *      }),
+   *      'math_answer',
+   *    ),
+   *  });
+   *
+   * const message = completion.choices[0]?.message;
+   * if (message?.parsed) {
+   *   console.log(message.parsed);
+   *   console.log(message.parsed.final_answer);
+   * }
+   * ```
+   */
+  parse<Params extends ChatCompletionParseParams, ParsedT = ExtractParsedContentFromParams<Params>>(
+    body: Params,
+    options?: RequestOptions,
+  ): APIPromise<ParsedChatCompletion<ParsedT>> {
+    if (body.tools) {
+      validateInputTools(body.tools);
+    }
+
+    return this.chat(body, options)._thenUnwrap((completion) =>
+      maybeParseChatCompletion(completion, body),
+    ) as APIPromise<ParsedChatCompletion<ParsedT>>;
   }
 
   /**
@@ -644,7 +696,9 @@ export interface ParsedChatCompletion<ParsedT> extends ChatCompletion {
   choices: Array<ParsedChoice<ParsedT>>;
 }
 
-export type ChatCompletionParseParams = ChatChatParamsNonStreaming;
+export interface ChatCompletionParseParams extends ChatChatParamsNonStreaming {
+  response_format?: ResponseFormatJSONSchema;
+}
 
 export declare namespace Chat {
   export {

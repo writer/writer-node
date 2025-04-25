@@ -45,6 +45,7 @@
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.8.2",
     "typescript-eslint": "^8.24.0",
+    "prettier-2": "npm:prettier@^2",
     "zod": "^3.23.8"
   },
   "resolutions": {
@@ -72,6 +73,14 @@
     "./*": {
       "import": "./dist/*.mjs",
       "require": "./dist/*.js"
+    }
+  },
+  "peerDependencies": {
+    "zod": "^3.23.8"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
     }
   }
 }

@@ -13,10 +13,8 @@ type AnyChatChatParams =
   | ChatCompletionStreamingToolRunnerParams<any>
   | ChatCompletionStreamParams;
 
-// note: we currently use a placeholder, structured output isn't yet supported by the API
-// export type ExtractParsedContentFromParams<Params extends AnyChatChatParams> =
-// Params['response_format'] extends AutoParseableResponseFormat<infer P> ? P : null;
-export type ExtractParsedContentFromParams<_Params extends AnyChatChatParams> = null;
+export type ExtractParsedContentFromParams<Params extends AnyChatChatParams> =
+  Params['response_format'] extends AutoParseableResponseFormat<infer P> ? P : null;
 
 export type AutoParseableResponseFormat<ParsedT> = ResponseFormatJSONSchema & {
   __output: ParsedT; // type-level only
@@ -151,9 +149,22 @@ export function parseChatCompletion<
 }
 
 function parseResponseFormat<Params extends ChatChatParams, ParsedT = ExtractParsedContentFromParams<Params>>(
-  _params: Params,
-  _content: string,
+  params: Params,
+  content: string,
 ): ParsedT | null {
+  if ('response_format' in params && params.response_format?.type !== 'json_schema') {
+    return null;
+  }
+
+  if ('response_format' in params && params.response_format?.type === 'json_schema') {
+    if (isAutoParsableResponseFormat(params.response_format)) {
+      const response_format = params.response_format as AutoParseableResponseFormat<ParsedT>;
+      return response_format.$parseRaw(content);
+    }
+
+    return JSON.parse(content) as unknown as ParsedT;
+  }
+
   return null;
 }
 
@@ -169,7 +180,10 @@ function parseToolCall<Params extends ChatChatParams>(
     function: {
       ...toolCall.function,
       parsed_arguments:
-        isAutoParsableTool(inputTool) ? inputTool.$parseRaw(toolCall.function.arguments) : null,
+        isAutoParsableTool(inputTool) ? inputTool.$parseRaw(toolCall.function.arguments)
+        : inputTool?.function && 'strict' in inputTool.function && inputTool.function.strict === true ?
+          JSON.parse(toolCall.function.arguments)
+        : null,
     },
   };
 }
@@ -182,7 +196,11 @@ export function shouldParseToolCall(params: ChatChatParams | null | undefined, t
   const inputTool = params.tools?.find(
     (inputTool) => inputTool.type === 'function' && inputTool.function?.name === toolCall.function.name,
   );
-  return isAutoParsableTool(inputTool) || false;
+  return (
+    isAutoParsableTool(inputTool) ||
+    (inputTool?.function && 'strict' in inputTool.function && inputTool.function.strict === true) ||
+    false
+  );
 }
 
 export function hasAutoParseableInput(params: AnyChatChatParams): boolean {
@@ -204,6 +222,12 @@ export function validateInputTools(tools: ToolParam[] | undefined) {
     if (tool.type !== 'function') {
       throw new WriterError(
         `Currently only \`function\` tool types support auto-parsing; Received \`${tool.type}\``,
+      );
+    }
+
+    if (!tool.function || !('strict' in tool.function) || tool.function.strict !== true) {
+      throw new WriterError(
+        `The \`${tool.function?.name}\` tool is not marked with \`strict: true\`. Only strict function tools can be auto-parsed`,
       );
     }
   }
