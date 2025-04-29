@@ -204,6 +204,8 @@ export namespace ChatCompletionChunk {
       role?: 'user' | 'assistant' | 'system';
 
       tool_calls?: Array<Shared.ToolCallStreaming> | null;
+
+      translation_data?: Delta.TranslationData;
     }
 
     export namespace Delta {
@@ -217,6 +219,23 @@ export namespace ChatCompletionChunk {
          * The prompt processed by the model.
          */
         prompt: string;
+      }
+
+      export interface TranslationData {
+        /**
+         * The language code of the source text.
+         */
+        source_language_code: string;
+
+        /**
+         * The text the tool translated.
+         */
+        source_text: string;
+
+        /**
+         * The language code of the target text.
+         */
+        target_language_code: string;
       }
     }
   }
@@ -245,6 +264,8 @@ export interface ChatCompletionMessage {
   llm_data?: ChatCompletionMessage.LlmData | null;
 
   tool_calls?: Array<Shared.ToolCall> | null;
+
+  translation_data?: ChatCompletionMessage.TranslationData;
 }
 
 export namespace ChatCompletionMessage {
@@ -259,6 +280,23 @@ export namespace ChatCompletionMessage {
      */
     prompt: string;
   }
+
+  export interface TranslationData {
+    /**
+     * The language code of the source text.
+     */
+    source_language_code: string;
+
+    /**
+     * The text the tool translated.
+     */
+    source_text: string;
+
+    /**
+     * The language code of the target text.
+     */
+    target_language_code: string;
+  }
 }
 
 export interface ChatCompletionParams {
@@ -270,8 +308,8 @@ export interface ChatCompletionParams {
 
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for creating
-   * the chat completion. Supports `palmyra-x-004`, `palmyra-fin`, `palmyra-med`,
-   * `palmyra-creative`, and `palmyra-x-003-instruct`.
+   * the chat completion. Supports `palmyra-x5`, `palmyra-x4`, `palmyra-fin`,
+   * `palmyra-med`, `palmyra-creative`, and `palmyra-x-003-instruct`.
    */
   model: string;
 
@@ -295,8 +333,8 @@ export interface ChatCompletionParams {
   n?: number;
 
   /**
-   * The response format to use for the chat completion, available with
-   * `palmyra-x-004`.
+   * The response format to use for the chat completion, available with `palmyra-x4`
+   * and `palmyra-x5`.
    *
    * `text` is the default response format. [JSON Schema](https://json-schema.org/)
    * is supported for structured responses. If you specify `json_schema`, you must
@@ -340,11 +378,11 @@ export interface ChatCompletionParams {
   /**
    * An array containing tool definitions for tools that the model can use to
    * generate responses. The tool definitions use JSON schema. You can define your
-   * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
-   * that you can only use one built-in tool type in the array (only one of `graph`,
-   * `llm`, or `vision`). You can pass multiple custom
-   * tools](https://dev.writer.com/api-guides/tool-calling) of type `function` in the
-   * same request.
+   * own functions or use one of the built-in `graph`, `llm`, `translation`, or
+   * `vision` tools. Note that you can only use one built-in tool type in the array
+   * (only one of `graph`, `llm`, `translation`, or `vision`). You can pass multiple
+   * [custom tools](https://dev.writer.com/api-guides/tool-calling) of type
+   * `function` in the same request.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -381,8 +419,8 @@ export namespace ChatCompletionParams {
   }
 
   /**
-   * The response format to use for the chat completion, available with
-   * `palmyra-x-004`.
+   * The response format to use for the chat completion, available with `palmyra-x4`
+   * and `palmyra-x5`.
    *
    * `text` is the default response format. [JSON Schema](https://json-schema.org/)
    * is supported for structured responses. If you specify `json_schema`, you must
@@ -448,8 +486,8 @@ export interface ChatChatParamsBase {
 
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for creating
-   * the chat completion. Supports `palmyra-x-004`, `palmyra-fin`, `palmyra-med`,
-   * `palmyra-creative`, and `palmyra-x-003-instruct`.
+   * the chat completion. Supports `palmyra-x5`, `palmyra-x4`, `palmyra-fin`,
+   * `palmyra-med`, `palmyra-creative`, and `palmyra-x-003-instruct`.
    */
   model: string;
 
@@ -473,8 +511,8 @@ export interface ChatChatParamsBase {
   n?: number;
 
   /**
-   * The response format to use for the chat completion, available with
-   * `palmyra-x-004`.
+   * The response format to use for the chat completion, available with `palmyra-x4`
+   * and `palmyra-x5`.
    *
    * `text` is the default response format. [JSON Schema](https://json-schema.org/)
    * is supported for structured responses. If you specify `json_schema`, you must
@@ -518,11 +556,11 @@ export interface ChatChatParamsBase {
   /**
    * An array containing tool definitions for tools that the model can use to
    * generate responses. The tool definitions use JSON schema. You can define your
-   * own functions or use one of the built-in `graph`, `llm`, or `vision` tools. Note
-   * that you can only use one built-in tool type in the array (only one of `graph`,
-   * `llm`, or `vision`). You can pass multiple custom
-   * tools](https://dev.writer.com/api-guides/tool-calling) of type `function` in the
-   * same request.
+   * own functions or use one of the built-in `graph`, `llm`, `translation`, or
+   * `vision` tools. Note that you can only use one built-in tool type in the array
+   * (only one of `graph`, `llm`, `translation`, or `vision`). You can pass multiple
+   * [custom tools](https://dev.writer.com/api-guides/tool-calling) of type
+   * `function` in the same request.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -559,8 +597,8 @@ export namespace ChatChatParams {
   }
 
   /**
-   * The response format to use for the chat completion, available with
-   * `palmyra-x-004`.
+   * The response format to use for the chat completion, available with `palmyra-x4`
+   * and `palmyra-x5`.
    *
    * `text` is the default response format. [JSON Schema](https://json-schema.org/)
    * is supported for structured responses. If you specify `json_schema`, you must
