@@ -91,7 +91,7 @@ The SDK also includes helpers to process streams and handle the incoming events.
 ```ts
 const runner = writer.chat
   .stream({
-    model: 'palmyra-x-003-instruct',
+    model: 'palmyra-x5',
     messages: [{ role: 'user', content: 'Hi, today I want to write about' }],
   })
   .on('message', (msg) => console.log(msg))
