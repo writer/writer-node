@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.2.0 (2025-04-30)
+
+Full Changelog: [v2.2.0-rc.1...v2.2.0](https://github.com/writer/writer-node/compare/v2.2.0-rc.1...v2.2.0)
+
+### Chores
+
+* **internal:** refactor utils ([333de4b](https://github.com/writer/writer-node/commit/333de4bab1ca8618c63db6d74b2e2fb1ea012e03))
+
+
+### Documentation
+
+* **api:** updates to API spec ([88938c9](https://github.com/writer/writer-node/commit/88938c9aadfb345ad57ca5c075206a120ee9ac73))
+* README updates ([ae4fed7](https://github.com/writer/writer-node/commit/ae4fed799956c2047ead739c307c5f08e28200e1))
+* Update models in README. ([904eda0](https://github.com/writer/writer-node/commit/904eda0c6efc26d57955a639790f92a6eec078a1))
+
 ## 2.2.0-rc.1 (2025-04-25)
 
 Full Changelog: [v2.1.0...v2.2.0-rc.1](https://github.com/writer/writer-node/compare/v2.1.0...v2.2.0-rc.1)
