@@ -486,7 +486,7 @@ export class ChatCompletionStream<ParsedT = null>
 
       if (!delta) continue; // Shouldn't happen; just in case.
 
-      const { content, refusal, role, tool_calls, graph_data, llm_data, ...rest } = delta;
+      const { content, refusal, role, tool_calls, graph_data, llm_data, translation_data, ...rest } = delta;
       assertIsEmpty(rest);
       Object.assign(choice.message, rest);
 
