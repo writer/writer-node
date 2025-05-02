@@ -6,7 +6,7 @@
     "rootDir": "./dist/src",
     "paths": {
       "writer-sdk/*": ["dist/src/*"],
-      "writer-sdk": ["dist/src/index.ts"],
+      "writer-sdk": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
