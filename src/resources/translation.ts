@@ -7,6 +7,20 @@ import { RequestOptions } from '../internal/request-options';
 export class Translation extends APIResource {
   /**
    * Translate text from one language to another.
+   *
+   * @example
+   * ```ts
+   * const translationResponse =
+   *   await client.translation.translate({
+   *     formality: true,
+   *     length_control: true,
+   *     mask_profanity: true,
+   *     model: 'palmyra-translate',
+   *     source_language_code: 'en',
+   *     target_language_code: 'es',
+   *     text: 'Hello, world!',
+   *   });
+   * ```
    */
   translate(body: TranslationTranslateParams, options?: RequestOptions): APIPromise<TranslationResponse> {
     return this._client.post('/v1/translation', { body, ...options });

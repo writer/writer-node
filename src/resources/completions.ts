@@ -10,6 +10,14 @@ import { RequestOptions } from '../internal/request-options';
 export class Completions extends APIResource {
   /**
    * Text generation
+   *
+   * @example
+   * ```ts
+   * const completion = await client.completions.create({
+   *   model: 'palmyra-x-003-instruct',
+   *   prompt: 'Write me an SEO article about...',
+   * });
+   * ```
    */
   create(body: CompletionCreateParamsNonStreaming, options?: RequestOptions): APIPromise<Completion>;
   create(
