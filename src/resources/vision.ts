@@ -7,6 +7,19 @@ import { RequestOptions } from '../internal/request-options';
 export class Vision extends APIResource {
   /**
    * Submit images and a prompt to generate an analysis of the images.
+   *
+   * @example
+   * ```ts
+   * const visionResponse = await client.vision.analyze({
+   *   model: 'palmyra-vision',
+   *   prompt:
+   *     'Describe the difference between the image {{image_1}} and the image {{image_2}}.',
+   *   variables: [
+   *     { name: 'image_1', file_id: 'f1234' },
+   *     { name: 'image_2', file_id: 'f9876' },
+   *   ],
+   * });
+   * ```
    */
   analyze(body: VisionAnalyzeParams, options?: RequestOptions): APIPromise<VisionResponse> {
     return this._client.post('/v1/vision', { body, ...options });

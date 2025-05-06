@@ -7,6 +7,11 @@ import { RequestOptions } from '../internal/request-options';
 export class Models extends APIResource {
   /**
    * List models
+   *
+   * @example
+   * ```ts
+   * const models = await client.models.list();
+   * ```
    */
   list(options?: RequestOptions): APIPromise<ModelListResponse> {
     return this._client.get('/v1/models', options);

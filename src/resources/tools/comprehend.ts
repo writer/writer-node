@@ -8,6 +8,14 @@ export class Comprehend extends APIResource {
   /**
    * Analyze unstructured medical text to extract entities labeled with standardized
    * medical codes and confidence scores.
+   *
+   * @example
+   * ```ts
+   * const response = await client.tools.comprehend.medical({
+   *   content: 'content',
+   *   response_type: 'Entities',
+   * });
+   * ```
    */
   medical(body: ComprehendMedicalParams, options?: RequestOptions): APIPromise<ComprehendMedicalResponse> {
     return this._client.post('/v1/tools/comprehend/medical', { body, ...options });
