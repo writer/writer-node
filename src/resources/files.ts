@@ -120,7 +120,7 @@ export interface FileListParams extends CursorPageParams {
    * The extensions of the files to retrieve. Separate multiple extensions with a
    * comma. For example: `pdf,jpg,docx`.
    */
-  file_type?: string;
+  file_types?: string;
 
   /**
    * The unique identifier of the graph to which the files belong.
