@@ -51,10 +51,6 @@
   "resolutions": {
     "synckit": "0.8.8"
   },
-  "browser": {
-    "./internal/shims/getBuiltinModule.mjs": "./internal/shims/nullGetBuiltinModule.mjs",
-    "./internal/shims/getBuiltinModule.js": "./internal/shims/nullGetBuiltinModule.js"
-  },
   "imports": {
     "writer-sdk": ".",
     "writer-sdk/*": "./src/*"
@@ -78,6 +74,8 @@
       "require": "./dist/*.js"
     }
   },
+  "engines": {
+    "node": ">= 20"
   "peerDependencies": {
     "zod": "^3.23.8"
   },
