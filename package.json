@@ -74,9 +74,6 @@
       "require": "./dist/*.js"
     }
   },
-  "engines": {
-    "node": ">= 20"
-  },
   "peerDependencies": {
     "zod": "^3.23.8"
   },
