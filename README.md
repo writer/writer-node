@@ -26,16 +26,12 @@ const client = new Writer({
   apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const chatCompletion = await client.chat.chat({
-    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
-    model: 'palmyra-x5',
-  });
+const chatCompletion = await client.chat.chat({
+  messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+  model: 'palmyra-x5',
+});
 
-  console.log(chatCompletion.id);
-}
-
-main();
+console.log(chatCompletion.id);
 ```
 
 ## Streaming responses
@@ -72,15 +68,11 @@ const client = new Writer({
   apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: Writer.ChatChatParams = {
-    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
-    model: 'palmyra-x5',
-  };
-  const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
-}
-
-main();
+const params: Writer.ChatChatParams = {
+  messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+  model: 'palmyra-x5',
+};
+const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -93,21 +85,17 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const chatCompletion = await client.chat
-    .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
-    .catch(async (err) => {
-      if (err instanceof Writer.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
-}
-
-main();
+const chatCompletion = await client.chat
+  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
+  .catch(async (err) => {
+    if (err instanceof Writer.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
