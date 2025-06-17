@@ -1,6 +1,6 @@
 # Writer TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/writer-sdk.svg)](https://npmjs.org/package/writer-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/writer-sdk)
+[![NPM version](<https://img.shields.io/npm/v/writer-sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/writer-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/writer-sdk)
 
 This library provides convenient access to the Writer REST API from server-side TypeScript or JavaScript.
 
