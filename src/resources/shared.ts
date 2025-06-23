@@ -5,7 +5,7 @@ import * as Shared from './shared';
 export interface ErrorMessage {
   description: string;
 
-  extras: Record<string, unknown>;
+  extras: { [key: string]: unknown };
 
   key: string;
 }
@@ -13,7 +13,7 @@ export interface ErrorMessage {
 export interface ErrorObject {
   errors: Array<ErrorMessage>;
 
-  extras: Record<string, unknown>;
+  extras: { [key: string]: unknown };
 
   tpe: string;
 }
@@ -41,7 +41,7 @@ export interface FunctionDefinition {
 /**
  * The parameters of the function.
  */
-export type FunctionParams = Record<string, unknown>;
+export type FunctionParams = { [key: string]: unknown };
 
 export interface GraphData {
   sources?: Array<Source | null>;
@@ -146,7 +146,7 @@ export namespace ToolCallStreaming {
 }
 
 export interface ToolChoiceJsonObject {
-  value: Record<string, unknown>;
+  value: { [key: string]: unknown };
 }
 
 export interface ToolChoiceString {
