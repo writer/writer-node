@@ -1,0 +1,40 @@
+{
+  "pkg": "writer-sdk",
+  "githubRepo": "https://github.com/writer/writer-node",
+  "clientClass": "Writer",
+  "methods": [
+    {
+      "base": "graphs",
+      "name": "removeFileFromGraph",
+      "params": [
+        {
+          "type": "param",
+          "key": "file_id",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "graph_id",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "file_id",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    }
+  ]
+}

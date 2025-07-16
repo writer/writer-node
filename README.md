@@ -1,6 +1,6 @@
 # Writer TypeScript API Library
 
-[![NPM version](https://img.shields.io/npm/v/writer-sdk.svg)](https://npmjs.org/package/writer-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/writer-sdk)
+[![NPM version](<https://img.shields.io/npm/v/writer-sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/writer-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/writer-sdk)
 
 This library provides access to the Writer REST API from server-side TypeScript(>=4.9) or JavaScript.
 
@@ -72,11 +72,10 @@ import Writer from 'writer-sdk';
 
 const client = new Writer();
 
-async function main() {
-  const chatCompletion = await client.chat.chat({
-    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
-    model: 'palmyra-x5',
-  });
+const chatCompletion = await client.chat.chat({
+  messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+  model: 'palmyra-x5',
+});
 
   console.log(chatCompletion.choices[0].message.content);
 }
@@ -141,15 +140,11 @@ import Writer from 'writer-sdk';
 
 const client = new Writer();
 
-async function main() {
-  const params: Writer.ChatChatParams = {
-    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
-    model: 'palmyra-x5',
-  };
-  const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
-}
-
-main();
+const params: Writer.ChatChatParams = {
+  messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+  model: 'palmyra-x5',
+};
+const chatCompletion: Writer.ChatCompletion = await client.chat.chat(params);
 ```
 
 Documentation for each method, request parameter, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -215,21 +210,17 @@ a subclass of `APIError` will be thrown.
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const chatCompletion = await client.chat
-    .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
-    .catch(async (err) => {
-      if (err instanceof Writer.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
-}
-
-main();
+const chatCompletion = await client.chat
+  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
+  .catch(async (err) => {
+    if (err instanceof Writer.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 ```
 
 Error codes are as follows:
@@ -421,9 +412,8 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.foo.create({
-  foo: 'my_param',
-  bar: 12,
+client.chat.chat({
+  // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
 });
@@ -530,7 +520,28 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
 3. Changes that we do not expect to impact the vast majority of users in practice.
 
-We take backwards compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/writer/writer-node/issues) with questions, bugs, or suggestions.
+
+## Requirements
+
+TypeScript >= 4.9 is supported.
+
+The following runtimes are supported:
+
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
+
+Note that React Native is not supported at this time.
+
+If you are interested in other runtime environments, please open or upvote an issue on GitHub.
 
 ## Feedback
 

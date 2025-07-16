@@ -2,7 +2,7 @@
 
 import type { Writer } from '../client';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: Writer;
 
   constructor(client: Writer) {
