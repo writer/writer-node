@@ -1,5 +1,64 @@
 # Changelog
 
+## 2.2.1 (2025-07-16)
+
+Full Changelog: [v2.2.0...v2.2.1](https://github.com/writer/writer-node/compare/v2.2.0...v2.2.1)
+
+### Features
+
+* **client:** add support for endpoint-specific base URLs ([bdfd113](https://github.com/writer/writer-node/commit/bdfd113832db72f1c99b6dee8f900fd04258be48))
+* **client:** add withOptions helper ([73cc2cc](https://github.com/writer/writer-node/commit/73cc2cc05df8da8669265f7b8af02581dac7d149))
+
+
+### Bug Fixes
+
+* avoid console usage ([0939a4a](https://github.com/writer/writer-node/commit/0939a4ac403999461eecfb0e56351ac9780ba6ee))
+* **ci:** release-doctor — report correct token name ([d0f0be6](https://github.com/writer/writer-node/commit/d0f0be6634b59d1d14a4af129c2a73ded3fda887))
+* **client:** always overwrite when merging headers ([0dc9410](https://github.com/writer/writer-node/commit/0dc94108fb0e28a8f8740ef14cbcd9171caf1b1a))
+* **client:** explicitly copy fetch in withOptions ([ea81361](https://github.com/writer/writer-node/commit/ea81361eb48ee5b465f593d94f7263db5fb8911f))
+* **client:** get fetchOptions type more reliably ([178185b](https://github.com/writer/writer-node/commit/178185b95686e84f22a8a892831d67eedffdba00))
+* compat with more runtimes ([a43506b](https://github.com/writer/writer-node/commit/a43506b06ddc1a231b2ae67922c28dfd53c31799))
+* package.json format ([2208eda](https://github.com/writer/writer-node/commit/2208eda68fc571c7b72a9c2bbd6ab96eaaf27ca0))
+* publish script — handle NPM errors correctly ([39c4b77](https://github.com/writer/writer-node/commit/39c4b77d4926523e5d457cb3b9bf29d015c580dc))
+
+
+### Chores
+
+* add docs to RequestOptions type ([3f7237f](https://github.com/writer/writer-node/commit/3f7237f95cd66aad1b2c4fc60886dde7ffbb90f2))
+* adjust eslint.config.mjs ignore pattern ([01dff7e](https://github.com/writer/writer-node/commit/01dff7e988804ee4a2025f743c58c7ba7b29b90e))
+* avoid type error in certain environments ([5dd5df5](https://github.com/writer/writer-node/commit/5dd5df508c48912d7f3dacc1d270616295b56476))
+* **ci:** enable for pull requests ([1b3eb2c](https://github.com/writer/writer-node/commit/1b3eb2c5108d1cfb24d826c8a7e5b377143f0c98))
+* **ci:** only run for pushes and fork pull requests ([df2a7dd](https://github.com/writer/writer-node/commit/df2a7dda62772b9ac88a1fc1e5d25c0b1782f708))
+* **client:** drop support for EOL node versions ([78f8359](https://github.com/writer/writer-node/commit/78f8359e34243ff576622ed9cebd4e3e38b60014))
+* **client:** improve path param validation ([f457172](https://github.com/writer/writer-node/commit/f45717274bc75a962adf09839eb9fd96743c637a))
+* **client:** refactor imports ([353a5a6](https://github.com/writer/writer-node/commit/353a5a6fcd0293a4128130757ec4b4bd93d59e6e))
+* **deps:** bump eslint-plugin-prettier ([9a1f18d](https://github.com/writer/writer-node/commit/9a1f18d3c404914eb0198ab27544b71b32795db3))
+* **docs:** grammar improvements ([52b1f34](https://github.com/writer/writer-node/commit/52b1f341eb2503f8bd8914f900ea283a136b82cb))
+* **docs:** use top-level-await in example snippets ([7f5ac8c](https://github.com/writer/writer-node/commit/7f5ac8c0681af24ef1734b3d0990752e3613dd0d))
+* improve publish-npm script --latest tag logic ([7b778a5](https://github.com/writer/writer-node/commit/7b778a5c913d412e438620a8a4fe656b92dcc237))
+* **internal:** add pure annotations, make base APIResource abstract ([ee0adb9](https://github.com/writer/writer-node/commit/ee0adb94760e4a28d2ce2172c80b6a849d0d12b3))
+* **internal:** codegen related update ([debc99f](https://github.com/writer/writer-node/commit/debc99f6106376639ded847c8953d9b61bc610be))
+* **internal:** fix format script ([cab6ad2](https://github.com/writer/writer-node/commit/cab6ad2ea60b7a396c02479fa12525deb8def266))
+* **internal:** fix readablestream types in node 20 ([c15bde3](https://github.com/writer/writer-node/commit/c15bde3d4c63f3c641ebb1b483327ccfd9952a83))
+* **internal:** share typescript helpers ([238294b](https://github.com/writer/writer-node/commit/238294bd0eca0d00fe6dd8d2c789194fdbc6f517))
+* make some internal functions async ([0a2239c](https://github.com/writer/writer-node/commit/0a2239c4adc9e1128ba9ec0d2a49f63292aa32a5))
+* **package:** remove engines ([85661a0](https://github.com/writer/writer-node/commit/85661a05964c3d1ba5f37ffdd5a1f4eb454bb9d3))
+* **readme:** update badges ([9c1423c](https://github.com/writer/writer-node/commit/9c1423ca495e59b38f850e6a13cb152a05725fc4))
+* **readme:** use better example snippet for undocumented params ([617d2e6](https://github.com/writer/writer-node/commit/617d2e692af9db4ea2e2c427e9f17639920a2bed))
+* **ts:** reorder package.json imports ([80235f0](https://github.com/writer/writer-node/commit/80235f049c2124605a28f6ee417af4e03dbd5bae))
+
+
+### Documentation
+
+* add examples to tsdocs ([02ae649](https://github.com/writer/writer-node/commit/02ae649d4d577e26fbde7151b38f5ef72f056bea))
+* **api:** updates to API spec ([295a548](https://github.com/writer/writer-node/commit/295a54847dee382b0386c98c65bb8bf7cae255c3))
+* **api:** updates to API spec ([bd53b17](https://github.com/writer/writer-node/commit/bd53b172ef960ce3023a20c9458f65d30ca97dba))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([6b89bde](https://github.com/writer/writer-node/commit/6b89bde2a8d026242356b3da0946d0dc1a5aa7d6))
+
 ## 2.2.0 (2025-04-30)
 
 Full Changelog: [v2.2.0-rc.1...v2.2.0](https://github.com/writer/writer-node/compare/v2.2.0-rc.1...v2.2.0)
