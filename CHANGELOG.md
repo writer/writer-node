@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.2 (2025-07-21)
+
+Full Changelog: [v2.2.1...v2.2.2](https://github.com/writer/writer-node/compare/v2.2.1...v2.2.2)
+
+### Documentation
+
+* **api:** updates to API spec ([bd08c45](https://github.com/writer/writer-node/commit/bd08c45f41c3bf89d0c5395b40742e68ece6902f))
+
 ## 2.2.1 (2025-07-16)
 
 Full Changelog: [v2.2.0...v2.2.1](https://github.com/writer/writer-node/compare/v2.2.0...v2.2.1)
