@@ -47,7 +47,9 @@ export namespace VisionRequest {
    * An array of file variables required for the analysis. The image files must be
    * uploaded to the Writer platform before they can be used in a vision request.
    * Learn how to upload files using the
-   * [Files API](https://dev.writer.com/api-guides/api-reference/file-api/upload-files).
+   * [Files API](https://dev.writer.com/api-reference/file-api/upload-files).
+   *
+   * The maximum allowed file size for each image is 7MB.
    */
   export interface Variable {
     /**
@@ -93,7 +95,9 @@ export namespace VisionAnalyzeParams {
    * An array of file variables required for the analysis. The image files must be
    * uploaded to the Writer platform before they can be used in a vision request.
    * Learn how to upload files using the
-   * [Files API](https://dev.writer.com/api-guides/api-reference/file-api/upload-files).
+   * [Files API](https://dev.writer.com/api-reference/file-api/upload-files).
+   *
+   * The maximum allowed file size for each image is 7MB.
    */
   export interface Variable {
     /**

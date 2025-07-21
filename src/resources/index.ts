@@ -50,7 +50,9 @@ export {
   type Question,
   type QuestionResponseChunk,
   type GraphCreateResponse,
+  type GraphRetrieveResponse,
   type GraphUpdateResponse,
+  type GraphListResponse,
   type GraphDeleteResponse,
   type GraphRemoveFileFromGraphResponse,
   type GraphCreateParams,
@@ -61,7 +63,7 @@ export {
   type GraphQuestionParamsNonStreaming,
   type GraphQuestionParamsStreaming,
   type GraphRemoveFileFromGraphParams,
-  type GraphsCursorPage,
+  type GraphListResponsesCursorPage,
 } from './graphs';
 export { Models, type ModelListResponse } from './models';
 export {

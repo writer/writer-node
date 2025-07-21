@@ -480,9 +480,9 @@ export namespace ApplicationGenerateContentParams {
      *
      * If the input type is "File upload", you must pass the `file_id` of an uploaded
      * file. You cannot pass a file object directly. See the
-     * [file upload endpoint](https://dev.writer.com/api-guides/api-reference/file-api/upload-files)
+     * [file upload endpoint](https://dev.writer.com/api-reference/file-api/upload-files)
      * for instructions on uploading files or the
-     * [list files endpoint](https://dev.writer.com/api-guides/api-reference/file-api/get-all-files)
+     * [list files endpoint](https://dev.writer.com/api-reference/file-api/get-all-files)
      * for how to see a list of uploaded files and their IDs.
      */
     value: Array<string>;
