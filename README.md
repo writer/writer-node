@@ -159,13 +159,13 @@ List methods in the Writer API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
-async function fetchAllGraphs(params) {
-  const allGraphs = [];
+async function fetchAllGraphListResponses(params) {
+  const allGraphListResponses = [];
   // Automatically fetches more pages as needed.
-  for await (const graph of client.graphs.list()) {
-    allGraphs.push(graph);
+  for await (const graphListResponse of client.graphs.list()) {
+    allGraphListResponses.push(graphListResponse);
   }
-  return allGraphs;
+  return allGraphListResponses;
 }
 ```
 
@@ -173,8 +173,8 @@ Alternatively, you can request a single page at a time:
 
 ```ts
 let page = await client.graphs.list();
-for (const graph of page.data) {
-  console.log(graph);
+for (const graphListResponse of page.data) {
+  console.log(graphListResponse);
 }
 
 // Convenience methods are provided for manually paginating:
