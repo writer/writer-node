@@ -48,10 +48,6 @@
     "prettier-2": "npm:prettier@^2",
     "zod": "^3.23.8"
   },
-  "imports": {
-    "writer-sdk": ".",
-    "writer-sdk/*": "./src/*"
-  },
   "bin": {
     "writer-sdk": "bin/cli"
   },
