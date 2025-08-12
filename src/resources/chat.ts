@@ -467,7 +467,8 @@ export namespace ChatCompletionParams {
     }
 
     /**
-     * Represents an image content fragment within a chat message.
+     * Represents an image content fragment within a chat message. Note: This content
+     * type is only supported with the Palmyra X5 model.
      */
     export interface ImageFragment {
       /**
@@ -708,7 +709,8 @@ export namespace ChatChatParams {
     }
 
     /**
-     * Represents an image content fragment within a chat message.
+     * Represents an image content fragment within a chat message. Note: This content
+     * type is only supported with the Palmyra X5 model.
      */
     export interface ImageFragment {
       /**
