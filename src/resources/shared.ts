@@ -166,7 +166,8 @@ export type ToolParam =
   | ToolParam.GraphTool
   | ToolParam.LlmTool
   | ToolParam.TranslationTool
-  | ToolParam.VisionTool;
+  | ToolParam.VisionTool
+  | ToolParam.WebSearchTool;
 
 export namespace ToolParam {
   export interface FunctionTool {
@@ -358,6 +359,35 @@ export namespace ToolParam {
          */
         name: string;
       }
+    }
+  }
+
+  export interface WebSearchTool {
+    /**
+     * A tool that uses web search to find information.
+     */
+    function: WebSearchTool.Function;
+
+    /**
+     * The type of tool.
+     */
+    type: 'web_search';
+  }
+
+  export namespace WebSearchTool {
+    /**
+     * A tool that uses web search to find information.
+     */
+    export interface Function {
+      /**
+       * An array of domains to exclude from the search results.
+       */
+      exclude_domains: Array<string>;
+
+      /**
+       * An array of domains to include in the search results.
+       */
+      include_domains: Array<string>;
     }
   }
 }
