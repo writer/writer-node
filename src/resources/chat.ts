@@ -15,7 +15,7 @@ export class Chat extends APIResource {
   /**
    * Generate a chat completion based on the provided messages. The response shown
    * below is for non-streaming. To learn about streaming responses, see the
-   * [chat completion guide](https://dev.writer.com/api-guides/chat-completion).
+   * [chat completion guide](https://dev.writer.com/home/chat-completion).
    */
   chat(body: ChatChatParamsNonStreaming, options?: RequestOptions): APIPromise<ChatCompletion>;
   chat(body: ChatChatParamsStreaming, options?: RequestOptions): APIPromise<Stream<ChatCompletionChunk>>;
@@ -331,6 +331,8 @@ export interface ChatCompletionMessage {
   tool_calls?: Array<Shared.ToolCall> | null;
 
   translation_data?: ChatCompletionMessage.TranslationData;
+
+  web_search_data?: ChatCompletionMessage.WebSearchData;
 }
 
 export namespace ChatCompletionMessage {
@@ -362,6 +364,18 @@ export namespace ChatCompletionMessage {
      */
     target_language_code: string;
   }
+
+  export interface WebSearchData {
+    sources: Array<WebSearchData.Source>;
+  }
+
+  export namespace WebSearchData {
+    export interface Source {
+      raw_content?: string;
+
+      url?: string;
+    }
+  }
 }
 
 export interface ChatCompletionParams {
@@ -385,8 +399,10 @@ export interface ChatCompletionParams {
 
   /**
    * Defines the maximum number of tokens (words and characters) that the model can
-   * generate in the response. The default value is set to 16, but it can be adjusted
-   * to allow for longer or shorter responses as needed.
+   * generate in the response. This can be adjusted to allow for longer or shorter
+   * responses as needed. The maximum value varies by model. See the
+   * [models overview](/home/models) for more information about the maximum number of
+   * tokens for each model.
    */
   max_tokens?: number;
 
@@ -434,9 +450,17 @@ export interface ChatCompletionParams {
   temperature?: number;
 
   /**
-   * Configure how the model will call functions: `auto` will allow the model to
-   * automatically choose the best tool, `none` disables tool calling. You can also
-   * pass a specific previously defined function.
+   * Configure how the model will call functions:
+   *
+   * - `auto`: allows the model to automatically choose the tool to use, or not call
+   *   a tool
+   * - `none`: disables tool calling; the model will instead generate a message
+   * - `required`: requires the model to call one or more tools
+   *
+   * You can also use a JSON object to force the model to call a specific tool. For
+   * example, `{"type": "function", "function": {"name": "get_current_weather"}}`
+   * requires the model to call the `get_current_weather` function, regardless of the
+   * prompt.
    */
   tool_choice?: Shared.ToolChoiceString | Shared.ToolChoiceJsonObject;
 
@@ -446,8 +470,8 @@ export interface ChatCompletionParams {
    * own functions or use one of the built-in `graph`, `llm`, `translation`, or
    * `vision` tools. Note that you can only use one built-in tool type in the array
    * (only one of `graph`, `llm`, `translation`, or `vision`). You can pass multiple
-   * [custom tools](https://dev.writer.com/api-guides/tool-calling) of type
-   * `function` in the same request.
+   * [custom tools](https://dev.writer.com/home/tool-calling) of type `function` in
+   * the same request.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -465,15 +489,23 @@ export namespace ChatCompletionParams {
     /**
      * The role of the chat message. You can provide a system prompt by setting the
      * role to `system`, or specify that a message is the result of a
-     * [tool call](https://dev.writer.com/api-guides/tool-calling) by setting the role
-     * to `tool`.
+     * [tool call](https://dev.writer.com/home/tool-calling) by setting the role to
+     * `tool`.
      */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
-    content?: string | null;
+    /**
+     * The content of the message. Can be either a string (for text-only messages) or
+     * an array of content fragments (for mixed text and image messages).
+     */
+    content?: string | Array<Message.TextFragment | Message.ImageFragment> | null;
 
     graph_data?: Shared.GraphData | null;
 
+    /**
+     * An optional name for the message sender. Useful for identifying different users,
+     * personas, or tools in multi-participant conversations.
+     */
     name?: string | null;
 
     refusal?: string | null;
@@ -481,6 +513,52 @@ export namespace ChatCompletionParams {
     tool_call_id?: string | null;
 
     tool_calls?: Array<Shared.ToolCall> | null;
+  }
+
+  export namespace Message {
+    /**
+     * Represents a text content fragment within a chat message.
+     */
+    export interface TextFragment {
+      /**
+       * The actual text content of the message fragment.
+       */
+      text: string;
+
+      /**
+       * The type of content fragment. Must be `text` for text fragments.
+       */
+      type: 'text';
+    }
+
+    /**
+     * Represents an image content fragment within a chat message. Note: This content
+     * type is only supported with the Palmyra X5 model.
+     */
+    export interface ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      image_url: ImageFragment.ImageURL;
+
+      /**
+       * The type of content fragment. Must be `image_url` for image fragments.
+       */
+      type: 'image_url';
+    }
+
+    export namespace ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      export interface ImageURL {
+        /**
+         * The URL pointing to the image file. Supports common image formats like JPEG,
+         * PNG, GIF, etc.
+         */
+        url: string;
+      }
+    }
   }
 
   /**
@@ -563,8 +641,10 @@ export interface ChatChatParamsBase {
 
   /**
    * Defines the maximum number of tokens (words and characters) that the model can
-   * generate in the response. The default value is set to 16, but it can be adjusted
-   * to allow for longer or shorter responses as needed.
+   * generate in the response. This can be adjusted to allow for longer or shorter
+   * responses as needed. The maximum value varies by model. See the
+   * [models overview](/home/models) for more information about the maximum number of
+   * tokens for each model.
    */
   max_tokens?: number;
 
@@ -612,9 +692,17 @@ export interface ChatChatParamsBase {
   temperature?: number;
 
   /**
-   * Configure how the model will call functions: `auto` will allow the model to
-   * automatically choose the best tool, `none` disables tool calling. You can also
-   * pass a specific previously defined function.
+   * Configure how the model will call functions:
+   *
+   * - `auto`: allows the model to automatically choose the tool to use, or not call
+   *   a tool
+   * - `none`: disables tool calling; the model will instead generate a message
+   * - `required`: requires the model to call one or more tools
+   *
+   * You can also use a JSON object to force the model to call a specific tool. For
+   * example, `{"type": "function", "function": {"name": "get_current_weather"}}`
+   * requires the model to call the `get_current_weather` function, regardless of the
+   * prompt.
    */
   tool_choice?: Shared.ToolChoiceString | Shared.ToolChoiceJsonObject;
 
@@ -624,8 +712,8 @@ export interface ChatChatParamsBase {
    * own functions or use one of the built-in `graph`, `llm`, `translation`, or
    * `vision` tools. Note that you can only use one built-in tool type in the array
    * (only one of `graph`, `llm`, `translation`, or `vision`). You can pass multiple
-   * [custom tools](https://dev.writer.com/api-guides/tool-calling) of type
-   * `function` in the same request.
+   * [custom tools](https://dev.writer.com/home/tool-calling) of type `function` in
+   * the same request.
    */
   tools?: Array<Shared.ToolParam>;
 
@@ -643,15 +731,23 @@ export namespace ChatChatParams {
     /**
      * The role of the chat message. You can provide a system prompt by setting the
      * role to `system`, or specify that a message is the result of a
-     * [tool call](https://dev.writer.com/api-guides/tool-calling) by setting the role
-     * to `tool`.
+     * [tool call](https://dev.writer.com/home/tool-calling) by setting the role to
+     * `tool`.
      */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
-    content?: string | null;
+    /**
+     * The content of the message. Can be either a string (for text-only messages) or
+     * an array of content fragments (for mixed text and image messages).
+     */
+    content?: string | Array<Message.TextFragment | Message.ImageFragment> | null;
 
     graph_data?: Shared.GraphData | null;
 
+    /**
+     * An optional name for the message sender. Useful for identifying different users,
+     * personas, or tools in multi-participant conversations.
+     */
     name?: string | null;
 
     refusal?: string | null;
@@ -659,6 +755,52 @@ export namespace ChatChatParams {
     tool_call_id?: string | null;
 
     tool_calls?: Array<Shared.ToolCall> | null;
+  }
+
+  export namespace Message {
+    /**
+     * Represents a text content fragment within a chat message.
+     */
+    export interface TextFragment {
+      /**
+       * The actual text content of the message fragment.
+       */
+      text: string;
+
+      /**
+       * The type of content fragment. Must be `text` for text fragments.
+       */
+      type: 'text';
+    }
+
+    /**
+     * Represents an image content fragment within a chat message. Note: This content
+     * type is only supported with the Palmyra X5 model.
+     */
+    export interface ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      image_url: ImageFragment.ImageURL;
+
+      /**
+       * The type of content fragment. Must be `image_url` for image fragments.
+       */
+      type: 'image_url';
+    }
+
+    export namespace ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      export interface ImageURL {
+        /**
+         * The URL pointing to the image file. Supports common image formats like JPEG,
+         * PNG, GIF, etc.
+         */
+        url: string;
+      }
+    }
   }
 
   /**

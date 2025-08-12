@@ -7,7 +7,7 @@ import { path } from '../../internal/utils/path';
 
 export class Graphs extends APIResource {
   /**
-   * Updates the Knowledge Graphs listed and associates them with the no-code agent.
+   * Updates the list of Knowledge Graphs associated with a no-code chat agent.
    */
   update(
     applicationID: string,

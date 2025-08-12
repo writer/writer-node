@@ -62,15 +62,17 @@ import {
   GraphCreateResponse,
   GraphDeleteResponse,
   GraphListParams,
+  GraphListResponse,
+  GraphListResponsesCursorPage,
   GraphQuestionParams,
   GraphQuestionParamsNonStreaming,
   GraphQuestionParamsStreaming,
   GraphRemoveFileFromGraphParams,
   GraphRemoveFileFromGraphResponse,
+  GraphRetrieveResponse,
   GraphUpdateParams,
   GraphUpdateResponse,
   Graphs,
-  GraphsCursorPage,
   Question,
   QuestionResponseChunk,
 } from './resources/graphs';
@@ -101,6 +103,8 @@ import {
   ToolContextAwareSplittingResponse,
   ToolParsePdfParams,
   ToolParsePdfResponse,
+  ToolWebSearchParams,
+  ToolWebSearchResponse,
   Tools,
 } from './resources/tools/tools';
 import { type Fetch } from './internal/builtin-types';
@@ -894,10 +898,12 @@ export declare namespace Writer {
     type Question as Question,
     type QuestionResponseChunk as QuestionResponseChunk,
     type GraphCreateResponse as GraphCreateResponse,
+    type GraphRetrieveResponse as GraphRetrieveResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
+    type GraphListResponse as GraphListResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
     type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
-    type GraphsCursorPage as GraphsCursorPage,
+    type GraphListResponsesCursorPage as GraphListResponsesCursorPage,
     type GraphCreateParams as GraphCreateParams,
     type GraphUpdateParams as GraphUpdateParams,
     type GraphListParams as GraphListParams,
@@ -924,9 +930,11 @@ export declare namespace Writer {
     type ToolAIDetectResponse as ToolAIDetectResponse,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolWebSearchResponse as ToolWebSearchResponse,
     type ToolAIDetectParams as ToolAIDetectParams,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+    type ToolWebSearchParams as ToolWebSearchParams,
   };
 
   export {

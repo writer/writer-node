@@ -21,7 +21,7 @@ export class Graphs extends APIResource {
   /**
    * Retrieve a Knowledge Graph.
    */
-  retrieve(graphID: string, options?: RequestOptions): APIPromise<Graph> {
+  retrieve(graphID: string, options?: RequestOptions): APIPromise<GraphRetrieveResponse> {
     return this._client.get(path`/v1/graphs/${graphID}`, options);
   }
 
@@ -42,8 +42,8 @@ export class Graphs extends APIResource {
   list(
     query: GraphListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GraphsCursorPage, Graph> {
-    return this._client.getAPIList('/v1/graphs', CursorPage<Graph>, { query, ...options });
+  ): PagePromise<GraphListResponsesCursorPage, GraphListResponse> {
+    return this._client.getAPIList('/v1/graphs', CursorPage<GraphListResponse>, { query, ...options });
   }
 
   /**
@@ -98,7 +98,7 @@ export class Graphs extends APIResource {
   }
 }
 
-export type GraphsCursorPage = CursorPage<Graph>;
+export type GraphListResponsesCursorPage = CursorPage<GraphListResponse>;
 
 export interface Graph {
   /**
@@ -119,15 +119,24 @@ export interface Graph {
   name: string;
 
   /**
-   * The type of Knowledge Graph, either `manual` (files are uploaded via UI or API)
-   * or `connector` (files are uploaded via a connector).
+   * The type of Knowledge Graph:
+   *
+   * - `manual`: files are uploaded via UI or API
+   * - `connector`: files are uploaded via a data connector such as Google Drive or
+   *   Confluence
+   * - `web`: URLs are connected to the Knowledge Graph
    */
-  type: 'manual' | 'connector';
+  type: 'manual' | 'connector' | 'web';
 
   /**
    * A description of the Knowledge Graph.
    */
   description?: string;
+
+  /**
+   * An array of web connector URLs associated with this Knowledge Graph.
+   */
+  urls?: Array<Graph.URL>;
 }
 
 export namespace Graph {
@@ -151,6 +160,50 @@ export namespace Graph {
      * The total number of files associated with the Knowledge Graph.
      */
     total: number;
+  }
+
+  export interface URL {
+    /**
+     * The current status of the URL processing.
+     */
+    status: URL.Status;
+
+    /**
+     * The type of web connector processing for this URL.
+     */
+    type: 'single_page' | 'sub_pages';
+
+    /**
+     * The URL to be processed by the web connector.
+     */
+    url: string;
+
+    /**
+     * An array of URLs to exclude from processing within this web connector.
+     */
+    exclude_urls?: Array<string>;
+  }
+
+  export namespace URL {
+    /**
+     * The current status of the URL processing.
+     */
+    export interface Status {
+      /**
+       * The current status of the URL processing.
+       */
+      status: 'validating' | 'success' | 'error';
+
+      /**
+       * The type of error that occurred during processing, if any.
+       */
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
+    }
   }
 }
 
@@ -210,6 +263,170 @@ export interface GraphCreateResponse {
    * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
+
+  /**
+   * An array of web connector URLs associated with this Knowledge Graph.
+   */
+  urls?: Array<GraphCreateResponse.URL>;
+}
+
+export namespace GraphCreateResponse {
+  export interface URL {
+    /**
+     * The current status of the URL processing.
+     */
+    status: URL.Status;
+
+    /**
+     * The type of web connector processing for this URL.
+     */
+    type: 'single_page' | 'sub_pages';
+
+    /**
+     * The URL to be processed by the web connector.
+     */
+    url: string;
+
+    /**
+     * An array of URLs to exclude from processing within this web connector.
+     */
+    exclude_urls?: Array<string>;
+  }
+
+  export namespace URL {
+    /**
+     * The current status of the URL processing.
+     */
+    export interface Status {
+      /**
+       * The current status of the URL processing.
+       */
+      status: 'validating' | 'success' | 'error';
+
+      /**
+       * The type of error that occurred during processing, if any.
+       */
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
+    }
+  }
+}
+
+export interface GraphRetrieveResponse {
+  /**
+   * The unique identifier of the Knowledge Graph.
+   */
+  id: string;
+
+  /**
+   * The timestamp when the Knowledge Graph was created.
+   */
+  created_at: string;
+
+  /**
+   * The processing status of files in the Knowledge Graph.
+   */
+  file_status: GraphRetrieveResponse.FileStatus;
+
+  /**
+   * The name of the Knowledge Graph.
+   */
+  name: string;
+
+  /**
+   * The type of Knowledge Graph.
+   *
+   * - `manual`: files are uploaded via UI or API
+   * - `connector`: files are uploaded via a data connector such as Google Drive or
+   *   Confluence
+   * - `web`: URLs are connected to the Knowledge Graph
+   */
+  type: 'manual' | 'connector' | 'web';
+
+  /**
+   * A description of the Knowledge Graph.
+   */
+  description?: string;
+
+  /**
+   * An array of web connector URLs associated with this Knowledge Graph.
+   */
+  urls?: Array<GraphRetrieveResponse.URL>;
+}
+
+export namespace GraphRetrieveResponse {
+  /**
+   * The processing status of files in the Knowledge Graph.
+   */
+  export interface FileStatus {
+    /**
+     * The number of files that have been successfully processed.
+     */
+    completed: number;
+
+    /**
+     * The number of files that failed to process.
+     */
+    failed: number;
+
+    /**
+     * The number of files currently being processed.
+     */
+    in_progress: number;
+
+    /**
+     * The total number of files associated with the Knowledge Graph.
+     */
+    total: number;
+  }
+
+  export interface URL {
+    /**
+     * The current status of the URL processing.
+     */
+    status: URL.Status;
+
+    /**
+     * The type of web connector processing for this URL.
+     */
+    type: 'single_page' | 'sub_pages';
+
+    /**
+     * The URL to be processed by the web connector.
+     */
+    url: string;
+
+    /**
+     * An array of URLs to exclude from processing within this web connector.
+     */
+    exclude_urls?: Array<string>;
+  }
+
+  export namespace URL {
+    /**
+     * The current status of the URL processing.
+     */
+    export interface Status {
+      /**
+       * The current status of the URL processing.
+       */
+      status: 'validating' | 'success' | 'error';
+
+      /**
+       * The type of error that occurred during processing, if any.
+       */
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
+    }
+  }
 }
 
 export interface GraphUpdateResponse {
@@ -232,6 +449,170 @@ export interface GraphUpdateResponse {
    * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
+
+  /**
+   * An array of web connector URLs associated with this Knowledge Graph.
+   */
+  urls?: Array<GraphUpdateResponse.URL>;
+}
+
+export namespace GraphUpdateResponse {
+  export interface URL {
+    /**
+     * The current status of the URL processing.
+     */
+    status: URL.Status;
+
+    /**
+     * The type of web connector processing for this URL.
+     */
+    type: 'single_page' | 'sub_pages';
+
+    /**
+     * The URL to be processed by the web connector.
+     */
+    url: string;
+
+    /**
+     * An array of URLs to exclude from processing within this web connector.
+     */
+    exclude_urls?: Array<string>;
+  }
+
+  export namespace URL {
+    /**
+     * The current status of the URL processing.
+     */
+    export interface Status {
+      /**
+       * The current status of the URL processing.
+       */
+      status: 'validating' | 'success' | 'error';
+
+      /**
+       * The type of error that occurred during processing, if any.
+       */
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
+    }
+  }
+}
+
+export interface GraphListResponse {
+  /**
+   * The unique identifier of the Knowledge Graph.
+   */
+  id: string;
+
+  /**
+   * The timestamp when the Knowledge Graph was created.
+   */
+  created_at: string;
+
+  /**
+   * The processing status of files in the Knowledge Graph.
+   */
+  file_status: GraphListResponse.FileStatus;
+
+  /**
+   * The name of the Knowledge Graph.
+   */
+  name: string;
+
+  /**
+   * The type of Knowledge Graph.
+   *
+   * - `manual`: files are uploaded via UI or API
+   * - `connector`: files are uploaded via a data connector such as Google Drive or
+   *   Confluence
+   * - `web`: URLs are connected to the Knowledge Graph
+   */
+  type: 'manual' | 'connector' | 'web';
+
+  /**
+   * A description of the Knowledge Graph.
+   */
+  description?: string;
+
+  /**
+   * An array of web connector URLs associated with this Knowledge Graph.
+   */
+  urls?: Array<GraphListResponse.URL>;
+}
+
+export namespace GraphListResponse {
+  /**
+   * The processing status of files in the Knowledge Graph.
+   */
+  export interface FileStatus {
+    /**
+     * The number of files that have been successfully processed.
+     */
+    completed: number;
+
+    /**
+     * The number of files that failed to process.
+     */
+    failed: number;
+
+    /**
+     * The number of files currently being processed.
+     */
+    in_progress: number;
+
+    /**
+     * The total number of files associated with the Knowledge Graph.
+     */
+    total: number;
+  }
+
+  export interface URL {
+    /**
+     * The current status of the URL processing.
+     */
+    status: URL.Status;
+
+    /**
+     * The type of web connector processing for this URL.
+     */
+    type: 'single_page' | 'sub_pages';
+
+    /**
+     * The URL to be processed by the web connector.
+     */
+    url: string;
+
+    /**
+     * An array of URLs to exclude from processing within this web connector.
+     */
+    exclude_urls?: Array<string>;
+  }
+
+  export namespace URL {
+    /**
+     * The current status of the URL processing.
+     */
+    export interface Status {
+      /**
+       * The current status of the URL processing.
+       */
+      status: 'validating' | 'success' | 'error';
+
+      /**
+       * The type of error that occurred during processing, if any.
+       */
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
+    }
+  }
 }
 
 export interface GraphDeleteResponse {
@@ -284,6 +665,32 @@ export interface GraphUpdateParams {
    * the name unchanged.
    */
   name?: string;
+
+  /**
+   * An array of web connector URLs to update for this Knowledge Graph. You can only
+   * connect URLs to Knowledge Graphs with the type `web`. To clear the list of URLs,
+   * set this field to an empty array.
+   */
+  urls?: Array<GraphUpdateParams.URL>;
+}
+
+export namespace GraphUpdateParams {
+  export interface URL {
+    /**
+     * The type of web connector processing for this URL.
+     */
+    type: 'single_page' | 'sub_pages';
+
+    /**
+     * The URL to be processed by the web connector.
+     */
+    url: string;
+
+    /**
+     * An array of URLs to exclude from processing within this web connector.
+     */
+    exclude_urls?: Array<string>;
+  }
 }
 
 export interface GraphListParams extends CursorPageParams {
@@ -369,10 +776,12 @@ export declare namespace Graphs {
     type Question as Question,
     type QuestionResponseChunk as QuestionResponseChunk,
     type GraphCreateResponse as GraphCreateResponse,
+    type GraphRetrieveResponse as GraphRetrieveResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
+    type GraphListResponse as GraphListResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
     type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
-    type GraphsCursorPage as GraphsCursorPage,
+    type GraphListResponsesCursorPage as GraphListResponsesCursorPage,
     type GraphCreateParams as GraphCreateParams,
     type GraphUpdateParams as GraphUpdateParams,
     type GraphListParams as GraphListParams,

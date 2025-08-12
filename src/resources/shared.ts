@@ -144,6 +144,10 @@ export namespace ToolCallStreaming {
 }
 
 export interface ToolChoiceJsonObject {
+  /**
+   * A JSON object that specifies the tool to call. For example,
+   * `{"type": "function", "function": {"name": "get_current_weather"}}`
+   */
   value: { [key: string]: unknown };
 }
 
@@ -160,7 +164,8 @@ export type ToolParam =
   | ToolParam.GraphTool
   | ToolParam.LlmTool
   | ToolParam.TranslationTool
-  | ToolParam.VisionTool;
+  | ToolParam.VisionTool
+  | ToolParam.WebSearchTool;
 
 export namespace ToolParam {
   export interface FunctionTool {
@@ -261,21 +266,21 @@ export namespace ToolParam {
     export interface Function {
       /**
        * Whether to use formal or informal language in the translation. See the
-       * [list of languages that support formality](https://dev.writer.com/api-guides/api-reference/translation-api/language-support#formality).
+       * [list of languages that support formality](https://dev.writer.com/api-reference/translation-api/language-support#formality).
        * If the language does not support formality, this parameter is ignored.
        */
       formality: boolean;
 
       /**
        * Whether to control the length of the translated text. See the
-       * [list of languages that support length control](https://dev.writer.com/api-guides/api-reference/translation-api/language-support#length-control).
+       * [list of languages that support length control](https://dev.writer.com/api-reference/translation-api/language-support#length-control).
        * If the language does not support length control, this parameter is ignored.
        */
       length_control: boolean;
 
       /**
        * Whether to mask profane words in the translated text. See the
-       * [list of languages that do not support profanity masking](https://dev.writer.com/api-guides/api-reference/translation-api/language-support#profanity-masking).
+       * [list of languages that do not support profanity masking](https://dev.writer.com/api-reference/translation-api/language-support#profanity-masking).
        * If the language does not support profanity masking, this parameter is ignored.
        */
       mask_profanity: boolean;
@@ -339,7 +344,8 @@ export namespace ToolParam {
       export interface Variable {
         /**
          * The File ID of the image to analyze. The file must be uploaded to the Writer
-         * platform before you use it with the Vision tool.
+         * platform before you use it with the Vision tool. The maximum allowed file size
+         * is 7MB.
          */
         file_id: string;
 
@@ -351,6 +357,35 @@ export namespace ToolParam {
          */
         name: string;
       }
+    }
+  }
+
+  export interface WebSearchTool {
+    /**
+     * A tool that uses web search to find information.
+     */
+    function: WebSearchTool.Function;
+
+    /**
+     * The type of tool.
+     */
+    type: 'web_search';
+  }
+
+  export namespace WebSearchTool {
+    /**
+     * A tool that uses web search to find information.
+     */
+    export interface Function {
+      /**
+       * An array of domains to exclude from the search results.
+       */
+      exclude_domains: Array<string>;
+
+      /**
+       * An array of domains to include in the search results.
+       */
+      include_domains: Array<string>;
     }
   }
 }

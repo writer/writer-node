@@ -103,16 +103,18 @@ Types:
 - <code><a href="./src/resources/graphs.ts">Question</a></code>
 - <code><a href="./src/resources/graphs.ts">QuestionResponseChunk</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphCreateResponse</a></code>
+- <code><a href="./src/resources/graphs.ts">GraphRetrieveResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphUpdateResponse</a></code>
+- <code><a href="./src/resources/graphs.ts">GraphListResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphDeleteResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphRemoveFileFromGraphResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">create</a>({ ...params }) -> GraphCreateResponse</code>
-- <code title="get /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">retrieve</a>(graphID) -> Graph</code>
+- <code title="get /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">retrieve</a>(graphID) -> GraphRetrieveResponse</code>
 - <code title="put /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">update</a>(graphID, { ...params }) -> GraphUpdateResponse</code>
-- <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphsCursorPage</code>
+- <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphListResponsesCursorPage</code>
 - <code title="delete /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">delete</a>(graphID) -> GraphDeleteResponse</code>
 - <code title="post /v1/graphs/{graph_id}/file">client.graphs.<a href="./src/resources/graphs.ts">addFileToGraph</a>(graphID, { ...params }) -> File</code>
 - <code title="post /v1/graphs/question">client.graphs.<a href="./src/resources/graphs.ts">question</a>({ ...params }) -> Question</code>
@@ -142,12 +144,14 @@ Types:
 - <code><a href="./src/resources/tools/tools.ts">ToolAIDetectResponse</a></code>
 - <code><a href="./src/resources/tools/tools.ts">ToolContextAwareSplittingResponse</a></code>
 - <code><a href="./src/resources/tools/tools.ts">ToolParsePdfResponse</a></code>
+- <code><a href="./src/resources/tools/tools.ts">ToolWebSearchResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/tools/ai-detect">client.tools.<a href="./src/resources/tools/tools.ts">aiDetect</a>({ ...params }) -> ToolAIDetectResponse</code>
 - <code title="post /v1/tools/context-aware-splitting">client.tools.<a href="./src/resources/tools/tools.ts">contextAwareSplitting</a>({ ...params }) -> ToolContextAwareSplittingResponse</code>
 - <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
+- <code title="post /v1/tools/web-search">client.tools.<a href="./src/resources/tools/tools.ts">webSearch</a>({ ...params }) -> ToolWebSearchResponse</code>
 
 ## Comprehend
 

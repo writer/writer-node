@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.3.0-rc.1 (2025-08-12)
+
+Full Changelog: [v2.2.1...v2.3.0-rc.1](https://github.com/writer/writer-node/compare/v2.2.1...v2.3.0-rc.1)
+
+### Features
+
+* **api:** add web KG and web search ([aec5c23](https://github.com/writer/writer-node/commit/aec5c23cad2e5bac761f25bc494de4d22d74ed76))
+
+
+### Chores
+
+* **internal:** move publish config ([549fdb5](https://github.com/writer/writer-node/commit/549fdb505cd153213fd710af88e4f3661b058cc4))
+* **internal:** remove redundant imports config ([629582b](https://github.com/writer/writer-node/commit/629582b9916e249ff314002fe84ff43ee2eebe26))
+* **internal:** update comment in script ([0cbef20](https://github.com/writer/writer-node/commit/0cbef206554b08c09a77d1b935b3a7130f97bb98))
+* update @stainless-api/prism-cli to v5.15.0 ([4eb486f](https://github.com/writer/writer-node/commit/4eb486fddcf185c23e0e4d41d8e27fa65a284ef6))
+
+
+### Documentation
+
+* **api:** updates to API spec ([1bcdf1c](https://github.com/writer/writer-node/commit/1bcdf1ccce44d6e5ba0aaf41c7bde1fadf1b9cf1))
+* **api:** updates to API spec ([b7625d0](https://github.com/writer/writer-node/commit/b7625d0b3f0c4f1696a906106fd98c83b198b7c5))
+* **api:** updates to API spec ([bd08c45](https://github.com/writer/writer-node/commit/bd08c45f41c3bf89d0c5395b40742e68ece6902f))
+
 ## 2.2.1 (2025-07-16)
 
 Full Changelog: [v2.2.0...v2.2.1](https://github.com/writer/writer-node/compare/v2.2.0...v2.2.1)
