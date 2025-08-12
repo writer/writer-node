@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Completions extends APIResource {
   /**
-   * Text generation
+   * Generate text completions using the specified model and prompt. This endpoint is
+   * useful for text generation tasks that don't require conversational context.
    *
    * @example
    * ```ts

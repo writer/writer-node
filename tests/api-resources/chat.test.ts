@@ -24,7 +24,7 @@ describe('resource chat', () => {
       messages: [
         {
           role: 'user',
-          content: 'content',
+          content: 'string',
           graph_data: {
             sources: [{ file_id: 'file_id', snippet: 'snippet' }],
             status: 'processing',

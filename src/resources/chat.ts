@@ -331,6 +331,8 @@ export interface ChatCompletionMessage {
   tool_calls?: Array<Shared.ToolCall> | null;
 
   translation_data?: ChatCompletionMessage.TranslationData;
+
+  web_search_data?: ChatCompletionMessage.WebSearchData;
 }
 
 export namespace ChatCompletionMessage {
@@ -361,6 +363,18 @@ export namespace ChatCompletionMessage {
      * The language code of the target text.
      */
     target_language_code: string;
+  }
+
+  export interface WebSearchData {
+    sources: Array<WebSearchData.Source>;
+  }
+
+  export namespace WebSearchData {
+    export interface Source {
+      raw_content?: string;
+
+      url?: string;
+    }
   }
 }
 
@@ -480,10 +494,18 @@ export namespace ChatCompletionParams {
      */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
-    content?: string | null;
+    /**
+     * The content of the message. Can be either a string (for text-only messages) or
+     * an array of content fragments (for mixed text and image messages).
+     */
+    content?: string | Array<Message.TextFragment | Message.ImageFragment> | null;
 
     graph_data?: Shared.GraphData | null;
 
+    /**
+     * An optional name for the message sender. Useful for identifying different users,
+     * personas, or tools in multi-participant conversations.
+     */
     name?: string | null;
 
     refusal?: string | null;
@@ -491,6 +513,51 @@ export namespace ChatCompletionParams {
     tool_call_id?: string | null;
 
     tool_calls?: Array<Shared.ToolCall> | null;
+  }
+
+  export namespace Message {
+    /**
+     * Represents a text content fragment within a chat message.
+     */
+    export interface TextFragment {
+      /**
+       * The actual text content of the message fragment.
+       */
+      text: string;
+
+      /**
+       * The type of content fragment. Must be `text` for text fragments.
+       */
+      type: 'text';
+    }
+
+    /**
+     * Represents an image content fragment within a chat message.
+     */
+    export interface ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      image_url: ImageFragment.ImageURL;
+
+      /**
+       * The type of content fragment. Must be `image_url` for image fragments.
+       */
+      type: 'image_url';
+    }
+
+    export namespace ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      export interface ImageURL {
+        /**
+         * The URL pointing to the image file. Supports common image formats like JPEG,
+         * PNG, GIF, etc.
+         */
+        url: string;
+      }
+    }
   }
 
   /**
@@ -668,10 +735,18 @@ export namespace ChatChatParams {
      */
     role: 'user' | 'assistant' | 'system' | 'tool';
 
-    content?: string | null;
+    /**
+     * The content of the message. Can be either a string (for text-only messages) or
+     * an array of content fragments (for mixed text and image messages).
+     */
+    content?: string | Array<Message.TextFragment | Message.ImageFragment> | null;
 
     graph_data?: Shared.GraphData | null;
 
+    /**
+     * An optional name for the message sender. Useful for identifying different users,
+     * personas, or tools in multi-participant conversations.
+     */
     name?: string | null;
 
     refusal?: string | null;
@@ -679,6 +754,51 @@ export namespace ChatChatParams {
     tool_call_id?: string | null;
 
     tool_calls?: Array<Shared.ToolCall> | null;
+  }
+
+  export namespace Message {
+    /**
+     * Represents a text content fragment within a chat message.
+     */
+    export interface TextFragment {
+      /**
+       * The actual text content of the message fragment.
+       */
+      text: string;
+
+      /**
+       * The type of content fragment. Must be `text` for text fragments.
+       */
+      type: 'text';
+    }
+
+    /**
+     * Represents an image content fragment within a chat message.
+     */
+    export interface ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      image_url: ImageFragment.ImageURL;
+
+      /**
+       * The type of content fragment. Must be `image_url` for image fragments.
+       */
+      type: 'image_url';
+    }
+
+    export namespace ImageFragment {
+      /**
+       * The image URL object containing the location of the image.
+       */
+      export interface ImageURL {
+        /**
+         * The URL pointing to the image file. Supports common image formats like JPEG,
+         * PNG, GIF, etc.
+         */
+        url: string;
+      }
+    }
   }
 
   /**

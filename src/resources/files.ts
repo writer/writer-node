@@ -10,14 +10,16 @@ import { path } from '../internal/utils/path';
 
 export class Files extends APIResource {
   /**
-   * Retrieve file
+   * Retrieve detailed information about a specific file, including its metadata,
+   * status, and associated graphs.
    */
   retrieve(fileID: string, options?: RequestOptions): APIPromise<File> {
     return this._client.get(path`/v1/files/${fileID}`, options);
   }
 
   /**
-   * List files
+   * Retrieve a paginated list of files with optional filtering by status, graph
+   * association, and file type.
    */
   list(
     query: FileListParams | null | undefined = {},
@@ -27,14 +29,15 @@ export class Files extends APIResource {
   }
 
   /**
-   * Delete file
+   * Permanently delete a file from the system. This action cannot be undone.
    */
   delete(fileID: string, options?: RequestOptions): APIPromise<FileDeleteResponse> {
     return this._client.delete(path`/v1/files/${fileID}`, options);
   }
 
   /**
-   * Download file
+   * Download the binary content of a file. The response will contain the file data
+   * in the appropriate MIME type.
    */
   download(fileID: string, options?: RequestOptions): APIPromise<Response> {
     return this._client.get(path`/v1/files/${fileID}/download`, {
@@ -45,14 +48,16 @@ export class Files extends APIResource {
   }
 
   /**
-   * Retry failed files
+   * Retry processing of files that previously failed to process. This will
+   * re-attempt the processing of the specified files.
    */
   retry(body: FileRetryParams, options?: RequestOptions): APIPromise<FileRetryResponse> {
     return this._client.post('/v1/files/retry', { body, ...options });
   }
 
   /**
-   * Upload file
+   * Upload a new file to the system. Supports various file formats including PDF,
+   * DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, and XLSX.
    */
   upload(params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
     const { content, 'Content-Disposition': contentDisposition, 'Content-Type': contentType } = params;

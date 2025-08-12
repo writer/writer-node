@@ -6,7 +6,8 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Models extends APIResource {
   /**
-   * List models
+   * Retrieve a list of available models that can be used for text generation, chat
+   * completions, and other AI tasks.
    *
    * @example
    * ```ts
