@@ -103,6 +103,8 @@ import {
   ToolContextAwareSplittingResponse,
   ToolParsePdfParams,
   ToolParsePdfResponse,
+  ToolWebSearchParams,
+  ToolWebSearchResponse,
   Tools,
 } from './resources/tools/tools';
 import { type Fetch } from './internal/builtin-types';
@@ -928,9 +930,11 @@ export declare namespace Writer {
     type ToolAIDetectResponse as ToolAIDetectResponse,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolWebSearchResponse as ToolWebSearchResponse,
     type ToolAIDetectParams as ToolAIDetectParams,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+    type ToolWebSearchParams as ToolWebSearchParams,
   };
 
   export {
