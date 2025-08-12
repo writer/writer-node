@@ -144,12 +144,14 @@ Types:
 - <code><a href="./src/resources/tools/tools.ts">ToolAIDetectResponse</a></code>
 - <code><a href="./src/resources/tools/tools.ts">ToolContextAwareSplittingResponse</a></code>
 - <code><a href="./src/resources/tools/tools.ts">ToolParsePdfResponse</a></code>
+- <code><a href="./src/resources/tools/tools.ts">ToolWebSearchResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/tools/ai-detect">client.tools.<a href="./src/resources/tools/tools.ts">aiDetect</a>({ ...params }) -> ToolAIDetectResponse</code>
 - <code title="post /v1/tools/context-aware-splitting">client.tools.<a href="./src/resources/tools/tools.ts">contextAwareSplitting</a>({ ...params }) -> ToolContextAwareSplittingResponse</code>
 - <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
+- <code title="post /v1/tools/web-search">client.tools.<a href="./src/resources/tools/tools.ts">webSearch</a>({ ...params }) -> ToolWebSearchResponse</code>
 
 ## Comprehend
 

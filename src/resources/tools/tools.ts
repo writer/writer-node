@@ -62,6 +62,22 @@ export class Tools extends APIResource {
   ): APIPromise<ToolParsePdfResponse> {
     return this._client.post(path`/v1/tools/pdf-parser/${fileID}`, { body, ...options });
   }
+
+  /**
+   * Search the web for information about a given query and return relevant results
+   * with source URLs.
+   *
+   * @example
+   * ```ts
+   * const response = await client.tools.webSearch({
+   *   include_domains: ['dev.writer.com'],
+   *   query: 'How do I get an API key for the Writer API?',
+   * });
+   * ```
+   */
+  webSearch(body: ToolWebSearchParams, options?: RequestOptions): APIPromise<ToolWebSearchResponse> {
+    return this._client.post('/v1/tools/web-search', { body, ...options });
+  }
 }
 
 export interface ToolAIDetectResponse {
@@ -83,6 +99,39 @@ export interface ToolParsePdfResponse {
    * The extracted content from the PDF file, converted to the specified format.
    */
   content: string;
+}
+
+export interface ToolWebSearchResponse {
+  /**
+   * The search query that was submitted.
+   */
+  query: string;
+
+  /**
+   * The search results found.
+   */
+  sources: Array<ToolWebSearchResponse.Source>;
+
+  /**
+   * Generated answer based on the search results. Not included if `include_answer`
+   * is `false`.
+   */
+  answer?: string;
+}
+
+export namespace ToolWebSearchResponse {
+  export interface Source {
+    /**
+     * Raw content from the source URL. Not included if `include_raw_content` is
+     * `false`.
+     */
+    raw_content?: string;
+
+    /**
+     * URL of the search result.
+     */
+    url?: string;
+  }
 }
 
 export interface ToolAIDetectParams {
@@ -114,6 +163,254 @@ export interface ToolParsePdfParams {
   format: 'text' | 'markdown';
 }
 
+export interface ToolWebSearchParams {
+  /**
+   * Only applies when `search_depth` is `advanced`. Specifies how many text segments
+   * to extract from each source. Limited to 3 chunks maximum.
+   */
+  chunks_per_source?: number;
+
+  /**
+   * Localizes search results to a specific country. Only applies to general topic
+   * searches.
+   */
+  country?:
+    | 'afghanistan'
+    | 'albania'
+    | 'algeria'
+    | 'andorra'
+    | 'angola'
+    | 'argentina'
+    | 'armenia'
+    | 'australia'
+    | 'austria'
+    | 'azerbaijan'
+    | 'bahamas'
+    | 'bahrain'
+    | 'bangladesh'
+    | 'barbados'
+    | 'belarus'
+    | 'belgium'
+    | 'belize'
+    | 'benin'
+    | 'bhutan'
+    | 'bolivia'
+    | 'bosnia and herzegovina'
+    | 'botswana'
+    | 'brazil'
+    | 'brunei'
+    | 'bulgaria'
+    | 'burkina faso'
+    | 'burundi'
+    | 'cambodia'
+    | 'cameroon'
+    | 'canada'
+    | 'cape verde'
+    | 'central african republic'
+    | 'chad'
+    | 'chile'
+    | 'china'
+    | 'colombia'
+    | 'comoros'
+    | 'congo'
+    | 'costa rica'
+    | 'croatia'
+    | 'cuba'
+    | 'cyprus'
+    | 'czech republic'
+    | 'denmark'
+    | 'djibouti'
+    | 'dominican republic'
+    | 'ecuador'
+    | 'egypt'
+    | 'el salvador'
+    | 'equatorial guinea'
+    | 'eritrea'
+    | 'estonia'
+    | 'ethiopia'
+    | 'fiji'
+    | 'finland'
+    | 'france'
+    | 'gabon'
+    | 'gambia'
+    | 'georgia'
+    | 'germany'
+    | 'ghana'
+    | 'greece'
+    | 'guatemala'
+    | 'guinea'
+    | 'haiti'
+    | 'honduras'
+    | 'hungary'
+    | 'iceland'
+    | 'india'
+    | 'indonesia'
+    | 'iran'
+    | 'iraq'
+    | 'ireland'
+    | 'israel'
+    | 'italy'
+    | 'jamaica'
+    | 'japan'
+    | 'jordan'
+    | 'kazakhstan'
+    | 'kenya'
+    | 'kuwait'
+    | 'kyrgyzstan'
+    | 'latvia'
+    | 'lebanon'
+    | 'lesotho'
+    | 'liberia'
+    | 'libya'
+    | 'liechtenstein'
+    | 'lithuania'
+    | 'luxembourg'
+    | 'madagascar'
+    | 'malawi'
+    | 'malaysia'
+    | 'maldives'
+    | 'mali'
+    | 'malta'
+    | 'mauritania'
+    | 'mauritius'
+    | 'mexico'
+    | 'moldova'
+    | 'monaco'
+    | 'mongolia'
+    | 'montenegro'
+    | 'morocco'
+    | 'mozambique'
+    | 'myanmar'
+    | 'namibia'
+    | 'nepal'
+    | 'netherlands'
+    | 'new zealand'
+    | 'nicaragua'
+    | 'niger'
+    | 'nigeria'
+    | 'north korea'
+    | 'north macedonia'
+    | 'norway'
+    | 'oman'
+    | 'pakistan'
+    | 'panama'
+    | 'papua new guinea'
+    | 'paraguay'
+    | 'peru'
+    | 'philippines'
+    | 'poland'
+    | 'portugal'
+    | 'qatar'
+    | 'romania'
+    | 'russia'
+    | 'rwanda'
+    | 'saudi arabia'
+    | 'senegal'
+    | 'serbia'
+    | 'singapore'
+    | 'slovakia'
+    | 'slovenia'
+    | 'somalia'
+    | 'south africa'
+    | 'south korea'
+    | 'south sudan'
+    | 'spain'
+    | 'sri lanka'
+    | 'sudan'
+    | 'sweden'
+    | 'switzerland'
+    | 'syria'
+    | 'taiwan'
+    | 'tajikistan'
+    | 'tanzania'
+    | 'thailand'
+    | 'togo'
+    | 'trinidad and tobago'
+    | 'tunisia'
+    | 'turkey'
+    | 'turkmenistan'
+    | 'uganda'
+    | 'ukraine'
+    | 'united arab emirates'
+    | 'united kingdom'
+    | 'united states'
+    | 'uruguay'
+    | 'uzbekistan'
+    | 'venezuela'
+    | 'vietnam'
+    | 'yemen'
+    | 'zambia'
+    | 'zimbabwe';
+
+  /**
+   * For news topic searches, specifies how many days of news coverage to include.
+   */
+  days?: number;
+
+  /**
+   * Domains to exclude from the search. If unset, the search includes all domains.
+   */
+  exclude_domains?: Array<string>;
+
+  /**
+   * Whether to include a generated answer to the query in the response. If `false`,
+   * only search results are returned.
+   */
+  include_answer?: boolean;
+
+  /**
+   * Domains to include in the search. If unset, the search includes all domains.
+   */
+  include_domains?: Array<string>;
+
+  /**
+   * Controls how raw content is included in search results:
+   *
+   * - `text`: Returns plain text without formatting markup
+   * - `markdown`: Returns structured content with markdown formatting (headers,
+   *   links, bold text)
+   * - `true`: Same as `markdown`
+   * - `false`: Raw content is not included (default if unset)
+   */
+  include_raw_content?: 'text' | 'markdown' | boolean;
+
+  /**
+   * Limits the number of search results returned. Cannot exceed 20 sources.
+   */
+  max_results?: number;
+
+  /**
+   * The search query.
+   */
+  query?: string;
+
+  /**
+   * Controls search comprehensiveness:
+   *
+   * - `basic`: Returns fewer but highly relevant results
+   * - `advanced`: Performs a deeper search with more results
+   */
+  search_depth?: 'basic' | 'advanced';
+
+  /**
+   * Enables streaming of search results as they become available.
+   */
+  stream?: boolean;
+
+  /**
+   * Filters results to content published within the specified time range back from
+   * the current date. For example, `week` or `w` returns results from the past 7
+   * days.
+   */
+  time_range?: 'day' | 'week' | 'month' | 'year' | 'd' | 'w' | 'm' | 'y';
+
+  /**
+   * The search topic category. Use `news` for current events and news articles, or
+   * `general` for broader web search.
+   */
+  topic?: 'general' | 'news';
+}
+
 Tools.Comprehend = Comprehend;
 
 export declare namespace Tools {
@@ -121,9 +418,11 @@ export declare namespace Tools {
     type ToolAIDetectResponse as ToolAIDetectResponse,
     type ToolContextAwareSplittingResponse as ToolContextAwareSplittingResponse,
     type ToolParsePdfResponse as ToolParsePdfResponse,
+    type ToolWebSearchResponse as ToolWebSearchResponse,
     type ToolAIDetectParams as ToolAIDetectParams,
     type ToolContextAwareSplittingParams as ToolContextAwareSplittingParams,
     type ToolParsePdfParams as ToolParsePdfParams,
+    type ToolWebSearchParams as ToolWebSearchParams,
   };
 
   export {

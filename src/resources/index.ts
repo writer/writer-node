@@ -71,9 +71,11 @@ export {
   type ToolAIDetectResponse,
   type ToolContextAwareSplittingResponse,
   type ToolParsePdfResponse,
+  type ToolWebSearchResponse,
   type ToolAIDetectParams,
   type ToolContextAwareSplittingParams,
   type ToolParsePdfParams,
+  type ToolWebSearchParams,
 } from './tools/tools';
 export {
   Translation,
