@@ -833,6 +833,7 @@ export class Writer {
   translation: API.Translation = new API.Translation(this);
   vision: API.Vision = new API.Vision(this);
 }
+
 Writer.Applications = Applications;
 Writer.Chat = Chat;
 Writer.Completions = Completions;
@@ -842,6 +843,7 @@ Writer.Files = Files;
 Writer.Tools = Tools;
 Writer.Translation = Translation;
 Writer.Vision = Vision;
+
 export declare namespace Writer {
   export type RequestOptions = Opts.RequestOptions;
 
