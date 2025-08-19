@@ -253,8 +253,8 @@ The `for await` syntax **is not affected**. This still works as-is:
 
 ```ts
 // Automatically fetches more pages as needed.
-for await (const graphListResponse of client.graphs.list()) {
-  console.log(graphListResponse);
+for await (const graph of client.graphs.list()) {
+  console.log(graph);
 }
 ```
 
@@ -276,10 +276,10 @@ Page classes for individual methods are now type aliases:
 
 ```ts
 // Before
-export class GraphListResponsesCursorPage extends CursorPage<GraphListResponse> {}
+export class GraphsCursorPage extends CursorPage<Graph> {}
 
 // After
-export type GraphListResponsesCursorPage = CursorPage<GraphListResponse>;
+export type GraphsCursorPage = CursorPage<Graph>;
 ```
 
 If you were importing these classes at runtime, you'll need to switch to importing the base class or only import them at the type-level.
