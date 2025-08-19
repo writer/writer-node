@@ -103,18 +103,16 @@ Types:
 - <code><a href="./src/resources/graphs.ts">Question</a></code>
 - <code><a href="./src/resources/graphs.ts">QuestionResponseChunk</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphCreateResponse</a></code>
-- <code><a href="./src/resources/graphs.ts">GraphRetrieveResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphUpdateResponse</a></code>
-- <code><a href="./src/resources/graphs.ts">GraphListResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphDeleteResponse</a></code>
 - <code><a href="./src/resources/graphs.ts">GraphRemoveFileFromGraphResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">create</a>({ ...params }) -> GraphCreateResponse</code>
-- <code title="get /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">retrieve</a>(graphID) -> GraphRetrieveResponse</code>
+- <code title="get /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">retrieve</a>(graphID) -> Graph</code>
 - <code title="put /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">update</a>(graphID, { ...params }) -> GraphUpdateResponse</code>
-- <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphListResponsesCursorPage</code>
+- <code title="get /v1/graphs">client.graphs.<a href="./src/resources/graphs.ts">list</a>({ ...params }) -> GraphsCursorPage</code>
 - <code title="delete /v1/graphs/{graph_id}">client.graphs.<a href="./src/resources/graphs.ts">delete</a>(graphID) -> GraphDeleteResponse</code>
 - <code title="post /v1/graphs/{graph_id}/file">client.graphs.<a href="./src/resources/graphs.ts">addFileToGraph</a>(graphID, { ...params }) -> File</code>
 - <code title="post /v1/graphs/question">client.graphs.<a href="./src/resources/graphs.ts">question</a>({ ...params }) -> Question</code>
