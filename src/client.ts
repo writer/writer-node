@@ -62,17 +62,15 @@ import {
   GraphCreateResponse,
   GraphDeleteResponse,
   GraphListParams,
-  GraphListResponse,
-  GraphListResponsesCursorPage,
   GraphQuestionParams,
   GraphQuestionParamsNonStreaming,
   GraphQuestionParamsStreaming,
   GraphRemoveFileFromGraphParams,
   GraphRemoveFileFromGraphResponse,
-  GraphRetrieveResponse,
   GraphUpdateParams,
   GraphUpdateResponse,
   Graphs,
+  GraphsCursorPage,
   Question,
   QuestionResponseChunk,
 } from './resources/graphs';
@@ -833,6 +831,7 @@ export class Writer {
   translation: API.Translation = new API.Translation(this);
   vision: API.Vision = new API.Vision(this);
 }
+
 Writer.Applications = Applications;
 Writer.Chat = Chat;
 Writer.Completions = Completions;
@@ -842,6 +841,7 @@ Writer.Files = Files;
 Writer.Tools = Tools;
 Writer.Translation = Translation;
 Writer.Vision = Vision;
+
 export declare namespace Writer {
   export type RequestOptions = Opts.RequestOptions;
 
@@ -898,12 +898,10 @@ export declare namespace Writer {
     type Question as Question,
     type QuestionResponseChunk as QuestionResponseChunk,
     type GraphCreateResponse as GraphCreateResponse,
-    type GraphRetrieveResponse as GraphRetrieveResponse,
     type GraphUpdateResponse as GraphUpdateResponse,
-    type GraphListResponse as GraphListResponse,
     type GraphDeleteResponse as GraphDeleteResponse,
     type GraphRemoveFileFromGraphResponse as GraphRemoveFileFromGraphResponse,
-    type GraphListResponsesCursorPage as GraphListResponsesCursorPage,
+    type GraphsCursorPage as GraphsCursorPage,
     type GraphCreateParams as GraphCreateParams,
     type GraphUpdateParams as GraphUpdateParams,
     type GraphListParams as GraphListParams,
