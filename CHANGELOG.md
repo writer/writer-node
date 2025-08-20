@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.3.1 (2025-08-20)
+
+Full Changelog: [v2.3.0...v2.3.1](https://github.com/writer/writer-node/compare/v2.3.0...v2.3.1)
+
+### Features
+
+* **mcp:** add code execution tool ([60d2199](https://github.com/writer/writer-node/commit/60d2199699860fc8f097aaef42532ff8909a9c3e))
+
+
+### Chores
+
+* **deps:** update dependency @types/node to v20.17.58 ([1ca2721](https://github.com/writer/writer-node/commit/1ca272112136ba548436cd7f53b434085adfa666))
+* **internal:** formatting change ([9608032](https://github.com/writer/writer-node/commit/96080320291757f3329f2df80013a288c8852744))
+
+
+### Documentation
+
+* **api:** updates to API spec ([e03824e](https://github.com/writer/writer-node/commit/e03824e52002a27e1c40b836274934c979c1625b))
+
 ## 2.3.0 (2025-08-14)
 
 Full Changelog: [v2.3.0-rc.1...v2.3.0](https://github.com/writer/writer-node/compare/v2.3.0-rc.1...v2.3.0)
