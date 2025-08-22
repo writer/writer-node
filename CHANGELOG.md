@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.3.2 (2025-08-22)
+
+Full Changelog: [v2.3.1...v2.3.2](https://github.com/writer/writer-node/compare/v2.3.1...v2.3.2)
+
+### Chores
+
+* add package to package.json ([e13a086](https://github.com/writer/writer-node/commit/e13a086ec38263b0e54586530ee7b13e32c910f9))
+* **client:** qualify global Blob ([a4d8c75](https://github.com/writer/writer-node/commit/a4d8c752ec354f7263fadcbe972798242f2f2bdb))
+* update CI script ([0e85a1f](https://github.com/writer/writer-node/commit/0e85a1f940491f083621f67819ad6f93884bb955))
+
 ## 2.3.1 (2025-08-20)
 
 Full Changelog: [v2.3.0...v2.3.1](https://github.com/writer/writer-node/compare/v2.3.0...v2.3.1)
