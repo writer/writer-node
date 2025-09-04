@@ -252,6 +252,11 @@ export namespace ApplicationRetrieveResponse {
        * Maximum number of words allowed in text files.
        */
       max_word_count: number;
+
+      /**
+       * List of allowed upload types for file inputs.
+       */
+      upload_types: Array<'url' | 'file_id'>;
     }
 
     /**
@@ -401,6 +406,11 @@ export namespace ApplicationListResponse {
        * Maximum number of words allowed in text files.
        */
       max_word_count: number;
+
+      /**
+       * List of allowed upload types for file inputs.
+       */
+      upload_types: Array<'url' | 'file_id'>;
     }
 
     /**
