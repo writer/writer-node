@@ -115,6 +115,16 @@ describe('resource graphs', () => {
     const response = await client.graphs.question({
       graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       question: 'question',
+      query_config: {
+        grounding_level: 0,
+        inline_citations: true,
+        keyword_threshold: 0,
+        max_snippets: 1,
+        max_subquestions: 1,
+        max_tokens: 100,
+        search_weight: 0,
+        semantic_threshold: 0,
+      },
       stream: false,
       subqueries: true,
     });

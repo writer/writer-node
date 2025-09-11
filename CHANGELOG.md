@@ -1,5 +1,35 @@
 # Changelog
 
+## 2.3.2-rc.1 (2025-09-11)
+
+Full Changelog: [v2.3.1...v2.3.2-rc.1](https://github.com/writer/writer-node/compare/v2.3.1...v2.3.2-rc.1)
+
+### Features
+
+* **api:** manual updates ([6704d48](https://github.com/writer/writer-node/commit/6704d480d1582f3d4bf15cec9729ec98f017222a))
+
+
+### Bug Fixes
+
+* coerce nullable values to undefined ([06f7969](https://github.com/writer/writer-node/commit/06f79697c638578f5ac5a903400a9082130c15ba))
+* **mcp:** fix uploading dxt release assets ([342af55](https://github.com/writer/writer-node/commit/342af5513a77112e52a70ed2e7c057925229db69))
+
+
+### Chores
+
+* add package to package.json ([e13a086](https://github.com/writer/writer-node/commit/e13a086ec38263b0e54586530ee7b13e32c910f9))
+* ci build action ([505befa](https://github.com/writer/writer-node/commit/505befa45020b60d120abedb1553b76a23e22a50))
+* **client:** qualify global Blob ([a4d8c75](https://github.com/writer/writer-node/commit/a4d8c752ec354f7263fadcbe972798242f2f2bdb))
+* configure new SDK language ([b42c277](https://github.com/writer/writer-node/commit/b42c2774fd1407ac2ff62043d97c76316b5ff96f))
+* **internal:** update global Error reference ([ffe142e](https://github.com/writer/writer-node/commit/ffe142e12007868f146210ff4c3cf225e4159a86))
+* update CI script ([0e85a1f](https://github.com/writer/writer-node/commit/0e85a1f940491f083621f67819ad6f93884bb955))
+
+
+### Documentation
+
+* **api:** updates to API spec ([c1c607a](https://github.com/writer/writer-node/commit/c1c607a57c38663c982e6f1a95ef82e28e58baa9))
+* **api:** updates to API spec ([1be14df](https://github.com/writer/writer-node/commit/1be14df9d83cec0e763532bc4472fb7338ca85aa))
+
 ## 2.3.1 (2025-08-20)
 
 Full Changelog: [v2.3.0...v2.3.1](https://github.com/writer/writer-node/compare/v2.3.0...v2.3.1)
