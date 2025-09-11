@@ -226,21 +226,114 @@ export interface Question {
 
   sources: Array<Shared.Source | null>;
 
+  /**
+   * Detailed source information organized by reference type, providing comprehensive
+   * metadata about the sources used to generate the response.
+   */
+  references?: Question.References;
+
   subqueries?: Array<Question.Subquery | null>;
 }
 
 export namespace Question {
+  /**
+   * Detailed source information organized by reference type, providing comprehensive
+   * metadata about the sources used to generate the response.
+   */
+  export interface References {
+    /**
+     * Array of file-based references from uploaded documents in the Knowledge Graph.
+     */
+    files?: Array<References.File>;
+
+    /**
+     * Array of web-based references from online sources accessed during the query.
+     */
+    web?: Array<References.Web>;
+  }
+
+  export namespace References {
+    /**
+     * A file-based reference containing text snippets from uploaded documents in the
+     * Knowledge Graph.
+     */
+    export interface File {
+      /**
+       * The unique identifier of the file in your Writer account.
+       */
+      fileId: string;
+
+      /**
+       * Internal score used during the retrieval process for ranking and selecting
+       * relevant snippets.
+       */
+      score: number;
+
+      /**
+       * The exact text snippet from the source document that was used to support the
+       * response.
+       */
+      text: string;
+
+      /**
+       * Unique citation ID that appears in inline citations within the response text
+       * (null if not cited).
+       */
+      cite?: string;
+
+      /**
+       * Page number where this snippet was found in the source document.
+       */
+      page?: number;
+    }
+
+    /**
+     * A web-based reference containing text snippets from online sources accessed
+     * during the query.
+     */
+    export interface Web {
+      /**
+       * Internal score used during the retrieval process for ranking and selecting
+       * relevant snippets.
+       */
+      score: number;
+
+      /**
+       * The exact text snippet from the web source that was used to support the
+       * response.
+       */
+      text: string;
+
+      /**
+       * The title of the web page where this content was found.
+       */
+      title: string;
+
+      /**
+       * The URL of the web page where this content was found.
+       */
+      url: string;
+    }
+  }
+
+  /**
+   * A sub-question generated to break down complex queries into more manageable
+   * parts, along with its answer and supporting sources.
+   */
   export interface Subquery {
     /**
-     * The answer to the subquery.
+     * The answer to the subquery based on Knowledge Graph content.
      */
     answer: string;
 
     /**
-     * The subquery that was asked.
+     * The subquery that was generated to help answer the main question.
      */
     query: string;
 
+    /**
+     * Array of source snippets that were used to answer this subquery.
+     */
     sources: Array<Shared.Source | null>;
   }
 }
@@ -508,6 +601,12 @@ export interface GraphQuestionParamsBase {
   question: string;
 
   /**
+   * Configuration options for Knowledge Graph queries, including search parameters
+   * and citation settings.
+   */
+  query_config?: GraphQuestionParams.QueryConfig;
+
+  /**
    * Determines whether the model's output should be streamed. If true, the output is
    * generated and sent incrementally, which can be useful for real-time
    * applications.
@@ -521,6 +620,76 @@ export interface GraphQuestionParamsBase {
 }
 
 export namespace GraphQuestionParams {
+  /**
+   * Configuration options for Knowledge Graph queries, including search parameters
+   * and citation settings.
+   */
+  export interface QueryConfig {
+    /**
+     * Level of grounding required for responses, controlling how closely answers must
+     * be tied to source material. Set lower for grounded outputs, higher for
+     * creativity. Higher values (closer to 1.0) allow more creative interpretation,
+     * while lower values (closer to 0.0) stick more closely to source material. Range:
+     * 0.0-1.0, Default: 0.0.
+     */
+    grounding_level?: number;
+
+    /**
+     * Whether to include inline citations in the response, showing which Knowledge
+     * Graph sources were used. Default: false.
+     */
+    inline_citations?: boolean;
+
+    /**
+     * Threshold for keyword-based matching when searching Knowledge Graph content. Set
+     * higher for stricter relevance, lower for broader range. Higher values (closer to
+     * 1.0) require stronger keyword matches, while lower values (closer to 0.0) allow
+     * more lenient matching. Range: 0.0-1.0, Default: 0.7.
+     */
+    keyword_threshold?: number;
+
+    /**
+     * Maximum number of text snippets to retrieve from the Knowledge Graph for
+     * context. Works in concert with `search_weight` to control best matches vs
+     * broader coverage. While technically supports 1-60, values below 5 may return no
+     * results due to RAG implementation. Recommended range: 5-25. Due to RAG system
+     * behavior, you may see more snippets than requested. Range: 1-60, Default: 30.
+     */
+    max_snippets?: number;
+
+    /**
+     * Maximum number of subquestions to generate when processing complex queries. Set
+     * higher to improve detail, set lower to reduce response time. Range: 1-10,
+     * Default: 6.
+     */
+    max_subquestions?: number;
+
+    /**
+     * Maximum number of tokens the model can generate in the response. This controls
+     * the length of the AI's answer. Set higher for longer answers, set lower for
+     * shorter, faster answers. Range: 100-8000, Default: 4000.
+     */
+    max_tokens?: number;
+
+    /**
+     * Weight given to search results when ranking and selecting relevant information.
+     * Higher values (closer to 100) prioritize keyword-based matching, while lower
+     * values (closer to 0) prioritize semantic similarity matching. Use higher values
+     * for exact keyword searches, lower values for conceptual similarity searches.
+     * Range: 0-100, Default: 50.
+     */
+    search_weight?: number;
+
+    /**
+     * Threshold for semantic similarity matching when searching Knowledge Graph
+     * content. Set higher for stricter relevance, lower for broader range. Higher
+     * values (closer to 1.0) require stronger semantic similarity, while lower values
+     * (closer to 0.0) allow more lenient semantic matching. Range: 0.0-1.0, Default:
+     * 0.7.
+     */
+    semantic_threshold?: number;
+  }
+
   export type GraphQuestionParamsNonStreaming = GraphsAPI.GraphQuestionParamsNonStreaming;
   export type GraphQuestionParamsStreaming = GraphsAPI.GraphQuestionParamsStreaming;
 }
