@@ -8,7 +8,7 @@ export class Translation extends APIResource {
   /**
    * Translate text from one language to another.
    *
-   * @deprecated Will be removed in a future release. Migrate to `chat.chat` with the translate tool for translation capabilities.
+   * @deprecated Will be removed in a future release. Migrate to `chat.chat` with the translate tool for translation capabilities. See documentation at dev.writer.com for more information.
    */
   translate(body: TranslationTranslateParams, options?: RequestOptions): APIPromise<TranslationResponse> {
     return this._client.post('/v1/translation', { body, ...options });
