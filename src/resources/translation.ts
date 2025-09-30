@@ -8,19 +8,7 @@ export class Translation extends APIResource {
   /**
    * Translate text from one language to another.
    *
-   * @example
-   * ```ts
-   * const translationResponse =
-   *   await client.translation.translate({
-   *     formality: true,
-   *     length_control: true,
-   *     mask_profanity: true,
-   *     model: 'palmyra-translate',
-   *     source_language_code: 'en',
-   *     target_language_code: 'es',
-   *     text: 'Hello, world!',
-   *   });
-   * ```
+   * @deprecated Will be removed in a future release. Migrate to `chat.chat` with the translate tool for translation capabilities.
    */
   translate(body: TranslationTranslateParams, options?: RequestOptions): APIPromise<TranslationResponse> {
     return this._client.post('/v1/translation', { body, ...options });
