@@ -9,7 +9,7 @@ export class Comprehend extends APIResource {
    * Analyze unstructured medical text to extract entities labeled with standardized
    * medical codes and confidence scores.
    *
-   * @deprecated Will be removed in a future release. Migrate to `chat.chat` with the LLM tool using the `palmyra-med` model for medical analysis.
+   * @deprecated Will be removed in a future release. Migrate to `chat.chat` with the LLM tool using the `palmyra-med` model for medical analysis. See documentation at dev.writer.com for more information.
    */
   medical(body: ComprehendMedicalParams, options?: RequestOptions): APIPromise<ComprehendMedicalResponse> {
     return this._client.post('/v1/tools/comprehend/medical', { body, ...options });
