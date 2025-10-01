@@ -14,13 +14,7 @@ export class Tools extends APIResource {
    * Detects if content is AI- or human-generated, with a confidence score. Content
    * must have at least 350 characters
    *
-   * @example
-   * ```ts
-   * const response = await client.tools.aiDetect({
-   *   input:
-   *     'AI and ML continue to be at the forefront of technological advancements. In 2025, we can expect more sophisticated AI systems that can handle complex tasks with greater efficiency. AI will play a crucial role in various sectors, including healthcare, finance, and manufacturing. For instance, AI-powered diagnostic tools will become more accurate, helping doctors detect diseases at an early stage. In finance, AI algorithms will enhance fraud detection and risk management.',
-   * });
-   * ```
+   * @deprecated Will be removed in a future release. Please migrate to alternative solutions. See documentation at dev.writer.com for more information.
    */
   aiDetect(body: ToolAIDetectParams, options?: RequestOptions): APIPromise<ToolAIDetectResponse> {
     return this._client.post('/v1/tools/ai-detect', { body, ...options });
@@ -30,13 +24,7 @@ export class Tools extends APIResource {
    * Splits a long block of text (maximum 4000 words) into smaller chunks while
    * preserving the semantic meaning of the text and context between the chunks.
    *
-   * @example
-   * ```ts
-   * const response = await client.tools.contextAwareSplitting({
-   *   strategy: 'llm_split',
-   *   text: 'text',
-   * });
-   * ```
+   * @deprecated Will be removed in a future release. Please migrate to alternative solutions. See documentation at dev.writer.com for more information.
    */
   contextAwareSplitting(
     body: ToolContextAwareSplittingParams,
@@ -48,12 +36,7 @@ export class Tools extends APIResource {
   /**
    * Parse PDF to other formats.
    *
-   * @example
-   * ```ts
-   * const response = await client.tools.parsePdf('file_id', {
-   *   format: 'text',
-   * });
-   * ```
+   * @deprecated Will be removed in a future release. A replacement PDF parsing tool for chat completions is planned; see documentation at dev.writer.com for more information.
    */
   parsePdf(
     fileID: string,
@@ -67,13 +50,7 @@ export class Tools extends APIResource {
    * Search the web for information about a given query and return relevant results
    * with source URLs.
    *
-   * @example
-   * ```ts
-   * const response = await client.tools.webSearch({
-   *   include_domains: ['dev.writer.com'],
-   *   query: 'How do I get an API key for the Writer API?',
-   * });
-   * ```
+   * @deprecated Will be removed in a future release. Migrate to `chat.chat` with the web search tool for web search capabilities. See documentation at dev.writer.com for more information.
    */
   webSearch(body: ToolWebSearchParams, options?: RequestOptions): APIPromise<ToolWebSearchResponse> {
     return this._client.post('/v1/tools/web-search', { body, ...options });

@@ -42,6 +42,12 @@ export interface FunctionDefinition {
 export type FunctionParams = { [key: string]: unknown };
 
 export interface GraphData {
+  /**
+   * Detailed source information organized by reference type, providing comprehensive
+   * metadata about the sources used to generate the response.
+   */
+  references?: GraphData.References;
+
   sources?: Array<Source | null>;
 
   status?: 'processing' | 'finished' | null;
@@ -50,6 +56,86 @@ export interface GraphData {
 }
 
 export namespace GraphData {
+  /**
+   * Detailed source information organized by reference type, providing comprehensive
+   * metadata about the sources used to generate the response.
+   */
+  export interface References {
+    /**
+     * Array of file-based references from uploaded documents in the Knowledge Graph.
+     */
+    files?: Array<References.File>;
+
+    /**
+     * Array of web-based references from online sources accessed during the query.
+     */
+    web?: Array<References.Web>;
+  }
+
+  export namespace References {
+    /**
+     * A file-based reference containing text snippets from uploaded documents in the
+     * Knowledge Graph.
+     */
+    export interface File {
+      /**
+       * The unique identifier of the file in your Writer account.
+       */
+      fileId: string;
+
+      /**
+       * Internal score used during the retrieval process for ranking and selecting
+       * relevant snippets.
+       */
+      score: number;
+
+      /**
+       * The exact text snippet from the source document that was used to support the
+       * response.
+       */
+      text: string;
+
+      /**
+       * Unique citation ID that appears in inline citations within the response text
+       * (null if not cited).
+       */
+      cite?: string;
+
+      /**
+       * Page number where this snippet was found in the source document.
+       */
+      page?: number;
+    }
+
+    /**
+     * A web-based reference containing text snippets from online sources accessed
+     * during the query.
+     */
+    export interface Web {
+      /**
+       * Internal score used during the retrieval process for ranking and selecting
+       * relevant snippets.
+       */
+      score: number;
+
+      /**
+       * The exact text snippet from the web source that was used to support the
+       * response.
+       */
+      text: string;
+
+      /**
+       * The title of the web page where this content was found.
+       */
+      title: string;
+
+      /**
+       * The URL of the web page where this content was found.
+       */
+      url: string;
+    }
+  }
+
   /**
    * A sub-question generated to break down complex queries into more manageable
    * parts, along with its answer and supporting sources.

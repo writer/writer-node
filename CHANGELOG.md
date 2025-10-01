@@ -1,5 +1,34 @@
 # Changelog
 
+## 2.3.2-rc.2 (2025-09-30)
+
+Full Changelog: [v2.3.2-rc.1...v2.3.2-rc.2](https://github.com/writer/writer-node/compare/v2.3.2-rc.1...v2.3.2-rc.2)
+
+### Features
+
+* **api:** manual updates ([be9e40e](https://github.com/writer/writer-node/commit/be9e40e52bf06f0d81c1dde980588eac1938c917))
+* **api:** manual updates ([05fefe8](https://github.com/writer/writer-node/commit/05fefe89735eecc1526fa5e222f4cba4526dbd4d))
+
+
+### Performance Improvements
+
+* faster formatting ([06ae198](https://github.com/writer/writer-node/commit/06ae1987f9a90fa7a0750ec6c8a421fdc1770cd3))
+
+
+### Chores
+
+* configure new SDK language ([5776514](https://github.com/writer/writer-node/commit/577651468e314de2353490793ff33af711f05d12))
+* do not install brew dependencies in ./scripts/bootstrap by default ([b35ef28](https://github.com/writer/writer-node/commit/b35ef28899f8352ed1abc51d8e3e5ee49c2bdc20))
+* **internal:** codegen related update ([8a14d99](https://github.com/writer/writer-node/commit/8a14d9927ae79f0d2c863270018fffde73c5ce56))
+* **internal:** fix incremental formatting in some cases ([fb5aa47](https://github.com/writer/writer-node/commit/fb5aa47f5cce43a7f850287af5a2f12c4cc275dc))
+* **internal:** ignore .eslintcache ([670ff6e](https://github.com/writer/writer-node/commit/670ff6eac2689185a5d39a93e7a3acf0dd06ea6b))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([8c0e44e](https://github.com/writer/writer-node/commit/8c0e44e4d94566b42482c018ad5e1b9507f6ad36))
+
+
+### Documentation
+
+* **api:** updates to API spec ([de1f80a](https://github.com/writer/writer-node/commit/de1f80acd01ebe31d4c88eb68c307e6ea64374fa))
+
 ## 2.3.2-rc.1 (2025-09-11)
 
 Full Changelog: [v2.3.1...v2.3.2-rc.1](https://github.com/writer/writer-node/compare/v2.3.1...v2.3.2-rc.1)
