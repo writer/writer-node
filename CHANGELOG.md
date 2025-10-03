@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2 (2025-10-03)
+
+Full Changelog: [v2.3.2-rc.2...v2.3.2](https://github.com/writer/writer-node/compare/v2.3.2-rc.2...v2.3.2)
+
 ## 2.3.2-rc.2 (2025-09-30)
 
 Full Changelog: [v2.3.2-rc.1...v2.3.2-rc.2](https://github.com/writer/writer-node/compare/v2.3.2-rc.1...v2.3.2-rc.2)
