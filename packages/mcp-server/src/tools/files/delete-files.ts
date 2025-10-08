@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'delete_files',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nPermanently delete a file from the system. This action cannot be undone.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'delete_file_response',\n  properties: {\n    id: {\n      type: 'string',\n      description: 'A unique identifier of the deleted file.'\n    },\n    deleted: {\n      type: 'boolean',\n      description: 'Indicates whether the file was successfully deleted.'\n    }\n  },\n  required: [    'id',\n    'deleted'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nPermanently delete a file from the system. This action cannot be undone.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/file_delete_response',\n  $defs: {\n    file_delete_response: {\n      type: 'object',\n      title: 'delete_file_response',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'A unique identifier of the deleted file.'\n        },\n        deleted: {\n          type: 'boolean',\n          description: 'Indicates whether the file was successfully deleted.'\n        }\n      },\n      required: [        'id',\n        'deleted'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
