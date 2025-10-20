@@ -245,11 +245,7 @@ export class ApplicationJobsOffset<Item>
   }
 
   nextPageRequestOptions(): PageRequestOptions | null {
-    const offset = this.pagination?.offset;
-    if (!offset) {
-      return null;
-    }
-
+    const offset = this.pagination?.offset ?? 0;
     const length = this.getPaginatedItems().length;
     const currentCount = offset + length;
 
