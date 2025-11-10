@@ -34,7 +34,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Writer, args: Record<string, unknown> | undefined) => {
   const { file_id, ...body } = args as any;
-  return asBinaryContentResult(await client.files.download(file_id));
+  return asBinaryContentResult(await client.files.download(file_id).asResponse());
 };
 
 export default { metadata, tool, handler };
