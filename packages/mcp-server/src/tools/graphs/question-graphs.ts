@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 
 export const tool: Tool = {
   name: 'question_graphs',
-  description: 'Ask a question to specified Knowledge Graphs.',
+  description:
+    'Ask questions and get AI-generated answers based on your Knowledge Graph content. Queries your uploaded documents, PDFs, and files to retrieve accurate, source-cited information. Returns answers with supporting snippets and file references. Ideal for RAG (Retrieval-Augmented Generation) applications and knowledge base queries.',
   inputSchema: {
     type: 'object',
     anyOf: [

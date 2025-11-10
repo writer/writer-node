@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'chat_chat',
   description:
-    'Generate a chat completion based on the provided messages. The response shown below is for non-streaming. To learn about streaming responses, see the [chat completion guide](https://dev.writer.com/home/chat-completion).',
+    'Generate AI responses for conversational interactions. Use this for chat-based tasks, Q&A, content generation, and any natural language processing. Supports tools like Knowledge Graphs, web search, translation, and vision. Choose from models like palmyra-x5, palmyra-x4, palmyra-creative, palmyra-med, or palmyra-fin depending on the task.',
   inputSchema: {
     type: 'object',
     anyOf: [

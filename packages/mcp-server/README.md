@@ -243,8 +243,8 @@ The following tools are available in this MCP server.
 ### Resource `applications`:
 
 - `retrieve_applications` (`read`): Retrieves detailed information for a specific no-code agent (formerly called no-code applications), including its configuration and current status.
-- `list_applications` (`read`): Retrieves a paginated list of no-code agents (formerly called no-code applications) with optional filtering and sorting capabilities.
-- `generate_content_applications` (`write`): Generate content from an existing no-code agent (formerly called no-code applications) with inputs.
+- `list_applications` (`read`): Get all available no-code agents (applications) in your account. No-code agents are pre-configured AI workflows built in Writer's AI Studio. Use this to discover which agents are available before generating content from them.
+- `generate_content_applications` (`write`): Generate content using a pre-configured no-code agent. No-code agents are custom AI workflows you've built in AI Studio with specific prompts, models, and settings. Provide the application ID and required inputs to get tailored content. Useful for consistent, repeatable AI tasks like content generation, data extraction, or custom workflows.
 
 ### Resource `applications.jobs`:
 
@@ -260,11 +260,11 @@ The following tools are available in this MCP server.
 
 ### Resource `chat`:
 
-- `chat_chat` (`write`): Generate a chat completion based on the provided messages. The response shown below is for non-streaming. To learn about streaming responses, see the [chat completion guide](https://dev.writer.com/home/chat-completion).
+- `chat_chat` (`write`): Generate AI responses for conversational interactions. Use this for chat-based tasks, Q&A, content generation, and any natural language processing. Supports tools like Knowledge Graphs, web search, translation, and vision. Choose from models like palmyra-x5, palmyra-x4, palmyra-creative, palmyra-med, or palmyra-fin depending on the task.
 
 ### Resource `completions`:
 
-- `create_completions` (`write`): Generate text completions using the specified model and prompt. This endpoint is useful for text generation tasks that don't require conversational context.
+- `create_completions` (`write`): Generate text completions from a single prompt without conversational context. Best for straightforward text generation tasks like article writing, summaries, or creative content. For interactive conversations or multi-turn dialogues, use generate-chat-completion instead.
 
 ### Resource `models`:
 
@@ -272,23 +272,23 @@ The following tools are available in this MCP server.
 
 ### Resource `graphs`:
 
-- `create_graphs` (`write`): Create a new Knowledge Graph.
-- `retrieve_graphs` (`read`): Retrieve a Knowledge Graph.
+- `create_graphs` (`write`): Create a new Knowledge Graph to organize and query documents. Knowledge Graphs are containers for files that enable AI-powered search and question answering. After creation, add files to the graph using add-file-to-graph, then query it using query-knowledge-graph.
+- `retrieve_graphs` (`read`): Get detailed information about a specific Knowledge Graph by its ID. Returns the graph name, description, creation date, file processing status, and associated URLs (for web-based graphs). Use this to check processing status or get graph metadata.
 - `update_graphs` (`write`): Update the name and description of a Knowledge Graph.
-- `list_graphs` (`read`): Retrieve a list of Knowledge Graphs.
+- `list_graphs` (`read`): Get all available Knowledge Graphs in your account. Knowledge Graphs are collections of documents and files that can be queried using AI. Use this to discover which knowledge bases are available before querying them.
 - `delete_graphs` (`write`): Delete a Knowledge Graph.
-- `add_file_to_graph_graphs` (`write`): Add a file to a Knowledge Graph.
-- `question_graphs` (`write`): Ask a question to specified Knowledge Graphs.
+- `add_file_to_graph_graphs` (`write`): Add an uploaded file to a Knowledge Graph to make it queryable. The file must already be uploaded using upload-file. Once added, the file's content becomes searchable when querying the Knowledge Graph. Files are processed asynchronously - check status using get-file-info.
+- `question_graphs` (`write`): Ask questions and get AI-generated answers based on your Knowledge Graph content. Queries your uploaded documents, PDFs, and files to retrieve accurate, source-cited information. Returns answers with supporting snippets and file references. Ideal for RAG (Retrieval-Augmented Generation) applications and knowledge base queries.
 - `remove_file_from_graph_graphs` (`write`): Remove a file from a Knowledge Graph.
 
 ### Resource `files`:
 
-- `retrieve_files` (`read`): Retrieve detailed information about a specific file, including its metadata, status, and associated graphs.
-- `list_files` (`read`): Retrieve a paginated list of files with optional filtering by status, graph association, and file type.
+- `retrieve_files` (`read`): Get metadata and status information for a specific file by its ID. Returns file name, creation date, processing status, and associated Knowledge Graph IDs. Use this to check if a file has finished processing or to find which Knowledge Graphs contain a specific file.
+- `list_files` (`read`): Get a paginated list of all uploaded files. Filter by processing status (in_progress, completed, failed), Knowledge Graph association, or file type. Use this to discover available files, monitor processing status, or find files to add to Knowledge Graphs.
 - `delete_files` (`write`): Permanently delete a file from the system. This action cannot be undone.
 - `download_files` (`read`): Download the binary content of a file. The response will contain the file data in the appropriate MIME type.
 - `retry_files` (`write`): Retry processing of files that previously failed to process. This will re-attempt the processing of the specified files.
-- `upload_files` (`write`): Upload a new file to the system. Supports various file formats including PDF, DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, and XLSX.
+- `upload_files` (`write`): Upload documents and files to Writer. Supports PDF, DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, XLSX, MP3, and MP4 formats. Once uploaded, files can be added to Knowledge Graphs for querying or used with Vision API for image analysis. Returns a file ID for subsequent operations.
 
 ### Resource `tools`:
 
