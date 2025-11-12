@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { maybeFilter } from 'writer-sdk-mcp/filtering';
-import { Metadata, asTextContentResult } from 'writer-sdk-mcp/tools/types';
+import { isJqError, maybeFilter } from 'writer-sdk-mcp/filtering';
+import { Metadata, asErrorResult, asTextContentResult } from 'writer-sdk-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Writer from 'writer-sdk';
@@ -40,7 +40,14 @@ export const tool: Tool = {
 
 export const handler = async (client: Writer, args: Record<string, unknown> | undefined) => {
   const { job_id, jq_filter, ...body } = args as any;
-  return asTextContentResult(await maybeFilter(jq_filter, await client.applications.jobs.retrieve(job_id)));
+  try {
+    return asTextContentResult(await maybeFilter(jq_filter, await client.applications.jobs.retrieve(job_id)));
+  } catch (error) {
+    if (isJqError(error)) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };
