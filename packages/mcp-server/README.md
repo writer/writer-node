@@ -307,4 +307,4 @@ The following tools are available in this MCP server.
 
 ### Resource `vision`:
 
-- `analyze_vision` (`write`): Submit images and a prompt to generate an analysis of the images.
+- `analyze_vision` (`write`): Submit images and documents with a prompt to generate an analysis. Supports JPG, PNG, PDF, and TXT files up to 7MB each.

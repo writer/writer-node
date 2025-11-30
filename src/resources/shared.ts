@@ -494,7 +494,8 @@ export namespace ToolParam {
 
   export interface VisionTool {
     /**
-     * A tool that uses Palmyra Vision to analyze images.
+     * A tool that uses Palmyra Vision to analyze images and documents. Supports JPG,
+     * PNG, PDF, and TXT files up to 7MB each.
      */
     function: VisionTool.Function;
 
@@ -506,7 +507,8 @@ export namespace ToolParam {
 
   export namespace VisionTool {
     /**
-     * A tool that uses Palmyra Vision to analyze images.
+     * A tool that uses Palmyra Vision to analyze images and documents. Supports JPG,
+     * PNG, PDF, and TXT files up to 7MB each.
      */
     export interface Function {
       /**
@@ -520,9 +522,9 @@ export namespace ToolParam {
     export namespace Function {
       export interface Variable {
         /**
-         * The File ID of the image to analyze. The file must be uploaded to the Writer
-         * platform before you use it with the Vision tool. The maximum allowed file size
-         * is 7MB.
+         * The File ID of the file to analyze. The file must be uploaded to the Writer
+         * platform before you use it with the Vision tool. Supported file types: JPG, PNG,
+         * PDF, TXT. The maximum allowed file size is 7MB.
          */
         file_id: string;
 

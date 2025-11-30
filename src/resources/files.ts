@@ -60,8 +60,9 @@ export class Files extends APIResource {
    * DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, and XLSX.
    */
   upload(params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
-    const { content, 'Content-Disposition': contentDisposition } = params;
+    const { content, 'Content-Disposition': contentDisposition, graphId } = params;
     return this._client.post('/v1/files', {
+      query: { graphId },
       body: content,
       ...options,
       headers: buildHeaders([
@@ -87,6 +88,11 @@ export interface File {
 
   /**
    * A list of Knowledge Graph IDs that the file is associated with.
+   *
+   * If you provided a `graphId` during upload, the file is associated with that
+   * Knowledge Graph. However, the `graph_ids` field in the upload response is an
+   * empty list. The association will be visible in the `graph_ids` list when you
+   * retrieve the file using the file retrieval endpoint.
    */
   graph_ids: Array<string>;
 
@@ -170,6 +176,16 @@ export interface FileUploadParams {
    * of the file, for example: `attachment; filename=example.pdf`.
    */
   'Content-Disposition': string;
+
+  /**
+   * Query param: The unique identifier of the Knowledge Graph to associate the
+   * uploaded file with.
+   *
+   * Note: The response from the upload endpoint does not include the `graphId`
+   * field, but the association will be visible when you retrieve the file using the
+   * file retrieval endpoint.
+   */
+  graphId?: string;
 }
 
 export declare namespace Files {
