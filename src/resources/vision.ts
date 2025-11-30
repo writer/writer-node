@@ -6,7 +6,8 @@ import { RequestOptions } from '../internal/request-options';
 
 export class Vision extends APIResource {
   /**
-   * Submit images and a prompt to generate an analysis of the images.
+   * Submit images and documents with a prompt to generate an analysis. Supports JPG,
+   * PNG, PDF, and TXT files up to 7MB each.
    *
    * @example
    * ```ts
@@ -44,17 +45,19 @@ export interface VisionRequest {
 
 export namespace VisionRequest {
   /**
-   * An array of file variables required for the analysis. The image files must be
-   * uploaded to the Writer platform before they can be used in a vision request.
-   * Learn how to upload files using the
+   * An array of file variables required for the analysis. The files must be uploaded
+   * to the Writer platform before they can be used in a vision request. Learn how to
+   * upload files using the
    * [Files API](https://dev.writer.com/api-reference/file-api/upload-files).
    *
-   * The maximum allowed file size for each image is 7MB.
+   * Supported file types: JPG, PNG, PDF, TXT. The maximum allowed file size for each
+   * file is 7MB.
    */
   export interface Variable {
     /**
-     * The File ID of the image to analyze. The file must be uploaded to the Writer
-     * platform before it can be used in a vision request.
+     * The File ID of the file to analyze. The file must be uploaded to the Writer
+     * platform before it can be used in a vision request. Supported file types: JPG,
+     * PNG, PDF, TXT (max 7MB each).
      */
     file_id: string;
 
@@ -92,17 +95,19 @@ export interface VisionAnalyzeParams {
 
 export namespace VisionAnalyzeParams {
   /**
-   * An array of file variables required for the analysis. The image files must be
-   * uploaded to the Writer platform before they can be used in a vision request.
-   * Learn how to upload files using the
+   * An array of file variables required for the analysis. The files must be uploaded
+   * to the Writer platform before they can be used in a vision request. Learn how to
+   * upload files using the
    * [Files API](https://dev.writer.com/api-reference/file-api/upload-files).
    *
-   * The maximum allowed file size for each image is 7MB.
+   * Supported file types: JPG, PNG, PDF, TXT. The maximum allowed file size for each
+   * file is 7MB.
    */
   export interface Variable {
     /**
-     * The File ID of the image to analyze. The file must be uploaded to the Writer
-     * platform before it can be used in a vision request.
+     * The File ID of the file to analyze. The file must be uploaded to the Writer
+     * platform before it can be used in a vision request. Supported file types: JPG,
+     * PNG, PDF, TXT (max 7MB each).
      */
     file_id: string;
 

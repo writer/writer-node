@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'analyze_vision',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSubmit images and a prompt to generate an analysis of the images.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/vision_response',\n  $defs: {\n    vision_response: {\n      type: 'object',\n      title: 'Vision Response',\n      properties: {\n        data: {\n          type: 'string',\n          description: 'The result of the image analysis.'\n        }\n      },\n      required: [        'data'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nSubmit images and documents with a prompt to generate an analysis. Supports JPG, PNG, PDF, and TXT files up to 7MB each.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/vision_response',\n  $defs: {\n    vision_response: {\n      type: 'object',\n      title: 'Vision Response',\n      properties: {\n        data: {\n          type: 'string',\n          description: 'The result of the image analysis.'\n        }\n      },\n      required: [        'data'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -37,12 +37,12 @@ export const tool: Tool = {
           type: 'object',
           title: 'Vision Request File Variable',
           description:
-            'An array of file variables required for the analysis. The image files must be uploaded to the Writer platform before they can be used in a vision request. Learn how to upload files using the [Files API](https://dev.writer.com/api-reference/file-api/upload-files).\n\nThe maximum allowed file size for each image is 7MB.',
+            'An array of file variables required for the analysis. The files must be uploaded to the Writer platform before they can be used in a vision request. Learn how to upload files using the [Files API](https://dev.writer.com/api-reference/file-api/upload-files).\n\nSupported file types: JPG, PNG, PDF, TXT. The maximum allowed file size for each file is 7MB.',
           properties: {
             file_id: {
               type: 'string',
               description:
-                'The File ID of the image to analyze. The file must be uploaded to the Writer platform before it can be used in a vision request.',
+                'The File ID of the file to analyze. The file must be uploaded to the Writer platform before it can be used in a vision request. Supported file types: JPG, PNG, PDF, TXT (max 7MB each).',
             },
             name: {
               type: 'string',

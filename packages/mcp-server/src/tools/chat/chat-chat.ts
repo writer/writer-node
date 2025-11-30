@@ -823,7 +823,8 @@ export const tool: Tool = {
               function: {
                 type: 'object',
                 title: 'Vision function',
-                description: 'A tool that uses Palmyra Vision to analyze images.',
+                description:
+                  'A tool that uses Palmyra Vision to analyze images and documents. Supports JPG, PNG, PDF, and TXT files up to 7MB each.',
                 properties: {
                   model: {
                     type: 'string',
@@ -839,7 +840,7 @@ export const tool: Tool = {
                         file_id: {
                           type: 'string',
                           description:
-                            'The File ID of the image to analyze. The file must be uploaded to the Writer platform before you use it with the Vision tool. The maximum allowed file size is 7MB.',
+                            'The File ID of the file to analyze. The file must be uploaded to the Writer platform before you use it with the Vision tool. Supported file types: JPG, PNG, PDF, TXT. The maximum allowed file size is 7MB.',
                         },
                         name: {
                           type: 'string',
