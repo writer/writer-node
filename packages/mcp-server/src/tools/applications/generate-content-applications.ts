@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { maybeFilter } from 'writer-sdk-mcp/filtering';
-import { Metadata, asTextContentResult } from 'writer-sdk-mcp/tools/types';
+import { isJqError, maybeFilter } from 'writer-sdk-mcp/filtering';
+import { Metadata, asErrorResult, asTextContentResult } from 'writer-sdk-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Writer from 'writer-sdk';
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'generate_content_applications',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerate content from an existing no-code agent (formerly called no-code applications) with inputs.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/application_generate_content_response',\n  $defs: {\n    application_generate_content_response: {\n      type: 'object',\n      title: 'generate_application_response',\n      properties: {\n        suggestion: {\n          type: 'string',\n          description: 'The response from the model specified in the application.'\n        },\n        title: {\n          type: 'string',\n          description: 'The name of the output field.'\n        }\n      },\n      required: [        'suggestion'\n      ]\n    }\n  }\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerate content using a pre-configured no-code agent. No-code agents are custom AI workflows you've built in AI Studio with specific prompts, models, and settings. Provide the application ID and required inputs to get tailored content. Useful for consistent, repeatable AI tasks like content generation, data extraction, or custom workflows.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/application_generate_content_response',\n  $defs: {\n    application_generate_content_response: {\n      type: 'object',\n      title: 'generate_application_response',\n      properties: {\n        suggestion: {\n          type: 'string',\n          description: 'The response from the model specified in the application.'\n        },\n        title: {\n          type: 'string',\n          description: 'The name of the output field.'\n        }\n      },\n      required: [        'suggestion'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     anyOf: [
@@ -113,9 +113,16 @@ export const tool: Tool = {
 
 export const handler = async (client: Writer, args: Record<string, unknown> | undefined) => {
   const { application_id, jq_filter, ...body } = args as any;
-  return asTextContentResult(
-    await maybeFilter(jq_filter, await client.applications.generateContent(application_id, body)),
-  );
+  try {
+    return asTextContentResult(
+      await maybeFilter(jq_filter, await client.applications.generateContent(application_id, body)),
+    );
+  } catch (error) {
+    if (isJqError(error)) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };

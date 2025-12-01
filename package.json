@@ -1,6 +1,6 @@
 {
   "name": "writer-sdk",
-  "version": "2.3.2",
+  "version": "2.3.3-rc.1",
   "description": "The official TypeScript library for the Writer API",
   "author": "Writer <dev-feedback@writer.com>",
   "types": "dist/index.d.ts",

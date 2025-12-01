@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { maybeFilter } from 'writer-sdk-mcp/filtering';
-import { Metadata, asTextContentResult } from 'writer-sdk-mcp/tools/types';
+import { isJqError, maybeFilter } from 'writer-sdk-mcp/filtering';
+import { Metadata, asErrorResult, asTextContentResult } from 'writer-sdk-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Writer from 'writer-sdk';
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export const tool: Tool = {
   name: 'create_applications_jobs',
   description:
-    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerate content asynchronously from an existing no-code agent (formerly called no-code applications) with inputs.\n\n# Response Schema\n```json\n{\n  type: 'object',\n  title: 'generate_application_async_response',\n  properties: {\n    id: {\n      type: 'string',\n      description: 'The unique identifier for the async job created.'\n    },\n    created_at: {\n      type: 'string',\n      description: 'The timestamp when the job was created.',\n      format: 'date-time'\n    },\n    status: {\n      type: 'string',\n      title: 'api_job_status',\n      description: 'The status of the job.',\n      enum: [        'in_progress',\n        'failed',\n        'completed'\n      ]\n    }\n  },\n  required: [    'id',\n    'created_at',\n    'status'\n  ]\n}\n```",
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nGenerate content asynchronously from an existing no-code agent (formerly called no-code applications) with inputs.\n\n# Response Schema\n```json\n{\n  $ref: '#/$defs/job_create_response',\n  $defs: {\n    job_create_response: {\n      type: 'object',\n      title: 'generate_application_async_response',\n      properties: {\n        id: {\n          type: 'string',\n          description: 'The unique identifier for the async job created.'\n        },\n        created_at: {\n          type: 'string',\n          description: 'The timestamp when the job was created.',\n          format: 'date-time'\n        },\n        status: {\n          type: 'string',\n          title: 'api_job_status',\n          description: 'The status of the job.',\n          enum: [            'in_progress',\n            'failed',\n            'completed'\n          ]\n        }\n      },\n      required: [        'id',\n        'created_at',\n        'status'\n      ]\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     properties: {
@@ -62,9 +62,16 @@ export const tool: Tool = {
 
 export const handler = async (client: Writer, args: Record<string, unknown> | undefined) => {
   const { application_id, jq_filter, ...body } = args as any;
-  return asTextContentResult(
-    await maybeFilter(jq_filter, await client.applications.jobs.create(application_id, body)),
-  );
+  try {
+    return asTextContentResult(
+      await maybeFilter(jq_filter, await client.applications.jobs.create(application_id, body)),
+    );
+  } catch (error) {
+    if (isJqError(error)) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };

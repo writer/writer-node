@@ -96,6 +96,7 @@ describe('resource files', () => {
       content: await toFile(Buffer.from('# my file contents'), 'README.md'),
       'Content-Disposition': 'Content-Disposition',
       'Content-Type': 'Content-Type',
+      graphId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 });
