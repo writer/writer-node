@@ -49,7 +49,7 @@ export const handler = async (client: Writer, args: Record<string, unknown> | un
       await maybeFilter(jq_filter, await client.graphs.removeFileFromGraph(file_id, body)),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Writer.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;
