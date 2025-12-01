@@ -1,5 +1,49 @@
 # Changelog
 
+## 2.3.3-rc.1 (2025-12-01)
+
+Full Changelog: [v2.3.2...v2.3.3-rc.1](https://github.com/writer/writer-node/compare/v2.3.2...v2.3.3-rc.1)
+
+### Features
+
+* **api:** Improve MCP tool descriptions ([95aa714](https://github.com/writer/writer-node/commit/95aa71460549717420896fd47fcebbd603739743))
+* **mcp:** add detail field to docs search tool ([0c975f7](https://github.com/writer/writer-node/commit/0c975f793c10f8f047c477ecde35f8e358b95e91))
+* **mcp:** enable optional code execution tool on http mcp servers ([cad37b7](https://github.com/writer/writer-node/commit/cad37b70c93d26bdafdfdf6047e9591a1b27376e))
+
+
+### Bug Fixes
+
+* **client:** incorrect offset pagination check ([b7847ab](https://github.com/writer/writer-node/commit/b7847abd4a65c07090855fd674c6bd4ff15b9760))
+* Fix linting errors. ([#238](https://github.com/writer/writer-node/issues/238)) ([12f49e6](https://github.com/writer/writer-node/commit/12f49e62a666d57a934537bf8f25cef1338b3e27))
+* **mcpb:** pin @anthropic-ai/mcpb version ([43acbce](https://github.com/writer/writer-node/commit/43acbcefa5cdbabe670ef4a5687ef871a3acf9f6))
+* **mcp:** return tool execution error on jq failure ([f833b8f](https://github.com/writer/writer-node/commit/f833b8ffb35c9921f66939cafab7ddc1a6948096))
+* **mcp:** use raw responses for binary content ([54da4f9](https://github.com/writer/writer-node/commit/54da4f964cae97a224763a29e851c4c63273953e))
+
+
+### Chores
+
+* **client:** fix logger property type ([20209b8](https://github.com/writer/writer-node/commit/20209b8c6037de89117b4f9b0e690721380e2dbc))
+* extract some types in mcp docs ([de1e150](https://github.com/writer/writer-node/commit/de1e15096bb097df00cdee211b752487d364d977))
+* **internal:** codegen related update ([35b1a8f](https://github.com/writer/writer-node/commit/35b1a8fd3128b36cb3a99025547b3484e57ae318))
+* **internal:** codegen related update ([5e30270](https://github.com/writer/writer-node/commit/5e3027034d15d23909742ac7a65d5e1db6709631))
+* **internal:** grammar fix (it's -&gt; its) ([7dfbe17](https://github.com/writer/writer-node/commit/7dfbe171aa29752dd3e42e15d045fde008d6e96c))
+* **internal:** remove .eslintcache ([f75e301](https://github.com/writer/writer-node/commit/f75e3010fb346dde47038f0e876549bc6eba301f))
+* **internal:** use npm pack for build uploads ([38c37a1](https://github.com/writer/writer-node/commit/38c37a1cfc2af919b9833344716ff5172a5076b3))
+* **jsdoc:** fix [@link](https://github.com/link) annotations to refer only to parts of the package‘s public interface ([d227de6](https://github.com/writer/writer-node/commit/d227de61034910da49481c6ff488436fcfed61fd))
+* mcp code tool explicit error message when missing a run function ([16c1a44](https://github.com/writer/writer-node/commit/16c1a446e5f1cf853582afe76bbc21739855ca70))
+* **mcp:** add friendlier MCP code tool errors on incorrect method invocations ([e6a4a0c](https://github.com/writer/writer-node/commit/e6a4a0c0936a215c9aed87365108b3bcf59303fd))
+* **mcp:** add line numbers to code tool errors ([00af445](https://github.com/writer/writer-node/commit/00af445b63b9a0db2fb59202f7ed3c4d34887990))
+* **mcp:** clarify http auth error ([bd123e0](https://github.com/writer/writer-node/commit/bd123e075e8bd0b179f95d8f8513a53414f86ac6))
+* **mcp:** upgrade jq-web ([9a0ac58](https://github.com/writer/writer-node/commit/9a0ac581162b2c59792d493e17cbe9d9cb0b5f60))
+* use structured error when code execution tool errors ([e140047](https://github.com/writer/writer-node/commit/e140047e470588b4c18bccbdb752078f198d8374))
+
+
+### Documentation
+
+* **api:** updates to API spec ([69b36c9](https://github.com/writer/writer-node/commit/69b36c97a708452f05522c9b81f0855fea0daadb))
+* **mcp:** add a README button for one-click add to Cursor ([062b7d7](https://github.com/writer/writer-node/commit/062b7d73c91530ea083872b67036a77265db9a8d))
+* **mcp:** add a README link to add server to VS Code or Claude Code ([bb1991a](https://github.com/writer/writer-node/commit/bb1991af52bb810f9b69ec7d9d761d8b79aa6b15))
+
 ## 2.3.2 (2025-10-03)
 
 Full Changelog: [v2.3.2-rc.2...v2.3.2](https://github.com/writer/writer-node/compare/v2.3.2-rc.2...v2.3.2)
