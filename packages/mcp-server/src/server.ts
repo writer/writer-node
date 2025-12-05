@@ -34,7 +34,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'writer_sdk_api',
-      version: '2.3.3-rc.1',
+      version: '2.4.0-rc.1',
     },
     { capabilities: { tools: {}, logging: {} } },
   );

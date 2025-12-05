@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.4.0-rc.1 (2025-12-05)
+
+Full Changelog: [v2.3.3-rc.1...v2.4.0-rc.1](https://github.com/writer/writer-node/compare/v2.3.3-rc.1...v2.4.0-rc.1)
+
+### Features
+
+* **mcp:** add typescript check to code execution tool ([7ecde82](https://github.com/writer/writer-node/commit/7ecde8204a6475dc8106c4c90d1e90030260e465))
+* **mcp:** handle code mode calls in the Stainless API ([a705a1b](https://github.com/writer/writer-node/commit/a705a1b8ed30c17464d0a3700c828796550ed8d6))
+* **mcp:** return logs on code tool errors ([76551d3](https://github.com/writer/writer-node/commit/76551d345f33dbe6f6ea1bc437b691bcf3690664))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([6cd6857](https://github.com/writer/writer-node/commit/6cd6857db708dc98d8ee76b3b324c1a123de222c))
+* **mcp:** return correct lines on typescript errors ([c7e0c9b](https://github.com/writer/writer-node/commit/c7e0c9bffca2893dd36715811ba3b6001fa5544d))
+* **mcp:** return tool execution error on api error ([b62c6ba](https://github.com/writer/writer-node/commit/b62c6ba071ea931ae3af7b996b084403be6b0777))
+
+
+### Chores
+
+* **internal:** codegen related update ([5958ab9](https://github.com/writer/writer-node/commit/5958ab937e37a09fe325dfc509537080825573e0))
+* **internal:** codegen related update ([30d1025](https://github.com/writer/writer-node/commit/30d10259e89332dd11656dbefbee651eeb506706))
+* **internal:** upgrade eslint ([4ae73b1](https://github.com/writer/writer-node/commit/4ae73b119027a678183ab79ddef25703584f63b7))
+* use latest @modelcontextprotocol/sdk ([08d8625](https://github.com/writer/writer-node/commit/08d8625b8b8a46b8b0f8bb92c6ee57be5b90a780))
+
 ## 2.3.3-rc.1 (2025-12-01)
 
 Full Changelog: [v2.3.2...v2.3.3-rc.1](https://github.com/writer/writer-node/compare/v2.3.2...v2.3.3-rc.1)
