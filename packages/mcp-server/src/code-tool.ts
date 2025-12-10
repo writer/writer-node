@@ -39,6 +39,7 @@ export async function codeTool() {
       },
       body: JSON.stringify({
         project_name: 'writer',
+        client_opts: {},
         code,
       }),
     });
