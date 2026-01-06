@@ -220,7 +220,10 @@ a subclass of `APIError` will be thrown.
 <!-- prettier-ignore -->
 ```ts
 const chatCompletion = await client.chat
-  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
+  .chat({
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+    model: 'palmyra-x5',
+  })
   .catch(async (err) => {
     if (err instanceof Writer.APIError) {
       console.log(err.status); // 400
@@ -332,13 +335,19 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new Writer();
 
 const response = await client.chat
-  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
+  .chat({
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+    model: 'palmyra-x5',
+  })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chatCompletion, response: raw } = await client.chat
-  .chat({ messages: [{ content: 'Write a haiku about programming', role: 'user' }], model: 'palmyra-x5' })
+  .chat({
+    messages: [{ content: 'Write a haiku about programming', role: 'user' }],
+    model: 'palmyra-x5',
+  })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chatCompletion.id);
