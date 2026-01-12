@@ -355,12 +355,12 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Writer({ maxRetries: 4, apiKey: 'My API Key' });
-    expect(client.maxRetries).toEqual(4);
+    const client = new Writer({ maxRetries: 14, apiKey: 'My API Key' });
+    expect(client.maxRetries).toEqual(14);
 
     // default
     const client2 = new Writer({ apiKey: 'My API Key' });
-    expect(client2.maxRetries).toEqual(2);
+    expect(client2.maxRetries).toEqual(7);
   });
 
   describe('withOptions', () => {
