@@ -166,7 +166,7 @@ export interface FileRetryParams {
 
 export interface FileUploadParams {
   /**
-   * Body param:
+   * Body param
    */
   content: Uploadable;
 
