@@ -60,7 +60,7 @@ $ yarn link writer-sdk
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global writer-sdk
+$ pnpm link --global writer-sdk
 ```
 
 ## Running tests
