@@ -167,18 +167,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/files',
   },
   {
-    clientCallName: 'client.tools.aiDetect',
-    fullyQualifiedName: 'tools.aiDetect',
-    httpMethod: 'post',
-    httpPath: '/v1/tools/ai-detect',
-  },
-  {
-    clientCallName: 'client.tools.contextAwareSplitting',
-    fullyQualifiedName: 'tools.contextAwareSplitting',
-    httpMethod: 'post',
-    httpPath: '/v1/tools/context-aware-splitting',
-  },
-  {
     clientCallName: 'client.tools.parsePdf',
     fullyQualifiedName: 'tools.parsePdf',
     httpMethod: 'post',
@@ -189,12 +177,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'tools.webSearch',
     httpMethod: 'post',
     httpPath: '/v1/tools/web-search',
-  },
-  {
-    clientCallName: 'client.tools.comprehend.medical',
-    fullyQualifiedName: 'tools.comprehend.medical',
-    httpMethod: 'post',
-    httpPath: '/v1/tools/comprehend/medical',
   },
   {
     clientCallName: 'client.translation.translate',
