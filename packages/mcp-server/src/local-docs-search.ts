@@ -1009,76 +1009,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
-    name: 'ai_detect',
-    endpoint: '/v1/tools/ai-detect',
-    httpMethod: 'post',
-    summary: 'AI detection',
-    description:
-      'Detects if content is AI- or human-generated, with a confidence score. Content must have at least 350 characters',
-    stainlessPath: '(resource) tools > (method) ai_detect',
-    qualified: 'client.tools.aiDetect',
-    params: ['input: string;'],
-    response: "{ label: 'fake' | 'real'; score: number; }",
-    markdown:
-      "## ai_detect\n\n`client.tools.aiDetect(input: string): { label: 'fake' | 'real'; score: number; }`\n\n**post** `/v1/tools/ai-detect`\n\nDetects if content is AI- or human-generated, with a confidence score. Content must have at least 350 characters\n\n### Parameters\n\n- `input: string`\n  The content to determine if it is AI- or human-generated. Content must have at least 350 characters.\n\n### Returns\n\n- `{ label: 'fake' | 'real'; score: number; }`\n\n  - `label: 'fake' | 'real'`\n  - `score: number`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.tools.aiDetect({ input: 'AI and ML continue to be at the forefront of technological advancements. In 2025, we can expect more sophisticated AI systems that can handle complex tasks with greater efficiency. AI will play a crucial role in various sectors, including healthcare, finance, and manufacturing. For instance, AI-powered diagnostic tools will become more accurate, helping doctors detect diseases at an early stage. In finance, AI algorithms will enhance fraud detection and risk management.' });\n\nconsole.log(response);\n```",
-    perLanguage: {
-      go: {
-        method: 'client.Tools.AIDetect',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/stainless-sdks/writer-go"\n\t"github.com/stainless-sdks/writer-go/option"\n)\n\nfunc main() {\n\tclient := writersdk.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Tools.AIDetect(context.TODO(), writersdk.ToolAIDetectParams{\n\t\tInput: writersdk.F("AI and ML continue to be at the forefront of technological advancements. In 2025, we can expect more sophisticated AI systems that can handle complex tasks with greater efficiency. AI will play a crucial role in various sectors, including healthcare, finance, and manufacturing. For instance, AI-powered diagnostic tools will become more accurate, helping doctors detect diseases at an early stage. In finance, AI algorithms will enhance fraud detection and risk management."),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Label)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.writer.com/v1/tools/ai-detect \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "input": "AI and ML continue to be at the forefront of technological advancements. In 2025, we can expect more sophisticated AI systems that can handle complex tasks with greater efficiency. AI will play a crucial role in various sectors, including healthcare, finance, and manufacturing. For instance, AI-powered diagnostic tools will become more accurate, helping doctors detect diseases at an early stage. In finance, AI algorithms will enhance fraud detection and risk management."\n        }\'',
-      },
-      python: {
-        method: 'tools.ai_detect',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.ai_detect(\n    input="AI and ML continue to be at the forefront of technological advancements. In 2025, we can expect more sophisticated AI systems that can handle complex tasks with greater efficiency. AI will play a crucial role in various sectors, including healthcare, finance, and manufacturing. For instance, AI-powered diagnostic tools will become more accurate, helping doctors detect diseases at an early stage. In finance, AI algorithms will enhance fraud detection and risk management.",\n)\nprint(response.label)',
-      },
-      typescript: {
-        method: 'client.tools.aiDetect',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.aiDetect({\n  input:\n    'AI and ML continue to be at the forefront of technological advancements. In 2025, we can expect more sophisticated AI systems that can handle complex tasks with greater efficiency. AI will play a crucial role in various sectors, including healthcare, finance, and manufacturing. For instance, AI-powered diagnostic tools will become more accurate, helping doctors detect diseases at an early stage. In finance, AI algorithms will enhance fraud detection and risk management.',\n});\n\nconsole.log(response.label);",
-      },
-    },
-  },
-  {
-    name: 'context_aware_splitting',
-    endpoint: '/v1/tools/context-aware-splitting',
-    httpMethod: 'post',
-    summary: 'Context-aware text splitting',
-    description:
-      'Splits a long block of text (maximum 4000 words) into smaller chunks while preserving the semantic meaning of the text and context between the chunks.',
-    stainlessPath: '(resource) tools > (method) context_aware_splitting',
-    qualified: 'client.tools.contextAwareSplitting',
-    params: ["strategy: 'llm_split' | 'fast_split' | 'hybrid_split';", 'text: string;'],
-    response: '{ chunks: string[]; }',
-    markdown:
-      "## context_aware_splitting\n\n`client.tools.contextAwareSplitting(strategy: 'llm_split' | 'fast_split' | 'hybrid_split', text: string): { chunks: string[]; }`\n\n**post** `/v1/tools/context-aware-splitting`\n\nSplits a long block of text (maximum 4000 words) into smaller chunks while preserving the semantic meaning of the text and context between the chunks.\n\n### Parameters\n\n- `strategy: 'llm_split' | 'fast_split' | 'hybrid_split'`\n  The strategy to use for splitting the text into chunks. `llm_split` uses the language model to split the text, `fast_split` uses a fast heuristic-based approach, and `hybrid_split` combines both strategies.\n\n- `text: string`\n  The text to split into chunks.\n\n### Returns\n\n- `{ chunks: string[]; }`\n\n  - `chunks: string[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.tools.contextAwareSplitting({ strategy: 'llm_split', text: 'text' });\n\nconsole.log(response);\n```",
-    perLanguage: {
-      go: {
-        method: 'client.Tools.ContextAwareSplitting',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/stainless-sdks/writer-go"\n\t"github.com/stainless-sdks/writer-go/option"\n)\n\nfunc main() {\n\tclient := writersdk.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Tools.ContextAwareSplitting(context.TODO(), writersdk.ToolContextAwareSplittingParams{\n\t\tStrategy: writersdk.F(writersdk.ToolContextAwareSplittingParamsStrategyLlmSplit),\n\t\tText:     writersdk.F("text"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Chunks)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.writer.com/v1/tools/context-aware-splitting \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "strategy": "llm_split",\n          "text": "text"\n        }\'',
-      },
-      python: {
-        method: 'tools.context_aware_splitting',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.context_aware_splitting(\n    strategy="llm_split",\n    text="text",\n)\nprint(response.chunks)',
-      },
-      typescript: {
-        method: 'client.tools.contextAwareSplitting',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.contextAwareSplitting({ strategy: 'llm_split', text: 'text' });\n\nconsole.log(response.chunks);",
-      },
-    },
-  },
-  {
     name: 'parse_pdf',
     endpoint: '/v1/tools/pdf-parser/{file_id}',
     httpMethod: 'post',
@@ -1158,42 +1088,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.tools.webSearch',
         example:
           "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.webSearch({\n  include_domains: ['dev.writer.com'],\n  query: 'How do I get an API key for the Writer API?',\n});\n\nconsole.log(response.query);",
-      },
-    },
-  },
-  {
-    name: 'medical',
-    endpoint: '/v1/tools/comprehend/medical',
-    httpMethod: 'post',
-    summary: 'Medical comprehend',
-    description:
-      'Analyze unstructured medical text to extract entities labeled with standardized medical codes and confidence scores.',
-    stainlessPath: '(resource) tools.comprehend > (method) medical',
-    qualified: 'client.tools.comprehend.medical',
-    params: ['content: string;', "response_type: 'Entities' | 'RxNorm' | 'ICD-10-CM' | 'SNOMED CT';"],
-    response:
-      '{ entities: { attributes: { begin_offset: number; concepts: object[]; end_offset: number; relationship_score: number; score: number; text: string; traits: object[]; type: string; category?: string; relationship_type?: string; }[]; begin_offset: number; category: string; concepts: { code: string; description: string; score: number; }[]; end_offset: number; score: number; text: string; traits: { name: string; score: number; }[]; type: string; }[]; }',
-    markdown:
-      "## medical\n\n`client.tools.comprehend.medical(content: string, response_type: 'Entities' | 'RxNorm' | 'ICD-10-CM' | 'SNOMED CT'): { entities: object[]; }`\n\n**post** `/v1/tools/comprehend/medical`\n\nAnalyze unstructured medical text to extract entities labeled with standardized medical codes and confidence scores.\n\n### Parameters\n\n- `content: string`\n  The text to analyze.\n\n- `response_type: 'Entities' | 'RxNorm' | 'ICD-10-CM' | 'SNOMED CT'`\n  The structure of the response to return. `Entities` returns medical entities, `RxNorm` returns medication information, `ICD-10-CM` returns diagnosis codes, and `SNOMED CT` returns medical concepts.\n\n### Returns\n\n- `{ entities: { attributes: { begin_offset: number; concepts: object[]; end_offset: number; relationship_score: number; score: number; text: string; traits: object[]; type: string; category?: string; relationship_type?: string; }[]; begin_offset: number; category: string; concepts: { code: string; description: string; score: number; }[]; end_offset: number; score: number; text: string; traits: { name: string; score: number; }[]; type: string; }[]; }`\n\n  - `entities: { attributes: { begin_offset: number; concepts: { code: string; description: string; score: number; }[]; end_offset: number; relationship_score: number; score: number; text: string; traits: { name: string; score: number; }[]; type: string; category?: string; relationship_type?: string; }[]; begin_offset: number; category: string; concepts: { code: string; description: string; score: number; }[]; end_offset: number; score: number; text: string; traits: { name: string; score: number; }[]; type: string; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.tools.comprehend.medical({ content: 'content', response_type: 'Entities' });\n\nconsole.log(response);\n```",
-    perLanguage: {
-      go: {
-        method: 'client.Tools.Comprehend.Medical',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/stainless-sdks/writer-go"\n\t"github.com/stainless-sdks/writer-go/option"\n)\n\nfunc main() {\n\tclient := writersdk.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\tresponse, err := client.Tools.Comprehend.Medical(context.TODO(), writersdk.ToolComprehendMedicalParams{\n\t\tContent:      writersdk.F("content"),\n\t\tResponseType: writersdk.F(writersdk.ToolComprehendMedicalParamsResponseTypeEntities),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Entities)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.writer.com/v1/tools/comprehend/medical \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "content": "content",\n          "response_type": "Entities"\n        }\'',
-      },
-      python: {
-        method: 'tools.comprehend.medical',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.comprehend.medical(\n    content="content",\n    response_type="Entities",\n)\nprint(response.entities)',
-      },
-      typescript: {
-        method: 'client.tools.comprehend.medical',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.comprehend.medical({\n  content: 'content',\n  response_type: 'Entities',\n});\n\nconsole.log(response.entities);",
       },
     },
   },
