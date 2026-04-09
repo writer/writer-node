@@ -77,6 +77,13 @@ import {
 } from './resources/graphs';
 import { ModelListResponse, Models } from './resources/models';
 import {
+  ToolParsePdfParams,
+  ToolParsePdfResponse,
+  ToolWebSearchParams,
+  ToolWebSearchResponse,
+  Tools,
+} from './resources/tools';
+import {
   Translation,
   TranslationRequest,
   TranslationResponse,
@@ -95,13 +102,6 @@ import {
   ApplicationRetrieveResponse,
   Applications,
 } from './resources/applications/applications';
-import {
-  ToolParsePdfParams,
-  ToolParsePdfResponse,
-  ToolWebSearchParams,
-  ToolWebSearchResponse,
-  Tools,
-} from './resources/tools/tools';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';

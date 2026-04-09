@@ -70,7 +70,7 @@ export {
   type ToolWebSearchResponse,
   type ToolParsePdfParams,
   type ToolWebSearchParams,
-} from './tools/tools';
+} from './tools';
 export {
   Translation,
   type TranslationRequest,
