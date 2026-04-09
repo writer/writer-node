@@ -139,15 +139,13 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/tools/tools.ts">ToolParsePdfResponse</a></code>
-- <code><a href="./src/resources/tools/tools.ts">ToolWebSearchResponse</a></code>
+- <code><a href="./src/resources/tools.ts">ToolParsePdfResponse</a></code>
+- <code><a href="./src/resources/tools.ts">ToolWebSearchResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
-- <code title="post /v1/tools/web-search">client.tools.<a href="./src/resources/tools/tools.ts">webSearch</a>({ ...params }) -> ToolWebSearchResponse</code>
-
-## Comprehend
+- <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
+- <code title="post /v1/tools/web-search">client.tools.<a href="./src/resources/tools.ts">webSearch</a>({ ...params }) -> ToolWebSearchResponse</code>
 
 # Translation
 
