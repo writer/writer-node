@@ -1,5 +1,147 @@
 # Changelog
 
+## 3.0.0-rc.1 (2026-04-13)
+
+Full Changelog: [v2.3.3-rc.1...v3.0.0-rc.1](https://github.com/writer/writer-node/compare/v2.3.3-rc.1...v3.0.0-rc.1)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** remove deprecated tool schemes
+* **mcp:** **Migration:** To migrate, simply modify the command used to invoke the MCP server. Currently, the only supported tool scheme is code mode. Now, starting the server with just `node /path/to/mcp/server` or `npx package-name` will invoke code tools: changing your command to one of these is likely all you will need to do.
+
+### Features
+
+* **api:** Deprecate AI Detection, Medical Comprehend, and Context-Aware Text Splitting ([91097e4](https://github.com/writer/writer-node/commit/91097e4d5d1165e5f8d422b475389b34e9371349))
+* **api:** manual updates ([0012f4c](https://github.com/writer/writer-node/commit/0012f4ccc4acda716ef0559edc28f14af57911fa))
+* **api:** manual updates ([d9dd552](https://github.com/writer/writer-node/commit/d9dd55266323cb77cb8d4b88b6cc3ff3c7a91a00))
+* **mcp:** add an option to disable code tool ([fa96ea5](https://github.com/writer/writer-node/commit/fa96ea5f1c6c863ee94918f58f532ecf7d4ec8c3))
+* **mcp:** add initial server instructions ([d52d098](https://github.com/writer/writer-node/commit/d52d098bfb5163f020f6bf7a0e45e1ea911ca962))
+* **mcp:** add typescript check to code execution tool ([7ecde82](https://github.com/writer/writer-node/commit/7ecde8204a6475dc8106c4c90d1e90030260e465))
+* **mcp:** handle code mode calls in the Stainless API ([a705a1b](https://github.com/writer/writer-node/commit/a705a1b8ed30c17464d0a3700c828796550ed8d6))
+* **mcp:** return logs on code tool errors ([76551d3](https://github.com/writer/writer-node/commit/76551d345f33dbe6f6ea1bc437b691bcf3690664))
+
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([325c9ca](https://github.com/writer/writer-node/commit/325c9ca844c64083fb0e09f83c291cc17ef2c61d))
+* **client:** avoid removing abort listener too early ([8a3f29d](https://github.com/writer/writer-node/commit/8a3f29dbe0af0d126d7227b500c551204c916773))
+* **client:** preserve URL params already embedded in path ([c650393](https://github.com/writer/writer-node/commit/c650393f8ea5e1ceebb4c903f69b78d85572279c))
+* **docs/contributing:** correct pnpm link command ([edcceda](https://github.com/writer/writer-node/commit/edcceda07df649e2a6dfd80d1b220b8e17a1b3ea))
+* **docs:** fix mcp installation instructions for remote servers ([5248a83](https://github.com/writer/writer-node/commit/5248a83066782fedd9c97b4b6f78f476c2535d59))
+* fix request delays for retrying to be more respectful of high requested delays ([b897aab](https://github.com/writer/writer-node/commit/b897aab23f199ac46e4fe6092fb3c1cbc0cbdb7d))
+* **mcp:** add client instantiation options to code tool ([761c3b1](https://github.com/writer/writer-node/commit/761c3b1ccc0eacc6b7ed7782fd1abddefc9020d7))
+* **mcp:** allow falling back for required env variables ([7e8d2fc](https://github.com/writer/writer-node/commit/7e8d2fc3c1012493584dab21e31c36e0f458b3fd))
+* **mcp:** correct code tool API endpoint ([6cd6857](https://github.com/writer/writer-node/commit/6cd6857db708dc98d8ee76b3b324c1a123de222c))
+* **mcp:** correct code tool api output types ([9b088bc](https://github.com/writer/writer-node/commit/9b088bc1c7705c55bfb6f448f85520171a0ae820))
+* **mcp:** fix env parsing ([a8328e7](https://github.com/writer/writer-node/commit/a8328e7d7dc8abae15fe7c8bb653e206a14c51cd))
+* **mcp:** fix options parsing ([6690d22](https://github.com/writer/writer-node/commit/6690d22af5aac3cdc2ffd883010b06989e6a4f92))
+* **mcp:** initialize SDK lazily to avoid failing the connection on init errors ([49df35f](https://github.com/writer/writer-node/commit/49df35fc62598b6ccc91e4e45cf5afa530c4f19d))
+* **mcp:** pass base url to code tool ([59063c0](https://github.com/writer/writer-node/commit/59063c0bea7c292d3bc080b32b8bfd92316446e5))
+* **mcp:** return correct lines on typescript errors ([c7e0c9b](https://github.com/writer/writer-node/commit/c7e0c9bffca2893dd36715811ba3b6001fa5544d))
+* **mcp:** return tool execution error on api error ([b62c6ba](https://github.com/writer/writer-node/commit/b62c6ba071ea931ae3af7b996b084403be6b0777))
+* **mcp:** update code tool prompt ([382ffb1](https://github.com/writer/writer-node/commit/382ffb1f2535c072fc1def53a0eb1e1456b609b9))
+* **mcp:** update prompt ([dddad93](https://github.com/writer/writer-node/commit/dddad93a9b1c3ab92f1d52a5bdbe31af46939d8e))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([58a37e3](https://github.com/writer/writer-node/commit/58a37e30f60599207bdc756ba723d25686770d4a))
+* **ci:** escape input path in publish-npm workflow ([5a5bf6b](https://github.com/writer/writer-node/commit/5a5bf6b7c85abbc390ed796347b77855d8f5a461))
+* **ci:** skip lint on metadata-only changes ([01c3e15](https://github.com/writer/writer-node/commit/01c3e15869a06fd6247270c6d6f2bc77ebbefd26))
+* **ci:** skip uploading artifacts on stainless-internal branches ([51bf9fc](https://github.com/writer/writer-node/commit/51bf9fc60afb36994efbac0e9bc04e39a2b5b163))
+* **ci:** upgrade `actions/github-script` ([c84c7b9](https://github.com/writer/writer-node/commit/c84c7b9ebc03fcee7411719aa5fd783cbdcdc38c))
+* **client:** do not parse responses with empty content-length ([6802838](https://github.com/writer/writer-node/commit/6802838d8eab0322f78ba8f2612aa282687715c9))
+* **client:** restructure abort controller binding ([3204f51](https://github.com/writer/writer-node/commit/3204f51e093c5f1390cef993d2a377b778edbe1d))
+* fix example snippet imports ([4e80d76](https://github.com/writer/writer-node/commit/4e80d762dfb7537a347bcb7ea12a553f97d72f5b))
+* fix typo in descriptions ([2f6c30f](https://github.com/writer/writer-node/commit/2f6c30f7e0a9f56641eeb077fdda5abf79c9e11c))
+* **internal/client:** fix form-urlencoded requests ([69d4765](https://github.com/writer/writer-node/commit/69d476512384faa4ba6f068921c0aacb2fcd8c54))
+* **internal:** add health check to MCP server when running in HTTP mode ([cbb4461](https://github.com/writer/writer-node/commit/cbb44616abd6e800f622b8e2e1a406f5da72c85b))
+* **internal:** allow basic filtering of methods allowed for MCP code mode ([a07d4aa](https://github.com/writer/writer-node/commit/a07d4aaa8dcf25a61de3721f0203b26fac082ea0))
+* **internal:** allow setting x-stainless-api-key header on mcp server requests ([ec7acc0](https://github.com/writer/writer-node/commit/ec7acc08393eb40ab704817b28ac441a25747ff0))
+* **internal:** always generate MCP server dockerfiles and upgrade associated dependencies ([dc3398b](https://github.com/writer/writer-node/commit/dc3398b32e6139cb085ec0b1291e068d71cd35cf))
+* **internal:** avoid type checking errors with ts-reset ([d32477d](https://github.com/writer/writer-node/commit/d32477dbfdf57bcd09bc40722698fad93b31fbde))
+* **internal:** bump @modelcontextprotocol/sdk, @hono/node-server, and minimatch ([85c4851](https://github.com/writer/writer-node/commit/85c4851f99e0cf1c918e6ffaec248dddffcecb77))
+* **internal:** cache fetch instruction calls in MCP server ([6745b11](https://github.com/writer/writer-node/commit/6745b119635f4fb1adc214136afb028beaf617e7))
+* **internal:** codegen related update ([c959300](https://github.com/writer/writer-node/commit/c95930084716f047fd69d97c0d6314da95dc8ae4))
+* **internal:** codegen related update ([f120aae](https://github.com/writer/writer-node/commit/f120aaee36cb691f3be43210e34324982b51805d))
+* **internal:** codegen related update ([757eeae](https://github.com/writer/writer-node/commit/757eeae33e139f642cdb432b600c7c6887e65f25))
+* **internal:** codegen related update ([56fc7c7](https://github.com/writer/writer-node/commit/56fc7c7870a26529558d4ae70d238d201e2015a0))
+* **internal:** codegen related update ([e12403b](https://github.com/writer/writer-node/commit/e12403bc7c73a4ae453c9bfbab7a5423a91497e7))
+* **internal:** codegen related update ([1be7281](https://github.com/writer/writer-node/commit/1be72815af2ad70591cfc3a0c63bbf318d5dc405))
+* **internal:** codegen related update ([4807744](https://github.com/writer/writer-node/commit/4807744a4ec789fa0e283d33fa77b50a9f9880fc))
+* **internal:** codegen related update ([e56fb21](https://github.com/writer/writer-node/commit/e56fb21f84394e9f58fadcfaa86b1e52ab8f4673))
+* **internal:** codegen related update ([c549df2](https://github.com/writer/writer-node/commit/c549df28775dfec7ec1367b854068d9d845b851d))
+* **internal:** codegen related update ([220705b](https://github.com/writer/writer-node/commit/220705bccf50e9c1a2c0c087a697e274a64e090c))
+* **internal:** codegen related update ([cf8a0ac](https://github.com/writer/writer-node/commit/cf8a0ac27f7a4d3c2f09435d537a0e9b6d5f7a95))
+* **internal:** codegen related update ([5958ab9](https://github.com/writer/writer-node/commit/5958ab937e37a09fe325dfc509537080825573e0))
+* **internal:** codegen related update ([30d1025](https://github.com/writer/writer-node/commit/30d10259e89332dd11656dbefbee651eeb506706))
+* **internal:** fix MCP docker image builds in yarn projects ([4a40b93](https://github.com/writer/writer-node/commit/4a40b93b9a76b15213e3b890686f806e301e2328))
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([2e39b4f](https://github.com/writer/writer-node/commit/2e39b4fa5f4ee2554f2185a0466933e7414eccec))
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([2aa7960](https://github.com/writer/writer-node/commit/2aa7960f102438b8b9a312bd32a1ddb1cb67b790))
+* **internal:** fix MCP server import ordering ([1a45a48](https://github.com/writer/writer-node/commit/1a45a48cde1f9961ac2f79d6bc775b1a607f0436))
+* **internal:** fix MCP server TS errors that occur with required client options ([64520aa](https://github.com/writer/writer-node/commit/64520aa474771c608f1a575d0cd9ae36bdca033c))
+* **internal:** fix pagination internals not accepting option promises ([302c9ab](https://github.com/writer/writer-node/commit/302c9ab7a966a1cc9e3f46a376057ab0d479ee83))
+* **internal:** improve layout of generated MCP server files ([da6f525](https://github.com/writer/writer-node/commit/da6f525158745577a74376c352bb967515e0f902))
+* **internal:** improve local docs search for MCP servers ([bf2441f](https://github.com/writer/writer-node/commit/bf2441f89a2d2642dcfb5978938518a3dba7ad15))
+* **internal:** improve local docs search for MCP servers ([d1710b0](https://github.com/writer/writer-node/commit/d1710b03fc4b42bdc8cab7dc288bea9eb084af71))
+* **internal:** make generated MCP servers compatible with Cloudflare worker environments ([d8af505](https://github.com/writer/writer-node/commit/d8af505573509dfa5541cb49021e7279850cd457))
+* **internal:** make MCP code execution location configurable via a flag ([8b197f0](https://github.com/writer/writer-node/commit/8b197f0e9406fc38ac7b318836484982b6b895a7))
+* **internal:** move stringifyQuery implementation to internal function ([08e2c09](https://github.com/writer/writer-node/commit/08e2c09ebe73f6c62b9d9b531662ff7827c7aa64))
+* **internal:** refactor flag parsing for MCP servers and add debug flag ([5291a9f](https://github.com/writer/writer-node/commit/5291a9f086f73589f86a3a6bd604e6686e961f13))
+* **internal:** show error causes in MCP servers when running in local mode ([6faf2cc](https://github.com/writer/writer-node/commit/6faf2cc413f92b3b0ae150251ecc63cc731bf07a))
+* **internal:** support custom-instructions-path flag in MCP servers ([8d2f3d0](https://github.com/writer/writer-node/commit/8d2f3d0fae360c5d3ae00fe48376e570e1904731))
+* **internal:** support local docs search in MCP servers ([f479ec6](https://github.com/writer/writer-node/commit/f479ec6f4141d7c59cf0dd44dff9fdf38debd2f4))
+* **internal:** support oauth authorization code flow for MCP servers ([96ba350](https://github.com/writer/writer-node/commit/96ba350f38776d9622a9cc4124ebca788a5fa9e1))
+* **internal:** support type annotations when running MCP in local execution mode ([7282ea3](https://github.com/writer/writer-node/commit/7282ea3eb7f9c0579ed0d7c14ed3585612b8d381))
+* **internal:** support x-stainless-mcp-client-envs header in MCP servers ([29ec150](https://github.com/writer/writer-node/commit/29ec150c6869179932be3ac434fc3596a2883387))
+* **internal:** support x-stainless-mcp-client-permissions headers in MCP servers ([5cacf5f](https://github.com/writer/writer-node/commit/5cacf5ff4671398607b6dcb56414c43a20bd77b8))
+* **internal:** switch MCP servers to use pino for logging ([a2693a7](https://github.com/writer/writer-node/commit/a2693a734be31a23d6f3156fd93c33a0a272a55c))
+* **internal:** tweak CI branches ([700bb90](https://github.com/writer/writer-node/commit/700bb904c404df16bd4e6c7635c7ab4de1ced843))
+* **internal:** update `actions/checkout` version ([ac62b27](https://github.com/writer/writer-node/commit/ac62b278b1aa8635c85e4b7f80dfd461c76bbde9))
+* **internal:** update dependencies to address dependabot vulnerabilities ([96b9468](https://github.com/writer/writer-node/commit/96b9468dddad4693959b59bd4dfd0c64e6948def))
+* **internal:** update gitignore ([a8a8b44](https://github.com/writer/writer-node/commit/a8a8b44016b44b27e31cd36b7d4c3d726c0994f5))
+* **internal:** update lock file ([8872b80](https://github.com/writer/writer-node/commit/8872b80dddc9edf1d45de5387acce00b13e6010c))
+* **internal:** update multipart form array serialization ([5be2c2b](https://github.com/writer/writer-node/commit/5be2c2beea67491dcf0fe54ec757a049daa5e05b))
+* **internal:** upgrade @modelcontextprotocol/sdk and hono ([e62fb6c](https://github.com/writer/writer-node/commit/e62fb6c36372a4ece5574a2075248213641f9a50))
+* **internal:** upgrade babel, qs, js-yaml ([5717a02](https://github.com/writer/writer-node/commit/5717a02433ce869ff16eddce1a30b892667b37d5))
+* **internal:** upgrade eslint ([4ae73b1](https://github.com/writer/writer-node/commit/4ae73b119027a678183ab79ddef25703584f63b7))
+* **internal:** use link instead of file in MCP server package.json files ([245c089](https://github.com/writer/writer-node/commit/245c089021989cd21c8d418c2b846e34780b00db))
+* **internal:** use x-stainless-mcp-client-envs header for MCP remote code tool calls ([368815e](https://github.com/writer/writer-node/commit/368815effa9872d7cfb68b6b59fc2a3c292d3642))
+* **mcp-server:** add support for session id, forward client info ([9fa5781](https://github.com/writer/writer-node/commit/9fa5781db92bbc1d576f0a6e2224368e9c526137))
+* **mcp-server:** improve instructions ([50343c5](https://github.com/writer/writer-node/commit/50343c59ca40bf64eb6d0fc315af953bced30f97))
+* **mcp-server:** increase local docs search result count from 5 to 10 ([f87e6b9](https://github.com/writer/writer-node/commit/f87e6b98513143c4570ab640361262109f507966))
+* **mcp-server:** log client info ([a946922](https://github.com/writer/writer-node/commit/a9469221dba5e55d923db1d7e5f11cf1bb1cbf6e))
+* **mcp-server:** return access instructions for 404 without API key ([30ceb2d](https://github.com/writer/writer-node/commit/30ceb2d5135fd4d2a17ba9ab6041d32573405b60))
+* **mcp:** add intent param to execute tool ([c988c65](https://github.com/writer/writer-node/commit/c988c65c5ac29240540265630b0b2c9a565caa94))
+* **mcp:** correctly update version in sync with sdk ([b93d491](https://github.com/writer/writer-node/commit/b93d491022f90f2f6b92bab112676e5df18bf4c2))
+* **mcp:** forward STAINLESS_API_KEY to docs search endpoint ([dde1184](https://github.com/writer/writer-node/commit/dde11849b78e009db7128c811b0f511f442801ae))
+* **mcp:** pass intent param to execute handler ([58fa431](https://github.com/writer/writer-node/commit/58fa4314badfa5ba2cd2cf148ffb46227d965389))
+* **mcp:** remove deprecated tool schemes ([e376d65](https://github.com/writer/writer-node/commit/e376d65638ff29ccef3339c53b61c6207a3c08d2))
+* **mcp:** up tsconfig lib version to es2022 ([cb421df](https://github.com/writer/writer-node/commit/cb421dfbb23c198f7bd3b39d6555c6e22ec0a200))
+* **mcp:** update lockfile ([8d1106e](https://github.com/writer/writer-node/commit/8d1106e94062b4610f8e0333761f82749c0bbc9f))
+* **mcp:** upgrade dependencies ([5766d6c](https://github.com/writer/writer-node/commit/5766d6c58f52a74fcfc718fa92e46a4a0e0103d7))
+* **test:** do not count install time for mock server timeout ([a345373](https://github.com/writer/writer-node/commit/a3453738634b2bcccde87fd0e9736eb1356ee45f))
+* **tests:** bump steady to v0.19.4 ([dad22a4](https://github.com/writer/writer-node/commit/dad22a4cd08a9aaedc076023093519f9b4813d87))
+* **tests:** bump steady to v0.19.5 ([b51c69d](https://github.com/writer/writer-node/commit/b51c69df9ec75a75a86560ddfa23ecb908dd5ff7))
+* **tests:** bump steady to v0.19.6 ([241c42d](https://github.com/writer/writer-node/commit/241c42d876331b92dee01b704d1eae1c0587f8f4))
+* **tests:** bump steady to v0.19.7 ([518baf9](https://github.com/writer/writer-node/commit/518baf98c314c1fe39c2d44e95863212f881f8b2))
+* **tests:** bump steady to v0.20.1 ([32f3fb9](https://github.com/writer/writer-node/commit/32f3fb9a4eebc6658ac077164f2eee9e21ddad00))
+* **tests:** bump steady to v0.20.2 ([b54c180](https://github.com/writer/writer-node/commit/b54c18011c29d415e55f7ccad2bfb0be46e3ba87))
+* update mock server docs ([b21d0a5](https://github.com/writer/writer-node/commit/b21d0a594a1ce7a8bf9db8f67af853f1dbefc16f))
+* update placeholder string ([95ae007](https://github.com/writer/writer-node/commit/95ae007e055d87d31ae11cbb2163ab5e882c20d5))
+* use latest @modelcontextprotocol/sdk ([08d8625](https://github.com/writer/writer-node/commit/08d8625b8b8a46b8b0f8bb92c6ee57be5b90a780))
+
+
+### Documentation
+
+* **api:** updates to API spec ([535ef81](https://github.com/writer/writer-node/commit/535ef81a129dd3fb6c372079ff3a4af07e5861d2))
+* prominently feature MCP server setup in root SDK readmes ([723e616](https://github.com/writer/writer-node/commit/723e616cc53d9a26740f5de5b72a1ec9e0313949))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([5d62789](https://github.com/writer/writer-node/commit/5d6278939d566e78b574a04a11fc53659b29f5e1))
+
 ## 2.3.3-rc.1 (2025-12-01)
 
 Full Changelog: [v2.3.2...v2.3.3-rc.1](https://github.com/writer/writer-node/compare/v2.3.2...v2.3.3-rc.1)
