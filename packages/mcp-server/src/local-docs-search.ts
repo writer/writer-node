@@ -934,7 +934,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       typescript: {
         method: 'client.files.upload',
         example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.upload({\n  content: fs.createReadStream('path/to/file'),\n  'Content-Disposition': 'Content-Disposition',\n});\n\nconsole.log(file.id);",
+          "import fs from 'fs';\nimport Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.upload({\n  content: fs.createReadStream('path/to/file'),\n  'Content-Disposition': 'Content-Disposition',\n});\n\nconsole.log(file.id);",
       },
     },
   },
