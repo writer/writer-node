@@ -27,20 +27,44 @@ describe('resource chat', () => {
           content: 'string',
           graph_data: {
             references: {
-              files: [{ fileId: 'fileId', score: 0, text: 'text', cite: 'cite', page: 0 }],
-              web: [{ score: 0, text: 'text', title: 'title', url: 'https://example.com' }],
+              files: [
+                {
+                  fileId: 'fileId',
+                  score: 0,
+                  text: 'text',
+                  cite: 'cite',
+                  page: 0,
+                },
+              ],
+              web: [
+                {
+                  score: 0,
+                  text: 'text',
+                  title: 'title',
+                  url: 'https://example.com',
+                },
+              ],
             },
             sources: [{ file_id: 'file_id', snippet: 'snippet' }],
             status: 'processing',
             subqueries: [
-              { answer: 'answer', query: 'query', sources: [{ file_id: 'file_id', snippet: 'snippet' }] },
+              {
+                answer: 'answer',
+                query: 'query',
+                sources: [{ file_id: 'file_id', snippet: 'snippet' }],
+              },
             ],
           },
           name: 'name',
           refusal: 'refusal',
           tool_call_id: 'tool_call_id',
           tool_calls: [
-            { id: 'id', function: { arguments: 'arguments', name: 'name' }, type: 'function', index: 0 },
+            {
+              id: 'id',
+              function: { arguments: 'arguments', name: 'name' },
+              type: 'function',
+              index: 0,
+            },
           ],
         },
       ],
@@ -48,7 +72,10 @@ describe('resource chat', () => {
       logprobs: true,
       max_tokens: 0,
       n: 0,
-      response_format: { type: 'text', json_schema: {} },
+      response_format: {
+        type: 'text',
+        json_schema: {},
+      },
       stop: ['string'],
       stream: false,
       stream_options: { include_usage: true },
@@ -56,7 +83,11 @@ describe('resource chat', () => {
       tool_choice: { value: 'none' },
       tools: [
         {
-          function: { name: 'name', description: 'description', parameters: { foo: 'bar' } },
+          function: {
+            name: 'name',
+            description: 'description',
+            parameters: { foo: 'bar' },
+          },
           type: 'function',
         },
       ],

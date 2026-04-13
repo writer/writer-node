@@ -54,7 +54,11 @@ describe('resource jobs', () => {
     await expect(
       client.applications.jobs.list(
         'application_id',
-        { limit: 0, offset: 0, status: 'in_progress' },
+        {
+          limit: 0,
+          offset: 0,
+          status: 'in_progress',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Writer.NotFoundError);

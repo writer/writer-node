@@ -66,15 +66,11 @@ export {
 export { Models, type ModelListResponse } from './models';
 export {
   Tools,
-  type ToolAIDetectResponse,
-  type ToolContextAwareSplittingResponse,
   type ToolParsePdfResponse,
   type ToolWebSearchResponse,
-  type ToolAIDetectParams,
-  type ToolContextAwareSplittingParams,
   type ToolParsePdfParams,
   type ToolWebSearchParams,
-} from './tools/tools';
+} from './tools';
 export {
   Translation,
   type TranslationRequest,
