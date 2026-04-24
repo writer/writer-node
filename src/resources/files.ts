@@ -4,6 +4,7 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
 import { type Uploadable } from '../core/uploads';
+import type { Response } from '../internal/builtin-types';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -21,10 +22,7 @@ export class Files extends APIResource {
    * Retrieve a paginated list of files with optional filtering by status, graph
    * association, and file type.
    */
-  list(
-    query: FileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FilesCursorPage, File> {
+  list(query: FileListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FilesCursorPage, File> {
     return this._client.getAPIList('/v1/files', CursorPage<File>, { query, ...options });
   }
 
@@ -40,11 +38,7 @@ export class Files extends APIResource {
    * in the appropriate MIME type.
    */
   download(fileID: string, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/v1/files/${fileID}/download`, {
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
-      __binaryResponse: true,
-    });
+    return this._client.get(path`/v1/files/${fileID}/download`, { ...options, headers: buildHeaders([{Accept: 'application/octet-stream'}, options?.headers]), __binaryResponse: true });
   }
 
   /**
@@ -79,7 +73,7 @@ export class Files extends APIResource {
   }
 }
 
-export type FilesCursorPage = CursorPage<File>;
+export type FilesCursorPage = CursorPage<File>
 
 export interface File {
   /**
@@ -207,6 +201,6 @@ export declare namespace Files {
     type FilesCursorPage as FilesCursorPage,
     type FileListParams as FileListParams,
     type FileRetryParams as FileRetryParams,
-    type FileUploadParams as FileUploadParams,
+    type FileUploadParams as FileUploadParams
   };
 }

@@ -20,22 +20,11 @@ export class Completions extends APIResource {
    * });
    * ```
    */
-  create(body: CompletionCreateParamsNonStreaming, options?: RequestOptions): APIPromise<Completion>;
-  create(
-    body: CompletionCreateParamsStreaming,
-    options?: RequestOptions,
-  ): APIPromise<Stream<CompletionChunk>>;
-  create(
-    body: CompletionCreateParamsBase,
-    options?: RequestOptions,
-  ): APIPromise<Stream<CompletionChunk> | Completion>;
-  create(
-    body: CompletionCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<Completion> | APIPromise<Stream<CompletionChunk>> {
-    return this._client.post('/v1/completions', { body, ...options, stream: body.stream ?? false }) as
-      | APIPromise<Completion>
-      | APIPromise<Stream<CompletionChunk>>;
+  create(body: CompletionCreateParamsNonStreaming, options?: RequestOptions): APIPromise<Completion>
+  create(body: CompletionCreateParamsStreaming, options?: RequestOptions): APIPromise<Stream<CompletionChunk>>
+  create(body: CompletionCreateParamsBase, options?: RequestOptions): APIPromise<Stream<CompletionChunk> | Completion>
+  create(body: CompletionCreateParams, options?: RequestOptions): APIPromise<Completion> | APIPromise<Stream<CompletionChunk>> {
+    return this._client.post('/v1/completions', { body, ...options, stream: body.stream ?? false }) as APIPromise<Completion> | APIPromise<Stream<CompletionChunk>>;
   }
 }
 
@@ -127,7 +116,7 @@ export interface CompletionParams {
   top_p?: number;
 }
 
-export type CompletionCreateParams = CompletionCreateParamsNonStreaming | CompletionCreateParamsStreaming;
+export type CompletionCreateParams = CompletionCreateParamsNonStreaming | CompletionCreateParamsStreaming
 
 export interface CompletionCreateParamsBase {
   /**
@@ -188,8 +177,8 @@ export interface CompletionCreateParamsBase {
 }
 
 export namespace CompletionCreateParams {
-  export type CompletionCreateParamsNonStreaming = CompletionsAPI.CompletionCreateParamsNonStreaming;
-  export type CompletionCreateParamsStreaming = CompletionsAPI.CompletionCreateParamsStreaming;
+  export type CompletionCreateParamsNonStreaming = CompletionsAPI.CompletionCreateParamsNonStreaming
+  export type CompletionCreateParamsStreaming = CompletionsAPI.CompletionCreateParamsStreaming
 }
 
 export interface CompletionCreateParamsNonStreaming extends CompletionCreateParamsBase {
@@ -217,6 +206,6 @@ export declare namespace Completions {
     type CompletionParams as CompletionParams,
     type CompletionCreateParams as CompletionCreateParams,
     type CompletionCreateParamsNonStreaming as CompletionCreateParamsNonStreaming,
-    type CompletionCreateParamsStreaming as CompletionCreateParamsStreaming,
+    type CompletionCreateParamsStreaming as CompletionCreateParamsStreaming
   };
 }

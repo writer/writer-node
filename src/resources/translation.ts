@@ -136,6 +136,6 @@ export declare namespace Translation {
   export {
     type TranslationRequest as TranslationRequest,
     type TranslationResponse as TranslationResponse,
-    type TranslationTranslateParams as TranslationTranslateParams,
+    type TranslationTranslateParams as TranslationTranslateParams
   };
 }

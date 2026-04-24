@@ -87,8 +87,7 @@ export class PagePromise<
     super(
       client,
       request,
-      async (client, props) =>
-        new Page(client, props.response, await defaultParseResponse(client, props), props.options),
+      async (client, props) => new Page(client, props.response, await defaultParseResponse(client, props), props.options)
     );
   }
 
@@ -127,20 +126,12 @@ export interface CursorPageParams {
   before?: string;
 }
 
-export class CursorPage<Item extends { id: string }>
-  extends AbstractPage<Item>
-  implements CursorPageResponse<Item>
-{
+export class CursorPage<Item extends { id: string }> extends AbstractPage<Item> implements CursorPageResponse<Item> {
   data: Array<Item>;
 
   has_more: boolean;
 
-  constructor(
-    client: Writer,
-    response: Response,
-    body: CursorPageResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Writer, response: Response, body: CursorPageResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.data = body.data || [];
@@ -174,7 +165,7 @@ export class CursorPage<Item extends { id: string }>
       };
     }
 
-    const id = data[0]?.id;
+    const id = data[0]?.id
     if (!id) {
       return null;
     }
@@ -217,22 +208,14 @@ export interface ApplicationJobsOffsetParams {
   limit?: number;
 }
 
-export class ApplicationJobsOffset<Item>
-  extends AbstractPage<Item>
-  implements ApplicationJobsOffsetResponse<Item>
-{
+export class ApplicationJobsOffset<Item> extends AbstractPage<Item> implements ApplicationJobsOffsetResponse<Item> {
   result: Array<Item>;
 
   totalCount: number;
 
   pagination: ApplicationJobsOffsetResponse.Pagination;
 
-  constructor(
-    client: Writer,
-    response: Response,
-    body: ApplicationJobsOffsetResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Writer, response: Response, body: ApplicationJobsOffsetResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.result = body.result || [];
@@ -256,14 +239,14 @@ export class ApplicationJobsOffset<Item>
 
     if (currentCount < totalCount) {
       return {
-        ...this.options,
-        query: {
-          ...maybeObj(this.options.query),
-          offset: currentCount,
-        },
-      };
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        offset: currentCount,
+      },
+    };
     }
 
-    return null;
+    return null
   }
 }

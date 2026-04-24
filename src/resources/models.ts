@@ -42,5 +42,7 @@ export namespace ModelListResponse {
 }
 
 export declare namespace Models {
-  export { type ModelListResponse as ModelListResponse };
+  export {
+    type ModelListResponse as ModelListResponse
+  };
 }
