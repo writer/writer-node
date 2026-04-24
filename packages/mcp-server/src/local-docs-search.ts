@@ -64,6 +64,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## generate_content\n\n`client.applications.generateContent(application_id: string, inputs: { id: string; value: string[]; }[], stream?: boolean): { suggestion: string; title?: string; }`\n\n**post** `/v1/applications/{application_id}`\n\nGenerate content from an existing no-code agent (formerly called no-code applications) with inputs.\n\n### Parameters\n\n- `application_id: string`\n\n- `inputs: { id: string; value: string[]; }[]`\n\n- `stream?: boolean`\n  Indicates whether the response should be streamed. Currently only supported for research assistant applications.\n\n### Returns\n\n- `{ suggestion: string; title?: string; }`\n\n  - `suggestion: string`\n  - `title?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst stream = await client.applications.generateContent('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { inputs: [{ id: 'id', value: ['string'] }] });\nfor await (const applicationGenerateContentChunk of stream) {\n  console.log(applicationGenerateContentChunk);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.generateContent',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGenerateContentResponse = await client.applications.generateContent(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { inputs: [{ id: 'id', value: ['string'] }] },\n);\n\nconsole.log(applicationGenerateContentResponse.suggestion);",
+      },
+      python: {
+        method: 'applications.generate_content',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor application in client.applications.generate_content(\n    application_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    inputs=[{\n        "id": "id",\n        "value": ["string"],\n    }],\n):\n  print(application)',
+      },
       go: {
         method: 'client.Applications.GenerateContent',
         example:
@@ -72,16 +82,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/$APPLICATION_ID \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {\n              "id": "id",\n              "value": [\n                "string"\n              ]\n            }\n          ]\n        }\'',
-      },
-      python: {
-        method: 'applications.generate_content',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor application in client.applications.generate_content(\n    application_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    inputs=[{\n        "id": "id",\n        "value": ["string"],\n    }],\n):\n  print(application)',
-      },
-      typescript: {
-        method: 'client.applications.generateContent',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGenerateContentResponse = await client.applications.generateContent(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { inputs: [{ id: 'id', value: ['string'] }] },\n);\n\nconsole.log(applicationGenerateContentResponse.suggestion);",
       },
     },
   },
@@ -106,6 +106,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.applications.list(after?: string, before?: string, limit?: number, order?: 'asc' | 'desc', type?: 'generation'): { id: string; created_at: string; inputs: object[]; name: string; status: 'deployed' | 'draft'; type: 'generation'; updated_at: string; last_deployed_at?: string; }`\n\n**get** `/v1/applications`\n\nRetrieves a paginated list of no-code agents (formerly called no-code applications) with optional filtering and sorting capabilities.\n\n### Parameters\n\n- `after?: string`\n  Return results after this application ID for pagination.\n\n- `before?: string`\n  Return results before this application ID for pagination.\n\n- `limit?: number`\n  Maximum number of applications to return in the response.\n\n- `order?: 'asc' | 'desc'`\n  Sort order for the results based on creation time.\n\n- `type?: 'generation'`\n  Filter applications by their type.\n\n### Returns\n\n- `{ id: string; created_at: string; inputs: { input_type: 'text' | 'dropdown' | 'file' | 'media'; name: string; required: boolean; description?: string; options?: { list: string[]; } | { file_types: string[]; max_file_size_mb: number; max_files: number; max_word_count: number; upload_types: 'url' | 'file_id'[]; } | { file_types: string[]; max_image_size_mb: number; } | { max_fields: number; min_fields: number; }; }[]; name: string; status: 'deployed' | 'draft'; type: 'generation'; updated_at: string; last_deployed_at?: string; }`\n  Detailed application object including its input configuration.\n\n  - `id: string`\n  - `created_at: string`\n  - `inputs: { input_type: 'text' | 'dropdown' | 'file' | 'media'; name: string; required: boolean; description?: string; options?: { list: string[]; } | { file_types: string[]; max_file_size_mb: number; max_files: number; max_word_count: number; upload_types: 'url' | 'file_id'[]; } | { file_types: string[]; max_image_size_mb: number; } | { max_fields: number; min_fields: number; }; }[]`\n  - `name: string`\n  - `status: 'deployed' | 'draft'`\n  - `type: 'generation'`\n  - `updated_at: string`\n  - `last_deployed_at?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\n// Automatically fetches more pages as needed.\nfor await (const applicationListResponse of client.applications.list()) {\n  console.log(applicationListResponse);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.list',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const applicationListResponse of client.applications.list()) {\n  console.log(applicationListResponse.id);\n}",
+      },
+      python: {
+        method: 'applications.list',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.applications.list()\npage = page.data[0]\nprint(page.id)',
+      },
       go: {
         method: 'client.Applications.List',
         example:
@@ -114,16 +124,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'applications.list',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.applications.list()\npage = page.data[0]\nprint(page.id)',
-      },
-      typescript: {
-        method: 'client.applications.list',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const applicationListResponse of client.applications.list()) {\n  console.log(applicationListResponse.id);\n}",
       },
     },
   },
@@ -142,6 +142,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.applications.retrieve(application_id: string): { id: string; created_at: string; inputs: object[]; name: string; status: 'deployed' | 'draft'; type: 'generation'; updated_at: string; last_deployed_at?: string; }`\n\n**get** `/v1/applications/{application_id}`\n\nRetrieves detailed information for a specific no-code agent (formerly called no-code applications), including its configuration and current status.\n\n### Parameters\n\n- `application_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; inputs: { input_type: 'text' | 'dropdown' | 'file' | 'media'; name: string; required: boolean; description?: string; options?: { list: string[]; } | { file_types: string[]; max_file_size_mb: number; max_files: number; max_word_count: number; upload_types: 'url' | 'file_id'[]; } | { file_types: string[]; max_image_size_mb: number; } | { max_fields: number; min_fields: number; }; }[]; name: string; status: 'deployed' | 'draft'; type: 'generation'; updated_at: string; last_deployed_at?: string; }`\n  Detailed application object including its input configuration.\n\n  - `id: string`\n  - `created_at: string`\n  - `inputs: { input_type: 'text' | 'dropdown' | 'file' | 'media'; name: string; required: boolean; description?: string; options?: { list: string[]; } | { file_types: string[]; max_file_size_mb: number; max_files: number; max_word_count: number; upload_types: 'url' | 'file_id'[]; } | { file_types: string[]; max_image_size_mb: number; } | { max_fields: number; min_fields: number; }; }[]`\n  - `name: string`\n  - `status: 'deployed' | 'draft'`\n  - `type: 'generation'`\n  - `updated_at: string`\n  - `last_deployed_at?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst application = await client.applications.retrieve('application_id');\n\nconsole.log(application);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.retrieve',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst application = await client.applications.retrieve('application_id');\n\nconsole.log(application.id);",
+      },
+      python: {
+        method: 'applications.retrieve',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication = client.applications.retrieve(\n    "application_id",\n)\nprint(application.id)',
+      },
       go: {
         method: 'client.Applications.Get',
         example:
@@ -150,16 +160,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/$APPLICATION_ID \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'applications.retrieve',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication = client.applications.retrieve(\n    "application_id",\n)\nprint(application.id)',
-      },
-      typescript: {
-        method: 'client.applications.retrieve',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst application = await client.applications.retrieve('application_id');\n\nconsole.log(application.id);",
       },
     },
   },
@@ -183,6 +183,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.applications.jobs.list(application_id: string, limit?: number, offset?: number, status?: 'in_progress' | 'failed' | 'completed'): { id: string; application_id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; completed_at?: string; data?: application_generate_content_response; error?: string; updated_at?: string; }`\n\n**get** `/v1/applications/{application_id}/jobs`\n\nRetrieve all jobs created via the async API, linked to the provided application ID (or alias).\n\n### Parameters\n\n- `application_id: string`\n\n- `limit?: number`\n  The pagination limit for retrieving the jobs.\n\n- `offset?: number`\n  The pagination offset for retrieving the jobs.\n\n- `status?: 'in_progress' | 'failed' | 'completed'`\n  The status of the job.\n\n### Returns\n\n- `{ id: string; application_id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; completed_at?: string; data?: { suggestion: string; title?: string; }; error?: string; updated_at?: string; }`\n\n  - `id: string`\n  - `application_id: string`\n  - `created_at: string`\n  - `status: 'in_progress' | 'failed' | 'completed'`\n  - `completed_at?: string`\n  - `data?: { suggestion: string; title?: string; }`\n  - `error?: string`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\n// Automatically fetches more pages as needed.\nfor await (const applicationGenerateAsyncResponse of client.applications.jobs.list('application_id')) {\n  console.log(applicationGenerateAsyncResponse);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.jobs.list',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const applicationGenerateAsyncResponse of client.applications.jobs.list(\n  'application_id',\n)) {\n  console.log(applicationGenerateAsyncResponse.id);\n}",
+      },
+      python: {
+        method: 'applications.jobs.list',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.applications.jobs.list(\n    application_id="application_id",\n)\npage = page.result[0]\nprint(page.id)',
+      },
       go: {
         method: 'client.Applications.Jobs.List',
         example:
@@ -191,16 +201,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/$APPLICATION_ID/jobs \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'applications.jobs.list',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.applications.jobs.list(\n    application_id="application_id",\n)\npage = page.result[0]\nprint(page.id)',
-      },
-      typescript: {
-        method: 'client.applications.jobs.list',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const applicationGenerateAsyncResponse of client.applications.jobs.list(\n  'application_id',\n)) {\n  console.log(applicationGenerateAsyncResponse.id);\n}",
       },
     },
   },
@@ -218,6 +218,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.applications.jobs.create(application_id: string, inputs: { id: string; value: string[]; }[]): { id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; }`\n\n**post** `/v1/applications/{application_id}/jobs`\n\nGenerate content asynchronously from an existing no-code agent (formerly called no-code applications) with inputs.\n\n### Parameters\n\n- `application_id: string`\n\n- `inputs: { id: string; value: string[]; }[]`\n  A list of input objects to generate content for.\n\n### Returns\n\n- `{ id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `status: 'in_progress' | 'failed' | 'completed'`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst job = await client.applications.jobs.create('application_id', { inputs: [{ id: 'id', value: ['string'] }] });\n\nconsole.log(job);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.jobs.create',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.applications.jobs.create('application_id', {\n  inputs: [{ id: 'id', value: ['string'] }],\n});\n\nconsole.log(job.id);",
+      },
+      python: {
+        method: 'applications.jobs.create',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\njob = client.applications.jobs.create(\n    application_id="application_id",\n    inputs=[{\n        "id": "id",\n        "value": ["string"],\n    }],\n)\nprint(job.id)',
+      },
       go: {
         method: 'client.Applications.Jobs.New',
         example:
@@ -226,16 +236,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/$APPLICATION_ID/jobs \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "inputs": [\n            {\n              "id": "id",\n              "value": [\n                "string"\n              ]\n            }\n          ]\n        }\'',
-      },
-      python: {
-        method: 'applications.jobs.create',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\njob = client.applications.jobs.create(\n    application_id="application_id",\n    inputs=[{\n        "id": "id",\n        "value": ["string"],\n    }],\n)\nprint(job.id)',
-      },
-      typescript: {
-        method: 'client.applications.jobs.create',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst job = await client.applications.jobs.create('application_id', {\n  inputs: [{ id: 'id', value: ['string'] }],\n});\n\nconsole.log(job.id);",
       },
     },
   },
@@ -253,6 +253,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retry\n\n`client.applications.jobs.retry(job_id: string): { id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; }`\n\n**post** `/v1/applications/jobs/{job_id}/retry`\n\nRe-triggers the async execution of a single job previously created via the Async api and terminated in error.\n\n### Parameters\n\n- `job_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `status: 'in_progress' | 'failed' | 'completed'`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.applications.jobs.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.jobs.retry',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.applications.jobs.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'applications.jobs.retry',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.applications.jobs.retry(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.id)',
+      },
       go: {
         method: 'client.Applications.Jobs.Retry',
         example:
@@ -261,16 +271,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/jobs/$JOB_ID/retry \\\n    -X POST \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'applications.jobs.retry',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.applications.jobs.retry(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.id)',
-      },
-      typescript: {
-        method: 'client.applications.jobs.retry',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.applications.jobs.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response.id);",
       },
     },
   },
@@ -288,6 +288,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.applications.jobs.retrieve(job_id: string): { id: string; application_id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; completed_at?: string; data?: application_generate_content_response; error?: string; updated_at?: string; }`\n\n**get** `/v1/applications/jobs/{job_id}`\n\nRetrieves a single job created via the Async API.\n\n### Parameters\n\n- `job_id: string`\n\n### Returns\n\n- `{ id: string; application_id: string; created_at: string; status: 'in_progress' | 'failed' | 'completed'; completed_at?: string; data?: { suggestion: string; title?: string; }; error?: string; updated_at?: string; }`\n\n  - `id: string`\n  - `application_id: string`\n  - `created_at: string`\n  - `status: 'in_progress' | 'failed' | 'completed'`\n  - `completed_at?: string`\n  - `data?: { suggestion: string; title?: string; }`\n  - `error?: string`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst applicationGenerateAsyncResponse = await client.applications.jobs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(applicationGenerateAsyncResponse);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.jobs.retrieve',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGenerateAsyncResponse = await client.applications.jobs.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(applicationGenerateAsyncResponse.id);",
+      },
+      python: {
+        method: 'applications.jobs.retrieve',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication_generate_async_response = client.applications.jobs.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(application_generate_async_response.id)',
+      },
       go: {
         method: 'client.Applications.Jobs.Get',
         example:
@@ -296,16 +306,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/jobs/$JOB_ID \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'applications.jobs.retrieve',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication_generate_async_response = client.applications.jobs.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(application_generate_async_response.id)',
-      },
-      typescript: {
-        method: 'client.applications.jobs.retrieve',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGenerateAsyncResponse = await client.applications.jobs.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(applicationGenerateAsyncResponse.id);",
       },
     },
   },
@@ -322,6 +322,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.applications.graphs.list(application_id: string): { graph_ids: string[]; }`\n\n**get** `/v1/applications/{application_id}/graphs`\n\nRetrieve Knowledge Graphs associated with a no-code agent that has chat capabilities.\n\n### Parameters\n\n- `application_id: string`\n\n### Returns\n\n- `{ graph_ids: string[]; }`\n\n  - `graph_ids: string[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst applicationGraphsResponse = await client.applications.graphs.list('application_id');\n\nconsole.log(applicationGraphsResponse);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.graphs.list',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGraphsResponse = await client.applications.graphs.list('application_id');\n\nconsole.log(applicationGraphsResponse.graph_ids);",
+      },
+      python: {
+        method: 'applications.graphs.list',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication_graphs_response = client.applications.graphs.list(\n    "application_id",\n)\nprint(application_graphs_response.graph_ids)',
+      },
       go: {
         method: 'client.Applications.Graphs.List',
         example:
@@ -330,16 +340,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/$APPLICATION_ID/graphs \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'applications.graphs.list',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication_graphs_response = client.applications.graphs.list(\n    "application_id",\n)\nprint(application_graphs_response.graph_ids)',
-      },
-      typescript: {
-        method: 'client.applications.graphs.list',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGraphsResponse = await client.applications.graphs.list('application_id');\n\nconsole.log(applicationGraphsResponse.graph_ids);",
       },
     },
   },
@@ -356,6 +356,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.applications.graphs.update(application_id: string, graph_ids: string[]): { graph_ids: string[]; }`\n\n**put** `/v1/applications/{application_id}/graphs`\n\nUpdates the list of Knowledge Graphs associated with a no-code chat agent.\n\n### Parameters\n\n- `application_id: string`\n\n- `graph_ids: string[]`\n  A list of Knowledge Graph IDs to associate with the application. Note that this will replace the existing list of Knowledge Graphs associated with the application, not add to it.\n\n### Returns\n\n- `{ graph_ids: string[]; }`\n\n  - `graph_ids: string[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst applicationGraphsResponse = await client.applications.graphs.update('application_id', { graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] });\n\nconsole.log(applicationGraphsResponse);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.applications.graphs.update',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGraphsResponse = await client.applications.graphs.update('application_id', {\n  graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],\n});\n\nconsole.log(applicationGraphsResponse.graph_ids);",
+      },
+      python: {
+        method: 'applications.graphs.update',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication_graphs_response = client.applications.graphs.update(\n    application_id="application_id",\n    graph_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],\n)\nprint(application_graphs_response.graph_ids)',
+      },
       go: {
         method: 'client.Applications.Graphs.Update',
         example:
@@ -364,16 +374,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/applications/$APPLICATION_ID/graphs \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "graph_ids": [\n            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n          ]\n        }\'',
-      },
-      python: {
-        method: 'applications.graphs.update',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\napplication_graphs_response = client.applications.graphs.update(\n    application_id="application_id",\n    graph_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],\n)\nprint(application_graphs_response.graph_ids)',
-      },
-      typescript: {
-        method: 'client.applications.graphs.update',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst applicationGraphsResponse = await client.applications.graphs.update('application_id', {\n  graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],\n});\n\nconsole.log(applicationGraphsResponse.graph_ids);",
       },
     },
   },
@@ -406,6 +406,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## chat\n\n`client.chat.chat(messages: { role: 'user' | 'assistant' | 'system' | 'tool'; content?: string | { text: string; type: 'text'; } | { image_url: object; type: 'image_url'; }[]; graph_data?: object; name?: string; refusal?: string; tool_call_id?: string; tool_calls?: object[]; }[], model: string, logprobs?: boolean, max_tokens?: number, n?: number, response_format?: { type: 'text' | 'json_schema'; json_schema?: object; }, stop?: string[] | string, stream?: boolean, stream_options?: { include_usage: boolean; }, temperature?: number, tool_choice?: { value: 'none' | 'auto' | 'required'; } | { value: object; }, tools?: { function: function_definition; type: 'function'; } | { function: object; type: 'graph'; } | { function: object; type: 'llm'; } | { function: object; type: 'translation'; } | { function: object; type: 'vision'; } | { function: object; type: 'web_search'; }[], top_p?: number): { id: string; choices: chat_completion_choice[]; created: number; model: string; object: 'chat.completion'; service_tier?: string; system_fingerprint?: string; usage?: chat_completion_usage; }`\n\n**post** `/v1/chat`\n\nGenerate a chat completion based on the provided messages. The response shown below is for non-streaming. To learn about streaming responses, see the [chat completion guide](https://dev.writer.com/home/chat-completion).\n\n### Parameters\n\n- `messages: { role: 'user' | 'assistant' | 'system' | 'tool'; content?: string | { text: string; type: 'text'; } | { image_url: { url: string; }; type: 'image_url'; }[]; graph_data?: { references?: { files?: object[]; web?: object[]; }; sources?: object[]; status?: 'processing' | 'finished'; subqueries?: { answer: string; query: string; sources: source[]; }[]; }; name?: string; refusal?: string; tool_call_id?: string; tool_calls?: { id: string; function: { arguments: string; name?: string; }; type: 'function'; index?: number; }[]; }[]`\n  An array of message objects that form the conversation history or context for the model to respond to. The array must contain at least one message.\n\n- `model: string`\n  The [ID of the model](https://dev.writer.com/home/models) to use for creating the chat completion. Supports `palmyra-x5`, `palmyra-x4`, `palmyra-fin`, `palmyra-med`, `palmyra-creative`, and `palmyra-x-003-instruct`.\n\n- `logprobs?: boolean`\n  Specifies whether to return log probabilities of the output tokens.\n\n- `max_tokens?: number`\n  Defines the maximum number of tokens (words and characters) that the model can generate in the response. This can be adjusted to allow for longer or shorter responses as needed. The maximum value varies by model. See the [models overview](/home/models) for more information about the maximum number of tokens for each model.\n\n- `n?: number`\n  Specifies the number of completions (responses) to generate from the model in a single request. This parameter allows for generating multiple responses, offering a variety of potential replies from which to choose.\n\n- `response_format?: { type: 'text' | 'json_schema'; json_schema?: object; }`\n  The response format to use for the chat completion, available with `palmyra-x4` and `palmyra-x5`.\n\n`text` is the default response format. [JSON Schema](https://json-schema.org/) is supported for structured responses. If you specify `json_schema`, you must also provide a `json_schema` object.\n  - `type: 'text' | 'json_schema'`\n    The type of response format to use.\n  - `json_schema?: object`\n    The JSON schema to use for the response format.\n\n- `stop?: string[] | string`\n  A token or sequence of tokens that, when generated, will cause the model to stop producing further content. This can be a single token or an array of tokens, acting as a signal to end the output.\n\n- `stream?: boolean`\n  Indicates whether the response should be streamed incrementally as it is generated or only returned once fully complete. Streaming can be useful for providing real-time feedback in interactive applications.\n\n- `stream_options?: { include_usage: boolean; }`\n  Additional options for streaming.\n  - `include_usage: boolean`\n    Indicate whether to include usage information.\n\n- `temperature?: number`\n  Controls the randomness or creativity of the model's responses. A higher temperature results in more varied and less predictable text, while a lower temperature produces more deterministic and conservative outputs.\n\n- `tool_choice?: { value: 'none' | 'auto' | 'required'; } | { value: object; }`\n  Configure how the model will call functions:\n- `auto`: allows the model to automatically choose the tool to use, or not call a tool\n- `none`: disables tool calling; the model will instead generate a message\n- `required`: requires the model to call one or more tools\n\nYou can also use a JSON object to force the model to call a specific tool. For example, `{\"type\": \"function\", \"function\": {\"name\": \"get_current_weather\"}}` requires the model to call the `get_current_weather` function, regardless of the prompt.\n\n- `tools?: { function: { name: string; description?: string; parameters?: function_params; }; type: 'function'; } | { function: { graph_ids: string[]; subqueries: boolean; description?: string; query_config?: { grounding_level?: number; inline_citations?: boolean; keyword_threshold?: number; max_snippets?: number; max_subquestions?: number; max_tokens?: number; search_weight?: number; semantic_threshold?: number; }; }; type: 'graph'; } | { function: { description: string; model: string; }; type: 'llm'; } | { function: { formality: boolean; length_control: boolean; mask_profanity: boolean; model: 'palmyra-translate'; source_language_code?: string; target_language_code?: string; }; type: 'translation'; } | { function: { model: 'palmyra-vision'; variables: { file_id: string; name: string; }[]; }; type: 'vision'; } | { function: { exclude_domains: string[]; include_domains: string[]; }; type: 'web_search'; }[]`\n  An array containing tool definitions for tools that the model can use to generate responses. The tool definitions use JSON schema. You can define your own functions or use one of the built-in `graph`, `llm`, `translation`, or `vision` tools. Note that you can only use one built-in tool type in the array (only one of `graph`, `llm`, `translation`, or `vision`). You can pass multiple [custom tools](https://dev.writer.com/home/tool-calling) of type `function` in the same request.\n\n- `top_p?: number`\n  Sets the threshold for \"nucleus sampling,\" a technique to focus the model's token generation on the most likely subset of tokens. Only tokens with cumulative probability above this threshold are considered, controlling the trade-off between creativity and coherence.\n\n### Returns\n\n- `{ id: string; choices: { finish_reason: 'stop' | 'length' | 'content_filter' | 'tool_calls'; index: number; message: chat_completion_message; logprobs?: logprobs; }[]; created: number; model: string; object: 'chat.completion'; service_tier?: string; system_fingerprint?: string; usage?: { completion_tokens: number; prompt_tokens: number; total_tokens: number; completion_tokens_details?: object; prompt_token_details?: object; }; }`\n\n  - `id: string`\n  - `choices: { finish_reason: 'stop' | 'length' | 'content_filter' | 'tool_calls'; index: number; message: { content: string; refusal: string; role: 'assistant'; graph_data?: graph_data; llm_data?: object; tool_calls?: tool_call[]; translation_data?: object; web_search_data?: object; }; logprobs?: { content: logprobs_token[]; refusal: logprobs_token[]; }; }[]`\n  - `created: number`\n  - `model: string`\n  - `object: 'chat.completion'`\n  - `service_tier?: string`\n  - `system_fingerprint?: string`\n  - `usage?: { completion_tokens: number; prompt_tokens: number; total_tokens: number; completion_tokens_details?: { reasoning_tokens: number; }; prompt_token_details?: { cached_tokens: number; }; }`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst stream = await client.chat.chat({ messages: [{ role: 'user' }], model: 'model' });\nfor await (const chatCompletionChunk of stream) {\n  console.log(chatCompletionChunk);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.chat.chat',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst chatCompletion = await client.chat.chat({ messages: [{ role: 'user' }], model: 'model' });\n\nconsole.log(chatCompletion.id);",
+      },
+      python: {
+        method: 'chat.chat',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor chat in client.chat.chat(\n    messages=[{\n        "role": "user"\n    }],\n    model="model",\n):\n  print(chat)',
+      },
       go: {
         method: 'client.Chat.Chat',
         example:
@@ -414,16 +424,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/chat \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "messages": [\n            {\n              "role": "user"\n            }\n          ],\n          "model": "model"\n        }\'',
-      },
-      python: {
-        method: 'chat.chat',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor chat in client.chat.chat(\n    messages=[{\n        "role": "user"\n    }],\n    model="model",\n):\n  print(chat)',
-      },
-      typescript: {
-        method: 'client.chat.chat',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst chatCompletion = await client.chat.chat({ messages: [{ role: 'user' }], model: 'model' });\n\nconsole.log(chatCompletion.id);",
       },
     },
   },
@@ -451,6 +451,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.completions.create(model: string, prompt: string, best_of?: number, max_tokens?: number, random_seed?: number, stop?: string[] | string, stream?: boolean, temperature?: number, top_p?: number): { choices: object[]; model?: string; }`\n\n**post** `/v1/completions`\n\nGenerate text completions using the specified model and prompt. This endpoint is useful for text generation tasks that don't require conversational context.\n\n### Parameters\n\n- `model: string`\n  The [ID of the model](https://dev.writer.com/home/models) to use for generating text. Supports `palmyra-x5`, `palmyra-x4`, `palmyra-fin`, `palmyra-med`, `palmyra-creative`, and `palmyra-x-003-instruct`.\n\n- `prompt: string`\n  The input text that the model will process to generate a response.\n\n- `best_of?: number`\n  Specifies the number of completions to generate and return the best one. Useful for generating multiple outputs and choosing the best based on some criteria.\n\n- `max_tokens?: number`\n  The maximum number of tokens that the model can generate in the response.\n\n- `random_seed?: number`\n  A seed used to initialize the random number generator for the model, ensuring reproducibility of the output when the same inputs are provided.\n\n- `stop?: string[] | string`\n  Specifies stopping conditions for the model's output generation. This can be an array of strings or a single string that the model will look for as a signal to stop generating further tokens.\n\n- `stream?: boolean`\n  Determines whether the model's output should be streamed. If true, the output is generated and sent incrementally, which can be useful for real-time applications.\n\n- `temperature?: number`\n  Controls the randomness of the model's outputs. Higher values lead to more random outputs, while lower values make the model more deterministic.\n\n- `top_p?: number`\n  Used to control the nucleus sampling, where only the most probable tokens with a cumulative probability of top_p are considered for sampling, providing a way to fine-tune the randomness of predictions.\n\n### Returns\n\n- `{ choices: { text: string; log_probs?: object; }[]; model?: string; }`\n\n  - `choices: { text: string; log_probs?: { content: object[]; refusal: object[]; }; }[]`\n  - `model?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst stream = await client.completions.create({ model: 'palmyra-x-003-instruct', prompt: 'Write me an SEO article about...' });\nfor await (const completionChunk of stream) {\n  console.log(completionChunk);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.completions.create',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst completion = await client.completions.create({\n  model: 'palmyra-x-003-instruct',\n  prompt: 'Write me an SEO article about...',\n});\n\nconsole.log(completion.choices);",
+      },
+      python: {
+        method: 'completions.create',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor completion in client.completions.create(\n    model="palmyra-x-003-instruct",\n    prompt="Write me an SEO article about...",\n):\n  print(completion)',
+      },
       go: {
         method: 'client.Completions.New',
         example:
@@ -459,16 +469,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/completions \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "model": "palmyra-x-003-instruct",\n          "prompt": "Write me an SEO article about..."\n        }\'',
-      },
-      python: {
-        method: 'completions.create',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor completion in client.completions.create(\n    model="palmyra-x-003-instruct",\n    prompt="Write me an SEO article about...",\n):\n  print(completion)',
-      },
-      typescript: {
-        method: 'client.completions.create',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst completion = await client.completions.create({\n  model: 'palmyra-x-003-instruct',\n  prompt: 'Write me an SEO article about...',\n});\n\nconsole.log(completion.choices);",
       },
     },
   },
@@ -485,6 +485,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.models.list(): { models: object[]; }`\n\n**get** `/v1/models`\n\nRetrieve a list of available models that can be used for text generation, chat completions, and other AI tasks.\n\n### Returns\n\n- `{ models: { id: string; name: string; }[]; }`\n\n  - `models: { id: string; name: string; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst models = await client.models.list();\n\nconsole.log(models);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.models.list',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst models = await client.models.list();\n\nconsole.log(models.models);",
+      },
+      python: {
+        method: 'models.list',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nmodels = client.models.list()\nprint(models.models)',
+      },
       go: {
         method: 'client.Models.List',
         example:
@@ -492,16 +502,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example: 'curl https://api.writer.com/v1/models \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'models.list',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nmodels = client.models.list()\nprint(models.models)',
-      },
-      typescript: {
-        method: 'client.models.list',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst models = await client.models.list();\n\nconsole.log(models.models);",
       },
     },
   },
@@ -519,6 +519,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.graphs.list(after?: string, before?: string, limit?: number, order?: 'asc' | 'desc'): { id: string; created_at: string; file_status: object; name: string; type: 'manual' | 'connector' | 'web'; description?: string; urls?: object[]; }`\n\n**get** `/v1/graphs`\n\nRetrieve a list of Knowledge Graphs.\n\n### Parameters\n\n- `after?: string`\n  The ID of the last object in the previous page. This parameter instructs the API to return the next page of results.\n\n- `before?: string`\n  The ID of the first object in the previous page. This parameter instructs the API to return the previous page of results.\n\n- `limit?: number`\n  Specifies the maximum number of objects returned in a page. The default value is 50. The minimum value is 1, and the maximum value is 100.\n\n- `order?: 'asc' | 'desc'`\n  Specifies the order of the results. Valid values are asc for ascending and desc for descending.\n\n### Returns\n\n- `{ id: string; created_at: string; file_status: { completed: number; failed: number; in_progress: number; total: number; }; name: string; type: 'manual' | 'connector' | 'web'; description?: string; urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `file_status: { completed: number; failed: number; in_progress: number; total: number; }`\n  - `name: string`\n  - `type: 'manual' | 'connector' | 'web'`\n  - `description?: string`\n  - `urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\n// Automatically fetches more pages as needed.\nfor await (const graph of client.graphs.list()) {\n  console.log(graph);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.list',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const graph of client.graphs.list()) {\n  console.log(graph.id);\n}",
+      },
+      python: {
+        method: 'graphs.list',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.graphs.list()\npage = page.data[0]\nprint(page.id)',
+      },
       go: {
         method: 'client.Graphs.List',
         example:
@@ -526,16 +536,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example: 'curl https://api.writer.com/v1/graphs \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'graphs.list',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.graphs.list()\npage = page.data[0]\nprint(page.id)',
-      },
-      typescript: {
-        method: 'client.graphs.list',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const graph of client.graphs.list()) {\n  console.log(graph.id);\n}",
       },
     },
   },
@@ -553,6 +553,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.graphs.create(description?: string, name?: string): { id: string; created_at: string; name: string; description?: string; urls?: object[]; }`\n\n**post** `/v1/graphs`\n\nCreate a new Knowledge Graph.\n\n### Parameters\n\n- `description?: string`\n  A description of the Knowledge Graph (max 255 characters). Omitting this field leaves the description unchanged.\n\n- `name?: string`\n  The name of the Knowledge Graph (max 255 characters). Omitting this field leaves the name unchanged.\n\n### Returns\n\n- `{ id: string; created_at: string; name: string; description?: string; urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `name: string`\n  - `description?: string`\n  - `urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst graph = await client.graphs.create();\n\nconsole.log(graph);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.create',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.create();\n\nconsole.log(graph.id);",
+      },
+      python: {
+        method: 'graphs.create',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.create()\nprint(graph.id)',
+      },
       go: {
         method: 'client.Graphs.New',
         example:
@@ -561,16 +571,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           "curl https://api.writer.com/v1/graphs \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $WRITER_API_KEY\" \\\n    -d '{}'",
-      },
-      python: {
-        method: 'graphs.create',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.create()\nprint(graph.id)',
-      },
-      typescript: {
-        method: 'client.graphs.create',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.create();\n\nconsole.log(graph.id);",
       },
     },
   },
@@ -588,6 +588,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.graphs.retrieve(graph_id: string): { id: string; created_at: string; file_status: object; name: string; type: 'manual' | 'connector' | 'web'; description?: string; urls?: object[]; }`\n\n**get** `/v1/graphs/{graph_id}`\n\nRetrieve a Knowledge Graph.\n\n### Parameters\n\n- `graph_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; file_status: { completed: number; failed: number; in_progress: number; total: number; }; name: string; type: 'manual' | 'connector' | 'web'; description?: string; urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `file_status: { completed: number; failed: number; in_progress: number; total: number; }`\n  - `name: string`\n  - `type: 'manual' | 'connector' | 'web'`\n  - `description?: string`\n  - `urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst graph = await client.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.retrieve',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph.id);",
+      },
+      python: {
+        method: 'graphs.retrieve',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(graph.id)',
+      },
       go: {
         method: 'client.Graphs.Get',
         example:
@@ -596,16 +606,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/graphs/$GRAPH_ID \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'graphs.retrieve',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(graph.id)',
-      },
-      typescript: {
-        method: 'client.graphs.retrieve',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph.id);",
       },
     },
   },
@@ -628,6 +628,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.graphs.update(graph_id: string, description?: string, name?: string, urls?: { type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]): { id: string; created_at: string; name: string; description?: string; urls?: object[]; }`\n\n**put** `/v1/graphs/{graph_id}`\n\nUpdate the name and description of a Knowledge Graph.\n\n### Parameters\n\n- `graph_id: string`\n\n- `description?: string`\n  A description of the Knowledge Graph (max 255 characters). Omitting this field leaves the description unchanged.\n\n- `name?: string`\n  The name of the Knowledge Graph (max 255 characters). Omitting this field leaves the name unchanged.\n\n- `urls?: { type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]`\n  An array of web connector URLs to update for this Knowledge Graph. You can only connect URLs to Knowledge Graphs with the type `web`. To clear the list of URLs, set this field to an empty array.\n\n### Returns\n\n- `{ id: string; created_at: string; name: string; description?: string; urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `name: string`\n  - `description?: string`\n  - `urls?: { status: { status: 'validating' | 'success' | 'error'; error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error'; }; type: 'single_page' | 'sub_pages'; url: string; exclude_urls?: string[]; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst graph = await client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.update',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph.id);",
+      },
+      python: {
+        method: 'graphs.update',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.update(\n    graph_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(graph.id)',
+      },
       go: {
         method: 'client.Graphs.Update',
         example:
@@ -636,16 +646,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           "curl https://api.writer.com/v1/graphs/$GRAPH_ID \\\n    -X PUT \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $WRITER_API_KEY\" \\\n    -d '{}'",
-      },
-      python: {
-        method: 'graphs.update',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.update(\n    graph_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(graph.id)',
-      },
-      typescript: {
-        method: 'client.graphs.update',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph.id);",
       },
     },
   },
@@ -662,6 +662,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.graphs.delete(graph_id: string): { id: string; deleted: boolean; }`\n\n**delete** `/v1/graphs/{graph_id}`\n\nDelete a Knowledge Graph.\n\n### Parameters\n\n- `graph_id: string`\n\n### Returns\n\n- `{ id: string; deleted: boolean; }`\n\n  - `id: string`\n  - `deleted: boolean`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst graph = await client.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.delete',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph.id);",
+      },
+      python: {
+        method: 'graphs.delete',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.delete(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(graph.id)',
+      },
       go: {
         method: 'client.Graphs.Delete',
         example:
@@ -670,16 +680,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/graphs/$GRAPH_ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'graphs.delete',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ngraph = client.graphs.delete(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(graph.id)',
-      },
-      typescript: {
-        method: 'client.graphs.delete',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst graph = await client.graphs.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(graph.id);",
       },
     },
   },
@@ -696,6 +696,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## add_file_to_graph\n\n`client.graphs.addFileToGraph(graph_id: string, file_id: string): { id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n**post** `/v1/graphs/{graph_id}/file`\n\nAdd a file to a Knowledge Graph.\n\n### Parameters\n\n- `graph_id: string`\n\n- `file_id: string`\n  The unique identifier of the file.\n\n### Returns\n\n- `{ id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `graph_ids: string[]`\n  - `name: string`\n  - `status: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst file = await client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { file_id: 'file_id' });\n\nconsole.log(file);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.addFileToGraph',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  file_id: 'file_id',\n});\n\nconsole.log(file.id);",
+      },
+      python: {
+        method: 'graphs.add_file_to_graph',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.graphs.add_file_to_graph(\n    graph_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    file_id="file_id",\n)\nprint(file.id)',
+      },
       go: {
         method: 'client.Graphs.AddFileToGraph',
         example:
@@ -704,16 +714,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/graphs/$GRAPH_ID/file \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "file_id": "file_id"\n        }\'',
-      },
-      python: {
-        method: 'graphs.add_file_to_graph',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.graphs.add_file_to_graph(\n    graph_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    file_id="file_id",\n)\nprint(file.id)',
-      },
-      typescript: {
-        method: 'client.graphs.addFileToGraph',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  file_id: 'file_id',\n});\n\nconsole.log(file.id);",
       },
     },
   },
@@ -730,6 +730,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## remove_file_from_graph\n\n`client.graphs.removeFileFromGraph(graph_id: string, file_id: string): { id: string; deleted: boolean; }`\n\n**delete** `/v1/graphs/{graph_id}/file/{file_id}`\n\nRemove a file from a Knowledge Graph.\n\n### Parameters\n\n- `graph_id: string`\n\n- `file_id: string`\n\n### Returns\n\n- `{ id: string; deleted: boolean; }`\n\n  - `id: string`\n  - `deleted: boolean`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.graphs.removeFileFromGraph('file_id', { graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.removeFileFromGraph',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.graphs.removeFileFromGraph('file_id', {\n  graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response.id);",
+      },
+      python: {
+        method: 'graphs.remove_file_from_graph',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.graphs.remove_file_from_graph(\n    file_id="file_id",\n    graph_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.id)',
+      },
       go: {
         method: 'client.Graphs.RemoveFileFromGraph',
         example:
@@ -738,16 +748,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/graphs/$GRAPH_ID/file/$FILE_ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'graphs.remove_file_from_graph',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.graphs.remove_file_from_graph(\n    file_id="file_id",\n    graph_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.id)',
-      },
-      typescript: {
-        method: 'client.graphs.removeFileFromGraph',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.graphs.removeFileFromGraph('file_id', {\n  graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(response.id);",
       },
     },
   },
@@ -771,6 +771,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## question\n\n`client.graphs.question(graph_ids: string[], question: string, query_config?: { grounding_level?: number; inline_citations?: boolean; keyword_threshold?: number; max_snippets?: number; max_subquestions?: number; max_tokens?: number; search_weight?: number; semantic_threshold?: number; }, stream?: boolean, subqueries?: boolean): { answer: string; question: string; sources: source[]; references?: object; subqueries?: object[]; }`\n\n**post** `/v1/graphs/question`\n\nAsk a question to specified Knowledge Graphs.\n\n### Parameters\n\n- `graph_ids: string[]`\n  The unique identifiers of the Knowledge Graphs to query.\n\n- `question: string`\n  The question to answer using the Knowledge Graph.\n\n- `query_config?: { grounding_level?: number; inline_citations?: boolean; keyword_threshold?: number; max_snippets?: number; max_subquestions?: number; max_tokens?: number; search_weight?: number; semantic_threshold?: number; }`\n  Configuration options for Knowledge Graph queries, including search parameters and citation settings.\n  - `grounding_level?: number`\n    Level of grounding required for responses, controlling how closely answers must be tied to source material. Set lower for grounded outputs, higher for creativity. Higher values (closer to 1.0) allow more creative interpretation, while lower values (closer to 0.0) stick more closely to source material. Range: 0.0-1.0, Default: 0.0.\n  - `inline_citations?: boolean`\n    Whether to include inline citations in the response, showing which Knowledge Graph sources were used. Default: false.\n  - `keyword_threshold?: number`\n    Threshold for keyword-based matching when searching Knowledge Graph content. Set higher for stricter relevance, lower for broader range. Higher values (closer to 1.0) require stronger keyword matches, while lower values (closer to 0.0) allow more lenient matching. Range: 0.0-1.0, Default: 0.7.\n  - `max_snippets?: number`\n    Maximum number of text snippets to retrieve from the Knowledge Graph for context. Works in concert with `search_weight` to control best matches vs broader coverage. While technically supports 1-60, values below 5 may return no results due to RAG implementation. Recommended range: 5-25. Due to RAG system behavior, you may see more snippets than requested. Range: 1-60, Default: 30.\n  - `max_subquestions?: number`\n    Maximum number of subquestions to generate when processing complex queries. Set higher to improve detail, set lower to reduce response time. Range: 1-10, Default: 6.\n  - `max_tokens?: number`\n    Maximum number of tokens the model can generate in the response. This controls the length of the AI's answer. Set higher for longer answers, set lower for shorter, faster answers. Range: 100-8000, Default: 4000.\n  - `search_weight?: number`\n    Weight given to search results when ranking and selecting relevant information. Higher values (closer to 100) prioritize keyword-based matching, while lower values (closer to 0) prioritize semantic similarity matching. Use higher values for exact keyword searches, lower values for conceptual similarity searches. Range: 0-100, Default: 50.\n  - `semantic_threshold?: number`\n    Threshold for semantic similarity matching when searching Knowledge Graph content. Set higher for stricter relevance, lower for broader range. Higher values (closer to 1.0) require stronger semantic similarity, while lower values (closer to 0.0) allow more lenient semantic matching. Range: 0.0-1.0, Default: 0.7.\n\n- `stream?: boolean`\n  Determines whether the model's output should be streamed. If true, the output is generated and sent incrementally, which can be useful for real-time applications.\n\n- `subqueries?: boolean`\n  Specify whether to include subqueries.\n\n### Returns\n\n- `{ answer: string; question: string; sources: { file_id: string; snippet: string; }[]; references?: { files?: { fileId: string; score: number; text: string; cite?: string; page?: number; }[]; web?: { score: number; text: string; title: string; url: string; }[]; }; subqueries?: { answer: string; query: string; sources: object[]; }[]; }`\n\n  - `answer: string`\n  - `question: string`\n  - `sources: { file_id: string; snippet: string; }[]`\n  - `references?: { files?: { fileId: string; score: number; text: string; cite?: string; page?: number; }[]; web?: { score: number; text: string; title: string; url: string; }[]; }`\n  - `subqueries?: { answer: string; query: string; sources: { file_id: string; snippet: string; }[]; }[]`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst stream = await client.graphs.question({ graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'], question: 'question' });\nfor await (const questionResponseChunk of stream) {\n  console.log(questionResponseChunk);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.graphs.question',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst question = await client.graphs.question({\n  graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],\n  question: 'question',\n});\n\nconsole.log(question.answer);",
+      },
+      python: {
+        method: 'graphs.question',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor graph in client.graphs.question(\n    graph_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],\n    question="question",\n):\n  print(graph)',
+      },
       go: {
         method: 'client.Graphs.Question',
         example:
@@ -779,16 +789,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/graphs/question \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "graph_ids": [\n            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n          ],\n          "question": "question"\n        }\'',
-      },
-      python: {
-        method: 'graphs.question',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfor graph in client.graphs.question(\n    graph_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],\n    question="question",\n):\n  print(graph)',
-      },
-      typescript: {
-        method: 'client.graphs.question',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst question = await client.graphs.question({\n  graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],\n  question: 'question',\n});\n\nconsole.log(question.answer);",
       },
     },
   },
@@ -806,6 +806,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.files.retrieve(file_id: string): { id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n**get** `/v1/files/{file_id}`\n\nRetrieve detailed information about a specific file, including its metadata, status, and associated graphs.\n\n### Parameters\n\n- `file_id: string`\n\n### Returns\n\n- `{ id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `graph_ids: string[]`\n  - `name: string`\n  - `status: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst file = await client.files.retrieve('file_id');\n\nconsole.log(file);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.files.retrieve',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.retrieve('file_id');\n\nconsole.log(file.id);",
+      },
+      python: {
+        method: 'files.retrieve',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.files.retrieve(\n    "file_id",\n)\nprint(file.id)',
+      },
       go: {
         method: 'client.Files.Get',
         example:
@@ -814,16 +824,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/files/$FILE_ID \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'files.retrieve',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.files.retrieve(\n    "file_id",\n)\nprint(file.id)',
-      },
-      typescript: {
-        method: 'client.files.retrieve',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.retrieve('file_id');\n\nconsole.log(file.id);",
       },
     },
   },
@@ -840,6 +840,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.files.delete(file_id: string): { id: string; deleted: boolean; }`\n\n**delete** `/v1/files/{file_id}`\n\nPermanently delete a file from the system. This action cannot be undone.\n\n### Parameters\n\n- `file_id: string`\n\n### Returns\n\n- `{ id: string; deleted: boolean; }`\n\n  - `id: string`\n  - `deleted: boolean`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst file = await client.files.delete('file_id');\n\nconsole.log(file);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.files.delete',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.delete('file_id');\n\nconsole.log(file.id);",
+      },
+      python: {
+        method: 'files.delete',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.files.delete(\n    "file_id",\n)\nprint(file.id)',
+      },
       go: {
         method: 'client.Files.Delete',
         example:
@@ -848,16 +858,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/files/$FILE_ID \\\n    -X DELETE \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'files.delete',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.files.delete(\n    "file_id",\n)\nprint(file.id)',
-      },
-      typescript: {
-        method: 'client.files.delete',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.delete('file_id');\n\nconsole.log(file.id);",
       },
     },
   },
@@ -883,6 +883,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.files.list(after?: string, before?: string, file_types?: string, graph_id?: string, limit?: number, order?: 'asc' | 'desc', status?: 'in_progress' | 'completed' | 'failed'): { id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n**get** `/v1/files`\n\nRetrieve a paginated list of files with optional filtering by status, graph association, and file type.\n\n### Parameters\n\n- `after?: string`\n  The ID of the last object in the previous page. This parameter instructs the API to return the next page of results.\n\n- `before?: string`\n  The ID of the first object in the previous page. This parameter instructs the API to return the previous page of results.\n\n- `file_types?: string`\n  The extensions of the files to retrieve. Separate multiple extensions with a comma. For example: `pdf,jpg,docx`.\n\n- `graph_id?: string`\n  The unique identifier of the graph to which the files belong.\n\n- `limit?: number`\n  Specifies the maximum number of objects returned in a page. The default value is 50. The minimum value is 1, and the maximum value is 100.\n\n- `order?: 'asc' | 'desc'`\n  Specifies the order of the results. Valid values are asc for ascending and desc for descending.\n\n- `status?: 'in_progress' | 'completed' | 'failed'`\n  Specifies the status of the files to retrieve. Valid values are in_progress, completed or failed.\n\n### Returns\n\n- `{ id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `graph_ids: string[]`\n  - `name: string`\n  - `status: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\n// Automatically fetches more pages as needed.\nfor await (const file of client.files.list()) {\n  console.log(file);\n}\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.files.list',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const file of client.files.list()) {\n  console.log(file.id);\n}",
+      },
+      python: {
+        method: 'files.list',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.files.list()\npage = page.data[0]\nprint(page.id)',
+      },
       go: {
         method: 'client.Files.List',
         example:
@@ -890,16 +900,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example: 'curl https://api.writer.com/v1/files \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'files.list',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\npage = client.files.list()\npage = page.data[0]\nprint(page.id)',
-      },
-      typescript: {
-        method: 'client.files.list',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const file of client.files.list()) {\n  console.log(file.id);\n}",
       },
     },
   },
@@ -917,6 +917,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## upload\n\n`client.files.upload(content: string, Content-Disposition: string, graphId?: string): { id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n**post** `/v1/files`\n\nUpload a new file to the system. Supports various file formats including PDF, DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, and XLSX.\n\n### Parameters\n\n- `content: string`\n\n- `Content-Disposition: string`\n\n- `graphId?: string`\n  The unique identifier of the Knowledge Graph to associate the uploaded file with.\n\nNote: The response from the upload endpoint does not include the `graphId` field, but the association will be visible when you retrieve the file using the file retrieval endpoint.\n\n### Returns\n\n- `{ id: string; created_at: string; graph_ids: string[]; name: string; status: string; }`\n\n  - `id: string`\n  - `created_at: string`\n  - `graph_ids: string[]`\n  - `name: string`\n  - `status: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst file = await client.files.upload({ content: fs.createReadStream('path/to/file'), 'Content-Disposition': 'Content-Disposition' });\n\nconsole.log(file);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.files.upload',
+        example:
+          "import fs from 'fs';\nimport Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.upload({\n  content: fs.createReadStream('path/to/file'),\n  'Content-Disposition': 'Content-Disposition',\n});\n\nconsole.log(file.id);",
+      },
+      python: {
+        method: 'files.upload',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.files.upload(\n    content=b"Example data",\n    content_disposition="Content-Disposition",\n)\nprint(file.id)',
+      },
       go: {
         method: 'client.Files.Upload',
         example:
@@ -925,16 +935,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           "curl https://api.writer.com/v1/files \\\n    -H 'Content-Type: text/plain' \\\n    -H \"Authorization: Bearer $WRITER_API_KEY\" \\\n    -F 'content=@/path/to/content'",
-      },
-      python: {
-        method: 'files.upload',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nfile = client.files.upload(\n    content=b"Example data",\n    content_disposition="Content-Disposition",\n)\nprint(file.id)',
-      },
-      typescript: {
-        method: 'client.files.upload',
-        example:
-          "import fs from 'fs';\nimport Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst file = await client.files.upload({\n  content: fs.createReadStream('path/to/file'),\n  'Content-Disposition': 'Content-Disposition',\n});\n\nconsole.log(file.id);",
       },
     },
   },
@@ -952,6 +952,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## download\n\n`client.files.download(file_id: string): string`\n\n**get** `/v1/files/{file_id}/download`\n\nDownload the binary content of a file. The response will contain the file data in the appropriate MIME type.\n\n### Parameters\n\n- `file_id: string`\n\n### Returns\n\n- `string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.files.download('file_id');\n\nconsole.log(response);\n\nconst content = await response.blob()\nconsole.log(content)\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.files.download',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.files.download('file_id');\n\nconsole.log(response);\n\nconst content = await response.blob();\nconsole.log(content);",
+      },
+      python: {
+        method: 'files.download',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.files.download(\n    "file_id",\n)\nprint(response)\ncontent = response.read()\nprint(content)',
+      },
       go: {
         method: 'client.Files.Download',
         example:
@@ -960,16 +970,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/files/$FILE_ID/download \\\n    -H "Authorization: Bearer $WRITER_API_KEY"',
-      },
-      python: {
-        method: 'files.download',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.files.download(\n    "file_id",\n)\nprint(response)\ncontent = response.read()\nprint(content)',
-      },
-      typescript: {
-        method: 'client.files.download',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.files.download('file_id');\n\nconsole.log(response);\n\nconst content = await response.blob();\nconsole.log(content);",
       },
     },
   },
@@ -987,6 +987,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retry\n\n`client.files.retry(file_ids: string[]): { success?: boolean; }`\n\n**post** `/v1/files/retry`\n\nRetry processing of files that previously failed to process. This will re-attempt the processing of the specified files.\n\n### Parameters\n\n- `file_ids: string[]`\n  The unique identifier of the files to retry.\n\n### Returns\n\n- `{ success?: boolean; }`\n\n  - `success?: boolean`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.files.retry({ file_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] });\n\nconsole.log(response);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.files.retry',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.files.retry({ file_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] });\n\nconsole.log(response.success);",
+      },
+      python: {
+        method: 'files.retry',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.files.retry(\n    file_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],\n)\nprint(response.success)',
+      },
       go: {
         method: 'client.Files.Retry',
         example:
@@ -995,16 +1005,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/files/retry \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "file_ids": [\n            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n          ]\n        }\'',
-      },
-      python: {
-        method: 'files.retry',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.files.retry(\n    file_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],\n)\nprint(response.success)',
-      },
-      typescript: {
-        method: 'client.files.retry',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.files.retry({ file_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'] });\n\nconsole.log(response.success);",
       },
     },
   },
@@ -1021,6 +1021,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## parse_pdf\n\n`client.tools.parsePdf(file_id: string, format: 'text' | 'markdown'): { content: string; }`\n\n**post** `/v1/tools/pdf-parser/{file_id}`\n\nParse PDF to other formats.\n\n### Parameters\n\n- `file_id: string`\n\n- `format: 'text' | 'markdown'`\n  The format into which the PDF content should be converted.\n\n### Returns\n\n- `{ content: string; }`\n\n  - `content: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.tools.parsePdf('file_id', { format: 'text' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.tools.parsePdf',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.parsePdf('file_id', { format: 'text' });\n\nconsole.log(response.content);",
+      },
+      python: {
+        method: 'tools.parse_pdf',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.parse_pdf(\n    file_id="file_id",\n    format="text",\n)\nprint(response.content)',
+      },
       go: {
         method: 'client.Tools.ParsePdf',
         example:
@@ -1029,16 +1039,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/tools/pdf-parser/$FILE_ID \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "format": "text"\n        }\'',
-      },
-      python: {
-        method: 'tools.parse_pdf',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.parse_pdf(\n    file_id="file_id",\n    format="text",\n)\nprint(response.content)',
-      },
-      typescript: {
-        method: 'client.tools.parsePdf',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.parsePdf('file_id', { format: 'text' });\n\nconsole.log(response.content);",
       },
     },
   },
@@ -1070,6 +1070,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## web_search\n\n`client.tools.webSearch(chunks_per_source?: number, country?: string, days?: number, exclude_domains?: string[], include_answer?: boolean, include_domains?: string[], include_raw_content?: 'text' | 'markdown' | boolean, max_results?: number, query?: string, search_depth?: 'basic' | 'advanced', stream?: boolean, time_range?: 'day' | 'week' | 'month' | 'year' | 'd' | 'w' | 'm' | 'y', topic?: 'general' | 'news'): { query: string; sources: object[]; answer?: string; }`\n\n**post** `/v1/tools/web-search`\n\nSearch the web for information about a given query and return relevant results with source URLs.\n\n### Parameters\n\n- `chunks_per_source?: number`\n  Only applies when `search_depth` is `advanced`. Specifies how many text segments to extract from each source. Limited to 3 chunks maximum.\n\n- `country?: string`\n  Localizes search results to a specific country. Only applies to general topic searches.\n\n- `days?: number`\n  For news topic searches, specifies how many days of news coverage to include.\n\n- `exclude_domains?: string[]`\n  Domains to exclude from the search. If unset, the search includes all domains.\n\n- `include_answer?: boolean`\n  Whether to include a generated answer to the query in the response. If `false`, only search results are returned.\n\n- `include_domains?: string[]`\n  Domains to include in the search. If unset, the search includes all domains.\n\n- `include_raw_content?: 'text' | 'markdown' | boolean`\n  Controls how raw content is included in search results:\n\n- `text`: Returns plain text without formatting markup\n- `markdown`: Returns structured content with markdown formatting (headers, links, bold text)\n- `true`: Same as `markdown`\n- `false`: Raw content is not included (default if unset)\n\n- `max_results?: number`\n  Limits the number of search results returned. Cannot exceed 20 sources.\n\n- `query?: string`\n  The search query.\n\n- `search_depth?: 'basic' | 'advanced'`\n  Controls search comprehensiveness:\n\n- `basic`: Returns fewer but highly relevant results\n- `advanced`: Performs a deeper search with more results\n\n- `stream?: boolean`\n  Enables streaming of search results as they become available.\n\n- `time_range?: 'day' | 'week' | 'month' | 'year' | 'd' | 'w' | 'm' | 'y'`\n  Filters results to content published within the specified time range back from the current date. For example, `week` or `w` returns results from the past 7 days.\n\n- `topic?: 'general' | 'news'`\n  The search topic category. Use `news` for current events and news articles, or `general` for broader web search.\n\n### Returns\n\n- `{ query: string; sources: { raw_content?: string; url?: string; }[]; answer?: string; }`\n\n  - `query: string`\n  - `sources: { raw_content?: string; url?: string; }[]`\n  - `answer?: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst response = await client.tools.webSearch();\n\nconsole.log(response);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.tools.webSearch',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.webSearch({\n  include_domains: ['dev.writer.com'],\n  query: 'How do I get an API key for the Writer API?',\n});\n\nconsole.log(response.query);",
+      },
+      python: {
+        method: 'tools.web_search',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.web_search(\n    include_domains=["dev.writer.com"],\n    query="How do I get an API key for the Writer API?",\n)\nprint(response.query)',
+      },
       go: {
         method: 'client.Tools.WebSearch',
         example:
@@ -1078,16 +1088,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           "curl https://api.writer.com/v1/tools/web-search \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $WRITER_API_KEY\" \\\n    -d '{}'",
-      },
-      python: {
-        method: 'tools.web_search',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tools.web_search(\n    include_domains=["dev.writer.com"],\n    query="How do I get an API key for the Writer API?",\n)\nprint(response.query)',
-      },
-      typescript: {
-        method: 'client.tools.webSearch',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.tools.webSearch({\n  include_domains: ['dev.writer.com'],\n  query: 'How do I get an API key for the Writer API?',\n});\n\nconsole.log(response.query);",
       },
     },
   },
@@ -1112,6 +1112,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## translate\n\n`client.translation.translate(formality: boolean, length_control: boolean, mask_profanity: boolean, model: 'palmyra-translate', source_language_code: string, target_language_code: string, text: string): { data: string; }`\n\n**post** `/v1/translation`\n\nTranslate text from one language to another.\n\n### Parameters\n\n- `formality: boolean`\n  Whether to use formal or informal language in the translation. See the [list of languages that support formality](https://dev.writer.com/api-reference/translation-api/language-support#formality). If the language does not support formality, this parameter is ignored.\n\n- `length_control: boolean`\n  Whether to control the length of the translated text. See the [list of languages that support length control](https://dev.writer.com/api-reference/translation-api/language-support#length-control). If the language does not support length control, this parameter is ignored.\n\n- `mask_profanity: boolean`\n  Whether to mask profane words in the translated text. See the [list of languages that do not support profanity masking](https://dev.writer.com/api-reference/translation-api/language-support#profanity-masking). If the language does not support profanity masking, this parameter is ignored.\n\n- `model: 'palmyra-translate'`\n  The model to use for translation.\n\n- `source_language_code: string`\n  The [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) language code of the original text to translate. For example, `en` for English, `zh` for Chinese, `fr` for French, `es` for Spanish. If the language has a variant, the code appends the two-digit [ISO-3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). For example, Mexican Spanish is `es-MX`. See the [list of supported languages and language codes](https://dev.writer.com/api-reference/translation-api/language-support).\n\n- `target_language_code: string`\n  The [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) language code of the target language for the translation. For example, `en` for English, `zh` for Chinese, `fr` for French, `es` for Spanish. If the language has a variant, the code appends the two-digit [ISO-3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). For example, Mexican Spanish is `es-MX`. See the [list of supported languages and language codes](https://dev.writer.com/api-reference/translation-api/language-support).\n\n- `text: string`\n  The text to translate. Maximum of 100,000 words.\n\n### Returns\n\n- `{ data: string; }`\n\n  - `data: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst translationResponse = await client.translation.translate({\n  formality: true,\n  length_control: true,\n  mask_profanity: true,\n  model: 'palmyra-translate',\n  source_language_code: 'en',\n  target_language_code: 'es',\n  text: 'Hello, world!',\n});\n\nconsole.log(translationResponse);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.translation.translate',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst translationResponse = await client.translation.translate({\n  formality: true,\n  length_control: true,\n  mask_profanity: true,\n  model: 'palmyra-translate',\n  source_language_code: 'en',\n  target_language_code: 'es',\n  text: 'Hello, world!',\n});\n\nconsole.log(translationResponse.data);",
+      },
+      python: {
+        method: 'translation.translate',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ntranslation_response = client.translation.translate(\n    formality=True,\n    length_control=True,\n    mask_profanity=True,\n    model="palmyra-translate",\n    source_language_code="en",\n    target_language_code="es",\n    text="Hello, world!",\n)\nprint(translation_response.data)',
+      },
       go: {
         method: 'client.Translation.Translate',
         example:
@@ -1120,16 +1130,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/translation \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "formality": true,\n          "length_control": true,\n          "mask_profanity": true,\n          "model": "palmyra-translate",\n          "source_language_code": "en",\n          "target_language_code": "es",\n          "text": "Hello, world!"\n        }\'',
-      },
-      python: {
-        method: 'translation.translate',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ntranslation_response = client.translation.translate(\n    formality=True,\n    length_control=True,\n    mask_profanity=True,\n    model="palmyra-translate",\n    source_language_code="en",\n    target_language_code="es",\n    text="Hello, world!",\n)\nprint(translation_response.data)',
-      },
-      typescript: {
-        method: 'client.translation.translate',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst translationResponse = await client.translation.translate({\n  formality: true,\n  length_control: true,\n  mask_profanity: true,\n  model: 'palmyra-translate',\n  source_language_code: 'en',\n  target_language_code: 'es',\n  text: 'Hello, world!',\n});\n\nconsole.log(translationResponse.data);",
       },
     },
   },
@@ -1151,6 +1151,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## analyze\n\n`client.vision.analyze(model: 'palmyra-vision', prompt: string, variables: { file_id: string; name: string; }[]): { data: string; }`\n\n**post** `/v1/vision`\n\nSubmit images and documents with a prompt to generate an analysis. Supports JPG, PNG, PDF, and TXT files up to 7MB each.\n\n### Parameters\n\n- `model: 'palmyra-vision'`\n  The model to use for image analysis.\n\n- `prompt: string`\n  The prompt to use for the image analysis. The prompt must include the name of each image variable, surrounded by double curly braces (`{{}}`). For example, `Describe the difference between the image {{image_1}} and the image {{image_2}}`.\n\n- `variables: { file_id: string; name: string; }[]`\n\n### Returns\n\n- `{ data: string; }`\n\n  - `data: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst visionResponse = await client.vision.analyze({\n  model: 'palmyra-vision',\n  prompt: 'Describe the difference between the image {{image_1}} and the image {{image_2}}.',\n  variables: [{ file_id: 'f1234', name: 'image_1' }, { file_id: 'f9876', name: 'image_2' }],\n});\n\nconsole.log(visionResponse);\n```",
     perLanguage: {
+      typescript: {
+        method: 'client.vision.analyze',
+        example:
+          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst visionResponse = await client.vision.analyze({\n  model: 'palmyra-vision',\n  prompt: 'Describe the difference between the image {{image_1}} and the image {{image_2}}.',\n  variables: [\n    { name: 'image_1', file_id: 'f1234' },\n    { name: 'image_2', file_id: 'f9876' },\n  ],\n});\n\nconsole.log(visionResponse.data);",
+      },
+      python: {
+        method: 'vision.analyze',
+        example:
+          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nvision_response = client.vision.analyze(\n    model="palmyra-vision",\n    prompt="Describe the difference between the image {{image_1}} and the image {{image_2}}.",\n    variables=[{\n        "name": "image_1",\n        "file_id": "f1234",\n    }, {\n        "name": "image_2",\n        "file_id": "f9876",\n    }],\n)\nprint(vision_response.data)',
+      },
       go: {
         method: 'client.Vision.Analyze',
         example:
@@ -1159,16 +1169,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.writer.com/v1/vision \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "model": "palmyra-vision",\n          "prompt": "Describe the difference between the image {{image_1}} and the image {{image_2}}.",\n          "variables": [\n            {\n              "file_id": "f1234",\n              "name": "image_1"\n            },\n            {\n              "file_id": "f9876",\n              "name": "image_2"\n            }\n          ]\n        }\'',
-      },
-      python: {
-        method: 'vision.analyze',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\nvision_response = client.vision.analyze(\n    model="palmyra-vision",\n    prompt="Describe the difference between the image {{image_1}} and the image {{image_2}}.",\n    variables=[{\n        "name": "image_1",\n        "file_id": "f1234",\n    }, {\n        "name": "image_2",\n        "file_id": "f9876",\n    }],\n)\nprint(vision_response.data)',
-      },
-      typescript: {
-        method: 'client.vision.analyze',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst visionResponse = await client.vision.analyze({\n  model: 'palmyra-vision',\n  prompt: 'Describe the difference between the image {{image_1}} and the image {{image_2}}.',\n  variables: [\n    { name: 'image_1', file_id: 'f1234' },\n    { name: 'image_2', file_id: 'f9876' },\n  ],\n});\n\nconsole.log(visionResponse.data);",
       },
     },
   },
