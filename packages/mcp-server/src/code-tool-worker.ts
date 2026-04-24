@@ -59,8 +59,8 @@ function getTSDiagnostics(code: string): string[] {
   const codeWithImport = [
     'import { Writer } from "writer-sdk";',
     functionSource.type === 'declaration' ?
-      `async function run(${functionSource.client}: Writer)`
-    : `const run: (${functionSource.client}: Writer) => Promise<unknown> =`,
+      `async function run(${functionSource.client}: Writer)` :
+      `const run: (${functionSource.client}: Writer) => Promise<unknown> =`,
     functionSource.code,
   ].join('\n');
   const sourcePath = path.resolve('code.ts');
@@ -108,36 +108,36 @@ function getTSDiagnostics(code: string): string[] {
 
 const fuse = new Fuse(
   [
-    'client.applications.generateContent',
-    'client.applications.list',
-    'client.applications.retrieve',
-    'client.applications.jobs.create',
-    'client.applications.jobs.list',
-    'client.applications.jobs.retrieve',
-    'client.applications.jobs.retry',
-    'client.applications.graphs.list',
-    'client.applications.graphs.update',
-    'client.chat.chat',
-    'client.completions.create',
-    'client.models.list',
-    'client.graphs.addFileToGraph',
-    'client.graphs.create',
-    'client.graphs.delete',
-    'client.graphs.list',
-    'client.graphs.question',
-    'client.graphs.removeFileFromGraph',
-    'client.graphs.retrieve',
-    'client.graphs.update',
-    'client.files.delete',
-    'client.files.download',
-    'client.files.list',
-    'client.files.retrieve',
-    'client.files.retry',
-    'client.files.upload',
-    'client.tools.parsePdf',
-    'client.tools.webSearch',
-    'client.translation.translate',
-    'client.vision.analyze',
+    "client.applications.generateContent",
+    "client.applications.list",
+    "client.applications.retrieve",
+    "client.applications.jobs.create",
+    "client.applications.jobs.list",
+    "client.applications.jobs.retrieve",
+    "client.applications.jobs.retry",
+    "client.applications.graphs.list",
+    "client.applications.graphs.update",
+    "client.chat.chat",
+    "client.completions.create",
+    "client.models.list",
+    "client.graphs.addFileToGraph",
+    "client.graphs.create",
+    "client.graphs.delete",
+    "client.graphs.list",
+    "client.graphs.question",
+    "client.graphs.removeFileFromGraph",
+    "client.graphs.retrieve",
+    "client.graphs.update",
+    "client.files.delete",
+    "client.files.download",
+    "client.files.list",
+    "client.files.retrieve",
+    "client.files.retry",
+    "client.files.upload",
+    "client.tools.parsePdf",
+    "client.tools.webSearch",
+    "client.translation.translate",
+    "client.vision.analyze"
   ],
   { threshold: 1, shouldSort: true },
 );
@@ -220,12 +220,7 @@ function parseError(code: string, error: unknown): string | undefined {
     // Deno uses V8; the first "<anonymous>:LINE:COLUMN" is the top of stack.
     const lineNumber = error.stack?.match(/<anonymous>:([0-9]+):[0-9]+/)?.[1];
     // -1 for the zero-based indexing
-    const line =
-      lineNumber &&
-      code
-        .split('\n')
-        .at(parseInt(lineNumber, 10) - 1)
-        ?.trim();
+    const line = lineNumber && code.split('\n').at(parseInt(lineNumber, 10) - 1)?.trim();
     return line ? `${message}\n  at line ${lineNumber}\n    ${line}` : message;
   } catch {
     return message;
@@ -237,9 +232,8 @@ const fetch = async (req: Request): Promise<Response> => {
 
   const runFunctionSource = code ? getRunFunctionSource(code) : null;
   if (!runFunctionSource) {
-    const message =
-      code ?
-        'The code is missing a top-level `run` function.'
+    const message = code
+      ? 'The code is missing a top-level `run` function.'
       : 'The code argument is missing. Provide one containing a top-level `run` function.';
     return Response.json(
       {
@@ -284,7 +278,7 @@ const fetch = async (req: Request): Promise<Response> => {
   try {
     let run_ = async (client: any) => {};
     run_ = (await tseval(`${code}\nexport default run;`)).default;
-    const result = await run_(makeSdkProxy(client, { path: ['client'] }));
+    const result = await run_(makeSdkProxy(client, { path: ["client"] }));
     return Response.json({
       is_error: false,
       result,

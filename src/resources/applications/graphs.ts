@@ -9,11 +9,7 @@ export class Graphs extends APIResource {
   /**
    * Updates the list of Knowledge Graphs associated with a no-code chat agent.
    */
-  update(
-    applicationID: string,
-    body: GraphUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ApplicationGraphsResponse> {
+  update(applicationID: string, body: GraphUpdateParams, options?: RequestOptions): APIPromise<ApplicationGraphsResponse> {
     return this._client.put(path`/v1/applications/${applicationID}/graphs`, { body, ...options });
   }
 
@@ -45,6 +41,6 @@ export interface GraphUpdateParams {
 export declare namespace Graphs {
   export {
     type ApplicationGraphsResponse as ApplicationGraphsResponse,
-    type GraphUpdateParams as GraphUpdateParams,
+    type GraphUpdateParams as GraphUpdateParams
   };
 }

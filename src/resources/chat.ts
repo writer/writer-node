@@ -13,19 +13,11 @@ export class Chat extends APIResource {
    * below is for non-streaming. To learn about streaming responses, see the
    * [chat completion guide](https://dev.writer.com/home/chat-completion).
    */
-  chat(body: ChatChatParamsNonStreaming, options?: RequestOptions): APIPromise<ChatCompletion>;
-  chat(body: ChatChatParamsStreaming, options?: RequestOptions): APIPromise<Stream<ChatCompletionChunk>>;
-  chat(
-    body: ChatChatParamsBase,
-    options?: RequestOptions,
-  ): APIPromise<Stream<ChatCompletionChunk> | ChatCompletion>;
-  chat(
-    body: ChatChatParams,
-    options?: RequestOptions,
-  ): APIPromise<ChatCompletion> | APIPromise<Stream<ChatCompletionChunk>> {
-    return this._client.post('/v1/chat', { body, ...options, stream: body.stream ?? false }) as
-      | APIPromise<ChatCompletion>
-      | APIPromise<Stream<ChatCompletionChunk>>;
+  chat(body: ChatChatParamsNonStreaming, options?: RequestOptions): APIPromise<ChatCompletion>
+  chat(body: ChatChatParamsStreaming, options?: RequestOptions): APIPromise<Stream<ChatCompletionChunk>>
+  chat(body: ChatChatParamsBase, options?: RequestOptions): APIPromise<Stream<ChatCompletionChunk> | ChatCompletion>
+  chat(body: ChatChatParams, options?: RequestOptions): APIPromise<ChatCompletion> | APIPromise<Stream<ChatCompletionChunk>> {
+    return this._client.post('/v1/chat', { body, ...options, stream: body.stream ?? false }) as APIPromise<ChatCompletion> | APIPromise<Stream<ChatCompletionChunk>>;
   }
 }
 
@@ -553,7 +545,7 @@ export namespace ChatCompletionUsage {
   }
 }
 
-export type ChatChatParams = ChatChatParamsNonStreaming | ChatChatParamsStreaming;
+export type ChatChatParams = ChatChatParamsNonStreaming | ChatChatParamsStreaming
 
 export interface ChatChatParamsBase {
   /**
@@ -768,8 +760,8 @@ export namespace ChatChatParams {
     include_usage: boolean;
   }
 
-  export type ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming;
-  export type ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming;
+  export type ChatChatParamsNonStreaming = ChatAPI.ChatChatParamsNonStreaming
+  export type ChatChatParamsStreaming = ChatAPI.ChatChatParamsStreaming
 }
 
 export interface ChatChatParamsNonStreaming extends ChatChatParamsBase {
@@ -800,6 +792,6 @@ export declare namespace Chat {
     type ChatCompletionUsage as ChatCompletionUsage,
     type ChatChatParams as ChatChatParams,
     type ChatChatParamsNonStreaming as ChatChatParamsNonStreaming,
-    type ChatChatParamsStreaming as ChatChatParamsStreaming,
+    type ChatChatParamsStreaming as ChatChatParamsStreaming
   };
 }

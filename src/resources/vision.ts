@@ -124,6 +124,6 @@ export declare namespace Vision {
   export {
     type VisionRequest as VisionRequest,
     type VisionResponse as VisionResponse,
-    type VisionAnalyzeParams as VisionAnalyzeParams,
+    type VisionAnalyzeParams as VisionAnalyzeParams
   };
 }
