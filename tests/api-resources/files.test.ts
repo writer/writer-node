@@ -2,7 +2,10 @@
 
 import Writer, { toFile } from 'writer-sdk';
 
-const client = new Writer({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Writer({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource files', () => {
   test('retrieve', async () => {
@@ -29,17 +32,20 @@ describe('resource files', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.files.list({
-    after: 'after',
-    before: 'before',
-    file_types: 'file_types',
-    graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    limit: 0,
-    order: 'asc',
-    status: 'in_progress',
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Writer.NotFoundError);
+    await expect(
+      client.files.list(
+        {
+          after: 'after',
+          before: 'before',
+          file_types: 'file_types',
+          graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          limit: 0,
+          order: 'asc',
+          status: 'in_progress',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Writer.NotFoundError);
   });
 
   test('delete', async () => {
@@ -70,7 +76,9 @@ describe('resource files', () => {
 
   // requests with binary data not yet supported in test environment
   test.skip('upload: only required params', async () => {
-    const responsePromise = client.files.upload({ content: await toFile(Buffer.from('Example data'), 'README.md'), 'Content-Disposition': 'Content-Disposition',
+    const responsePromise = client.files.upload({
+      content: await toFile(Buffer.from('Example data'), 'README.md'),
+      'Content-Disposition': 'Content-Disposition',
       'Content-Type': 'Content-Type',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -85,10 +93,10 @@ describe('resource files', () => {
   // requests with binary data not yet supported in test environment
   test.skip('upload: required and optional params', async () => {
     const response = await client.files.upload({
-    content: await toFile(Buffer.from('Example data'), 'README.md'),
-    'Content-Disposition': 'Content-Disposition',
+      content: await toFile(Buffer.from('Example data'), 'README.md'),
+      'Content-Disposition': 'Content-Disposition',
       'Content-Type': 'Content-Type',
-    graphId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-  });
+      graphId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

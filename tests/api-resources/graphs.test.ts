@@ -2,7 +2,10 @@
 
 import Writer from 'writer-sdk';
 
-const client = new Writer({ apiKey: 'My API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
+const client = new Writer({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource graphs', () => {
   test('create', async () => {
@@ -51,14 +54,17 @@ describe('resource graphs', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.graphs.list({
-    after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    limit: 0,
-    order: 'asc',
-  }, { path: '/_stainless_unknown_path' }))
-      .rejects
-      .toThrow(Writer.NotFoundError);
+    await expect(
+      client.graphs.list(
+        {
+          after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          limit: 0,
+          order: 'asc',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Writer.NotFoundError);
   });
 
   test('delete', async () => {
@@ -73,7 +79,9 @@ describe('resource graphs', () => {
   });
 
   test('addFileToGraph: only required params', async () => {
-    const responsePromise = client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { file_id: 'file_id' });
+    const responsePromise = client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      file_id: 'file_id',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -84,11 +92,16 @@ describe('resource graphs', () => {
   });
 
   test('addFileToGraph: required and optional params', async () => {
-    const response = await client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { file_id: 'file_id' });
+    const response = await client.graphs.addFileToGraph('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      file_id: 'file_id',
+    });
   });
 
   test('question: only required params', async () => {
-    const responsePromise = client.graphs.question({ graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'], question: 'question' });
+    const responsePromise = client.graphs.question({
+      graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      question: 'question',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -100,25 +113,27 @@ describe('resource graphs', () => {
 
   test('question: required and optional params', async () => {
     const response = await client.graphs.question({
-    graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-    question: 'question',
-    query_config: {
-    grounding_level: 0,
-    inline_citations: true,
-    keyword_threshold: 0,
-    max_snippets: 1,
-    max_subquestions: 1,
-    max_tokens: 100,
-    search_weight: 0,
-    semantic_threshold: 0,
-  },
-    stream: false,
-    subqueries: true,
-  });
+      graph_ids: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      question: 'question',
+      query_config: {
+        grounding_level: 0,
+        inline_citations: true,
+        keyword_threshold: 0,
+        max_snippets: 1,
+        max_subquestions: 1,
+        max_tokens: 100,
+        search_weight: 0,
+        semantic_threshold: 0,
+      },
+      stream: false,
+      subqueries: true,
+    });
   });
 
   test('removeFileFromGraph: only required params', async () => {
-    const responsePromise = client.graphs.removeFileFromGraph('file_id', { graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
+    const responsePromise = client.graphs.removeFileFromGraph('file_id', {
+      graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,6 +144,8 @@ describe('resource graphs', () => {
   });
 
   test('removeFileFromGraph: required and optional params', async () => {
-    const response = await client.graphs.removeFileFromGraph('file_id', { graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
+    const response = await client.graphs.removeFileFromGraph('file_id', {
+      graph_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

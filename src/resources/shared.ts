@@ -39,7 +39,7 @@ export interface FunctionDefinition {
 /**
  * The parameters of the function.
  */
-export type FunctionParams = { [key: string]: unknown }
+export type FunctionParams = { [key: string]: unknown };
 
 export interface GraphData {
   /**
@@ -256,7 +256,13 @@ export interface ToolChoiceString {
  * A tool that uses Palmyra Translate to translate text. Note that this tool does
  * not stream results. The response is returned after the translation is complete.
  */
-export type ToolParam = ToolParam.FunctionTool | ToolParam.GraphTool | ToolParam.LlmTool | ToolParam.TranslationTool | ToolParam.VisionTool | ToolParam.WebSearchTool
+export type ToolParam =
+  | ToolParam.FunctionTool
+  | ToolParam.GraphTool
+  | ToolParam.LlmTool
+  | ToolParam.TranslationTool
+  | ToolParam.VisionTool
+  | ToolParam.WebSearchTool;
 
 export namespace ToolParam {
   export interface FunctionTool {

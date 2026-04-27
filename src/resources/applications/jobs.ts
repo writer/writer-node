@@ -12,7 +12,11 @@ export class Jobs extends APIResource {
    * Generate content asynchronously from an existing no-code agent (formerly called
    * no-code applications) with inputs.
    */
-  create(applicationID: string, body: JobCreateParams, options?: RequestOptions): APIPromise<JobCreateResponse> {
+  create(
+    applicationID: string,
+    body: JobCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<JobCreateResponse> {
     return this._client.post(path`/v1/applications/${applicationID}/jobs`, { body, ...options });
   }
 
@@ -27,8 +31,16 @@ export class Jobs extends APIResource {
    * Retrieve all jobs created via the async API, linked to the provided application
    * ID (or alias).
    */
-  list(applicationID: string, query: JobListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ApplicationGenerateAsyncResponsesApplicationJobsOffset, ApplicationGenerateAsyncResponse> {
-    return this._client.getAPIList(path`/v1/applications/${applicationID}/jobs`, ApplicationJobsOffset<ApplicationGenerateAsyncResponse>, { query, ...options });
+  list(
+    applicationID: string,
+    query: JobListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ApplicationGenerateAsyncResponsesApplicationJobsOffset, ApplicationGenerateAsyncResponse> {
+    return this._client.getAPIList(
+      path`/v1/applications/${applicationID}/jobs`,
+      ApplicationJobsOffset<ApplicationGenerateAsyncResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -40,7 +52,8 @@ export class Jobs extends APIResource {
   }
 }
 
-export type ApplicationGenerateAsyncResponsesApplicationJobsOffset = ApplicationJobsOffset<ApplicationGenerateAsyncResponse>
+export type ApplicationGenerateAsyncResponsesApplicationJobsOffset =
+  ApplicationJobsOffset<ApplicationGenerateAsyncResponse>;
 
 export interface ApplicationGenerateAsyncResponse {
   /**
@@ -188,6 +201,6 @@ export declare namespace Jobs {
     type JobRetryResponse as JobRetryResponse,
     type ApplicationGenerateAsyncResponsesApplicationJobsOffset as ApplicationGenerateAsyncResponsesApplicationJobsOffset,
     type JobCreateParams as JobCreateParams,
-    type JobListParams as JobListParams
+    type JobListParams as JobListParams,
   };
 }
