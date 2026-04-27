@@ -28,14 +28,21 @@ export class Graphs extends APIResource {
   /**
    * Update the name and description of a Knowledge Graph.
    */
-  update(graphID: string, body: GraphUpdateParams, options?: RequestOptions): APIPromise<GraphUpdateResponse> {
+  update(
+    graphID: string,
+    body: GraphUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<GraphUpdateResponse> {
     return this._client.put(path`/v1/graphs/${graphID}`, { body, ...options });
   }
 
   /**
    * Retrieve a list of Knowledge Graphs.
    */
-  list(query: GraphListParams | null | undefined = {}, options?: RequestOptions): PagePromise<GraphsCursorPage, Graph> {
+  list(
+    query: GraphListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<GraphsCursorPage, Graph> {
     return this._client.getAPIList('/v1/graphs', CursorPage<Graph>, { query, ...options });
   }
 
@@ -49,30 +56,49 @@ export class Graphs extends APIResource {
   /**
    * Add a file to a Knowledge Graph.
    */
-  addFileToGraph(graphID: string, body: GraphAddFileToGraphParams, options?: RequestOptions): APIPromise<FilesAPI.File> {
+  addFileToGraph(
+    graphID: string,
+    body: GraphAddFileToGraphParams,
+    options?: RequestOptions,
+  ): APIPromise<FilesAPI.File> {
     return this._client.post(path`/v1/graphs/${graphID}/file`, { body, ...options });
   }
 
   /**
    * Ask a question to specified Knowledge Graphs.
    */
-  question(body: GraphQuestionParamsNonStreaming, options?: RequestOptions): APIPromise<Question>
-  question(body: GraphQuestionParamsStreaming, options?: RequestOptions): APIPromise<Stream<QuestionResponseChunk>>
-  question(body: GraphQuestionParamsBase, options?: RequestOptions): APIPromise<Stream<QuestionResponseChunk> | Question>
-  question(body: GraphQuestionParams, options?: RequestOptions): APIPromise<Question> | APIPromise<Stream<QuestionResponseChunk>> {
-    return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as APIPromise<Question> | APIPromise<Stream<QuestionResponseChunk>>;
+  question(body: GraphQuestionParamsNonStreaming, options?: RequestOptions): APIPromise<Question>;
+  question(
+    body: GraphQuestionParamsStreaming,
+    options?: RequestOptions,
+  ): APIPromise<Stream<QuestionResponseChunk>>;
+  question(
+    body: GraphQuestionParamsBase,
+    options?: RequestOptions,
+  ): APIPromise<Stream<QuestionResponseChunk> | Question>;
+  question(
+    body: GraphQuestionParams,
+    options?: RequestOptions,
+  ): APIPromise<Question> | APIPromise<Stream<QuestionResponseChunk>> {
+    return this._client.post('/v1/graphs/question', { body, ...options, stream: body.stream ?? false }) as
+      | APIPromise<Question>
+      | APIPromise<Stream<QuestionResponseChunk>>;
   }
 
   /**
    * Remove a file from a Knowledge Graph.
    */
-  removeFileFromGraph(fileID: string, params: GraphRemoveFileFromGraphParams, options?: RequestOptions): APIPromise<GraphRemoveFileFromGraphResponse> {
-    const { graph_id } = params
+  removeFileFromGraph(
+    fileID: string,
+    params: GraphRemoveFileFromGraphParams,
+    options?: RequestOptions,
+  ): APIPromise<GraphRemoveFileFromGraphResponse> {
+    const { graph_id } = params;
     return this._client.delete(path`/v1/graphs/${graph_id}/file/${fileID}`, options);
   }
 }
 
-export type GraphsCursorPage = CursorPage<Graph>
+export type GraphsCursorPage = CursorPage<Graph>;
 
 export interface Graph {
   /**
@@ -177,7 +203,12 @@ export namespace Graph {
       /**
        * The type of error that occurred during processing, if any.
        */
-      error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error';
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
     }
   }
 }
@@ -374,7 +405,12 @@ export namespace GraphCreateResponse {
       /**
        * The type of error that occurred during processing, if any.
        */
-      error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error';
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
     }
   }
 }
@@ -442,7 +478,12 @@ export namespace GraphUpdateResponse {
       /**
        * The type of error that occurred during processing, if any.
        */
-      error_type?: 'invalid_url' | 'not_searchable' | 'not_found' | 'paywall_or_login_page' | 'unexpected_error';
+      error_type?:
+        | 'invalid_url'
+        | 'not_searchable'
+        | 'not_found'
+        | 'paywall_or_login_page'
+        | 'unexpected_error';
     }
   }
 }
@@ -546,7 +587,7 @@ export interface GraphAddFileToGraphParams {
   file_id: string;
 }
 
-export type GraphQuestionParams = GraphQuestionParamsNonStreaming | GraphQuestionParamsStreaming
+export type GraphQuestionParams = GraphQuestionParamsNonStreaming | GraphQuestionParamsStreaming;
 
 export interface GraphQuestionParamsBase {
   /**
@@ -649,8 +690,8 @@ export namespace GraphQuestionParams {
     semantic_threshold?: number;
   }
 
-  export type GraphQuestionParamsNonStreaming = GraphsAPI.GraphQuestionParamsNonStreaming
-  export type GraphQuestionParamsStreaming = GraphsAPI.GraphQuestionParamsStreaming
+  export type GraphQuestionParamsNonStreaming = GraphsAPI.GraphQuestionParamsNonStreaming;
+  export type GraphQuestionParamsStreaming = GraphsAPI.GraphQuestionParamsStreaming;
 }
 
 export interface GraphQuestionParamsNonStreaming extends GraphQuestionParamsBase {
@@ -695,6 +736,6 @@ export declare namespace Graphs {
     type GraphQuestionParams as GraphQuestionParams,
     type GraphQuestionParamsNonStreaming as GraphQuestionParamsNonStreaming,
     type GraphQuestionParamsStreaming as GraphQuestionParamsStreaming,
-    type GraphRemoveFileFromGraphParams as GraphRemoveFileFromGraphParams
+    type GraphRemoveFileFromGraphParams as GraphRemoveFileFromGraphParams,
   };
 }

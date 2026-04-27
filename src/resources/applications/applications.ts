@@ -5,7 +5,16 @@ import * as ApplicationsAPI from './applications';
 import * as GraphsAPI from './graphs';
 import { ApplicationGraphsResponse, GraphUpdateParams, Graphs } from './graphs';
 import * as JobsAPI from './jobs';
-import { ApplicationGenerateAsyncResponse, ApplicationGenerateAsyncResponsesApplicationJobsOffset, ApplicationJobsListResponse, JobCreateParams, JobCreateResponse, JobListParams, JobRetryResponse, Jobs } from './jobs';
+import {
+  ApplicationGenerateAsyncResponse,
+  ApplicationGenerateAsyncResponsesApplicationJobsOffset,
+  ApplicationJobsListResponse,
+  JobCreateParams,
+  JobCreateResponse,
+  JobListParams,
+  JobRetryResponse,
+  Jobs,
+} from './jobs';
 import { APIPromise } from '../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
 import { Stream } from '../../core/streaming';
@@ -28,23 +37,51 @@ export class Applications extends APIResource {
    * Retrieves a paginated list of no-code agents (formerly called no-code
    * applications) with optional filtering and sorting capabilities.
    */
-  list(query: ApplicationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ApplicationListResponsesCursorPage, ApplicationListResponse> {
-    return this._client.getAPIList('/v1/applications', CursorPage<ApplicationListResponse>, { query, ...options });
+  list(
+    query: ApplicationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ApplicationListResponsesCursorPage, ApplicationListResponse> {
+    return this._client.getAPIList('/v1/applications', CursorPage<ApplicationListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Generate content from an existing no-code agent (formerly called no-code
    * applications) with inputs.
    */
-  generateContent(applicationID: string, body: ApplicationGenerateContentParamsNonStreaming, options?: RequestOptions): APIPromise<ApplicationGenerateContentResponse>
-  generateContent(applicationID: string, body: ApplicationGenerateContentParamsStreaming, options?: RequestOptions): APIPromise<Stream<ApplicationGenerateContentChunk>>
-  generateContent(applicationID: string, body: ApplicationGenerateContentParamsBase, options?: RequestOptions): APIPromise<Stream<ApplicationGenerateContentChunk> | ApplicationGenerateContentResponse>
-  generateContent(applicationID: string, body: ApplicationGenerateContentParams, options?: RequestOptions): APIPromise<ApplicationGenerateContentResponse> | APIPromise<Stream<ApplicationGenerateContentChunk>> {
-    return this._client.post(path`/v1/applications/${applicationID}`, { body, ...options, stream: body.stream ?? false }) as APIPromise<ApplicationGenerateContentResponse> | APIPromise<Stream<ApplicationGenerateContentChunk>>;
+  generateContent(
+    applicationID: string,
+    body: ApplicationGenerateContentParamsNonStreaming,
+    options?: RequestOptions,
+  ): APIPromise<ApplicationGenerateContentResponse>;
+  generateContent(
+    applicationID: string,
+    body: ApplicationGenerateContentParamsStreaming,
+    options?: RequestOptions,
+  ): APIPromise<Stream<ApplicationGenerateContentChunk>>;
+  generateContent(
+    applicationID: string,
+    body: ApplicationGenerateContentParamsBase,
+    options?: RequestOptions,
+  ): APIPromise<Stream<ApplicationGenerateContentChunk> | ApplicationGenerateContentResponse>;
+  generateContent(
+    applicationID: string,
+    body: ApplicationGenerateContentParams,
+    options?: RequestOptions,
+  ): APIPromise<ApplicationGenerateContentResponse> | APIPromise<Stream<ApplicationGenerateContentChunk>> {
+    return this._client.post(path`/v1/applications/${applicationID}`, {
+      body,
+      ...options,
+      stream: body.stream ?? false,
+    }) as
+      | APIPromise<ApplicationGenerateContentResponse>
+      | APIPromise<Stream<ApplicationGenerateContentChunk>>;
   }
 }
 
-export type ApplicationListResponsesCursorPage = CursorPage<ApplicationListResponse>
+export type ApplicationListResponsesCursorPage = CursorPage<ApplicationListResponse>;
 
 export interface ApplicationGenerateContentChunk {
   delta: ApplicationGenerateContentChunk.Delta;
@@ -174,7 +211,11 @@ export namespace ApplicationRetrieveResponse {
     /**
      * Type-specific configuration options for input fields.
      */
-    options?: Input.ApplicationInputDropdownOptions | Input.ApplicationInputFileOptions | Input.ApplicationInputMediaOptions | Input.ApplicationInputTextOptions;
+    options?:
+      | Input.ApplicationInputDropdownOptions
+      | Input.ApplicationInputFileOptions
+      | Input.ApplicationInputMediaOptions
+      | Input.ApplicationInputTextOptions;
   }
 
   export namespace Input {
@@ -324,7 +365,11 @@ export namespace ApplicationListResponse {
     /**
      * Type-specific configuration options for input fields.
      */
-    options?: Input.ApplicationInputDropdownOptions | Input.ApplicationInputFileOptions | Input.ApplicationInputMediaOptions | Input.ApplicationInputTextOptions;
+    options?:
+      | Input.ApplicationInputDropdownOptions
+      | Input.ApplicationInputFileOptions
+      | Input.ApplicationInputMediaOptions
+      | Input.ApplicationInputTextOptions;
   }
 
   export namespace Input {
@@ -417,7 +462,9 @@ export interface ApplicationListParams extends CursorPageParams {
   type?: 'generation';
 }
 
-export type ApplicationGenerateContentParams = ApplicationGenerateContentParamsNonStreaming | ApplicationGenerateContentParamsStreaming
+export type ApplicationGenerateContentParams =
+  | ApplicationGenerateContentParamsNonStreaming
+  | ApplicationGenerateContentParamsStreaming;
 
 export interface ApplicationGenerateContentParamsBase {
   inputs: Array<ApplicationGenerateContentParams.Input>;
@@ -451,8 +498,10 @@ export namespace ApplicationGenerateContentParams {
     value: Array<string>;
   }
 
-  export type ApplicationGenerateContentParamsNonStreaming = ApplicationsAPI.ApplicationGenerateContentParamsNonStreaming
-  export type ApplicationGenerateContentParamsStreaming = ApplicationsAPI.ApplicationGenerateContentParamsStreaming
+  export type ApplicationGenerateContentParamsNonStreaming =
+    ApplicationsAPI.ApplicationGenerateContentParamsNonStreaming;
+  export type ApplicationGenerateContentParamsStreaming =
+    ApplicationsAPI.ApplicationGenerateContentParamsStreaming;
 }
 
 export interface ApplicationGenerateContentParamsNonStreaming extends ApplicationGenerateContentParamsBase {
@@ -484,7 +533,7 @@ export declare namespace Applications {
     type ApplicationListParams as ApplicationListParams,
     type ApplicationGenerateContentParams as ApplicationGenerateContentParams,
     type ApplicationGenerateContentParamsNonStreaming as ApplicationGenerateContentParamsNonStreaming,
-    type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming
+    type ApplicationGenerateContentParamsStreaming as ApplicationGenerateContentParamsStreaming,
   };
 
   export {
@@ -495,12 +544,12 @@ export declare namespace Applications {
     type JobRetryResponse as JobRetryResponse,
     type ApplicationGenerateAsyncResponsesApplicationJobsOffset as ApplicationGenerateAsyncResponsesApplicationJobsOffset,
     type JobCreateParams as JobCreateParams,
-    type JobListParams as JobListParams
+    type JobListParams as JobListParams,
   };
 
   export {
     Graphs as Graphs,
     type ApplicationGraphsResponse as ApplicationGraphsResponse,
-    type GraphUpdateParams as GraphUpdateParams
+    type GraphUpdateParams as GraphUpdateParams,
   };
 }
