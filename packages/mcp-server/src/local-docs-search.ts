@@ -468,7 +468,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.writer.com/v1/completions \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "model": "palmyra-x-003-instruct",\n          "prompt": "Write me an SEO article about..."\n        }\'',
+          'curl https://api.writer.com/v1/completions \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "model": "palmyra-x-003-instruct",\n          "prompt": "Write me an SEO article about...",\n          "best_of": 1,\n          "max_tokens": 150,\n          "random_seed": 42,\n          "stop": [\n            "."\n          ],\n          "stream": false,\n          "temperature": 0.7,\n          "top_p": 0.9\n        }\'',
       },
     },
   },
@@ -1087,7 +1087,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          "curl https://api.writer.com/v1/tools/web-search \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: Bearer $WRITER_API_KEY\" \\\n    -d '{}'",
+          'curl https://api.writer.com/v1/tools/web-search \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "include_domains": [\n            "dev.writer.com"\n          ],\n          "query": "How do I get an API key for the Writer API?"\n        }\'',
       },
     },
   },
