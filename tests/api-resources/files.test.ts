@@ -76,8 +76,7 @@ describe('resource files', () => {
 
   // requests with binary data not yet supported in test environment
   test.skip('upload: only required params', async () => {
-    const responsePromise = client.files.upload({
-      content: await toFile(Buffer.from('Example data'), 'README.md'),
+    const responsePromise = client.files.upload(await toFile(Buffer.from('Example data'), 'README.md'), {
       'Content-Disposition': 'Content-Disposition',
       'Content-Type': 'Content-Type',
     });
@@ -92,8 +91,7 @@ describe('resource files', () => {
 
   // requests with binary data not yet supported in test environment
   test.skip('upload: required and optional params', async () => {
-    const response = await client.files.upload({
-      content: await toFile(Buffer.from('Example data'), 'README.md'),
+    const response = await client.files.upload(await toFile(Buffer.from('Example data'), 'README.md'), {
       'Content-Disposition': 'Content-Disposition',
       'Content-Type': 'Content-Type',
       graphId: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

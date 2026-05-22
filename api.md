@@ -133,7 +133,7 @@ Methods:
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/resources/files.ts">delete</a>(fileID) -> FileDeleteResponse</code>
 - <code title="get /v1/files/{file_id}/download">client.files.<a href="./src/resources/files.ts">download</a>(fileID) -> Response</code>
 - <code title="post /v1/files/retry">client.files.<a href="./src/resources/files.ts">retry</a>({ ...params }) -> FileRetryResponse</code>
-- <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>({ ...params }) -> File</code>
+- <code title="post /v1/files">client.files.<a href="./src/resources/files.ts">upload</a>(content, { ...params }) -> File</code>
 
 # Tools
 

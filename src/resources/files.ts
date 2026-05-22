@@ -60,16 +60,14 @@ export class Files extends APIResource {
    * Upload a new file to the system. Supports various file formats including PDF,
    * DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, and XLSX.
    */
-  upload(params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
-    const {
-      content,
-      'Content-Disposition': contentDisposition,
+  upload(content: Uploadable, params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
+    const { 'Content-Disposition': contentDisposition,
       'Content-Type': contentType,
       graphId,
     } = params;
     return this._client.post('/v1/files', {
-      query: { graphId },
       body: content,
+      query: { graphId },
       ...options,
       headers: buildHeaders([
         { 'Content-Type': contentType, 'Content-Disposition': contentDisposition },
@@ -171,11 +169,6 @@ export interface FileRetryParams {
 }
 
 export interface FileUploadParams {
-  /**
-   * Body param
-   */
-  content: Uploadable;
-
   /**
    * Header param: The disposition type of the file, typically used to indicate the
    * form-data name. Use `attachment` with the filename parameter to specify the name
