@@ -1,5 +1,40 @@
 # Changelog
 
+## 3.0.0 (2026-06-02)
+
+Full Changelog: [v3.0.0-rc.1...v3.0.0](https://github.com/writer/writer-node/compare/v3.0.0-rc.1...v3.0.0)
+
+### Features
+
+* support setting headers via env ([775860c](https://github.com/writer/writer-node/commit/775860c7b034ec2b29133441ca42ff1653559737))
+
+
+### Bug Fixes
+
+* **mcp:** use `pure-lockfile` when building mcp server ([1e77ebc](https://github.com/writer/writer-node/commit/1e77ebcc14b5b7a82dcfe65fe0a1d7410d2e2288))
+* treat text/plan with format: binary as raw upload ([5f3799d](https://github.com/writer/writer-node/commit/5f3799dd90e31153b9e3c9f31e666e6f90c4ef5f))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([c4f21ed](https://github.com/writer/writer-node/commit/c4f21edee4915b5e8d0c757dd6de75c2627d79bd))
+
+
+### Chores
+
+* avoid formatting file that gets changed during releases ([6a45720](https://github.com/writer/writer-node/commit/6a457206747179f91a6bd085e19b26b68d5caf99))
+* **format:** run eslint and prettier separately ([be7d4a0](https://github.com/writer/writer-node/commit/be7d4a0d88334afce883d534ca85d735aa026bc4))
+* **formatter:** run prettier and eslint separately ([b671b3d](https://github.com/writer/writer-node/commit/b671b3d852b2943f44140f8ccd827100e9121149))
+* **internal:** codegen related update ([88197ba](https://github.com/writer/writer-node/commit/88197ba9e896440696a46b21129b07862f90dc3c))
+* **internal:** codegen related update ([7f46854](https://github.com/writer/writer-node/commit/7f46854adff49ae46df71380fb8a40cd0879c4ae))
+* **internal:** more robust bootstrap script ([af77915](https://github.com/writer/writer-node/commit/af77915717a2749b0275b3fc9c1a09f4c69826ce))
+* **internal:** update docs ordering ([dec3f3d](https://github.com/writer/writer-node/commit/dec3f3d0198f8caf0ed3c0851d823ea130731cc8))
+* redact api-key headers in debug logs ([7b2b3a9](https://github.com/writer/writer-node/commit/7b2b3a92068d07ca8d292adfe1059870cbe5265d))
+* restructure docs search code ([6eeaf25](https://github.com/writer/writer-node/commit/6eeaf254b4afdffe9244423b9528dae85392db45))
+* **tests:** bump steady to v0.22.1 ([3a42ea2](https://github.com/writer/writer-node/commit/3a42ea27a588abc1ecf5ed6464ab83316eedfdc4))
+* **tests:** remove redundant File import ([c4c7f9e](https://github.com/writer/writer-node/commit/c4c7f9e09ddff73a285f9860ae19c1a2f0a9e59a))
+
+
+### Documentation
+
+* update http mcp docs ([34a1c2e](https://github.com/writer/writer-node/commit/34a1c2e84ada77d9b1d6aa3b94edcc9ebebc9244))
+
 ## 3.0.0-rc.1 (2026-04-13)
 
 Full Changelog: [v2.3.3-rc.1...v3.0.0-rc.1](https://github.com/writer/writer-node/compare/v2.3.3-rc.1...v3.0.0-rc.1)
