@@ -69,7 +69,7 @@ const client = new Writer({
 ```
 
 > Never hard-code your API keys in source code or commit them to version control systems like GitHub.
-> We recommend adding `WRITER_API_KEY="My API Key"` to your `.env` file so that your API Key is not stored in source control. 
+> We recommend adding `WRITER_API_KEY="My API Key"` to your `.env` file so that your API Key is not stored in source control.
 
 ## Usage
 
@@ -125,13 +125,13 @@ const stream = await client.chat.chat({
   model: 'palmyra-x5',
   stream: true,
 });
-let outputText = "";
+let outputText = '';
 for await (const chunk of stream) {
-    if (chunk.choices[0]?.delta?.content) {
-        outputText += chunk.choices[0].delta.content;
-    } else {
-        continue;
-    }
+  if (chunk.choices[0]?.delta?.content) {
+    outputText += chunk.choices[0].delta.content;
+  } else {
+    continue;
+  }
 }
 console.log(outputText);
 ```
