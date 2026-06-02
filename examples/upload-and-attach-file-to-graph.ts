@@ -11,10 +11,9 @@ async function main() {
     description: 'This is a graph created from the SDK',
   });
 
-  let file = await client.files.upload({
+  let file = await client.files.upload(fs.createReadStream('examples/example.txt'), {
     'Content-Type': 'text/plain',
     'Content-Disposition': 'attachment; filename="example.txt"',
-    content: fs.createReadStream('examples/example.txt'),
   });
 
   console.log(file.id);
