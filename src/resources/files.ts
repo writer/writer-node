@@ -61,10 +61,7 @@ export class Files extends APIResource {
    * DOC, DOCX, PPT, PPTX, JPG, PNG, EML, HTML, SRT, CSV, XLS, and XLSX.
    */
   upload(content: Uploadable, params: FileUploadParams, options?: RequestOptions): APIPromise<File> {
-    const { 'Content-Disposition': contentDisposition,
-      'Content-Type': contentType,
-      graphId,
-    } = params;
+    const { 'Content-Disposition': contentDisposition, 'Content-Type': contentType, graphId } = params;
     return this._client.post('/v1/files', {
       body: content,
       query: { graphId },
