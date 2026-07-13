@@ -1,4 +1,4 @@
-configured_endpoints: 30
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/writerai/writer-275de8f7afa2d37404ebebc082dda35e70ab94437de270b5bc6e2fdc94c9fdae.yml
-openapi_spec_hash: 4d4a9ba232d19a6180e6d4a7d5566103
+configured_endpoints: 29
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/writerai/writer-5005aefb47429effa70d9b3e70ebb6b4fcc48883504ba88ecfe1c04ab7b23df2.yml
+openapi_spec_hash: aba09dae66d0e96b08ea2ac4e9113f09
 config_hash: 8701b1a467238f1afdeceeb7feb1adc6

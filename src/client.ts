@@ -83,12 +83,7 @@ import {
   ToolWebSearchResponse,
   Tools,
 } from './resources/tools';
-import {
-  Translation,
-  TranslationRequest,
-  TranslationResponse,
-  TranslationTranslateParams,
-} from './resources/translation';
+import { Translation } from './resources/translation';
 import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import {
   ApplicationGenerateContentChunk,
@@ -956,12 +951,7 @@ export declare namespace Writer {
     type ToolWebSearchParams as ToolWebSearchParams,
   };
 
-  export {
-    Translation as Translation,
-    type TranslationRequest as TranslationRequest,
-    type TranslationResponse as TranslationResponse,
-    type TranslationTranslateParams as TranslationTranslateParams,
-  };
+  export { Translation as Translation };
 
   export {
     Vision as Vision,
