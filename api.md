@@ -149,15 +149,6 @@ Methods:
 
 # Translation
 
-Types:
-
-- <code><a href="./src/resources/translation.ts">TranslationRequest</a></code>
-- <code><a href="./src/resources/translation.ts">TranslationResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/translation">client.translation.<a href="./src/resources/translation.ts">translate</a>({ ...params }) -> TranslationResponse</code>
-
 # Vision
 
 Types:

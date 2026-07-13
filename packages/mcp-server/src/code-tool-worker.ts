@@ -136,7 +136,6 @@ const fuse = new Fuse(
     'client.files.upload',
     'client.tools.parsePdf',
     'client.tools.webSearch',
-    'client.translation.translate',
     'client.vision.analyze',
   ],
   { threshold: 1, shouldSort: true },

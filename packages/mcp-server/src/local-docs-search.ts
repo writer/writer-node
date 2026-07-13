@@ -1092,48 +1092,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
-    name: 'translate',
-    endpoint: '/v1/translation',
-    httpMethod: 'post',
-    summary: 'Translate text',
-    description: 'Translate text from one language to another.',
-    stainlessPath: '(resource) translation > (method) translate',
-    qualified: 'client.translation.translate',
-    params: [
-      'formality: boolean;',
-      'length_control: boolean;',
-      'mask_profanity: boolean;',
-      "model: 'palmyra-translate';",
-      'source_language_code: string;',
-      'target_language_code: string;',
-      'text: string;',
-    ],
-    response: '{ data: string; }',
-    markdown:
-      "## translate\n\n`client.translation.translate(formality: boolean, length_control: boolean, mask_profanity: boolean, model: 'palmyra-translate', source_language_code: string, target_language_code: string, text: string): { data: string; }`\n\n**post** `/v1/translation`\n\nTranslate text from one language to another.\n\n### Parameters\n\n- `formality: boolean`\n  Whether to use formal or informal language in the translation. See the [list of languages that support formality](https://dev.writer.com/api-reference/translation-api/language-support#formality). If the language does not support formality, this parameter is ignored.\n\n- `length_control: boolean`\n  Whether to control the length of the translated text. See the [list of languages that support length control](https://dev.writer.com/api-reference/translation-api/language-support#length-control). If the language does not support length control, this parameter is ignored.\n\n- `mask_profanity: boolean`\n  Whether to mask profane words in the translated text. See the [list of languages that do not support profanity masking](https://dev.writer.com/api-reference/translation-api/language-support#profanity-masking). If the language does not support profanity masking, this parameter is ignored.\n\n- `model: 'palmyra-translate'`\n  The model to use for translation.\n\n- `source_language_code: string`\n  The [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) language code of the original text to translate. For example, `en` for English, `zh` for Chinese, `fr` for French, `es` for Spanish. If the language has a variant, the code appends the two-digit [ISO-3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). For example, Mexican Spanish is `es-MX`. See the [list of supported languages and language codes](https://dev.writer.com/api-reference/translation-api/language-support).\n\n- `target_language_code: string`\n  The [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) language code of the target language for the translation. For example, `en` for English, `zh` for Chinese, `fr` for French, `es` for Spanish. If the language has a variant, the code appends the two-digit [ISO-3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). For example, Mexican Spanish is `es-MX`. See the [list of supported languages and language codes](https://dev.writer.com/api-reference/translation-api/language-support).\n\n- `text: string`\n  The text to translate. Maximum of 100,000 words.\n\n### Returns\n\n- `{ data: string; }`\n\n  - `data: string`\n\n### Example\n\n```typescript\nimport Writer from 'writer-sdk';\n\nconst client = new Writer();\n\nconst translationResponse = await client.translation.translate({\n  formality: true,\n  length_control: true,\n  mask_profanity: true,\n  model: 'palmyra-translate',\n  source_language_code: 'en',\n  target_language_code: 'es',\n  text: 'Hello, world!',\n});\n\nconsole.log(translationResponse);\n```",
-    perLanguage: {
-      typescript: {
-        method: 'client.translation.translate',
-        example:
-          "import Writer from 'writer-sdk';\n\nconst client = new Writer({\n  apiKey: process.env['WRITER_API_KEY'], // This is the default and can be omitted\n});\n\nconst translationResponse = await client.translation.translate({\n  formality: true,\n  length_control: true,\n  mask_profanity: true,\n  model: 'palmyra-translate',\n  source_language_code: 'en',\n  target_language_code: 'es',\n  text: 'Hello, world!',\n});\n\nconsole.log(translationResponse.data);",
-      },
-      python: {
-        method: 'translation.translate',
-        example:
-          'import os\nfrom writerai import Writer\n\nclient = Writer(\n    api_key=os.environ.get("WRITER_API_KEY"),  # This is the default and can be omitted\n)\ntranslation_response = client.translation.translate(\n    formality=True,\n    length_control=True,\n    mask_profanity=True,\n    model="palmyra-translate",\n    source_language_code="en",\n    target_language_code="es",\n    text="Hello, world!",\n)\nprint(translation_response.data)',
-      },
-      go: {
-        method: 'client.Translation.Translate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/stainless-sdks/writer-go"\n\t"github.com/stainless-sdks/writer-go/option"\n)\n\nfunc main() {\n\tclient := writersdk.NewClient(\n\t\toption.WithAPIKey("My API Key"),\n\t)\n\ttranslationResponse, err := client.Translation.Translate(context.TODO(), writersdk.TranslationTranslateParams{\n\t\tTranslationRequest: writersdk.TranslationRequestParam{\n\t\t\tFormality:          writersdk.F(true),\n\t\t\tLengthControl:      writersdk.F(true),\n\t\t\tMaskProfanity:      writersdk.F(true),\n\t\t\tModel:              writersdk.F(writersdk.TranslationRequestModelPalmyraTranslate),\n\t\t\tSourceLanguageCode: writersdk.F("en"),\n\t\t\tTargetLanguageCode: writersdk.F("es"),\n\t\t\tText:               writersdk.F("Hello, world!"),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", translationResponse.Data)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.writer.com/v1/translation \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $WRITER_API_KEY" \\\n    -d \'{\n          "formality": true,\n          "length_control": true,\n          "mask_profanity": true,\n          "model": "palmyra-translate",\n          "source_language_code": "en",\n          "target_language_code": "es",\n          "text": "Hello, world!"\n        }\'',
-      },
-    },
-  },
-  {
     name: 'analyze',
     endpoint: '/v1/vision',
     httpMethod: 'post',

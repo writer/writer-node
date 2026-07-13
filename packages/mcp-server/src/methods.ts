@@ -179,12 +179,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/tools/web-search',
   },
   {
-    clientCallName: 'client.translation.translate',
-    fullyQualifiedName: 'translation.translate',
-    httpMethod: 'post',
-    httpPath: '/v1/translation',
-  },
-  {
     clientCallName: 'client.vision.analyze',
     fullyQualifiedName: 'vision.analyze',
     httpMethod: 'post',
