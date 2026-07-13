@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.1.0-rc.1 (2026-07-13)
+
+Full Changelog: [v3.0.0...v3.1.0-rc.1](https://github.com/writer/writer-node/compare/v3.0.0...v3.1.0-rc.1)
+
+### Features
+
+* **api:** remove translation endpoint ([b1d8bff](https://github.com/writer/writer-node/commit/b1d8bff85f424352ab8e7718d5bdd05b279b4c08))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([2678ce2](https://github.com/writer/writer-node/commit/2678ce22ceb1aaf6fb7edf6032e1f29ce2466442))
+
+
+### Documentation
+
+* **api:** updates to API spec ([8498778](https://github.com/writer/writer-node/commit/849877848176d847e5620efb689b3331d99b2e45))
+
+
+### Build System
+
+* **deps:** Bump the npm_and_yarn group across 2 directories with 10 updates ([ccb86ee](https://github.com/writer/writer-node/commit/ccb86eeceb82098f0419f081d2f54b7ace86599c))
+* **deps:** Bump the npm_and_yarn group across 2 directories with 2 updates ([0311758](https://github.com/writer/writer-node/commit/0311758d83930bacceaab702f4303533c4ffd384))
+
 ## 3.0.0 (2026-06-02)
 
 Full Changelog: [v3.0.0...v3.0.0](https://github.com/writer/writer-node/compare/v3.0.0...v3.0.0)

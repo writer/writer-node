@@ -83,12 +83,6 @@ import {
   ToolWebSearchResponse,
   Tools,
 } from './resources/tools';
-import {
-  Translation,
-  TranslationRequest,
-  TranslationResponse,
-  TranslationTranslateParams,
-} from './resources/translation';
 import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import {
   ApplicationGenerateContentChunk,
@@ -774,11 +768,19 @@ export class Writer {
     return () => controller.abort();
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -845,7 +847,6 @@ export class Writer {
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
   tools: API.Tools = new API.Tools(this);
-  translation: API.Translation = new API.Translation(this);
   vision: API.Vision = new API.Vision(this);
 }
 
@@ -856,7 +857,6 @@ Writer.Models = Models;
 Writer.Graphs = Graphs;
 Writer.Files = Files;
 Writer.Tools = Tools;
-Writer.Translation = Translation;
 Writer.Vision = Vision;
 
 export declare namespace Writer {
@@ -946,13 +946,6 @@ export declare namespace Writer {
     type ToolWebSearchResponse as ToolWebSearchResponse,
     type ToolParsePdfParams as ToolParsePdfParams,
     type ToolWebSearchParams as ToolWebSearchParams,
-  };
-
-  export {
-    Translation as Translation,
-    type TranslationRequest as TranslationRequest,
-    type TranslationResponse as TranslationResponse,
-    type TranslationTranslateParams as TranslationTranslateParams,
   };
 
   export {

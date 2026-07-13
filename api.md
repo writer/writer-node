@@ -147,17 +147,6 @@ Methods:
 - <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
 - <code title="post /v1/tools/web-search">client.tools.<a href="./src/resources/tools.ts">webSearch</a>({ ...params }) -> ToolWebSearchResponse</code>
 
-# Translation
-
-Types:
-
-- <code><a href="./src/resources/translation.ts">TranslationRequest</a></code>
-- <code><a href="./src/resources/translation.ts">TranslationResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/translation">client.translation.<a href="./src/resources/translation.ts">translate</a>({ ...params }) -> TranslationResponse</code>
-
 # Vision
 
 Types:
