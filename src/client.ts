@@ -83,7 +83,6 @@ import {
   ToolWebSearchResponse,
   Tools,
 } from './resources/tools';
-import { Translation } from './resources/translation';
 import { Vision, VisionAnalyzeParams, VisionRequest, VisionResponse } from './resources/vision';
 import {
   ApplicationGenerateContentChunk,
@@ -848,7 +847,6 @@ export class Writer {
   graphs: API.Graphs = new API.Graphs(this);
   files: API.Files = new API.Files(this);
   tools: API.Tools = new API.Tools(this);
-  translation: API.Translation = new API.Translation(this);
   vision: API.Vision = new API.Vision(this);
 }
 
@@ -859,7 +857,6 @@ Writer.Models = Models;
 Writer.Graphs = Graphs;
 Writer.Files = Files;
 Writer.Tools = Tools;
-Writer.Translation = Translation;
 Writer.Vision = Vision;
 
 export declare namespace Writer {
@@ -950,8 +947,6 @@ export declare namespace Writer {
     type ToolParsePdfParams as ToolParsePdfParams,
     type ToolWebSearchParams as ToolWebSearchParams,
   };
-
-  export { Translation as Translation };
 
   export {
     Vision as Vision,
