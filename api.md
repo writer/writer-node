@@ -147,8 +147,6 @@ Methods:
 - <code title="post /v1/tools/pdf-parser/{file_id}">client.tools.<a href="./src/resources/tools.ts">parsePdf</a>(fileID, { ...params }) -> ToolParsePdfResponse</code>
 - <code title="post /v1/tools/web-search">client.tools.<a href="./src/resources/tools.ts">webSearch</a>({ ...params }) -> ToolWebSearchResponse</code>
 
-# Translation
-
 # Vision
 
 Types:
