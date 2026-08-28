@@ -15,7 +15,7 @@ export class Completions extends APIResource {
    * @example
    * ```ts
    * const completion = await client.completions.create({
-   *   model: 'palmyra-x-003-instruct',
+   *   model: 'palmyra-x5',
    *   prompt: 'Write me an SEO article about...',
    * });
    * ```
@@ -72,8 +72,9 @@ export interface CompletionChunk {
 export interface CompletionParams {
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for generating
-   * text. Supports `palmyra-x5`, `palmyra-x4`, `palmyra-fin`, `palmyra-med`,
-   * `palmyra-creative`, and `palmyra-x-003-instruct`.
+   * text. This can be a Palmyra model such as `palmyra-x5` or `palmyra-x4`, or the
+   * ID of an [external model](https://dev.writer.com/home/external-models)
+   * configured for your organization.
    */
   model: string;
 
@@ -132,8 +133,9 @@ export type CompletionCreateParams = CompletionCreateParamsNonStreaming | Comple
 export interface CompletionCreateParamsBase {
   /**
    * The [ID of the model](https://dev.writer.com/home/models) to use for generating
-   * text. Supports `palmyra-x5`, `palmyra-x4`, `palmyra-fin`, `palmyra-med`,
-   * `palmyra-creative`, and `palmyra-x-003-instruct`.
+   * text. This can be a Palmyra model such as `palmyra-x5` or `palmyra-x4`, or the
+   * ID of an [external model](https://dev.writer.com/home/external-models)
+   * configured for your organization.
    */
   model: string;
 

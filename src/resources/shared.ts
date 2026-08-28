@@ -393,7 +393,7 @@ export namespace ToolParam {
 
   export interface LlmTool {
     /**
-     * A tool that uses another Writer model to generate a response.
+     * A tool that uses another model to generate a response.
      */
     function: LlmTool.Function;
 
@@ -405,7 +405,7 @@ export namespace ToolParam {
 
   export namespace LlmTool {
     /**
-     * A tool that uses another Writer model to generate a response.
+     * A tool that uses another model to generate a response.
      */
     export interface Function {
       /**
