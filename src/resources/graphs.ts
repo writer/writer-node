@@ -13,6 +13,12 @@ import { path } from '../internal/utils/path';
 export class Graphs extends APIResource {
   /**
    * Create a new Knowledge Graph.
+   *
+   * By default, the new Knowledge Graph is org-wide (accessible to every team in the
+   * organization). To deploy the Knowledge Graph to specific teams instead, provide
+   * a `team_ids` array in the request body. When the request is authenticated with a
+   * team-scoped API key, the new Knowledge Graph is automatically assigned to that
+   * key's team and `team_ids` in the body is not accepted.
    */
   create(body: GraphCreateParams, options?: RequestOptions): APIPromise<GraphCreateResponse> {
     return this._client.post('/v1/graphs', { body, ...options });
@@ -26,7 +32,13 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Update the name and description of a Knowledge Graph.
+   * Update the name, description, web connector URLs, or team assignment of a
+   * Knowledge Graph.
+   *
+   * Including a `team_ids` array replaces the whole team assignment: an empty array
+   * makes the Knowledge Graph org-wide, one or more team IDs scope it to exactly
+   * those teams. Omitting `team_ids` leaves the current team assignment unchanged.
+   * Team-scoped API keys cannot change the team assignment of a Knowledge Graph.
    */
   update(
     graphID: string,
@@ -38,6 +50,12 @@ export class Graphs extends APIResource {
 
   /**
    * Retrieve a list of Knowledge Graphs.
+   *
+   * By default, the response contains only org-wide Knowledge Graphs. To include
+   * Knowledge Graphs that are deployed to specific teams, pass one or more team IDs
+   * in the `team_ids` query parameter. Requests authenticated with a team-scoped API
+   * key always return only that key's team; passing a different value in `team_ids`
+   * is rejected.
    */
   list(
     query: GraphListParams | null | undefined = {},
@@ -54,7 +72,8 @@ export class Graphs extends APIResource {
   }
 
   /**
-   * Add a file to a Knowledge Graph.
+   * Add a file to a Knowledge Graph. Team access is inherited from the Knowledge
+   * Graph; the file itself does not carry team parameters.
    */
   addFileToGraph(
     graphID: string,
@@ -135,6 +154,12 @@ export interface Graph {
    * A description of the Knowledge Graph.
    */
   description?: string;
+
+  /**
+   * The team IDs the Knowledge Graph is deployed to. An empty array indicates an
+   * org-wide Knowledge Graph accessible to every team in the organization.
+   */
+  team_ids?: Array<number>;
 
   /**
    * An array of web connector URLs associated with this Knowledge Graph.
@@ -364,6 +389,12 @@ export interface GraphCreateResponse {
   description?: string;
 
   /**
+   * The team IDs the Knowledge Graph is deployed to. An empty array indicates an
+   * org-wide Knowledge Graph accessible to every team in the organization.
+   */
+  team_ids?: Array<number>;
+
+  /**
    * An array of web connector URLs associated with this Knowledge Graph.
    */
   urls?: Array<GraphCreateResponse.URL>;
@@ -435,6 +466,12 @@ export interface GraphUpdateResponse {
    * A description of the Knowledge Graph (max 255 characters).
    */
   description?: string;
+
+  /**
+   * The team IDs the Knowledge Graph is deployed to. An empty array indicates an
+   * org-wide Knowledge Graph accessible to every team in the organization.
+   */
+  team_ids?: Array<number>;
 
   /**
    * An array of web connector URLs associated with this Knowledge Graph.
@@ -524,6 +561,16 @@ export interface GraphCreateParams {
    * the name unchanged.
    */
   name?: string;
+
+  /**
+   * Optional list of team IDs to deploy the Knowledge Graph to. Omit the field or
+   * pass an empty array to create an org-wide Knowledge Graph (accessible to every
+   * team in the organization), which is the default. Provide one or more team IDs to
+   * scope the Knowledge Graph to those teams. Only applies when using an org-scoped
+   * API key; requests made with a team-scoped API key ignore this field and always
+   * assign the graph to that key's team.
+   */
+  team_ids?: Array<number>;
 }
 
 export interface GraphUpdateParams {
@@ -538,6 +585,15 @@ export interface GraphUpdateParams {
    * the name unchanged.
    */
   name?: string;
+
+  /**
+   * Optional list of team IDs the Knowledge Graph is deployed to. Omitting this
+   * field leaves the current team assignment unchanged. Passing an array replaces
+   * the whole team assignment: an empty array makes the graph org-wide, one or more
+   * team IDs scope it to exactly those teams. Not accepted from team-scoped API
+   * keys.
+   */
+  team_ids?: Array<number>;
 
   /**
    * An array of web connector URLs to update for this Knowledge Graph. You can only
@@ -578,6 +634,15 @@ export interface GraphListParams extends CursorPageParams {
    * for descending.
    */
   order?: 'asc' | 'desc';
+
+  /**
+   * Filter results to Knowledge Graphs deployed to any of the specified teams.
+   * Repeat the query parameter to pass multiple IDs (for example,
+   * `?team_ids=42&team_ids=43`). Omitting this parameter returns only org-wide
+   * Knowledge Graphs; Knowledge Graphs deployed to specific teams are excluded
+   * unless the caller opts them in via `team_ids`.
+   */
+  team_ids?: Array<number>;
 }
 
 export interface GraphAddFileToGraphParams {

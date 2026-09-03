@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.1.0-rc.2 (2026-08-28)
+
+Full Changelog: [v3.1.0-rc.1...v3.1.0-rc.2](https://github.com/writer/writer-node/compare/v3.1.0-rc.1...v3.1.0-rc.2)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([67aca81](https://github.com/writer/writer-node/commit/67aca8158354b6481caf545659201f32002eb2a4))
+
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([f817075](https://github.com/writer/writer-node/commit/f817075417e913e85fee05d1a69bd33543ef1379))
+* **stlc:** stop hand-edited CI workflows from blocking seals and builds ([10695ce](https://github.com/writer/writer-node/commit/10695ce2d279c44d23753f91e0d5883871173662))
+
+
+### Chores
+
+* **internal:** codegen related update ([d6023e4](https://github.com/writer/writer-node/commit/d6023e4e1d545d46cf5f1ee383ff3b418e72df44))
+
+
+### Documentation
+
+* **api:** updates to API spec ([48c6e08](https://github.com/writer/writer-node/commit/48c6e08c7dabc4a4c5733d5e2a6b5ec3cd235ab8))
+
 ## 3.1.0-rc.1 (2026-07-13)
 
 Full Changelog: [v3.0.0...v3.1.0-rc.1](https://github.com/writer/writer-node/compare/v3.0.0...v3.1.0-rc.1)
